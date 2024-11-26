@@ -1,4 +1,4 @@
-import { Exception } from 'EnviroSense/Domain/Shared/Exceptions/Exception.ts';
+import { Exception } from 'EnviroSense/Domain/mod.ts';
 
 export class NotFoundException extends Exception {
 }
