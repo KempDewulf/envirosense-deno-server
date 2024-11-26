@@ -1,7 +1,23 @@
 {
     "compilerOptions": {
         "allowJs": false,
-        "strict": true
+        "lib": ["deno.window"],
+        "strict": true,
+        "noErrorTruncation": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "noUncheckedIndexedAccess": true
+    },
+    "lint": {
+        "include": ["src/"],
+        "exclude": ["old/"],
+        "rules": {
+            "tags": ["recommended"],
+            "include": ["ban-untagged-todo"],
+            "exclude": []
+        }
     },
     "fmt": {
         "useTabs": false,
@@ -9,12 +25,26 @@
         "indentWidth": 4,
         "semiColons": true,
         "singleQuote": true,
-        "proseWrap": "preserve"
+        "proseWrap": "preserve",
+        "include": ["src/"],
+        "exclude": ["old/"]
+    },
+    "lock": false,
+    "nodeModulesDir": false,
+    "test": {
+        "include": ["tests/"],
+        "exclude": ["old/"]
     },
     "tasks": {
-        "dev": "deno run --watch main.ts"
+        "start": "deno run --env --allow-env --allow-net --allow-read --allow-write src/Main/start.ts ",
+        "test": "deno test --coverage; deno coverage; deno coverage --html",
+        "qa": "rm -rf coverage; deno check --all src/Main/start.ts && deno fmt && deno lint && deno test -A --coverage && deno coverage && deno coverage --html"
     },
     "imports": {
-        "@std/assert": "jsr:@std/assert@1"
+        "@oak/oak": "jsr:@oak/oak@^16.1.0",
+        "@std/assert": "jsr:@std/assert@^1.0.3",
+        "@std/cli": "jsr:@std/cli@^1.0.4",
+        "@tajpouria/cors": "jsr:@tajpouria/cors@^1.2.1",
+        "MtgTournament/": "./src/"
     }
 }
