@@ -1,4 +1,4 @@
-import { Exception } from 'EnviroSense/Domain/mod.ts';
+import { Exception } from 'EnviroSense/Domain/Shared/Exceptions/Exception.ts';
 
 export class DomainException extends Exception {
 }
