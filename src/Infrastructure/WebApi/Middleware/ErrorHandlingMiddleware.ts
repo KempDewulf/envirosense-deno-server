@@ -1,8 +1,10 @@
-import { DomainException } from 'EnviroSense/Domain/Shared/Exceptions/DomainException.ts';
-import { NotFoundException } from 'EnviroSense/Domain/Shared/Exceptions/NotFoundException.ts';
-import { IllegalStateException } from 'EnviroSense/Domain/Shared/Exceptions/IllegalStateException.ts';
-
+// deno-lint-ignore-file no-explicit-any
 import { Context, isHttpError } from '@oak/oak';
+import {
+    DomainException,
+    IllegalStateException,
+    NotFoundException,
+} from 'EnviroSense/Domain/mod.ts';
 
 export async function errorHandlingMiddleware(
     context: Context<Record<string, any>, Record<string, any>>,
@@ -29,4 +31,3 @@ export async function errorHandlingMiddleware(
         context.response.type = 'json';
     }
 }
-

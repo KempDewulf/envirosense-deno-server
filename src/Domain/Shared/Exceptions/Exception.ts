@@ -5,4 +5,3 @@ export abstract class Exception extends Error {
         Object.setPrototypeOf(this, new.target.prototype);
     }
 }
-

@@ -1,3 +1,8 @@
+import { Module } from 'EnviroSense/Infrastructure/Shared/mod.ts';
+import { endpoints, errorHandlingMiddleware } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
+import { Application } from '@oak/oak';
+import { oakCors } from '@tajpouria/cors';
+
 export class WebApiModule implements Module {
     private readonly _port: number;
 
