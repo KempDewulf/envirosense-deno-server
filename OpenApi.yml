@@ -1,0 +1,9 @@
+openapi: 3.0.0
+info:
+  title: your API
+  version: 1.0.0
+  description: your API decription
+
+servers:
+  - url: http://127.0.0.1:8001
+    description: Local development server
