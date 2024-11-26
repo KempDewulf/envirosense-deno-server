@@ -1,6 +1,7 @@
 import { Router, RouterContext } from '@oak/oak';
 import {
     Endpoint,
+    TestEndpoint
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 
 function use(endpoint: Endpoint) {
@@ -10,7 +11,7 @@ function use(endpoint: Endpoint) {
 export function endpoints(): Router {
     const router = new Router();
 
-    router.get('/', "<p>EnviroSense API</p>");
+    router.get('/', use (new TestEndpoint()));
 
     return router;
 }
