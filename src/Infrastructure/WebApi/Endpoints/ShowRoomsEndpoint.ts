@@ -1,5 +1,15 @@
-import { Endpoint } from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import { RouterContext } from "https://jsr.io/@oak/oak/16.1.0/router.ts";
+import { RouterContext } from "@oak/oak";
+import {
+    Endpoint,
+    ShowRoomsController,
+    ShowRoomsPresentedData,
+    ShowRoomsPresenter,
+    ShowRoomsRequest,
+    ShowRoomsView,
+} from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import { RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import { RoomStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { ShowRooms } from "EnviroSense/Application/mod.ts";
 
 export class ShowRoomsEndpoint implements Endpoint {
     async handle(context: RouterContext<string>): Promise<void> {
