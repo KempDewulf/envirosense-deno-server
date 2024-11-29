@@ -80,7 +80,7 @@ export class Building {
         }
     }
 
-    private ensureRoomExists(roomId: Guid): void {
+    public ensureRoomExists(roomId: Guid): void {
         if (!this._rooms.some((room) => room.id.isEqual(roomId))) {
             throw new DomainException("Room does not exist");
         }
