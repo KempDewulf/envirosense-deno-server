@@ -1,8 +1,6 @@
-import { Building } from './Building.ts';
-import { Device } from 'EnviroSense/Domain/Entities/Device.ts';
-import { RoomType } from './RoomType.ts';
+import { Building, Device, RoomType } from 'EnviroSense/Domain/mod.ts';
 
-export interface RoomState {
+export interface Room {
     id: string;
     name: string;
     building: Building;

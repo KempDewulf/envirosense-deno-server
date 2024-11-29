@@ -1,7 +1,6 @@
-import { DeviceData } from 'EnviroSense/Domain/Entities/DeviceData.ts';
-import { Room } from './Room.ts';
+import { DeviceData, Room } from 'EnviroSense/Domain/mod.ts';
 
-export interface DeviceState {
+export interface Device {
     id: string;
     identifier: string;
     room: Room;

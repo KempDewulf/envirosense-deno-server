@@ -1,6 +1,6 @@
-import { Device } from './Device.ts';
+import { Device } from 'EnviroSense/Domain/mod.ts';
 
-export interface DeviceDataState {
+export interface DeviceData {
     id: string;
     device: Device;
     timestamp: Date;
