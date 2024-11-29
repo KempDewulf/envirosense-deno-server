@@ -34,15 +34,15 @@ export class Building {
     }
 
     static load(state: BuildingState): Building {
-        const tournament = new Building(
+        const building = new Building(
             state.id,
             state.name,
             state.address,
             state.rooms || []
         );
-        tournament.validateState();
+        building.validateState();
 
-        return tournament;
+        return building;
     }
 
     public validateState(): void {
