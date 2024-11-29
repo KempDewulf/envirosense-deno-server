@@ -1,7 +1,7 @@
-import { Device } from 'EnviroSense/Domain/mod.ts';
+import { Device, Guid } from 'EnviroSense/Domain/mod.ts';
 
 export interface DeviceData {
-    id: string;
+    id: Guid;
     device: Device;
     timestamp: Date;
     temperature: number;

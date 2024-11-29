@@ -1,7 +1,7 @@
-import { Room } from 'EnviroSense/Domain/mod.ts';
+import { Guid, Room } from 'EnviroSense/Domain/mod.ts';
 
 export interface RoomType {
-    id: string;
+    id: Guid;
     name: string;
     icon: string;
     rooms?: Room[];

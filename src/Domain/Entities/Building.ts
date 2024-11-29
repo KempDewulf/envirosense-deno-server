@@ -12,7 +12,7 @@ export class Building {
     private readonly _id: Guid;
     private readonly _name: string;
     private readonly _address: string;
-    private readonly _rooms: Room[];
+    private _rooms: Room[];
 
     private constructor(
         id: Guid,
@@ -52,24 +52,37 @@ export class Building {
 
     public addRoom(room: Room) {
         this.ensureRoomDoesNotExist(room);
+
         this._rooms.push(room);
     }
 
-    private ensureNameIsNotEmpty() {
+    public removeRoom(roomId: Guid) {
+        this.ensureRoomExists(roomId);
+
+        this._rooms = this._rooms.filter((room) => !room.id.isEqual(roomId));
+    }
+
+    private ensureNameIsNotEmpty(): void {
         if (!this._name) {
             throw new DomainException("Name is required");
         }
     }
 
-    private ensureAddressIsNotEmpty() {
+    private ensureAddressIsNotEmpty(): void {
         if (!this._address) {
             throw new DomainException("Address is required");
         }
     }
 
-    private ensureRoomDoesNotExist(room: Room) {
-        if (this._rooms.some((r) => r.id.equals(room.id))) {
+    private ensureRoomDoesNotExist(room: Room): void {
+        if (this._rooms.some((r) => r.id.isEqual(room.id))) {
             throw new DomainException("Room already exists");
+        }
+    }
+
+    private ensureRoomExists(roomId: Guid): void {
+        if (!this._rooms.some((room) => room.id.isEqual(roomId))) {
+            throw new DomainException("Room does not exist");
         }
     }
 
