@@ -8,7 +8,14 @@ export { IllegalStateException } from "EnviroSense/Domain/Shared/Exceptions/Ille
 export { Building } from "EnviroSense/Domain/Entities/Building.ts";
 export type { BuildingState } from "EnviroSense/Domain/Entities/Building.ts";
 
-export type { Device } from "EnviroSense/Domain/Entities/Device.ts";
-export type { DeviceData } from "EnviroSense/Domain/Entities/DeviceData.ts";
-export type { Room } from "EnviroSense/Domain/Entities/Room.ts";
-export type { RoomType } from "EnviroSense/Domain/Entities/RoomType.ts";
+export { Device } from "EnviroSense/Domain/Entities/Device.ts";
+export type { DeviceState } from "EnviroSense/Domain/Entities/Device.ts";
+
+export { DeviceData } from "EnviroSense/Domain/Entities/DeviceData.ts";
+export type { DeviceDataState } from "EnviroSense/Domain/Entities/DeviceData.ts";
+
+export { Room } from "EnviroSense/Domain/Entities/Room.ts";
+export type { RoomState } from "EnviroSense/Domain/Entities/Room.ts";
+
+export { RoomType } from "EnviroSense/Domain/Entities/RoomType.ts";
+export type { RoomTypeState } from "EnviroSense/Domain/Entities/RoomType.ts";
