@@ -60,19 +60,19 @@ export class Room {
         return room;
     }
 
-    public validateState() {
+    public validateState(): void {
         this.ensureNameIsNotEmpty();
         this.ensureBuildingIsNotEmpty();
         this.ensureRoomTypeIsNotEmpty();
     }
 
-    public addDevice(device: Device) {
+    public addDevice(device: Device): void {
         this.ensureDeviceDoesNotExist(device);
 
         this._devices.push(device);
     }
 
-    public removeDevice(deviceId: Guid) {
+    public removeDevice(deviceId: Guid): void {
         this.ensureDeviceExists(deviceId);
 
         this._devices = this._devices.filter(
@@ -80,31 +80,31 @@ export class Room {
         );
     }
 
-    private ensureNameIsNotEmpty() {
+    private ensureNameIsNotEmpty(): void {
         if (!this._name) {
             throw new DomainException("Room name cannot be empty.");
         }
     }
 
-    private ensureRoomTypeIsNotEmpty() {
+    private ensureRoomTypeIsNotEmpty(): void {
         if (!this._roomType) {
             throw new DomainException("Room type cannot be empty.");
         }
     }
 
-    private ensureBuildingIsNotEmpty() {
+    private ensureBuildingIsNotEmpty(): void {
         if (!this._building) {
             throw new DomainException("Building cannot be empty.");
         }
     }
 
-    private ensureDeviceDoesNotExist(device: Device) {
+    private ensureDeviceDoesNotExist(device: Device): void {
         if (this._devices.some((d) => d.id === device.id)) {
             throw new DomainException("Device already exists in this room.");
         }
     }
 
-    private ensureDeviceExists(deviceId: Guid) {
+    private ensureDeviceExists(deviceId: Guid): void {
         if (!this._devices.some((d) => d.id === deviceId)) {
             throw new DomainException("Device does not exist in this room.");
         }

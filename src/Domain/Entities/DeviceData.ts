@@ -67,7 +67,7 @@ export class DeviceData {
         return deviceData;
     }
 
-    public validateState() {
+    public validateState(): void {
         this.ensureDeviceIsNotEmpty();
         this.ensureTimestampIsNotEmpty();
         this.ensureTemperatureIsNotEmpty();
@@ -75,57 +75,57 @@ export class DeviceData {
         this.ensureGasPpmIsNotEmpty();
     }
 
-    private ensureDeviceIsNotEmpty() {
+    private ensureDeviceIsNotEmpty(): void {
         if (!this._device) {
             throw new Error("Device is required");
         }
     }
 
-    private ensureTimestampIsNotEmpty() {
+    private ensureTimestampIsNotEmpty(): void {
         if (!this._timestamp) {
             throw new Error("Timestamp is required");
         }
     }
 
-    private ensureTemperatureIsNotEmpty() {
+    private ensureTemperatureIsNotEmpty(): void {
         if (!this._temperature) {
             throw new Error("Temperature is required");
         }
     }
 
-    private ensureHumidityIsNotEmpty() {
+    private ensureHumidityIsNotEmpty(): void {
         if (!this._humidity) {
             throw new Error("Humidity is required");
         }
     }
 
-    private ensureGasPpmIsNotEmpty() {
+    private ensureGasPpmIsNotEmpty(): void {
         if (!this._gasPpm) {
             throw new Error("Gas PPM is required");
         }
     }
 
-    get id() {
+    get id(): Guid {
         return this._id;
     }
 
-    get device() {
+    get device(): Device {
         return this._device;
     }
 
-    get timestamp() {
+    get timestamp(): Date {
         return this._timestamp;
     }
 
-    get temperature() {
+    get temperature(): number {
         return this._temperature;
     }
 
-    get humidity() {
+    get humidity(): number {
         return this._humidity;
     }
 
-    get gasPpm() {
+    get gasPpm(): number {
         return this._gasPpm;
     }
 }

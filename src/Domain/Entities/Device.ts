@@ -54,49 +54,49 @@ export class Device {
         return device;
     }
 
-    public validateState() {
+    public validateState(): void {
         this.ensureIdentifierIsNotEmpty();
     }
 
-    public addDeviceData(deviceData: DeviceData) {
+    public addDeviceData(deviceData: DeviceData): void {
         this._deviceData.push(deviceData);
     }
 
-    public addRoom(room: Room) {
+    public addRoom(room: Room): void {
         room.building.ensureRoomExists(room.id);
         this._room = room;
     }
 
-    public removeRoom() {
+    public removeRoom(): void {
         this.ensureRoomIsNotEmpty();
         this._room = null;
     }
 
-    private ensureIdentifierIsNotEmpty() {
+    private ensureIdentifierIsNotEmpty(): void {
         if (!this._identifier) {
             throw new DomainException("Identifier is required");
         }
     }
 
-    private ensureRoomIsNotEmpty() {
+    private ensureRoomIsNotEmpty(): void {
         if (!this._room) {
             throw new DomainException("Room is required");
         }
     }
 
-    get id() {
+    get id(): Guid {
         return this._id;
     }
 
-    get identifier() {
+    get identifier(): string {
         return this._identifier;
     }
 
-    get room() {
+    get room(): Room | null {
         return this._room;
     }
 
-    get deviceData() {
+    get deviceData(): DeviceData[] {
         return this._deviceData;
     }
 }

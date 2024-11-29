@@ -45,18 +45,18 @@ export class Building {
         return tournament;
     }
 
-    public validateState() {
+    public validateState(): void {
         this.ensureNameIsNotEmpty();
         this.ensureAddressIsNotEmpty();
     }
 
-    public addRoom(room: Room) {
+    public addRoom(room: Room): void {
         this.ensureRoomDoesNotExist(room);
 
         this._rooms.push(room);
     }
 
-    public removeRoom(roomId: Guid) {
+    public removeRoom(roomId: Guid): void {
         this.ensureRoomExists(roomId);
 
         this._rooms = this._rooms.filter((room) => !room.id.isEqual(roomId));
