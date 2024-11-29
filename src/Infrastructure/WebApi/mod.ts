@@ -10,5 +10,3 @@ export { ShowRoomsController } from "EnviroSense/Infrastructure/WebApi/Controlle
 export type { ShowRoomsRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowRoomsController.ts";
 export { ShowRoomsPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowRoomsPresenter.ts";
 export type { ShowRoomsPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowRoomsPresenter.ts";
-
-export { ShowRoomsView } from "EnviroSense/Infrastructure/WebApi/Views/ShowRoomsView.ts";
