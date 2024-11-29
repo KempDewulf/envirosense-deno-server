@@ -24,3 +24,6 @@ export class ShowRoomsController implements Controller<ShowRoomsRequest> {
         return { type: request.type };
     }
 }
+
+//TODO: probably change type here since it was code of tournament (dimitri casier)
+//=> type maybe doesn't apply to our room entity
