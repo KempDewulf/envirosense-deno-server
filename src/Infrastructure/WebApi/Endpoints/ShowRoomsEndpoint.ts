@@ -22,4 +22,16 @@ export class ShowRoomsEndpoint implements Endpoint {
 
         return Promise.resolve();
     }
+
+    static create(): Endpoint {
+        return new ShowRoomsEndpoint();
+    }
+
+    private buildRequest(context: RouterContext<string>): ShowRoomsRequest {
+        const type = context.request.url.searchParams.get("type")
+            ? context.request.url.searchParams.get("type")
+            : "";
+
+        return { type } as ShowRoomsRequest;
+    }
 }
