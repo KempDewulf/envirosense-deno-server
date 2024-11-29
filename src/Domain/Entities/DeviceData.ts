@@ -1,6 +1,6 @@
 import { Device } from './Device.ts';
 
-export interface DeviceData {
+export interface DeviceDataState {
     id: string;
     device: Device;
     timestamp: Date;

@@ -1,6 +1,6 @@
 import { Room } from 'EnviroSense/Domain/Entities/Room.ts';
 
-export interface RoomType {
+export interface RoomTypeState {
     id: string;
     name: string;
     icon: string;
