@@ -43,5 +43,8 @@ export class ShowRoomsEndpoint implements Endpoint {
             : "";
 
         return { type } as ShowRoomsRequest;
+
+        //TODO: probably change type here since it was code of tournament (dimitri casier)
+        //=> type maybe doesn't apply to our room entity
     }
 }
