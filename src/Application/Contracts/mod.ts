@@ -8,3 +8,5 @@ export type {
     RoomQueryAllDto,
     RoomQueryRepository,
 } from "./Ports/Repositories/RoomQueryRepository.ts";
+
+export type { RoomRepository } from "./Ports/Repositories/RoomRepository.ts";

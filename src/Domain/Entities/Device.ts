@@ -8,7 +8,7 @@ import {
 export interface DeviceState {
     id: Guid;
     identifier: string;
-    room: Room;
+    room?: Room | null;
     deviceData?: DeviceData[];
 }
 
@@ -21,7 +21,7 @@ export class Device {
     private constructor(
         id: Guid,
         identifier: string,
-        room: Room,
+        room: Room | null,
         deviceData: DeviceData[]
     ) {
         this._id = id;
@@ -45,7 +45,7 @@ export class Device {
         const device = new Device(
             state.id,
             state.identifier,
-            state.room,
+            state.room || null,
             state.deviceData || []
         );
 
