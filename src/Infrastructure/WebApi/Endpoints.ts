@@ -13,7 +13,7 @@ export function endpoints(): Router {
     const router = new Router();
 
     router.get("/", use(new TestEndpoint()));
-    router.get("/rooms", use(new ShowRoomsEndpoint.create()));
+    router.get("/rooms", use(new ShowRoomsEndpoint()));
 
     return router;
 }
