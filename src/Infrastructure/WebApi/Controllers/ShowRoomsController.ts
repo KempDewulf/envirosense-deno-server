@@ -5,7 +5,7 @@ import {
 } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface ShowRoomsRequest {
-    type: string;
+    name: string;
 }
 
 export class ShowRoomsController implements Controller<ShowRoomsRequest> {
@@ -21,9 +21,6 @@ export class ShowRoomsController implements Controller<ShowRoomsRequest> {
     }
 
     protected mapToUseCaseInput(request: ShowRoomsRequest): ShowRoomsInput {
-        return { type: request.type };
+        return { name: request.name };
     }
 }
-
-//TODO: probably change type here since it was code of tournament (dimitri casier)
-//=> type maybe doesn't apply to our room entity

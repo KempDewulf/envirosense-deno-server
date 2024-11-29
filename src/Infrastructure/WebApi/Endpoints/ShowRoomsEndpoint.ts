@@ -34,13 +34,10 @@ export class ShowRoomsEndpoint implements Endpoint {
     }
 
     private buildRequest(context: RouterContext<string>): ShowRoomsRequest {
-        const type = context.request.url.searchParams.get("type")
-            ? context.request.url.searchParams.get("type")
+        const name = context.request.url.searchParams.get("name")
+            ? context.request.url.searchParams.get("name")
             : "";
 
-        return { type } as ShowRoomsRequest;
-
-        //TODO: probably change type here since it was code of tournament (dimitri casier)
-        //=> type maybe doesn't apply to our room entity
+        return { name } as ShowRoomsRequest;
     }
 }
