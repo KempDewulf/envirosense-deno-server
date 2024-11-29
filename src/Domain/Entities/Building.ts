@@ -50,6 +50,11 @@ export class Building {
         this.ensureAddressIsNotEmpty();
     }
 
+    public addRoom(room: Room) {
+        this.ensureRoomDoesNotExist(room);
+        this._rooms.push(room);
+    }
+
     private ensureNameIsNotEmpty() {
         if (!this._name) {
             throw new DomainException("Name is required");
@@ -59,6 +64,12 @@ export class Building {
     private ensureAddressIsNotEmpty() {
         if (!this._address) {
             throw new DomainException("Address is required");
+        }
+    }
+
+    private ensureRoomDoesNotExist(room: Room) {
+        if (this._rooms.some((r) => r.id.equals(room.id))) {
+            throw new DomainException("Room already exists");
         }
     }
 
