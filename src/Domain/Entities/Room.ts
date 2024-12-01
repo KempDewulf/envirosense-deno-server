@@ -25,23 +25,21 @@ export class Room {
         id: Guid,
         name: string,
         building: Building,
-        roomType: RoomType,
-        devices: Device[]
+        roomType: RoomType
     ) {
         this._id = id;
         this._name = name;
         this._building = building;
         this._roomType = roomType;
-        this._devices = devices;
+        this._devices = [];
     }
 
     static create(
         name: string,
         building: Building,
-        roomType: RoomType,
-        devices: Device[]
+        roomType: RoomType
     ): Room {
-        const room = new Room(Guid.create(), name, building, roomType, devices);
+        const room = new Room(Guid.create(), name, building, roomType);
         room.validateState();
 
         return room;
@@ -52,8 +50,7 @@ export class Room {
             state.id,
             state.name,
             state.building,
-            state.roomType,
-            state.devices || []
+            state.roomType
         );
         room.validateState();
 
