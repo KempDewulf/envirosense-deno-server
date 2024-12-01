@@ -4,7 +4,7 @@ import { StrapiQueryRepository } from "../../Shared/StrapiQueryRepository.ts";
 
 export class RoomStrapiRepository extends StrapiQueryRepository implements RoomRepository {
     constructor() {
-        super('http://localhost:1337/api'); // Adjust the base URL as needed
+        super('http://localhost:1331/api'); // Adjust the base URL as needed
     }
 
     async find(roomId: Guid): Promise<Optional<Room>> {

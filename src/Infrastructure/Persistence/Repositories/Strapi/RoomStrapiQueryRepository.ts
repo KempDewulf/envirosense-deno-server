@@ -18,7 +18,7 @@ export class RoomStrapiQueryRepository
     implements RoomQueryRepository
 {
     constructor() {
-        super('http://localhost:1337/api'); // Adjust the base URL as needed
+        super('http://localhost:1331/api'); // Adjust the base URL as needed
     }
 
     async all(name: string): Promise<RoomQueryAllDto[]> {
