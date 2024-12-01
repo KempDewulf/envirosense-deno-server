@@ -40,7 +40,7 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
             name: room.name,
             building: room.building.id.toString(),
             roomType: room.roomType.id.toString(),
-            devices: room.devices.map(device => device.id.toString()),
+            devices: (room.devices ?? []).map(device => device.id.toString()),
         };
     }
 }
