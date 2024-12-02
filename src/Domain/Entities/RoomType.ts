@@ -18,21 +18,21 @@ export class RoomType {
     }
 
     static create(name: string, icon: string): RoomType {
-        const roomType = new RoomType(Guid.create(), name, icon);
-        roomType.validateState();
+        const room_type = new RoomType(Guid.create(), name, icon);
+        room_type.validateState();
 
-        return roomType;
+        return room_type;
     }
 
     static load(state: RoomTypeState): RoomType {
-        const roomType = new RoomType(
+        const room_type = new RoomType(
             state.id,
             state.name,
             state.icon
         );
-        roomType.validateState();
+        room_type.validateState();
 
-        return roomType;
+        return room_type;
     }
 
     public validateState(): void {

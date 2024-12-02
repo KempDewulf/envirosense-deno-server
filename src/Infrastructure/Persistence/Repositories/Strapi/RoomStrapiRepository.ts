@@ -21,25 +21,27 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
     async save(room: Room): Promise<void> {
         const endpoint = `rooms`;
         const body = this.mapFromDomain(room);
+        console.log(body);
         await this.post(endpoint, { data: body });
     }
 
     private mapToDomain(data: any): Room {
         const room = Room.load({
             id: Guid.create(data.id),
-            name: data.attributes.name,
-            building: data.attributes.building,
-            roomType: data.attributes.roomType,
-            devices: data.attributes.devices,
+            name: data.name,
+            building: data.building,
+            room_type: data.room_type,
+            devices: data.devices,
         });
+
         return room;
     }
 
     private mapFromDomain(room: Room): any {
         return {
             name: room.name,
-            building: room.building.id.toString(),
-            roomType: room.roomType.id.toString(),
+            building: room.building,
+            room_type: room.room_type,
             devices: (room.devices ?? []).map(device => device.id.toString()),
         };
     }

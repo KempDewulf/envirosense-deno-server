@@ -10,7 +10,7 @@ export interface RoomState {
     id: Guid;
     name: string;
     building: Building;
-    roomType: RoomType;
+    room_type: RoomType;
     devices?: Device[];
 }
 
@@ -25,21 +25,21 @@ export class Room {
         id: Guid,
         name: string,
         building: Building,
-        roomType: RoomType
+        room_type: RoomType
     ) {
         this._id = id;
         this._name = name;
         this._building = building;
-        this._roomType = roomType;
+        this._roomType = room_type;
         this._devices = [];
     }
 
     static create(
         name: string,
         building: Building,
-        roomType: RoomType
+        room_type: RoomType
     ): Room {
-        const room = new Room(Guid.create(), name, building, roomType);
+        const room = new Room(Guid.create(), name, building, room_type);
         room.validateState();
 
         return room;
@@ -50,7 +50,7 @@ export class Room {
             state.id,
             state.name,
             state.building,
-            state.roomType
+            state.room_type
         );
         room.validateState();
 
@@ -119,7 +119,7 @@ export class Room {
         return this._building;
     }
 
-    get roomType(): RoomType {
+    get room_type(): RoomType {
         return this._roomType;
     }
 
