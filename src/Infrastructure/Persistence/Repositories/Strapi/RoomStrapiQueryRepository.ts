@@ -9,7 +9,7 @@ export class RoomStrapiQueryRepository
     implements RoomQueryRepository
 {
     constructor() {
-        super('http://94.130.75.173/:1331/api'); // Adjust the base URL as needed
+        super('http://94.130.75.173:1331/api');
     }
 
     async all(name: string): Promise<RoomQueryAllDto[]> {
@@ -23,7 +23,10 @@ export class RoomStrapiQueryRepository
     private mapToDto(item: any): RoomQueryAllDto {
         return {
             id: item.id,
-            name: item.name
+            name: item.name,
+            building: item.building,
+            room_type: item.room_type,
+            devices: item.devices,
         };
     }
 }

@@ -28,13 +28,24 @@ export class StrapiQueryRepository {
         params?: Record<string, string>,
     ): Promise<T> {
         const url = new URL(`${this.baseUrl}/${endpoint}`);
+
+        if (method.toUpperCase() === 'GET') {
+            if (!params) {
+                params = {};
+            }
+            if (!params['populate']) {
+                params['populate'] = '*';
+            }
+        }
+
         if (params) {
             Object.entries(params).forEach(([key, value]) => {
-                if (value) {
+                if (value !== undefined && value !== null) {
                     url.searchParams.append(key, value);
                 }
             });
         }
+
         const options: RequestInit = {
             method,
             headers: {

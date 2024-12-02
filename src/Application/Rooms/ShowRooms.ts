@@ -30,7 +30,7 @@ export class ShowRooms implements UseCase<ShowRoomsInput> {
             id: item.id,
             name: item.name,
             building: item.building,
-            roomType: item.roomType,
+            roomType: item.room_type,
             devices: item.devices,
         }));
     }

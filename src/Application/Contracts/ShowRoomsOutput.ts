@@ -4,6 +4,6 @@ export interface ShowRoomsOutput {
     id: string;
     name: string;
     building: Building;
-    roomType: RoomType;
+    room_type: RoomType;
     devices: Device[];
 }
