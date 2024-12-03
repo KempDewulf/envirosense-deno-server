@@ -1,8 +1,77 @@
 export class StrapiQueryRepository {
     protected readonly baseUrl: string;
 
-    constructor(baseUrl: string) {
+    constructor(baseUrl: string = 'http://94.130.75.173:1331/api') {
         this.baseUrl = baseUrl;
+    }
+
+    private buildUrl(endpoint: string, params?: Record<string, string>): string {
+        const url = new URL(`${this.baseUrl}/${endpoint}`);
+
+        if (params) {
+            Object.entries(params).forEach(([key, value]) => {
+                if (value !== undefined && value !== null) {
+                    url.searchParams.append(key, value);
+                }
+            });
+        }
+
+        return url.toString();
+    }
+
+    private buildRequestOptions(method: string, body?: any): RequestInit {
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+
+        const options: RequestInit = {
+            method,
+            headers,
+        };
+
+        if (body) {
+            options.body = JSON.stringify(body);
+        }
+
+        return options;
+    }
+
+    private async handleErrors(response: Response): Promise<void> {
+        if (!response.ok) {
+            const errorResponse = await response.json();
+            if (errorResponse.error) {
+                const errorMessages = this.extractErrorMessages(errorResponse.error);
+                throw new Error(errorMessages.join('\n'));
+            } else {
+                throw new Error(`Failed to ${response.statusText}`);
+            }
+        }
+    }
+
+    private async processResponse<T>(response: Response, method: string): Promise<T> {
+        if (method.toUpperCase() !== 'DELETE') {
+            const data = await response.json();
+            return data as T;
+        }
+        return undefined as unknown as T;
+    }
+
+    public async request<T>(
+        method: string,
+        endpoint: string,
+        body?: any,
+        params?: Record<string, string>,
+    ): Promise<T> {
+        if (method.toUpperCase() === 'GET') {
+            params = { ...params, populate: params?.populate || '*' };
+        }
+
+        const url = this.buildUrl(endpoint, params);
+        const options = this.buildRequestOptions(method, body);
+
+        const response = await fetch(url, options);
+        await this.handleErrors(response);
+        return this.processResponse<T>(response, method);
     }
 
     protected async get<T>(endpoint: string, params?: Record<string, string>): Promise<T> {
@@ -19,57 +88,6 @@ export class StrapiQueryRepository {
 
     protected async delete(endpoint: string): Promise<void> {
         await await this.request('DELETE', endpoint);
-    }
-
-    private async request<T>(
-        method: string,
-        endpoint: string,
-        body?: any,
-        params?: Record<string, string>,
-    ): Promise<T> {
-        const url = new URL(`${this.baseUrl}/${endpoint}`);
-
-        if (method.toUpperCase() === 'GET') {
-            if (!params) {
-                params = {};
-            }
-            if (!params['populate']) {
-                params['populate'] = '*';
-            }
-        }
-
-        if (params) {
-            Object.entries(params).forEach(([key, value]) => {
-                if (value !== undefined && value !== null) {
-                    url.searchParams.append(key, value);
-                }
-            });
-        }
-
-        const options: RequestInit = {
-            method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-        if (body) {
-            options.body = JSON.stringify(body);
-        }
-        const response = await fetch(url.toString(), options);
-        if (!response.ok) {
-            const errorResponse = await response.json();
-            if (errorResponse.error) {
-                const errorMessages = this.extractErrorMessages(errorResponse.error);
-                throw new Error(errorMessages.join('\n'));
-            } else {
-                throw new Error(`Failed to ${method} ${endpoint}: ${response.statusText}`);
-            }
-        }
-        if (method !== 'DELETE') {
-            const data = await response.json();
-            return data as T;
-        }
-        return undefined as unknown as T;
     }
 
     private extractErrorMessages(error: any): string[] {

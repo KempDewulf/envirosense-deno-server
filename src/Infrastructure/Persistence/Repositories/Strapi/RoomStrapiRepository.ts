@@ -3,10 +3,6 @@ import { Optional, Room, Building, RoomType } from "EnviroSense/Domain/mod.ts";
 import { StrapiQueryRepository } from "../../Shared/StrapiQueryRepository.ts";
 
 export class RoomStrapiRepository extends StrapiQueryRepository implements RoomRepository {
-    constructor() {
-        super('http://94.130.75.173:1331/api'); // Adjust the base URL as needed
-    }
-
     async find(roomId: string): Promise<Optional<Room>> {
         const endpoint = `rooms/${roomId.toString()}`;
         try {

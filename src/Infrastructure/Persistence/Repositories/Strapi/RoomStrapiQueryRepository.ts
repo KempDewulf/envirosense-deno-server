@@ -8,10 +8,6 @@ export class RoomStrapiQueryRepository
     extends StrapiQueryRepository
     implements RoomQueryRepository
 {
-    constructor() {
-        super('http://94.130.75.173:1331/api');
-    }
-
     async all(name: string): Promise<RoomQueryAllDto[]> {
         const endpoint = 'rooms';
         const params = name ? { 'filters[name][$contains]': name } : undefined;
