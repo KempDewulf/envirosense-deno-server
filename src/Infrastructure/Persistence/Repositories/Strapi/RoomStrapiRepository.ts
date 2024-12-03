@@ -74,7 +74,7 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
             "name": room.name,
             "building": room.building
                 ? {
-                    connect: [1], //for the scope of the project, we will hardcode it to the only existing building
+                    connect: [room.building.id], //for the scope of the project, we will hardcode it to the only existing building
                 }
                 : null,
             "room_type": room.roomType
