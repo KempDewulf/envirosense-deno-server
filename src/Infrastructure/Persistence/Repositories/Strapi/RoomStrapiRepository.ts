@@ -21,7 +21,6 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
     async save(room: Room): Promise<void> {
         const endpoint = `rooms`;
         const body = this.mapFromDomain(room);
-        console.log(body);
 
         return await this.post(endpoint, { data: body });
     }
@@ -54,7 +53,6 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
     }
 
     private mapFromDomain(room: Room): any {
-        console.log(room)
         return {
             "name": room.name,
             "building": room.building
