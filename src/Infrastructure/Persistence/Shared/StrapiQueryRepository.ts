@@ -63,7 +63,9 @@ export class StrapiQueryRepository {
         params?: Record<string, string>,
     ): Promise<T> {
         if (method.toUpperCase() === 'GET') {
-            params = { ...params, populate: params?.populate || '*' };
+            if (!params || Object.keys(params).length === 0) {
+                params = { populate: '*' };
+            }
         }
 
         const url = this.buildUrl(endpoint, params);
@@ -71,7 +73,7 @@ export class StrapiQueryRepository {
 
         const response = await fetch(url, options);
         await this.handleErrors(response);
-        return this.processResponse<T>(response, method);
+        return await this.processResponse<T>(response, method);
     }
 
     protected async get<T>(endpoint: string, params?: Record<string, string>): Promise<T> {

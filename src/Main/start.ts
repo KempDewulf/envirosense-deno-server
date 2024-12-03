@@ -1,10 +1,11 @@
 import { WebApiModule } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
-import { RoomStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
+import { RoomStrapiQueryRepository, RoomStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 import { Building, Room, RoomType } from 'EnviroSense/Domain/mod.ts';
 
 (new WebApiModule(8101)).run();
 
 const repo = new RoomStrapiRepository();
+const repoQ = new RoomStrapiQueryRepository();
 
 async function createRoom(): Promise<any> {
     let building = await fetch('http://94.130.75.173:1331/api/buildings/gox5y6bsrg640qb11ak44dh0?populate=*').then(res => res.json());
@@ -17,11 +18,14 @@ async function createRoom(): Promise<any> {
     return await repo.save(roomModel);
 }
 
+async function findAllRooms(): Promise<any> {
+    return await repoQ.all('');
+}
+
 async function findRoom(id: string): Promise<any> {
     return await repo.find(id);
 }
 
 const roomFound = await findRoom('xg96p8ahvukm8ruzmpbtd3ll');
-
 
 console.log(roomFound);

@@ -5,8 +5,14 @@ import { StrapiQueryRepository } from "../../Shared/StrapiQueryRepository.ts";
 export class RoomStrapiRepository extends StrapiQueryRepository implements RoomRepository {
     async find(roomId: string): Promise<Optional<Room>> {
         const endpoint = `rooms/${roomId.toString()}`;
+        const params: Record<string, string> = {
+            'populate[0]': 'building',
+            'populate[1]': 'room_type.icon',
+            'populate[2]': 'devices',
+        };
+
         try {
-            const response = await this.get<any>(endpoint);
+            const response = await this.get<any>(endpoint, params);
             const room = this.mapToDomain(response.data);
             return Optional.of<Room>(room);
         } catch {
@@ -35,28 +41,28 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
     }
 
     private mapToDomain(data: any): Room {
-        const buildingData = data.attributes.building;
-        const roomTypeData = data.attributes.room_type;
+        const buildingData = data.building;
+        const roomTypeData = data.room_type;
 
         const building = buildingData
             ? Building.load({
-                id: buildingData.data.id,
-                name: buildingData.data.attributes.name,
-                address: buildingData.data.attributes.address,
+                id: buildingData.documentId,
+                name: buildingData.name,
+                address: buildingData.address,
             })
             : null;
 
         const roomType = roomTypeData
             ? RoomType.load({
-                id: roomTypeData.data.id,
-                name: roomTypeData.data.attributes.name,
-                icon: roomTypeData.data.attributes.icon,
+                id: roomTypeData.documentId,
+                name: roomTypeData.name,
+                icon: roomTypeData.icon.name,
             })
             : null;
 
         const room = Room.load({
-            id: data.id,
-            name: data.attributes.name,
+            id: data.documentId,
+            name: data.name,
             building: building,
             roomType: roomType,
             devices: [],
