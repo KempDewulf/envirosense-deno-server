@@ -3,12 +3,14 @@ import {
     OutputPort,
     ShowBuildingsOutput,
 } from "EnviroSense/Application/Contracts/mod.ts";
+import { Room } from 'EnviroSense/Domain/mod.ts';
 
 export type ShowBuildingsPresentedData = {
     id: string;
     documentId: string;
     name: string;
     address: string;
+    rooms: Room[];
 };
 
 export class ShowBuildingsPresenter implements OutputPort<ShowBuildingsOutput[]> {
@@ -31,6 +33,7 @@ export class ShowBuildingsPresenter implements OutputPort<ShowBuildingsOutput[]>
             documentId: building.documentId,
             name: building.name,
             address: building.address,
+            rooms: building.rooms,
         }));
     }
 }

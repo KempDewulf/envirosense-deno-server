@@ -5,6 +5,6 @@ export interface ShowRoomsOutput {
     documentId: string;
     name: string;
     building: Building;
-    'room_type': RoomType;
+    'room-type': RoomType;
     devices: Device[];
 }

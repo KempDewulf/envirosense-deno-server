@@ -41,6 +41,7 @@ export class BuildingStrapiRepository extends StrapiQueryRepository implements B
             id: data.documentId,
             name: data.name,
             address: data.address,
+            rooms: data.rooms
         });
 
         return building;
@@ -50,6 +51,7 @@ export class BuildingStrapiRepository extends StrapiQueryRepository implements B
         return {
             "name": building.name,
             "address": building.address,
+            "rooms": building.rooms
         };
     }
 }

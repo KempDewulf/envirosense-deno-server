@@ -30,7 +30,8 @@ export class ShowBuildings implements UseCase<ShowBuildingsInput> {
             id: item.id,
             documentId: item.documentId,
             name: item.name,
-            address: item.address
+            address: item.address,
+            rooms: item.rooms,
         }));
     }
 }
