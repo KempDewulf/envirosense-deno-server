@@ -68,8 +68,6 @@ export class StrapiQueryRepository {
             }
         }
 
-        console.log(params);
-
         const url = this.buildUrl(endpoint, params);
         const options = this.buildRequestOptions(method, body);
 
