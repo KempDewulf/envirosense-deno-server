@@ -20,6 +20,7 @@ export class BuildingStrapiQueryRepository
     private mapToDto(item: any): BuildingQueryAllDto {
         return {
             id: item.id,
+            documentId: item.documentId,
             name: item.name,
             address: item.address
         };
