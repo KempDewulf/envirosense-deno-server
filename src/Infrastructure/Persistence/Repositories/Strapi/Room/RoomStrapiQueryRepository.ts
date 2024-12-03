@@ -2,7 +2,7 @@ import {
     RoomQueryRepository,
     RoomQueryAllDto,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { StrapiQueryRepository } from "../../Shared/StrapiQueryRepository.ts";
+import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 
 export class RoomStrapiQueryRepository
     extends StrapiQueryRepository
@@ -20,6 +20,7 @@ export class RoomStrapiQueryRepository
     private mapToDto(item: any): RoomQueryAllDto {
         return {
             id: item.id,
+            documentId: item.documentId,
             name: item.name,
             building: item.building,
             'room-type': item['room_type'],
