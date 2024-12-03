@@ -20,6 +20,6 @@ async function findBuilding(id: string): Promise<any> {
     return await repo.find(id);
 }
 
-const buildingFound = await findAllBuildings('');
+const buildingFound = await findAllBuildings();
 
 console.log(buildingFound);
