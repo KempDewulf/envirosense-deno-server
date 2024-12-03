@@ -6,6 +6,7 @@ import {
 
 export type ShowBuildingsPresentedData = {
     id: string;
+    documentId: string;
     name: string;
     address: string;
 };
@@ -27,6 +28,7 @@ export class ShowBuildingsPresenter implements OutputPort<ShowBuildingsOutput[]>
     ): ShowBuildingsPresentedData[] {
         return data.map((building: ShowBuildingsOutput) => ({
             id: building.id,
+            documentId: building.documentId,
             name: building.name,
             address: building.address,
         }));

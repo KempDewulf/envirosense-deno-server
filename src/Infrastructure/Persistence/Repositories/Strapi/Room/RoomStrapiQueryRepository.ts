@@ -20,6 +20,7 @@ export class RoomStrapiQueryRepository
     private mapToDto(item: any): RoomQueryAllDto {
         return {
             id: item.id,
+            documentId: item.documentId,
             name: item.name,
             building: item.building,
             'room-type': item['room_type'],

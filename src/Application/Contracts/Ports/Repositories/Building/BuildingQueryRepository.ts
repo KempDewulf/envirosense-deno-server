@@ -1,5 +1,6 @@
 export interface BuildingQueryAllDto {
     id: string;
+    documentId: string;
     name: string;
     address: string;
 }
