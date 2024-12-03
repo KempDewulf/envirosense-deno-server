@@ -6,10 +6,14 @@ import { Building, Room, RoomType } from 'EnviroSense/Domain/mod.ts';
 
 async function createRoom(): Promise<any> {
     const repo = new RoomStrapiRepository();
-    const building = Building.create('Building 1', 'Building 1 address');
-    const roomType = RoomType.create('bedroom test', 'bedroom.png');
-    const roomModel = Room.create('Room Test', building, roomType);
+    //find building with id just general fetch it from our api strapi
+    let building = await fetch('http://94.130.75.173:1331/api/buildings/gox5y6bsrg640qb11ak44dh0?populate=*').then(res => res.json());
+    building = Building.create(building.data.name, building.data.address);
+    //create roomtype
+    let roomType = await fetch('http://94.130.75.173:1331/api/"room-type":s/tp7ww9orfq7gs00prq8azupq?populate=*').then(res => res.json());
+    roomType = RoomType.create(roomType.data.name, roomType.data.icon.name);
 
+    const roomModel = Room.create('Room 1', building, roomType);
     return await repo.save(roomModel);
 }
 
