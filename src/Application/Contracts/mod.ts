@@ -13,8 +13,8 @@ export type {
 export type { RoomRepository } from "./Ports/Repositories/Room/RoomRepository.ts";
 
 //Buildings
-export type { ShowBuildingsInput } from "./Room/ShowBuildingsInput.ts";
-export type { ShowBuildingsOutput } from "./Room/ShowBuildingsOutput.ts";
+export type { ShowBuildingsInput } from "./Building/ShowBuildingsInput.ts";
+export type { ShowBuildingsOutput } from "./Building/ShowBuildingsOutput.ts";
 
 export type {
     BuildingQueryAllDto,
