@@ -13,7 +13,7 @@ function use(endpoint: Endpoint) {
 export function endpoints(): Router {
     const router = new Router();
 
-    router.get("/", use(new TestEndpoint()));
+    router.get("/", use(new TestEndpoint())); //maybe show docs of openApi.yml?
     router.get("/rooms", use(new ShowRoomsEndpoint()));
     router.get("/buildings", use(new ShowBuildingsEndpoint()));
 
