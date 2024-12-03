@@ -22,7 +22,8 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
         const endpoint = `rooms`;
         const body = this.mapFromDomain(room);
         console.log(body);
-        await this.post(endpoint, { data: body });
+
+        return await this.post(endpoint, { data: body });
     }
 
     private mapToDomain(data: any): Room {
@@ -40,9 +41,21 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
     private mapFromDomain(room: Room): any {
         return {
             name: room.name,
-            building: room.building,
-            room_type: room.room_type,
-            devices: (room.devices ?? []).map(device => device.id.toString()),
+            building: room.building
+                ? {
+                    connect: [1],
+                }
+                : null,
+            room_type: room.room_type
+                ? {
+                    connect: [12],
+                }
+                : null,
+            devices: room.devices && room.devices.length > 0
+                ? {
+                    connect: room.devices.map((device) => device.id),
+                }
+                : [],
         };
     }
 }

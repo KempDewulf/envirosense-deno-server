@@ -10,7 +10,7 @@ async function createRoom(): Promise<any> {
     let building = await fetch('http://94.130.75.173:1331/api/buildings/gox5y6bsrg640qb11ak44dh0?populate=*').then(res => res.json());
     building = Building.create(building.data.name, building.data.address);
     //create roomtype
-    let roomType = await fetch('http://94.130.75.173:1331/api/"room-type":s/tp7ww9orfq7gs00prq8azupq?populate=*').then(res => res.json());
+    let roomType = await fetch('http://94.130.75.173:1331/api/room-types/tp7ww9orfq7gs00prq8azupq?populate=*').then(res => res.json());
     roomType = RoomType.create(roomType.data.name, roomType.data.icon.name);
 
     const roomModel = Room.create('Room 1', building, roomType);
