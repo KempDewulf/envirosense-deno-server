@@ -7,6 +7,6 @@ export type { ShowRoomsOutput } from "./ShowRoomsOutput.ts";
 export type {
     RoomQueryAllDto,
     RoomQueryRepository,
-} from "./Ports/Repositories/RoomQueryRepository.ts";
+} from "./Ports/Repositories/Room/RoomQueryRepository.ts";
 
-export type { RoomRepository } from "./Ports/Repositories/RoomRepository.ts";
+export type { RoomRepository } from "./Ports/Repositories/Room/RoomRepository.ts";
