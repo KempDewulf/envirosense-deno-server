@@ -9,7 +9,7 @@ export type ShowRoomsPresentedData = {
     id: string;
     name: string;
     building: Building;
-    room_type: RoomType;
+    'room-type': RoomType;
     devices: Device[];
 };
 
@@ -32,7 +32,7 @@ export class ShowRoomsPresenter implements OutputPort<ShowRoomsOutput[]> {
             id: room.id,
             name: room.name,
             building: room.building,
-            room_type: room['room-type'],
+            'room-type': room['room-type'],
             devices: room.devices,
         }));
     }

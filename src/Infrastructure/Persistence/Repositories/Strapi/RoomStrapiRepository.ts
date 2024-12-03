@@ -46,7 +46,7 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
             id: Guid.create(data.id),
             name: data.name,
             building: building,
-            room_type: roomType,
+            roomType: roomType,
             devices: data.devices,
         });
 
@@ -54,19 +54,20 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
     }
 
     private mapFromDomain(room: Room): any {
+        console.log(room)
         return {
-            name: room.name,
-            building: room.building
+            "name": room.name,
+            "building": room.building
                 ? {
                     connect: [1],
                 }
                 : null,
-            'room-type': room.roomType
+            "room_type": room.roomType
                 ? {
-                    connect: [12],
+                    connect: ["hd3f8ql67kwhzmbqllumnbdi"],
                 }
                 : null,
-            devices: room.devices && room.devices.length > 0
+            "devices": room.devices && room.devices.length > 0
                 ? {
                     connect: room.devices.map((device) => device.id),
                 }
