@@ -26,27 +26,31 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
     }
 
     private mapToDomain(data: any): Room {
-        const building = data.building
-            ? Building.load({
-                id: Guid.create(data.building.data.id),
-                name: data.building.data.attributes.name,
-                address: data.building.data.attributes.address,
-            }) : null;
+        const buildingData = data.attributes.building;
+        const roomTypeData = data.attributes.room_type;
 
-        const roomType = data['room-type']
+        const building = buildingData
+            ? Building.load({
+                id: buildingData.data.id,
+                name: buildingData.data.attributes.name,
+                address: buildingData.data.attributes.address,
+            })
+            : null;
+
+        const roomType = roomTypeData
             ? RoomType.load({
-                id: Guid.create(data['room-type'].id),
-                name: data['room-type'].attributes.name,
-                icon: data['room-type'].attributes.icon,
+                id: roomTypeData.data.id,
+                name: roomTypeData.data.attributes.name,
+                icon: roomTypeData.data.attributes.icon,
             })
             : null;
 
         const room = Room.load({
-            id: Guid.create(data.id),
-            name: data.name,
+            id: data.id,
+            name: data.attributes.name,
             building: building,
             roomType: roomType,
-            devices: data.devices,
+            devices: [],
         });
 
         return room;
@@ -57,12 +61,12 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
             "name": room.name,
             "building": room.building
                 ? {
-                    connect: [1],
+                    connect: [1], //for the scope of the project, we will hardcode it to the only existing building
                 }
                 : null,
             "room_type": room.roomType
                 ? {
-                    connect: ["hd3f8ql67kwhzmbqllumnbdi"],
+                    connect: [room.roomType.id],
                 }
                 : null,
             "devices": room.devices && room.devices.length > 0

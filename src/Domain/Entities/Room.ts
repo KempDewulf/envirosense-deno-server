@@ -2,12 +2,11 @@ import {
     Building,
     Device,
     DomainException,
-    Guid,
     RoomType,
 } from "EnviroSense/Domain/mod.ts";
 
 export interface RoomState {
-    id: Guid;
+    id: string;
     name: string;
     building: Building | null;
     roomType: RoomType | null;
@@ -15,14 +14,14 @@ export interface RoomState {
 }
 
 export class Room {
-    private readonly _id: Guid;
+    private readonly _id: string;
     private readonly _name: string;
     private readonly _building: Building;
     private readonly _roomType: RoomType;
     private _devices: Device[];
 
     private constructor(
-        id: Guid,
+        id: string,
         name: string,
         building: Building,
         roomType: RoomType
@@ -35,11 +34,12 @@ export class Room {
     }
 
     static create(
+        id: string,
         name: string,
         building: Building,
         roomType: RoomType
     ): Room {
-        const room = new Room(Guid.create(), name, building, roomType);
+        const room = new Room(id, name, building, roomType);
         room.validateState();
 
         return room;
@@ -52,6 +52,7 @@ export class Room {
           state.building,
           state.roomType
         );
+
         room._devices = state.devices ?? [];
 
         room.validateState();
@@ -71,7 +72,7 @@ export class Room {
         this._devices.push(device);
     }
 
-    public removeDevice(deviceId: Guid): void {
+    public removeDevice(deviceId: string): void {
         this.ensureDeviceExists(deviceId);
 
         this._devices = this._devices.filter(
@@ -103,13 +104,13 @@ export class Room {
         }
     }
 
-    private ensureDeviceExists(deviceId: Guid): void {
+    private ensureDeviceExists(deviceId: string): void {
         if (!this._devices.some((d) => d.id === deviceId)) {
             throw new DomainException("Device does not exist in this room.");
         }
     }
 
-    get id(): Guid {
+    get id(): string {
         return this._id;
     }
 

@@ -1,7 +1,7 @@
-import { Device, Guid } from "EnviroSense/Domain/mod.ts";
+import { Device } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceDataState {
-    id: Guid;
+    id: string;
     device: Device;
     timestamp: Date;
     temperature: number;
@@ -10,7 +10,7 @@ export interface DeviceDataState {
 }
 
 export class DeviceData {
-    private readonly _id: Guid;
+    private readonly _id: string;
     private readonly _device: Device;
     private readonly _timestamp: Date;
     private readonly _temperature: number;
@@ -18,7 +18,7 @@ export class DeviceData {
     private readonly _gasPpm: number;
 
     private constructor(
-        id: Guid,
+        id: string,
         device: Device,
         timestamp: Date,
         temperature: number,
@@ -34,6 +34,7 @@ export class DeviceData {
     }
 
     static create(
+        id: string,
         device: Device,
         timestamp: Date,
         temperature: number,
@@ -41,7 +42,7 @@ export class DeviceData {
         gasPpm: number
     ): DeviceData {
         const deviceData = new DeviceData(
-            Guid.create(),
+            id,
             device,
             timestamp,
             temperature,
@@ -105,7 +106,7 @@ export class DeviceData {
         }
     }
 
-    get id(): Guid {
+    get id(): string {
         return this._id;
     }
 

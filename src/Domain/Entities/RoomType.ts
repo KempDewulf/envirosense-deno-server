@@ -1,24 +1,24 @@
-import { DomainException, Guid } from "EnviroSense/Domain/mod.ts";
+import { DomainException } from "EnviroSense/Domain/mod.ts";
 
 export interface RoomTypeState {
-    id: Guid;
+    id: string;
     name: string;
     icon: string;
 }
 
 export class RoomType {
-    private readonly _id: Guid;
+    private readonly _id: string;
     private readonly _name: string;
     private readonly _icon: string;
 
-    private constructor(id: Guid, name: string, icon: string) {
+    private constructor(id: string, name: string, icon: string) {
         this._id = id;
         this._name = name;
         this._icon = icon;
     }
 
-    static create(name: string, icon: string): RoomType {
-        const room_type = new RoomType(Guid.create(), name, icon);
+    static create(id: string, name: string, icon: string): RoomType {
+        const room_type = new RoomType(id, name, icon);
         room_type.validateState();
 
         return room_type;
@@ -52,7 +52,7 @@ export class RoomType {
         }
     }
 
-    get id(): Guid {
+    get id(): string {
         return this._id;
     }
 
