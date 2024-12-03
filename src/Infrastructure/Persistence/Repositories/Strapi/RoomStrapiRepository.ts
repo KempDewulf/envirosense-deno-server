@@ -25,6 +25,19 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
         return await this.post(endpoint, { data: body });
     }
 
+    async update(room: Room): Promise<void> {
+        const endpoint = `rooms/${room.id}`;
+        const body = this.mapFromDomain(room);
+
+        return await this.put(endpoint, { data: body });
+    }
+
+    async deleteEntity(room: Room): Promise<void> {
+        const endpoint = `rooms/${room.id}`;
+
+        return await this.delete(endpoint);
+    }
+
     private mapToDomain(data: any): Room {
         const buildingData = data.attributes.building;
         const roomTypeData = data.attributes.room_type;
