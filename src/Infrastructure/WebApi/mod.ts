@@ -5,8 +5,13 @@ export type { Endpoint } from "EnviroSense/Infrastructure/WebApi/Shared/Endpoint
 export { TestEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/TestEndpoint.ts";
 
 export { ShowRoomsEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowRoomsEndpoint.ts";
-
 export { ShowRoomsController } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowRoomsController.ts";
 export type { ShowRoomsRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowRoomsController.ts";
 export { ShowRoomsPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowRoomsPresenter.ts";
 export type { ShowRoomsPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowRoomsPresenter.ts";
+
+export { ShowBuildingsEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowBuildingsEndpoint.ts";
+export { ShowBuildingsController } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowBuildingsController.ts";
+export type { ShowBuildingsRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowBuildingsController.ts";
+export { ShowBuildingsPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowBuildingsPresenter.ts";
+export type { ShowBuildingsPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowBuildingsPresenter.ts";
