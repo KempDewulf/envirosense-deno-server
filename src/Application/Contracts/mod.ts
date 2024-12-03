@@ -2,8 +2,8 @@ export type { UseCase } from "./Ports/UseCase.ts";
 export type { OutputPort } from "./Ports/OutputPort.ts";
 
 //Rooms
-export type { ShowRoomsInput } from "./ShowRoomsInput.ts";
-export type { ShowRoomsOutput } from "./ShowRoomsOutput.ts";
+export type { ShowRoomsInput } from "./Room/ShowRoomsInput.ts";
+export type { ShowRoomsOutput } from "./Room/ShowRoomsOutput.ts";
 
 export type {
     RoomQueryAllDto,
@@ -13,8 +13,8 @@ export type {
 export type { RoomRepository } from "./Ports/Repositories/Room/RoomRepository.ts";
 
 //Buildings
-export type { ShowBuildingsInput } from "./ShowBuildingsInput.ts";
-export type { ShowBuildingsOutput } from "./ShowBuildingsOutput.ts";
+export type { ShowBuildingsInput } from "./Room/ShowBuildingsInput.ts";
+export type { ShowBuildingsOutput } from "./Room/ShowBuildingsOutput.ts";
 
 export type {
     BuildingQueryAllDto,
