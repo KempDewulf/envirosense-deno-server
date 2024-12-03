@@ -1,4 +1,3 @@
-export { Guid } from "EnviroSense/Domain/Shared/Guid.ts";
 export { Optional } from "EnviroSense/Domain/Shared/Optional.ts";
 export { Exception } from "EnviroSense/Domain/Shared/Exceptions/Exception.ts";
 export { DomainException } from "EnviroSense/Domain/Shared/Exceptions/DomainException.ts";
