@@ -1,6 +1,6 @@
 import { RoomRepository } from "EnviroSense/Application/Contracts/mod.ts";
 import { Optional, Room, Building, RoomType } from "EnviroSense/Domain/mod.ts";
-import { StrapiQueryRepository } from "../../Shared/StrapiQueryRepository.ts";
+import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 
 export class RoomStrapiRepository extends StrapiQueryRepository implements RoomRepository {
     async find(roomId: string): Promise<Optional<Room>> {
