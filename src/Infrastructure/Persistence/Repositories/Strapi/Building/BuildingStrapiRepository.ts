@@ -1,0 +1,55 @@
+import { Optional, Building } from "EnviroSense/Domain/mod.ts";
+import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
+import { BuildingRepository } from 'EnviroSense/Application/Contracts/mod.ts';
+
+export class BuildingStrapiRepository extends StrapiQueryRepository implements BuildingRepository {
+    async find(buildingId: string): Promise<Optional<Building>> {
+        const endpoint = `buildings/${buildingId.toString()}`;
+        const params: Record<string, string> = {};
+
+        try {
+            const response = await this.get<any>(endpoint, params);
+            const building = this.mapToDomain(response.data);
+            return Optional.of<Building>(building);
+        } catch {
+            return Optional.empty<Building>();
+        }
+    }
+
+    async save(building: Building): Promise<void> {
+        const endpoint = `buildings`;
+        const body = this.mapFromDomain(building);
+
+        return await this.post(endpoint, { data: body });
+    }
+
+    async update(building: Building): Promise<void> {
+        const endpoint = `buildings/${building.id}`;
+        const body = this.mapFromDomain(building);
+
+        return await this.put(endpoint, { data: body });
+    }
+
+    async deleteEntity(building: Building): Promise<void> {
+        const endpoint = `buildings/${building.id}`;
+
+        return await this.delete(endpoint);
+    }
+
+    private mapToDomain(data: any): Building {
+        const building = Building.load({
+            id: data.documentId,
+            name: data.name,
+            address: data.address,
+        });
+
+        return building;
+    }
+
+    private mapFromDomain(building: Building): any {
+        return {
+            "name": building.name,
+            "address": building.address,
+        };
+    }
+}
