@@ -18,14 +18,14 @@ async function createRoom(): Promise<any> {
     return await repo.save(roomModel);
 }
 
-async function findAllRooms(): Promise<any> {
-    return await repoQ.all('');
+async function findAllRooms(name: string = ''): Promise<any> {
+    return await repoQ.all(name);
 }
 
 async function findRoom(id: string): Promise<any> {
     return await repo.find(id);
 }
 
-const roomFound = await findRoom('xg96p8ahvukm8ruzmpbtd3ll');
+const roomFound = await findAllRooms('.');
 
 console.log(roomFound);

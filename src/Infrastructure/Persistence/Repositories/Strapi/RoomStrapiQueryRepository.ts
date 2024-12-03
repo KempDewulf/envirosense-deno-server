@@ -10,8 +10,9 @@ export class RoomStrapiQueryRepository
 {
     async all(name: string): Promise<RoomQueryAllDto[]> {
         const endpoint = 'rooms';
-        const params = name ? { 'filters[name][$contains]': name } : undefined;
+        const params = name ? { 'filters[name][$contains]': name, 'populate': '*' } : undefined;
         const response = await this.get<any>(endpoint, params);
+
         const rooms = response.data.map((item: any) => this.mapToDto(item));
         return rooms;
     }
