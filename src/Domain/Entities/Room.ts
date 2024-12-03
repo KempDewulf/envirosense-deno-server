@@ -9,8 +9,8 @@ import {
 export interface RoomState {
     id: Guid;
     name: string;
-    building: Building;
-    room_type: RoomType;
+    building: Building | null;
+    room_type: RoomType | null;
     devices?: Device[];
 }
 
@@ -119,7 +119,11 @@ export class Room {
         return this._building;
     }
 
-    get room_type(): RoomType {
+    get roomType(): RoomType {
+        return this._roomType;
+    }
+
+    get ['room-type'](): RoomType {
         return this._roomType;
     }
 

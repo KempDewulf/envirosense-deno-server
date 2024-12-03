@@ -1,5 +1,5 @@
 import { RoomRepository } from "EnviroSense/Application/Contracts/mod.ts";
-import { Optional, Room, Guid } from "EnviroSense/Domain/mod.ts";
+import { Optional, Room, Guid, Building, RoomType } from "EnviroSense/Domain/mod.ts";
 import { StrapiQueryRepository } from "../../Shared/StrapiQueryRepository.ts";
 
 export class RoomStrapiRepository extends StrapiQueryRepository implements RoomRepository {
@@ -27,11 +27,26 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
     }
 
     private mapToDomain(data: any): Room {
+        const building = data.building
+            ? Building.load({
+                id: Guid.create(data.building.data.id),
+                name: data.building.data.attributes.name,
+                address: data.building.data.attributes.address,
+            }) : null;
+
+        const roomType = data['room-type']
+            ? RoomType.load({
+                id: Guid.create(data['room-type'].id),
+                name: data['room-type'].attributes.name,
+                icon: data['room-type'].attributes.icon,
+            })
+            : null;
+
         const room = Room.load({
             id: Guid.create(data.id),
             name: data.name,
-            building: data.building,
-            room_type: data.room_type,
+            building: building,
+            room_type: roomType,
             devices: data.devices,
         });
 
@@ -46,7 +61,7 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
                     connect: [1],
                 }
                 : null,
-            room_type: room.room_type
+            'room-type': room.roomType
                 ? {
                     connect: [12],
                 }

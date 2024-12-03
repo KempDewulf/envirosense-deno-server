@@ -4,7 +4,7 @@ export interface RoomQueryAllDto {
     id: string;
     name: string;
     building: Building;
-    room_type: RoomType[];
+    'room-type': RoomType[];
     devices: Device[];
 }
 

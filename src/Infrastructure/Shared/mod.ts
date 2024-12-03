@@ -1,4 +1,3 @@
-export type { Module } from 'EnviroSense/Infrastructure/Shared/Modules/Module.ts';
 export { ErrorsBag } from 'EnviroSense/Infrastructure/Shared/Errors/ErrorsBag.ts';
 
 export type { RequestResponseDevice } from 'EnviroSense/Infrastructure/Shared/Devices/RequestResponse.ts';

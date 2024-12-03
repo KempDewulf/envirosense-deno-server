@@ -25,7 +25,7 @@ export class RoomStrapiQueryRepository
             id: item.id,
             name: item.name,
             building: item.building,
-            room_type: item.room_type,
+            'room-type': item['room_type'],
             devices: item.devices,
         };
     }

@@ -32,7 +32,7 @@ export class ShowRoomsPresenter implements OutputPort<ShowRoomsOutput[]> {
             id: room.id,
             name: room.name,
             building: room.building,
-            room_type: room.room_type,
+            room_type: room['room-type'],
             devices: room.devices,
         }));
     }
