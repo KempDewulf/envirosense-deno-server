@@ -1,42 +1,38 @@
-import { DomainException, Guid, Room } from "EnviroSense/Domain/mod.ts";
+import { DomainException } from "EnviroSense/Domain/mod.ts";
 
 export interface RoomTypeState {
-    id: Guid;
+    id: string;
     name: string;
     icon: string;
-    rooms?: Room[];
 }
 
 export class RoomType {
-    private readonly _id: Guid;
+    private readonly _id: string;
     private readonly _name: string;
     private readonly _icon: string;
-    private _rooms: Room[];
 
-    private constructor(id: Guid, name: string, icon: string, rooms: Room[]) {
+    private constructor(id: string, name: string, icon: string) {
         this._id = id;
         this._name = name;
         this._icon = icon;
-        this._rooms = rooms;
     }
 
-    static create(name: string, icon: string, rooms: Room[]): RoomType {
-        const roomType = new RoomType(Guid.create(), name, icon, rooms);
-        roomType.validateState();
+    static create(id: string, name: string, icon: string): RoomType {
+        const room_type = new RoomType(id, name, icon);
+        room_type.validateState();
 
-        return roomType;
+        return room_type;
     }
 
     static load(state: RoomTypeState): RoomType {
-        const roomType = new RoomType(
+        const room_type = new RoomType(
             state.id,
             state.name,
-            state.icon,
-            state.rooms || []
+            state.icon
         );
-        roomType.validateState();
+        room_type.validateState();
 
-        return roomType;
+        return room_type;
     }
 
     public validateState(): void {
@@ -56,7 +52,7 @@ export class RoomType {
         }
     }
 
-    get id(): Guid {
+    get id(): string {
         return this._id;
     }
 
@@ -66,9 +62,5 @@ export class RoomType {
 
     get icon(): string {
         return this._icon;
-    }
-
-    get rooms(): Room[] {
-        return this._rooms;
     }
 }

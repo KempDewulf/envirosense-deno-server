@@ -30,7 +30,7 @@
         "exclude": ["old/"]
     },
     "lock": false,
-    "nodeModulesDir": false,
+    "nodeModulesDir": "none",
     "test": {
         "include": ["tests/"],
         "exclude": ["old/"]

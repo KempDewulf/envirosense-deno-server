@@ -1,27 +1,26 @@
 import {
     DeviceData,
     DomainException,
-    Guid,
     Room,
 } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceState {
-    id: Guid;
+    id: string;
     identifier: string;
-    room: Room;
+    room?: Room | null;
     deviceData?: DeviceData[];
 }
 
 export class Device {
-    private readonly _id: Guid;
+    private readonly _id: string;
     private readonly _identifier: string;
     private _room: Room | null;
     private readonly _deviceData: DeviceData[];
 
     private constructor(
-        id: Guid,
+        id: string,
         identifier: string,
-        room: Room,
+        room: Room | null,
         deviceData: DeviceData[]
     ) {
         this._id = id;
@@ -31,11 +30,12 @@ export class Device {
     }
 
     static create(
+        id: string,
         identifier: string,
         room: Room,
         deviceData: DeviceData[]
     ): Device {
-        const device = new Device(Guid.create(), identifier, room, deviceData);
+        const device = new Device(id, identifier, room, deviceData);
         device.validateState();
 
         return device;
@@ -45,7 +45,7 @@ export class Device {
         const device = new Device(
             state.id,
             state.identifier,
-            state.room,
+            state.room || null,
             state.deviceData || []
         );
 
@@ -84,7 +84,7 @@ export class Device {
         }
     }
 
-    get id(): Guid {
+    get id(): string {
         return this._id;
     }
 

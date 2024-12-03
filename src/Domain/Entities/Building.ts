@@ -1,48 +1,45 @@
-import { Room, Guid } from "EnviroSense/Domain/mod.ts";
+import { Room } from "EnviroSense/Domain/mod.ts";
 import { DomainException } from "EnviroSense/Domain/Shared/Exceptions/DomainException.ts";
 
 export interface BuildingState {
-    id: Guid;
+    id: string;
     name: string;
     address: string;
     rooms?: Room[];
 }
 
 export class Building {
-    private readonly _id: Guid;
+    private readonly _id: string;
     private readonly _name: string;
     private readonly _address: string;
-    private _rooms: Room[];
+    private _rooms: Room[] = [];
 
     private constructor(
-        id: Guid,
+        id: string,
         name: string,
-        address: string,
-        rooms: Room[]
+        address: string
     ) {
         this._id = id;
         this._name = name;
         this._address = address;
-        this._rooms = rooms;
     }
 
-    static create(name: string, address: string, rooms: Room[]): Building {
-        const building = new Building(Guid.create(), name, address, rooms);
+    static create(id: string, name: string, address: string): Building {
+        const building = new Building(id, name, address);
         building.validateState();
 
         return building;
     }
 
     static load(state: BuildingState): Building {
-        const tournament = new Building(
+        const building = new Building(
             state.id,
             state.name,
-            state.address,
-            state.rooms || []
+            state.address
         );
-        tournament.validateState();
+        building.validateState();
 
-        return tournament;
+        return building;
     }
 
     public validateState(): void {
@@ -56,10 +53,10 @@ export class Building {
         this._rooms.push(room);
     }
 
-    public removeRoom(roomId: Guid): void {
+    public removeRoom(roomId: string): void {
         this.ensureRoomExists(roomId);
 
-        this._rooms = this._rooms.filter((room) => !room.id.isEqual(roomId));
+        this._rooms = this._rooms.filter((room) => room.id !== roomId);
     }
 
     private ensureNameIsNotEmpty(): void {
@@ -75,18 +72,18 @@ export class Building {
     }
 
     private ensureRoomDoesNotExist(room: Room): void {
-        if (this._rooms.some((r) => r.id.isEqual(room.id))) {
+        if (this._rooms.some((r) => r.id === room.id)) {
             throw new DomainException("Room already exists");
         }
     }
 
-    public ensureRoomExists(roomId: Guid): void {
-        if (!this._rooms.some((room) => room.id.isEqual(roomId))) {
+    public ensureRoomExists(roomId: string): void {
+        if (!this._rooms.some((room) => room.id === roomId)) {
             throw new DomainException("Room does not exist");
         }
     }
 
-    get id(): Guid {
+    get id(): string {
         return this._id;
     }
 

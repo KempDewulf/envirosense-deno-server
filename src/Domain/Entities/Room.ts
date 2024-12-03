@@ -2,46 +2,44 @@ import {
     Building,
     Device,
     DomainException,
-    Guid,
     RoomType,
 } from "EnviroSense/Domain/mod.ts";
 
 export interface RoomState {
-    id: Guid;
+    id: string;
     name: string;
-    building: Building;
-    roomType: RoomType;
+    building: Building | null;
+    roomType: RoomType | null;
     devices?: Device[];
 }
 
 export class Room {
-    private readonly _id: Guid;
+    private readonly _id: string;
     private readonly _name: string;
     private readonly _building: Building;
     private readonly _roomType: RoomType;
     private _devices: Device[];
 
     private constructor(
-        id: Guid,
+        id: string,
         name: string,
         building: Building,
-        roomType: RoomType,
-        devices: Device[]
+        roomType: RoomType
     ) {
         this._id = id;
         this._name = name;
         this._building = building;
         this._roomType = roomType;
-        this._devices = devices;
+        this._devices = [];
     }
 
     static create(
+        id: string,
         name: string,
         building: Building,
-        roomType: RoomType,
-        devices: Device[]
+        roomType: RoomType
     ): Room {
-        const room = new Room(Guid.create(), name, building, roomType, devices);
+        const room = new Room(id, name, building, roomType);
         room.validateState();
 
         return room;
@@ -49,12 +47,14 @@ export class Room {
 
     static load(state: RoomState): Room {
         const room = new Room(
-            state.id,
-            state.name,
-            state.building,
-            state.roomType,
-            state.devices || []
+          state.id,
+          state.name,
+          state.building,
+          state.roomType
         );
+
+        room._devices = state.devices ?? [];
+
         room.validateState();
 
         return room;
@@ -72,7 +72,7 @@ export class Room {
         this._devices.push(device);
     }
 
-    public removeDevice(deviceId: Guid): void {
+    public removeDevice(deviceId: string): void {
         this.ensureDeviceExists(deviceId);
 
         this._devices = this._devices.filter(
@@ -104,13 +104,13 @@ export class Room {
         }
     }
 
-    private ensureDeviceExists(deviceId: Guid): void {
+    private ensureDeviceExists(deviceId: string): void {
         if (!this._devices.some((d) => d.id === deviceId)) {
             throw new DomainException("Device does not exist in this room.");
         }
     }
 
-    get id(): Guid {
+    get id(): string {
         return this._id;
     }
 
@@ -123,6 +123,10 @@ export class Room {
     }
 
     get roomType(): RoomType {
+        return this._roomType;
+    }
+
+    get ['room-type'](): RoomType {
         return this._roomType;
     }
 
