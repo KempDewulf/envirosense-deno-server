@@ -9,3 +9,5 @@ export { Console } from 'EnviroSense/Infrastructure/Shared/Devices/Console.ts';
 export type { Controller } from 'EnviroSense/Infrastructure/Shared/Controller.ts';
 
 export type { View } from 'EnviroSense/Infrastructure/Shared/Devices/View.ts';
+
+export type { Module } from 'EnviroSense/Infrastructure/Shared/Modules/Module.ts';
