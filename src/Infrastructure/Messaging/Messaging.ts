@@ -1,6 +1,7 @@
 import { Client } from "https://deno.land/x/mqtt@0.1.2/deno/mod.ts";
 import { DeviceData } from "EnviroSense/Domain/Entities/DeviceData.ts";
 import "jsr:@std/dotenv/load";
+import { AirData } from 'EnviroSense/Domain/mod.ts';
 //import { DeviceDataStrapiRepository } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/DeviceData/DeviceDataStrapiRepository.ts";
 
 
@@ -24,7 +25,8 @@ export class Messaging {
             const deviceId: string = this.getDeviceId(topic);
             console.log(`Received message: ${msg} from topic: ${topic}`);
 
-            const data = JSON.parse(msg);
+            const airData: AirData = JSON.parse(msg);
+
             const deviceData = DeviceData.create(
                 data.id,
                 data.deviceId,
