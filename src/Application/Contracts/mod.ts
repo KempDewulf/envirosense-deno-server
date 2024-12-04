@@ -43,6 +43,7 @@ export type { ShowRoomTypeByDocumentIdOutput } from "./RoomType/ShowRoomTypesByD
 
 export type {
     RoomTypeQueryAllDto,
+    RoomTypeQueryByDocumentIdDto,
     RoomTypeQueryRepository,
 } from "./Ports/Repositories/RoomType/RoomTypeQueryRepository.ts";
 
