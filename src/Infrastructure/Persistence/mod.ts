@@ -8,3 +8,6 @@ export { BuildingStrapiQueryRepository } from "./Repositories/Strapi/Building/Bu
 
 export { DeviceStrapiRepository } from "./Repositories/Strapi/Device/DeviceStrapiRepository.ts";
 export { DeviceStrapiQueryRepository } from "./Repositories/Strapi/Device/DeviceStrapiQueryRepository.ts";
+
+export { RoomTypeStrapiRepository } from "./Repositories/Strapi/RoomType/RoomTypeStrapiRepository.ts";
+export { RoomTypeStrapiQueryRepository } from "./Repositories/Strapi/RoomType/RoomTypeStrapiQueryRepository.ts";
