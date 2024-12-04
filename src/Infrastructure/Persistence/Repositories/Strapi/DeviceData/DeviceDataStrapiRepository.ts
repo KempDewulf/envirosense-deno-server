@@ -1,60 +1,64 @@
-import { Optional, Building } from "EnviroSense/Domain/mod.ts";
+import { Optional, DeviceData } from "EnviroSense/Domain/mod.ts";
 import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
-import { BuildingRepository } from "EnviroSense/Application/Contracts/mod.ts";
+import { DeviceDataRepository } from "EnviroSense/Application/Contracts/mod.ts";
 
-export class BuildingStrapiRepository
+export class DeviceDataStrapiRepository
     extends StrapiQueryRepository
-    implements BuildingRepository
+    implements DeviceDataRepository
 {
-    async find(buildingId: string): Promise<Optional<Building>> {
-        const endpoint = `buildings/${buildingId.toString()}`;
+    async find(deviceDataId: string): Promise<Optional<DeviceData>> {
+        const endpoint = `device-data/${deviceDataId.toString()}`;
         const params: Record<string, string> = {};
 
         try {
             const response = await this.get<any>(endpoint, params);
-            const building = this.mapToDomain(response.data);
-            return Optional.of<Building>(building);
+            const deviceData = this.mapToDomain(response.data);
+            return Optional.of<DeviceData>(deviceData);
         } catch {
-            return Optional.empty<Building>();
+            return Optional.empty<DeviceData>();
         }
     }
 
-    async save(building: Building): Promise<void> {
-        const endpoint = `buildings`;
-        const body = this.mapFromDomain(building);
+    async save(deviceData: DeviceData): Promise<void> {
+        const endpoint = `device-data`;
+        const body = this.mapFromDomain(deviceData);
 
         return await this.post(endpoint, { data: body });
     }
 
-    async update(building: Building): Promise<void> {
-        const endpoint = `buildings/${building.id}`;
-        const body = this.mapFromDomain(building);
+    async update(deviceData: DeviceData): Promise<void> {
+        const endpoint = `device-data/${deviceData.id}`;
+        const body = this.mapFromDomain(deviceData);
 
         return await this.put(endpoint, { data: body });
     }
 
-    async deleteEntity(building: Building): Promise<void> {
-        const endpoint = `buildings/${building.id}`;
+    async deleteEntity(deviceData: DeviceData): Promise<void> {
+        const endpoint = `device-data/${deviceData.id}`;
 
         return await this.delete(endpoint);
     }
 
-    private mapToDomain(data: any): Building {
-        const building = Building.load({
-            id: data.documentId,
-            name: data.name,
-            address: data.address,
-            rooms: data.rooms,
+    private mapToDomain(data: any): DeviceData {
+        const deviceData = DeviceData.load({
+            id: data.id,
+            device: data.device,
+            timestamp: data.timestamp,
+            temperature: data.temperature,
+            humidity: data.humidity,
+            gasPpm: data.gas_ppm,
         });
 
-        return building;
+        return deviceData;
     }
 
-    private mapFromDomain(building: Building): any {
+    private mapFromDomain(deviceData: DeviceData): any {
         return {
-            name: building.name,
-            address: building.address,
-            rooms: building.rooms,
+            device: deviceData.device,
+            timestamp: deviceData.timestamp,
+            temperature: deviceData.temperature,
+            humidity: deviceData.humidity,
+            gas_ppm: deviceData.gasPpm,
         };
     }
 }
