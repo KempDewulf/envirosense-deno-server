@@ -22,7 +22,7 @@ export class DeviceStrapiQueryRepository
             id: item.id,
             documentId: item.documentId,
             identifier: item.identifier,
-            room: item.rooms,
+            room: item.room,
             device_data: item.device_data
         };
     }

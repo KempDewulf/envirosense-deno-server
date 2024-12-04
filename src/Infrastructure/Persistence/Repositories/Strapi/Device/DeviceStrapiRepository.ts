@@ -43,7 +43,7 @@ export class DeviceStrapiRepository
         const device = Device.load({
             id: data.documentId,
             identifier: data.identifier,
-            room: data.rooms,
+            room: data.room,
             deviceData: data.deviceData,
         });
 
