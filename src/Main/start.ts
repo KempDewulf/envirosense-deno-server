@@ -5,7 +5,6 @@ import {
     DeviceStrapiRepository,
 } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { Device } from "EnviroSense/Domain/mod.ts";
 
 new WebApiModule(8101).run();
 
