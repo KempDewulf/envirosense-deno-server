@@ -5,9 +5,6 @@ import { Messaging } from 'EnviroSense/Infrastructure/Messaging/mod.ts';
 
 (new WebApiModule(8101)).run();
 
-const repo = new BuildingStrapiRepository();
-const repoQuery = new BuildingStrapiQueryRepository();
-const repoQueryRooms = new RoomStrapiQueryRepository();
 const mqttClient = new Messaging();
 
 async function logMessages() {

@@ -1,5 +1,6 @@
 import { Client } from "https://deno.land/x/mqtt@0.1.2/deno/mod.ts";
 import { DeviceData } from "EnviroSense/Domain/Entities/DeviceData.ts";
+import "jsr:@std/dotenv/load";
 //import { DeviceDataStrapiRepository } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/DeviceData/DeviceDataStrapiRepository.ts";
 
 
@@ -8,7 +9,7 @@ export class Messaging {
     //private repository: DeviceDataStrapiRepository;
 
     constructor() {
-        this.client = new Client({url: 'mqtt://94.130.75.173:1883', username: "server", password: "PdtwMva9833Z"});
+        this.client = new Client({url: Deno.env.get("MQTT_BROKER"), username: Deno.env.get("MQTT_USERNAME"), password: Deno.env.get("MQTT_PASSWORD")});
     }
 
     public async connect(): Promise<void> {
