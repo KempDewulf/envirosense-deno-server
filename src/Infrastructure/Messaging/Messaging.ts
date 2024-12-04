@@ -28,12 +28,13 @@ export class Messaging {
             const airData: AirData = JSON.parse(msg);
 
             const deviceData = DeviceData.create(
-                data.id,
+                '',
                 data.deviceId,
                 new Date(),
-                data.temperature,
-                data.humidity,
-                data.gasPpm
+                airData.temperature,
+                airData.humidity,
+                0
+                //airData.gasPpm
             );
 
             //this.repository.save(deviceData).then();
