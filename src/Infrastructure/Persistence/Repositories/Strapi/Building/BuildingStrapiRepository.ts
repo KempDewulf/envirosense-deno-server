@@ -1,8 +1,11 @@
 import { Optional, Building } from "EnviroSense/Domain/mod.ts";
 import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
-import { BuildingRepository } from 'EnviroSense/Application/Contracts/mod.ts';
+import { BuildingRepository } from "EnviroSense/Application/Contracts/mod.ts";
 
-export class BuildingStrapiRepository extends StrapiQueryRepository implements BuildingRepository {
+export class BuildingStrapiRepository
+    extends StrapiQueryRepository
+    implements BuildingRepository
+{
     async find(buildingId: string): Promise<Optional<Building>> {
         const endpoint = `buildings/${buildingId.toString()}`;
         const params: Record<string, string> = {};
@@ -41,7 +44,7 @@ export class BuildingStrapiRepository extends StrapiQueryRepository implements B
             id: data.documentId,
             name: data.name,
             address: data.address,
-            rooms: data.rooms
+            rooms: data.rooms,
         });
 
         return building;
@@ -49,9 +52,9 @@ export class BuildingStrapiRepository extends StrapiQueryRepository implements B
 
     private mapFromDomain(building: Building): any {
         return {
-            "name": building.name,
-            "address": building.address,
-            "rooms": building.rooms
+            name: building.name,
+            address: building.address,
+            rooms: building.rooms,
         };
     }
 }

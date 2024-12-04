@@ -5,3 +5,6 @@ export { RoomStrapiQueryRepository } from "./Repositories/Strapi/Room/RoomStrapi
 
 export { BuildingStrapiRepository } from "./Repositories/Strapi/Building/BuildingStrapiRepository.ts";
 export { BuildingStrapiQueryRepository } from "./Repositories/Strapi/Building/BuildingStrapiQueryRepository.ts";
+
+export { DeviceStrapiRepository } from "./Repositories/Strapi/Device/DeviceStrapiRepository.ts";
+export { DeviceStrapiQueryRepository } from "./Repositories/Strapi/Device/DeviceStrapiQueryRepository.ts";
