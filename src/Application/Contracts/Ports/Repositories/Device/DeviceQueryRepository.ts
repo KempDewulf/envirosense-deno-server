@@ -4,7 +4,7 @@ export interface DeviceQueryAllDto {
     id: string;
     documentId: string;
     identifier: string;
-    room: Room[];
+    room: Room;
     device_data: DeviceData[];
 }
 
