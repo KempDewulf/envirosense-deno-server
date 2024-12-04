@@ -33,3 +33,14 @@ export type {
 } from "./Ports/Repositories/Device/DeviceQueryRepository.ts";
 
 export type { DeviceRepository } from "./Ports/Repositories/Device/DeviceRepository.ts";
+
+//RoomTypes
+export type { ShowRoomTypesInput } from "./RoomType/ShowRoomTypesInput.ts";
+export type { ShowRoomTypesOutput } from "./RoomType/ShowRoomTypesOutput.ts";
+
+export type {
+    RoomTypeQueryAllDto,
+    RoomTypeQueryRepository,
+} from "./Ports/Repositories/RoomType/RoomTypeQueryRepository.ts";
+
+export type { RoomTypeRepository } from "./Ports/Repositories/RoomType/RoomTypeRepository.ts";
