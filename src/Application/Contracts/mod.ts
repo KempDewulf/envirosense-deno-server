@@ -38,6 +38,9 @@ export type { DeviceRepository } from "./Ports/Repositories/Device/DeviceReposit
 export type { ShowRoomTypesInput } from "./RoomType/ShowRoomTypesInput.ts";
 export type { ShowRoomTypesOutput } from "./RoomType/ShowRoomTypesOutput.ts";
 
+export type { ShowRoomTypeByDocumentIdInput } from "./RoomType/ShowRoomTypesByDocumentIdInput.ts";
+export type { ShowRoomTypeByDocumentIdOutput } from "./RoomType/ShowRoomTypesByDocumentIdOutput.ts";
+
 export type {
     RoomTypeQueryAllDto,
     RoomTypeQueryRepository,
