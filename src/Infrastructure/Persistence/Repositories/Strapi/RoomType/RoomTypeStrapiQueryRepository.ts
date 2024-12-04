@@ -2,7 +2,7 @@ import {
     RoomTypeQueryRepository,
     RoomTypeQueryAllDto,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
+import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";-
 
 export class RoomTypeStrapiQueryRepository
     extends StrapiQueryRepository
