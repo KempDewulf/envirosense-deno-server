@@ -9,7 +9,7 @@ const mqttClient = new Messaging();
 
 async function logMessages() {
     await mqttClient.connect();
-    await mqttClient.subscribe('test/test1');
+    await mqttClient.subscribe('test/#');
 }
 
 //logMessages();
