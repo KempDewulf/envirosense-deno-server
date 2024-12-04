@@ -4,9 +4,10 @@ import {
     TestEndpoint,
     ShowRoomsEndpoint,
     ShowDeviceDataEndpoint,
+    ShowBuildingsEndpoint,
+    ShowRoomTypesEndpoint,
+    ShowRoomTypeByDocumentIdEndpoint,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import { ShowBuildingsEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowBuildingsEndpoint.ts";
-import { ShowRoomTypesEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowRoomTypesEndpoint.ts";
 
 function use(endpoint: Endpoint) {
     return (context: RouterContext<string>) => endpoint.handle(context);
@@ -19,6 +20,10 @@ export function endpoints(): Router {
     router.get("/rooms", use(new ShowRoomsEndpoint()));
     router.get("/buildings", use(new ShowBuildingsEndpoint()));
     router.get("/room-types", use(new ShowRoomTypesEndpoint()));
+    router.get(
+        "/room-types/:roomTypeDocumentId",
+        use(new ShowRoomTypeByDocumentIdEndpoint())
+    );
     router.get("/device-data", use(new ShowDeviceDataEndpoint()));
 
     return router;
