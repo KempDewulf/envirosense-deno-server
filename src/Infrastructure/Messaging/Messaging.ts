@@ -19,7 +19,7 @@ export class Messaging {
 
     public async subscribe(topic: string): Promise<void> {
         await this.client.subscribe(topic);
-        this.client.on('message', (topic, payload) => {
+        this.client.on('message', (topic: string, payload: Uint8Array) => {
             const msg = new TextDecoder().decode(payload);
             console.log(`Received message: ${msg} from topic: ${topic}`);
 
