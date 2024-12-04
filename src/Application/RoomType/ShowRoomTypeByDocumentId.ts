@@ -4,40 +4,41 @@ import {
     ShowRoomTypeByDocumentIdInput,
     ShowRoomTypeByDocumentIdOutput,
     RoomTypeQueryByDocumentIdDto,
-    RoomTypeRepository,
+    RoomTypeQueryRepository,
 } from "EnviroSense/Application/Contracts/mod.ts";
 
 export class ShowRoomTypeByDocumentId
     implements UseCase<ShowRoomTypeByDocumentIdInput>
 {
-    private readonly _outputPort: OutputPort<ShowRoomTypeByDocumentIdOutput[]>;
-    private readonly _roomTypeRepository: RoomTypeRepository;
+    private readonly _outputPort: OutputPort<ShowRoomTypeByDocumentIdOutput>;
+    private readonly _roomTypeQueryRepository: RoomTypeQueryRepository;
 
     constructor(
-        outputPort: OutputPort<ShowRoomTypeByDocumentIdOutput[]>,
-        roomTypeQueryRepository: RoomTypeRepository
+        outputPort: OutputPort<ShowRoomTypeByDocumentIdOutput>,
+        roomTypeRepository: RoomTypeQueryRepository
     ) {
         this._outputPort = outputPort;
-        this._roomTypeRepository = roomTypeQueryRepository;
+        this._roomTypeQueryRepository = roomTypeRepository;
     }
 
     public async execute(input: ShowRoomTypeByDocumentIdInput): Promise<void> {
-        const roomTypeDto = await this._roomTypeRepository.find(
+        const roomTypeDto = await this._roomTypeQueryRepository.find(
             input.roomTypeDocumentId
         );
-        const roomTypes = this.mapDtoToOutput(roomTypeDto);
-        this._outputPort.present(roomTypes);
+
+        const roomType = this.mapDtoToOutput(roomTypeDto);
+        this._outputPort.present(roomType);
     }
 
     private mapDtoToOutput(
         dto: RoomTypeQueryByDocumentIdDto
-    ): ShowRoomTypeByDocumentIdOutput[] {
-        return dto.map((item) => ({
-            id: item.id,
-            documentId: item.documentId,
-            name: item.name,
-            icon: item.icon,
-            rooms: item.rooms,
-        }));
+    ): ShowRoomTypeByDocumentIdOutput {
+        return {
+            id: dto.id,
+            documentId: dto.documentId,
+            name: dto.name,
+            icon: dto.icon,
+            rooms: dto.rooms,
+        };
     }
 }

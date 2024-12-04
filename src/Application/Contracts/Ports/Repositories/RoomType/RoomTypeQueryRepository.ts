@@ -18,4 +18,5 @@ export interface RoomTypeQueryByDocumentIdDto {
 
 export interface RoomTypeQueryRepository {
     all(name: string): Promise<RoomTypeQueryAllDto[]>;
+    find(roomTypeDocumentId: string): Promise<RoomTypeQueryByDocumentIdDto>;
 }
