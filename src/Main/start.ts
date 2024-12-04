@@ -1,10 +1,17 @@
-import { WebApiModule } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
-import { DeviceStrapiQueryRepository, DeviceStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
-import { Building } from 'EnviroSense/Domain/mod.ts';
-import { Messaging } from 'EnviroSense/Infrastructure/Messaging/mod.ts';
+import { WebApiModule } from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import {
+    DeviceDataStrapiRepository,
+    DeviceDataStrapiQueryRepository,
+    DeviceStrapiRepository,
+} from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+import { Device } from "EnviroSense/Domain/mod.ts";
 
-(new WebApiModule(8101)).run();
+new WebApiModule(8101).run();
 
+const repo = new DeviceDataStrapiRepository();
+const repoQuery = new DeviceDataStrapiQueryRepository();
+const deviceRepo = new DeviceStrapiRepository();
 const mqttClient = new Messaging();
 
 async function logMessages() {
@@ -13,22 +20,21 @@ async function logMessages() {
 }
 
 //logMessages();
-const repo = new DeviceStrapiRepository();
-const repoQuery = new DeviceStrapiQueryRepository();
 
-async function createDevice(): Promise<any> {
-    const buildingModel = Building.create('', 'Building Test', 'Building test description');
-    return await repo.save(buildingModel);
-}
-
-async function findAllDevices(name: string = ''): Promise<any> {
-    return await repoQuery.all(name);
+async function findAllRoomTypes(identifier: string = ''): Promise<any> {
+    return await repoQuery.all(identifier);
 }
 
 async function findDevice(id: string): Promise<any> {
+    return await deviceRepo.find(id);
+}
+
+async function findRoomTypes(id: string): Promise<any> {
     return await repo.find(id);
 }
 
-const devicesFound = await findAllDevices();
+const deviceFound = await findDevice("himquek1ciicfppeno9sdd59");
+const roomTypesFound = await findAllRoomTypes(deviceFound.value.identifier);
 
-console.log(devicesFound);
+console.log(roomTypesFound);
+//lw7dl0pg1ysqrkbsab3q7o7a

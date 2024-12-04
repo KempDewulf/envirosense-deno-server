@@ -33,3 +33,25 @@ export type {
 } from "./Ports/Repositories/Device/DeviceQueryRepository.ts";
 
 export type { DeviceRepository } from "./Ports/Repositories/Device/DeviceRepository.ts";
+
+//RoomTypes
+export type { ShowRoomTypesInput } from "./RoomType/ShowRoomTypesInput.ts";
+export type { ShowRoomTypesOutput } from "./RoomType/ShowRoomTypesOutput.ts";
+
+export type {
+    RoomTypeQueryAllDto,
+    RoomTypeQueryRepository,
+} from "./Ports/Repositories/RoomType/RoomTypeQueryRepository.ts";
+
+export type { RoomTypeRepository } from "./Ports/Repositories/RoomType/RoomTypeRepository.ts";
+
+//DeviceData
+export type { ShowDeviceDataInput } from "./DeviceData/ShowDeviceDataInput.ts";
+export type { ShowDeviceDataOutput } from "./DeviceData/ShowDeviceDataOutput.ts";
+
+export type {
+    DeviceDataQueryAllDto,
+    DeviceDataQueryRepository,
+} from "./Ports/Repositories/DeviceData/DeviceDataQueryRepository.ts";
+
+export type { DeviceDataRepository } from "./Ports/Repositories/DeviceData/DeviceDataRepository.ts";
