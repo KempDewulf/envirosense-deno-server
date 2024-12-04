@@ -22,3 +22,14 @@ export type {
 } from "./Ports/Repositories/Building/BuildingQueryRepository.ts";
 
 export type { BuildingRepository } from "./Ports/Repositories/Building/BuildingRepository.ts";
+
+//Devices
+export type { ShowDevicesInput } from "./Device/ShowDevicesInput.ts";
+export type { ShowDevicesOutput } from "./Device/ShowDevicesOutput.ts";
+
+export type {
+    DeviceQueryAllDto,
+    DeviceQueryRepository,
+} from "./Ports/Repositories/Device/DeviceQueryRepository.ts";
+
+export type { DeviceRepository } from "./Ports/Repositories/Device/DeviceRepository.ts";
