@@ -1,6 +1,6 @@
 import { DeviceData, Room } from 'EnviroSense/Domain/mod.ts';
 
-export interface ShowBuildingsOutput {
+export interface ShowDevicesOutput {
     id: string;
     documentId: string;
     identifier: string;
