@@ -20,7 +20,8 @@ export class Messaging {
     public async subscribe(topic: string): Promise<void> {
         await this.client.subscribe(topic);
         this.client.on('message', (topic: string, payload: Uint8Array) => {
-            const msg = new TextDecoder().decode(payload);
+            const msg: string = new TextDecoder().decode(payload);
+            const deviceId: string = this.getDeviceId(topic);
             console.log(`Received message: ${msg} from topic: ${topic}`);
 
             const data = JSON.parse(msg);
@@ -40,6 +41,10 @@ export class Messaging {
 
     public async publish(topic: string, message: string): Promise<void> {
         await this.client.publish(topic, message);
+    }
+
+    private getDeviceId(topic: string): string {
+        return topic.split('/')[1] || '';
     }
 }
 
