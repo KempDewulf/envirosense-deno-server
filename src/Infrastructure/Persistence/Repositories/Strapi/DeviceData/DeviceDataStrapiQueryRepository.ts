@@ -12,7 +12,7 @@ export class DeviceDataStrapiQueryRepository
         const endpoint = 'device-datas';
         //check if this really works like this since we need to filter on device its identifier probably - now we juts use device
         //probably some thing with this part: 'filters[device][$contains]' below
-        const params = identifier ? { 'filters[identifier][$contains]': identifier, 'populate': '*' } : undefined;
+        const params = identifier ? { 'filters[device][identifier][$contains]': identifier, 'populate': '*' } : undefined;
         const response = await this.get<any>(endpoint, params);
         const deviceData = response.data.map((item: any) => this.mapToDto(item));
         return deviceData;

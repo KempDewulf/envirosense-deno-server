@@ -33,8 +33,8 @@ async function findRoomTypes(id: string): Promise<any> {
     return await repo.find(id);
 }
 
-const deviceFound = await findDevice("w7v8g55kcsl7qm5my9gseeou");
-const roomTypesFound = await findAllRoomTypes(deviceFound);
+const deviceFound = await findDevice("himquek1ciicfppeno9sdd59");
+const roomTypesFound = await findAllRoomTypes(deviceFound.value.identifier);
 
 console.log(roomTypesFound);
 //lw7dl0pg1ysqrkbsab3q7o7a
