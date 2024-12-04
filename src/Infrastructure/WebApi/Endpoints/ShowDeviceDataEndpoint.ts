@@ -35,13 +35,14 @@ export class ShowDeviceDataEndpoint implements Endpoint {
         return new ShowDeviceDataEndpoint();
     }
 
+     //check if this really works like this since we need to filter on device its identifier probably - now we juts use device
     private buildRequest(
         context: RouterContext<string>
     ): ShowDeviceDataRequest {
-        const name = context.request.url.searchParams.get("name")
-            ? context.request.url.searchParams.get("name")
+        const device = context.request.url.searchParams.get("device")
+            ? context.request.url.searchParams.get("device")
             : "";
 
-        return { name } as ShowDeviceDataRequest;
+        return { device } as ShowDeviceDataRequest;
     }
 }
