@@ -3,8 +3,6 @@ import {
     RoomTypeStrapiRepository,
     RoomTypeStrapiQueryRepository,
 } from "EnviroSense/Infrastructure/Persistence/mod.ts";
-import { DeviceStrapiQueryRepository, DeviceStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
-import { Building } from 'EnviroSense/Domain/mod.ts';
 import { Messaging } from 'EnviroSense/Infrastructure/Messaging/mod.ts';
 
 new WebApiModule(8101).run();
