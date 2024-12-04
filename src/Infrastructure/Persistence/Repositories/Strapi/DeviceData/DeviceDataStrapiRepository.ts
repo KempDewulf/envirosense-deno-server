@@ -7,7 +7,7 @@ export class DeviceDataStrapiRepository
     implements DeviceDataRepository
 {
     async find(deviceDataId: string): Promise<Optional<DeviceData>> {
-        const endpoint = `device-data/${deviceDataId.toString()}`;
+        const endpoint = `device-datas/${deviceDataId.toString()}`;
         const params: Record<string, string> = {};
 
         try {
@@ -20,21 +20,21 @@ export class DeviceDataStrapiRepository
     }
 
     async save(deviceData: DeviceData): Promise<void> {
-        const endpoint = `device-data`;
+        const endpoint = `device-datas`;
         const body = this.mapFromDomain(deviceData);
 
         return await this.post(endpoint, { data: body });
     }
 
     async update(deviceData: DeviceData): Promise<void> {
-        const endpoint = `device-data/${deviceData.id}`;
+        const endpoint = `device-datas/${deviceData.id}`;
         const body = this.mapFromDomain(deviceData);
 
         return await this.put(endpoint, { data: body });
     }
 
     async deleteEntity(deviceData: DeviceData): Promise<void> {
-        const endpoint = `device-data/${deviceData.id}`;
+        const endpoint = `device-datas/${deviceData.id}`;
 
         return await this.delete(endpoint);
     }

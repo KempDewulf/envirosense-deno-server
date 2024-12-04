@@ -70,7 +70,7 @@ export class StrapiQueryRepository {
 
         const url = this.buildUrl(endpoint, params);
         const options = this.buildRequestOptions(method, body);
-
+        console.log(url, options, method, body, params);
         const response = await fetch(url, options);
         await this.handleErrors(response);
         return await this.processResponse<T>(response, method);

@@ -10,12 +10,11 @@ export class DeviceDataStrapiQueryRepository
     implements DeviceDataQueryRepository
 {
     async all(device: Device | null): Promise<DeviceDataQueryAllDto[]> {
-        const endpoint = 'device-data';
+        const endpoint = 'device-datas';
         //check if this really works like this since we need to filter on device its identifier probably - now we juts use device
         //probably some thing with this part: 'filters[device][$contains]' below
         const params = device ? { 'filters[device][$contains]': device.identifier, 'populate': '*' } : undefined;
         const response = await this.get<any>(endpoint, params);
-
         const deviceData = response.data.map((item: any) => this.mapToDto(item));
         return deviceData;
     }
