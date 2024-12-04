@@ -6,8 +6,8 @@ export class RoomTypeStrapiRepository
     extends StrapiQueryRepository
     implements RoomTypeRepository
 {
-    async find(roomTypeId: string): Promise<Optional<RoomType>> {
-        const endpoint = `room-types/${roomTypeId.toString()}`;
+    async find(roomTypeDocumentId: string): Promise<Optional<RoomType>> {
+        const endpoint = `room-types/${roomTypeDocumentId.toString()}`;
         const params: Record<string, string> = {};
 
         try {

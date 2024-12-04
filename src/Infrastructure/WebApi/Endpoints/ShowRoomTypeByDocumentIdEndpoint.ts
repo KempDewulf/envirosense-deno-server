@@ -38,10 +38,10 @@ export class ShowRoomTypeByDocumentIdEndpoint implements Endpoint {
     private buildRequest(
         context: RouterContext<string>
     ): ShowRoomTypeByDocumentIdRequest {
-        const name = context.request.url.searchParams.get("name")
-            ? context.request.url.searchParams.get("name")
+        const roomTypeDocumentId = context.request.url.searchParams.get("roomTypeDocumentId")
+            ? context.request.url.searchParams.get("roomTypeDocumentId")
             : "";
 
-        return { name } as ShowRoomTypeByDocumentIdRequest;
+        return { roomTypeDocumentId } as ShowRoomTypeByDocumentIdRequest;
     }
 }

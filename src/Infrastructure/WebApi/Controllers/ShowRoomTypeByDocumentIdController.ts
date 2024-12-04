@@ -5,7 +5,7 @@ import {
 } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface ShowRoomTypeByDocumentIdRequest {
-    name: string;
+    roomTypeDocumentId: string;
 }
 
 export class ShowRoomTypeByDocumentIdController
@@ -27,6 +27,6 @@ export class ShowRoomTypeByDocumentIdController
     protected mapToUseCaseInput(
         request: ShowRoomTypeByDocumentIdRequest
     ): ShowRoomTypeByDocumentIdInput {
-        return { name: request.name };
+        return { roomTypeDocumentId: request.roomTypeDocumentId };
     }
 }
