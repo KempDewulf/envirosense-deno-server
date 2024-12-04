@@ -3,3 +3,4 @@ export { ShowBuildings } from "./Building/ShowBuildings.ts";
 export { ShowDevices } from "./Device/ShowDevice.ts";
 export { ShowRoomTypes } from "./RoomType/ShowRoomType.ts";
 export { ShowDeviceData } from "./DeviceData/ShowDeviceData.ts";
+export { ProcessAirData } from "./AirData/ProcessAirData.ts";
