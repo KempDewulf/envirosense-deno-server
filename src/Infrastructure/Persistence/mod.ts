@@ -11,3 +11,6 @@ export { DeviceStrapiQueryRepository } from "./Repositories/Strapi/Device/Device
 
 export { RoomTypeStrapiRepository } from "./Repositories/Strapi/RoomType/RoomTypeStrapiRepository.ts";
 export { RoomTypeStrapiQueryRepository } from "./Repositories/Strapi/RoomType/RoomTypeStrapiQueryRepository.ts";
+
+export { DeviceDataStrapiRepository } from "./Repositories/Strapi/DeviceData/DeviceDataStrapiRepository.ts";
+export { DeviceDataStrapiQueryRepository } from "./Repositories/Strapi/DeviceData/DeviceDataStrapiQueryRepository.ts";
