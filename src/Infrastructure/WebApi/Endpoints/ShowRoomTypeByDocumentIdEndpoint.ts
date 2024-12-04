@@ -13,15 +13,15 @@ import { ShowRoomTypes } from "EnviroSense/Application/mod.ts";
 export class ShowRoomTypeByDocumentIdEndpoint implements Endpoint {
     async handle(context: RouterContext<string>): Promise<void> {
         const outputDevice = new RequestResponse<
-            ShowRoomTypesPresentedData[]
+            ShowRoomTypeByDocumentIdPresentedData[]
         >();
-        const presenter = new ShowRoomTypesPresenter(outputDevice);
+        const presenter = new ShowRoomTypeByDocumentIdPresenter(outputDevice);
 
         const repository = new RoomTypeStrapiQueryRepository();
 
         const useCase = new ShowRoomTypes(presenter, repository);
 
-        const controller = new ShowRoomTypesController(useCase);
+        const controller = new ShowRoomTypeByDocumentIdController(useCase);
         const request = this.buildRequest(context);
         await controller.handle(request);
 
@@ -32,14 +32,16 @@ export class ShowRoomTypeByDocumentIdEndpoint implements Endpoint {
     }
 
     static create(): Endpoint {
-        return new ShowRoomTypesEndpoint();
+        return new ShowRoomTypeByDocumentIdEndpoint();
     }
 
-    private buildRequest(context: RouterContext<string>): ShowRoomTypesRequest {
+    private buildRequest(
+        context: RouterContext<string>
+    ): ShowRoomTypeByDocumentIdRequest {
         const name = context.request.url.searchParams.get("name")
             ? context.request.url.searchParams.get("name")
             : "";
 
-        return { name } as ShowRoomTypesRequest;
+        return { name } as ShowRoomTypeByDocumentIdRequest;
     }
 }
