@@ -3,17 +3,16 @@ import {
     DeviceDataQueryAllDto,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
-import { Device } from 'EnviroSense/Domain/mod.ts';
 
 export class DeviceDataStrapiQueryRepository
     extends StrapiQueryRepository
     implements DeviceDataQueryRepository
 {
-    async all(device: Device | null): Promise<DeviceDataQueryAllDto[]> {
+    async all(identifier: string): Promise<DeviceDataQueryAllDto[]> {
         const endpoint = 'device-datas';
         //check if this really works like this since we need to filter on device its identifier probably - now we juts use device
         //probably some thing with this part: 'filters[device][$contains]' below
-        const params = device ? { 'filters[device][$contains]': device.identifier, 'populate': '*' } : undefined;
+        const params = identifier ? { 'filters[identifier][$contains]': identifier, 'populate': '*' } : undefined;
         const response = await this.get<any>(endpoint, params);
         const deviceData = response.data.map((item: any) => this.mapToDto(item));
         return deviceData;

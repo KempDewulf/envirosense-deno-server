@@ -3,11 +3,9 @@ import {
     ShowDeviceDataInput,
     UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { Device } from "EnviroSense/Domain/mod.ts";
 
 export interface ShowDeviceDataRequest {
-    //check if this really works like this since we need to filter on device its identifier probably - now we juts use device
-    device: Device;
+    identifier: string;
 }
 
 export class ShowDeviceDataController
@@ -27,7 +25,6 @@ export class ShowDeviceDataController
     protected mapToUseCaseInput(
         request: ShowDeviceDataRequest
     ): ShowDeviceDataInput {
-        //check if this really works like this since we need to filter on device its identifier probably - now we juts use device
-        return { device: request.device };
+        return { identifier: request.identifier };
     }
 }

@@ -2,7 +2,6 @@ import { WebApiModule } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import {
     DeviceDataStrapiRepository,
     DeviceDataStrapiQueryRepository,
-    DeviceStrapiQueryRepository,
     DeviceStrapiRepository,
 } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
@@ -22,8 +21,8 @@ async function logMessages() {
 
 //logMessages();
 
-async function findAllRoomTypes(device: Device | null = null): Promise<any> {
-    return await repoQuery.all(device);
+async function findAllRoomTypes(identifier: string = ''): Promise<any> {
+    return await repoQuery.all(identifier);
 }
 
 async function findDevice(id: string): Promise<any> {
