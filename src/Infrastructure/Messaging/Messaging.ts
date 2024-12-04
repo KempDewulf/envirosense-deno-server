@@ -1,59 +1,47 @@
 import { Client } from "https://deno.land/x/mqtt@0.1.2/deno/mod.ts";
-import { DeviceData } from "EnviroSense/Domain/Entities/DeviceData.ts";
+import { AirData } from 'EnviroSense/Domain/mod.ts';
+import { ProcessAirData } from "EnviroSense/Application/mod.ts";
+import { ProcessAirDataInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import { DeviceStrapiRepository, DeviceDataStrapiRepository} from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import "jsr:@std/dotenv/load";
-import { AirData, Device } from 'EnviroSense/Domain/mod.ts';
-//import { DeviceDataStrapiRepository } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/DeviceData/DeviceDataStrapiRepository.ts";
-import { DeviceStrapiRepository } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Device/DeviceStrapiRepository.ts";
 
 
 export class Messaging {
     private client: Client;
-    //private deviceDataRepository: DeviceDataStrapiRepository;
-    private deviceRepository: DeviceStrapiRepository;
+    private processAirDataUseCase: UseCase<ProcessAirDataInput>;
 
-
-    constructor() {
+    constructor() {        
         this.client = new Client({
             url: Deno.env.get("MQTT_BROKER"), 
             username: Deno.env.get("MQTT_USERNAME"), 
             password: Deno.env.get("MQTT_PASSWORD")
         });
-        //this.deviceDataRepository = new DeviceDataStrapiRepository();
-        this.deviceRepository = new DeviceStrapiRepository();
+        const deviceRepository = new DeviceStrapiRepository();
+        const deviceDataRepository = new DeviceDataStrapiRepository();
+
+        this.processAirDataUseCase = new ProcessAirData(
+            deviceRepository,
+            deviceDataRepository
+        );
     }
 
     public async connect(): Promise<void> {
         await this.client.connect();
-        //this.repository = new DeviceDataStrapiRepository();
     }
 
     public async subscribe(topic: string): Promise<void> {
         await this.client.subscribe(topic);
         this.client.on('message', async (topic: string, payload: Uint8Array) => {
-            const msg: string = new TextDecoder().decode(payload);
-            const deviceId: string = this.getDeviceId(topic);
-            console.log(`Received message: ${msg} from topic: ${topic}`);
-
+            const msg = new TextDecoder().decode(payload);
+            const deviceIdentifier = this.getDeviceId(topic);
             const airData: AirData = JSON.parse(msg);
 
-            // Fetch the Device object using the deviceId
-            const optionalDevice = await this.deviceRepository.findByIdentifier(deviceId);
-            if (!optionalDevice.isPresent) {
-                console.error(`Device with id ${deviceId} not found.`);
-                return;
-            }
-            const device: Device = optionalDevice.value;
+            const input: ProcessAirDataInput = {
+                deviceIdentifier,
+                airData,
+            };
 
-            const deviceData: DeviceData = DeviceData.create(
-                '',
-                device,
-                new Date(),
-                airData.temperature,
-                airData.humidity,
-                456 //airData.gasPpm
-            );
-            
-            //this.repository.save(deviceData).then();
+            await this.processAirDataUseCase.execute(input);
         });
     }
 
