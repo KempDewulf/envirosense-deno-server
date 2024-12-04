@@ -5,10 +5,10 @@ export { ShowRooms } from "./Room/ShowRooms.ts";
 export { ShowBuildings } from "./Building/ShowBuildings.ts";
 
 // Device
-export { ShowDevices } from "./Device/ShowDevice.ts";
+export { ShowDevices } from "./Device/ShowDevices.ts";
 
 // Room Type
-export { ShowRoomTypes } from "./RoomType/ShowRoomType.ts";
+export { ShowRoomTypes } from "./RoomType/ShowRoomTypes.ts";
 export { ShowRoomTypeByDocumentId } from "./Room/ShowRoomTypeByDocumentId.ts";
 
 // Device Data
