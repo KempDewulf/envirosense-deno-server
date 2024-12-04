@@ -9,7 +9,7 @@ export class DeviceDataStrapiQueryRepository
     extends StrapiQueryRepository
     implements DeviceDataQueryRepository
 {
-    async all(device: Device): Promise<DeviceDataQueryAllDto[]> {
+    async all(device: Device | null): Promise<DeviceDataQueryAllDto[]> {
         const endpoint = 'device-data';
         //check if this really works like this since we need to filter on device its identifier probably - now we juts use device
         //probably some thing with this part: 'filters[device][$contains]' below
