@@ -21,3 +21,9 @@ export { ShowDevicesController } from "EnviroSense/Infrastructure/WebApi/Control
 export type { ShowDevicesRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowDevicesController.ts";
 export { ShowDevicesPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowDevicesPresenter.ts";
 export type { ShowDevicesPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowDevicesPresenter.ts";
+
+export { ShowRoomTypesEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowRoomTypesEndpoint.ts";
+export { ShowRoomTypesController } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowRoomTypesController.ts";
+export type { ShowRoomTypesRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowRoomTypesController.ts";
+export { ShowRoomTypesPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowRoomTypesPresenter.ts";
+export type { ShowRoomTypesPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowRoomTypesPresenter.ts";
