@@ -4,7 +4,6 @@ import {
     ShowRoomTypeByDocumentIdInput,
     ShowRoomTypeByDocumentIdOutput,
     RoomTypeQueryByDocumentIdDto,
-    RoomTypeQueryRepository,
     RoomTypeRepository,
 } from "EnviroSense/Application/Contracts/mod.ts";
 
