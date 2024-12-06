@@ -33,11 +33,11 @@ export type { ShowRoomTypesRequest } from "EnviroSense/Infrastructure/WebApi/Con
 export { ShowRoomTypesPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowRoomTypesPresenter.ts";
 export type { ShowRoomTypesPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowRoomTypesPresenter.ts";
 
-export { ShowRoomTypeByDocumentIdEndpoint } from "MtgTournament/Infrastructure/WebApi/Endpoints/ShowRoomTypeByDocumentIdEndpoint.ts";
-export { ShowRoomTypeByDocumentIdPresenter } from "MtgTournament/Infrastructure/WebApi/Presenters/ShowRoomTypeByDocumentIdPresenter.ts";
-export type { ShowRoomTypeByDocumentIdPresentedData } from "MtgTournament/Infrastructure/WebApi/Presenters/ShowRoomTypeByDocumentIdPresentedData.ts";
-export { ShowRoomTypeByDocumentIdController } from "MtgTournament/Infrastructure/WebApi/Controllers/ShowRoomTypeByDocumentIdController.ts";
-export type { ShowRoomTypeByDocumentIdRequest } from "MtgTournament/Infrastructure/WebApi/Controllers/ShowRoomTypeByDocumentIdRequest.ts";
+export { ShowRoomTypeByDocumentIdEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowRoomTypeByDocumentIdEndpoint.ts";
+export { ShowRoomTypeByDocumentIdController } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowRoomTypeByDocumentIdController.ts";
+export type { ShowRoomTypeByDocumentIdRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowRoomTypeByDocumentIdController.ts";
+export { ShowRoomTypeByDocumentIdPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowRoomTypeByDocumentIdPresenter.ts";
+export type { ShowRoomTypeByDocumentIdPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowRoomTypeByDocumentIdPresenter.ts";
 
 // Device Data
 export { ShowDeviceDataEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowDeviceDataEndpoint.ts";

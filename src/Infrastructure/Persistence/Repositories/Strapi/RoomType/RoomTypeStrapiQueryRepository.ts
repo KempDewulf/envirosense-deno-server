@@ -20,6 +20,15 @@ export class RoomTypeStrapiQueryRepository
         return roomTypes;
     }
 
+    async find(roomTypeDocumentId: string): Promise<Optional<RoomTypeQueryDto>> {
+        const endpoint = `room-types/${roomTypeDocumentId.toString()}`;
+        const params: Record<string, string> = {};
+
+        const response = await this.get<any>(endpoint, params);
+        const roomType = this.mapToDto(response.data);
+        return Optional.of<RoomTypeQueryDto>(roomType);
+    }
+
     private mapToDto(item: any): RoomTypeQueryDto {
         return {
             id: item.id,
@@ -28,14 +37,5 @@ export class RoomTypeStrapiQueryRepository
             icon: item.icon,
             rooms: item.rooms,
         };
-    }
-
-    async find(roomTypeDocumentId: string): Promise<Optional<RoomTypeQueryDto>> {
-        const endpoint = `room-types/${roomTypeDocumentId.toString()}`;
-        const params: Record<string, string> = {};
-
-        const response = await this.get<any>(endpoint, params);
-        const roomType = this.mapToDto(response.data);
-        return Optional.of<RoomTypeQueryDto>(roomType);
     }
 }
