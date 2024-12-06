@@ -2,7 +2,7 @@ import {
     OutputPort,
     ShowRoomTypesInput,
     ShowRoomTypesOutput,
-    RoomTypeQueryAllDto,
+    RoomTypeQueryDto,
     RoomTypeQueryRepository,
     UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
@@ -27,7 +27,7 @@ export class ShowRoomTypes implements UseCase<ShowRoomTypesInput> {
         this._outputPort.present(roomTypes);
     }
 
-    private mapDtoToOutput(dto: RoomTypeQueryAllDto[]): ShowRoomTypesOutput[] {
+    private mapDtoToOutput(dto: RoomTypeQueryDto[]): ShowRoomTypesOutput[] {
         return dto.map((item) => ({
             id: item.id,
             documentId: item.documentId,

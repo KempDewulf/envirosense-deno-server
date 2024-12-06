@@ -20,11 +20,12 @@ async function logMessages() {
 //logMessages();
 
 async function findRoomType(roomTypeDocumentId: string): Promise<any> {
-    return await deviceRepo.find(roomTypeDocumentId);
+    const roomTypeOptional = await repoQuery.find(roomTypeDocumentId);
+    const roomType = roomTypeOptional.orElseThrow(() => new Error("Room type not found"));
+    return roomType;
 }
 
-const deviceFound = await findDevice("himquek1ciicfppeno9sdd59");
-const roomTypeFound = await findAllRoomTypes(deviceFound.value.identifier);
+const deviceFound = await findRoomType("himquek1ciicfppeno9sdd59");
 
 console.log(roomTypeFound);
 //lw7dl0pg1ysqrkbsab3q7o7a

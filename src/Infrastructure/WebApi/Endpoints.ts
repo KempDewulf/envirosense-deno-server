@@ -25,6 +25,5 @@ export function endpoints(): Router {
         use(new ShowRoomTypeByDocumentIdEndpoint())
     );
     router.get("/device-data", use(new ShowDeviceDataEndpoint()));
-
     return router;
 }

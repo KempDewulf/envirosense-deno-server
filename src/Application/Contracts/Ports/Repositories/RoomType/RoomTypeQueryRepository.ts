@@ -1,14 +1,6 @@
 import { Room } from "EnviroSense/Domain/mod.ts";
 
-export interface RoomTypeQueryAllDto {
-    id: string;
-    documentId: string;
-    name: string;
-    icon: string;
-    rooms: Room[];
-}
-
-export interface RoomTypeQueryByDocumentIdDto {
+export interface RoomTypeQueryDto {
     id: string;
     documentId: string;
     name: string;
@@ -17,5 +9,5 @@ export interface RoomTypeQueryByDocumentIdDto {
 }
 
 export interface RoomTypeQueryRepository {
-    all(name: string): Promise<RoomTypeQueryAllDto[]>;
+    all(name: string): Promise<RoomTypeQueryDto[]>;
 }
