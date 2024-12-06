@@ -25,7 +25,7 @@ async function findRoomType(roomTypeDocumentId: string): Promise<any> {
     return roomType;
 }
 
-const deviceFound = await findRoomType("himquek1ciicfppeno9sdd59");
+const deviceFound = await findRoomType("hd3f8ql67kwhzmbqllumnbdi");
 
-console.log(roomTypeFound);
+console.log(deviceFound);
 //lw7dl0pg1ysqrkbsab3q7o7a
