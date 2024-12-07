@@ -26,7 +26,7 @@ export class DeviceStrapiRepository
         try {
             const response = await this.get<any>(endpoint, params);
             if (response.data.length === 0) {
-                return Optional.empty<Device>();
+                throw new Error('Device not found');
             }
             const device = this.mapToDomain(response.data[0]);
             return Optional.of<Device>(device);
