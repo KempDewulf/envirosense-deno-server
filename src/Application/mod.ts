@@ -9,6 +9,7 @@ export { ShowDevices } from "./Device/ShowDevices.ts";
 
 // Room Type
 export { ShowRoomTypes } from "./RoomType/ShowRoomTypes.ts";
+export { CreateRoomType } from "./RoomType/CreateRoomType.ts";
 export { ShowRoomTypeByDocumentId } from "./RoomType/ShowRoomTypeByDocumentId.ts";
 
 // Device Data
