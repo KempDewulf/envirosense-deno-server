@@ -39,6 +39,12 @@ export type { ShowRoomTypeByDocumentIdRequest } from "EnviroSense/Infrastructure
 export { ShowRoomTypeByDocumentIdPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowRoomTypeByDocumentIdPresenter.ts";
 export type { ShowRoomTypeByDocumentIdPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowRoomTypeByDocumentIdPresenter.ts";
 
+export { CreateRoomTypeEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/CreateRoomTypeEndpoint.ts";
+export { CreateRoomTypeController } from "EnviroSense/Infrastructure/WebApi/Controllers/CreateRoomTypeController.ts";
+export type { CreateRoomTypeRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/CreateRoomTypeController.ts";
+export { CreateRoomTypePresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/CreateRoomTypePresenter.ts";
+export type { CreateRoomTypePresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/CreateRoomTypePresenter.ts";
+
 // Device Data
 export { ShowDeviceDataEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowDeviceDataEndpoint.ts";
 export { ShowDeviceDataController } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowDeviceDataController.ts";
