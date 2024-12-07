@@ -17,12 +17,4 @@ async function logMessages() {
 
 //logMessages();
 
-const roomType = RoomType.create(
-            '',
-            "test2",
-            "e12wm2zjfp39bwweq145jb08",
-        );
-const roomTypeResult = await repoQuery.save(roomType);
-
-console.log(roomTypeResult);
-//lw7dl0pg1ysqrkbsab3q7o7a
+//TODO: invalid relations error due the icon not passing correctly, since icon is seen as relation...
