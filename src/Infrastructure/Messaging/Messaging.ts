@@ -32,8 +32,8 @@ export class Messaging {
     public async subscribe(topic: string): Promise<void> {
         await this.client.subscribe(topic);
         this.client.on('message', async (topic: string, payload: Uint8Array) => {
-            const msg = new TextDecoder().decode(payload);
-            const deviceIdentifier = this.getDeviceId(topic);
+            const msg: string = new TextDecoder().decode(payload);
+            const deviceIdentifier: string = this.getDeviceId(topic);
             const airData: AirData = JSON.parse(msg);
 
             const input: ProcessAirDataInput = {
