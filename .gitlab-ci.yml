@@ -2,8 +2,8 @@ stages:
   - deploy
 
 variables:
-  DEPLOY_HOST: your.vps.ip.address
-  DEPLOY_USER: your-vps-user
+  DEPLOY_HOST: 94.130.75.173
+  DEPLOY_USER: root
   DEPLOY_DIR: /docker_projects/deno-server
 
 before_script:
