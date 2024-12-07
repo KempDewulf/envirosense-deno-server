@@ -1,5 +1,6 @@
 import { Router, RouterContext } from '@oak/oak';
 import {
+    CreateRoomTypeEndpoint,
     Endpoint,
     ShowBuildingsEndpoint,
     ShowDeviceDataEndpoint,
@@ -20,7 +21,8 @@ export function endpoints(): Router {
     router.get('/rooms', use(new ShowRoomsEndpoint()));
     router.get('/buildings', use(new ShowBuildingsEndpoint()));
     router.get('/room-types', use(new ShowRoomTypesEndpoint()));
-    router.get('/room-types/:roomTypeDocumentId',use(new ShowRoomTypeByDocumentIdEndpoint()));
+    router.post('/room-types', use(new CreateRoomTypeEndpoint()));
+    router.get('/room-types/:roomTypeDocumentId', use(new ShowRoomTypeByDocumentIdEndpoint()));
     router.get('/device-data', use(new ShowDeviceDataEndpoint()));
     return router;
 }
