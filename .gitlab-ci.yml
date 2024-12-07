@@ -3,16 +3,14 @@ stages:
 
 deploy:
   stage: deploy
-  image: docker:stable
+  image: docker:20.10.16
   services:
     - docker:dind
   script:
     - apk add --no-cache openssh
-    # Add the SSH key (provided in GitLab CI/CD variables)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -H $VPS_HOST >> ~/.ssh/known_hosts
-    # Build and push Docker image to VPS
     - ssh $VPS_USER@$VPS_HOST "cd ~/docker-projects/deno-server && git pull && docker-compose up --build -d"
   only:
     - main
