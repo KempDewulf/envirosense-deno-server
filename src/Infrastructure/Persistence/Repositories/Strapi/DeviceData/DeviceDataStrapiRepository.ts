@@ -54,7 +54,7 @@ export class DeviceDataStrapiRepository
 
     private mapFromDomain(deviceData: DeviceData): any {
         return {
-            device: deviceData.device,
+            device: deviceData.device ? {connect: [deviceData.device.id]} : null,
             timestamp: deviceData.timestamp,
             temperature: deviceData.temperature,
             humidity: deviceData.humidity,

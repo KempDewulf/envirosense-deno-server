@@ -55,3 +55,7 @@ export type {
 } from "./Ports/Repositories/DeviceData/DeviceDataQueryRepository.ts";
 
 export type { DeviceDataRepository } from "./Ports/Repositories/DeviceData/DeviceDataRepository.ts";
+
+//AirData
+export type { ProcessAirDataInput } from "./AirData/ProcessAirDataInput.ts";
+export type { ProcessAirDataOutput } from "./AirData/ProcessAirDataOutput.ts";
