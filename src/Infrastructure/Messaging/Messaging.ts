@@ -1,7 +1,7 @@
 import { Client } from "https://deno.land/x/mqtt@0.1.2/deno/mod.ts";
 import { AirData } from 'EnviroSense/Domain/mod.ts';
 import { ProcessAirData } from "EnviroSense/Application/mod.ts";
-import { ProcessAirDataInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import { DeviceDataRepository, DeviceRepository, ProcessAirDataInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceStrapiRepository, DeviceDataStrapiRepository} from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import "jsr:@std/dotenv/load";
 
@@ -16,8 +16,8 @@ export class Messaging {
             username: Deno.env.get("MQTT_USERNAME"), 
             password: Deno.env.get("MQTT_PASSWORD")
         });
-        const deviceRepository = new DeviceStrapiRepository();
-        const deviceDataRepository = new DeviceDataStrapiRepository();
+        const deviceRepository: DeviceRepository = new DeviceStrapiRepository();
+        const deviceDataRepository: DeviceDataRepository = new DeviceDataStrapiRepository();
 
         this.processAirDataUseCase = new ProcessAirData(
             deviceRepository,
