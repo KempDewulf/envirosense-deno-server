@@ -3,7 +3,7 @@ stages:
 
 deploy:
   stage: deploy
-  image: docker:20.10.16
+  image: docker:stable
   services:
     - docker:dind
   script:
