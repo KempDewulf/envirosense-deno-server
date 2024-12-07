@@ -1,8 +1,5 @@
 import {
-    DomainException,
     RoomType,
-    RoomTypeCreated,
-    RoomTypeType,
 } from 'EnviroSense/Domain/mod.ts';
 import {
     CreateRoomTypeInput,
