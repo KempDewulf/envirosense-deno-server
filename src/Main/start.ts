@@ -1,15 +1,13 @@
 import { WebApiModule } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import {
-    DeviceDataStrapiRepository,
-    DeviceDataStrapiQueryRepository,
-    DeviceStrapiRepository,
-    RoomTypeStrapiQueryRepository,
+    RoomTypeStrapiRepository,
 } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+import { RoomType } from 'EnviroSense/Domain/mod.ts';
 
 new WebApiModule(8101).run();
 
-const repoQuery = new RoomTypeStrapiQueryRepository();
+const repoQuery = new RoomTypeStrapiRepository();
 const mqttClient = new Messaging();
 
 async function logMessages() {
@@ -19,13 +17,12 @@ async function logMessages() {
 
 //logMessages();
 
-async function findRoomType(roomTypeDocumentId: string): Promise<any> {
-    const roomTypeOptional = await repoQuery.find(roomTypeDocumentId);
-    const roomType = roomTypeOptional.orElseThrow(() => new Error("Room type not found"));
-    return roomType;
-}
+const roomType = RoomType.create(
+            '',
+            "test2",
+            "e12wm2zjfp39bwweq145jb08",
+        );
+const roomTypeResult = await repoQuery.save(roomType);
 
-const deviceFound = await findRoomType("hd3f8ql67kwhzmbqllumnbdi");
-
-console.log(deviceFound);
+console.log(roomTypeResult);
 //lw7dl0pg1ysqrkbsab3q7o7a
