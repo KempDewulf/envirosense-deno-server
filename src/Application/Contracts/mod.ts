@@ -44,8 +44,8 @@ export type { CreateRoomTypeOutput } from "./RoomType/CreateRoomTypeOutput.ts";
 export type { ShowRoomTypeByDocumentIdInput } from "./RoomType/ShowRoomTypeByDocumentIdInput.ts";
 export type { ShowRoomTypeByDocumentIdOutput } from "./RoomType/ShowRoomTypeByDocumentIdOutput.ts";
 
-export type { UpdateRoomTypeByDocumentIdInput } from "./RoomType/UpdateRoomTypeByDocumentIdInput.ts";
-export type { UpdateRoomTypeByDocumentIdOutput } from "./RoomType/UpdateRoomTypeByDocumentIdOutput.ts";
+export type { UpdateRoomTypeInput } from "./RoomType/UpdateRoomTypeInput.ts";
+export type { UpdateRoomTypeOutput } from "./RoomType/UpdateRoomTypeOutput.ts";
 
 export type { DeleteRoomTypeInput } from "./RoomType/DeleteRoomTypeInput.ts";
 
