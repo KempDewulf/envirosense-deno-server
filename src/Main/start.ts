@@ -4,22 +4,15 @@ import {
     DeviceDataStrapiQueryRepository,
     DeviceStrapiRepository,
 } from "EnviroSense/Infrastructure/Persistence/mod.ts";
-import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { Device } from "EnviroSense/Domain/mod.ts";
+import { MessagingModule } from "EnviroSense/Infrastructure/Messaging/MessagingModule.ts";
+
 
 new WebApiModule(8101).run();
+new MessagingModule().run();
 
 const repo = new DeviceDataStrapiRepository();
 const repoQuery = new DeviceDataStrapiQueryRepository();
 const deviceRepo = new DeviceStrapiRepository();
-const mqttClient = new Messaging();
-
-async function logMessages() {
-    await mqttClient.connect();
-    await mqttClient.subscribe('test/#');
-}
-
-//logMessages();
 
 async function findAllRoomTypes(identifier: string = ''): Promise<any> {
     return await repoQuery.all(identifier);
@@ -37,4 +30,3 @@ const deviceFound = await findDevice("himquek1ciicfppeno9sdd59");
 const roomTypesFound = await findAllRoomTypes(deviceFound.value.identifier);
 
 console.log(roomTypesFound);
-//lw7dl0pg1ysqrkbsab3q7o7a
