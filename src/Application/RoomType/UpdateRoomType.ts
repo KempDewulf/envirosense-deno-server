@@ -1,7 +1,4 @@
 import {
-    RoomType,
-} from 'EnviroSense/Domain/mod.ts';
-import {
     UpdateRoomTypeInput,
     UpdateRoomTypeOutput,
     OutputPort,
@@ -36,6 +33,12 @@ export class UpdateRoomType implements UseCase<UpdateRoomTypeInput> {
         }
 
         await this._roomTypeRepository.update(roomType);
+
+        const output: UpdateRoomTypeOutput = {
+            id: roomType.id,
+            name: roomType.name,
+            icon: roomType.icon,
+        };
 
         this._outputPort.present(output);
     }
