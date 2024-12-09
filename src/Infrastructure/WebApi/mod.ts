@@ -49,7 +49,6 @@ export { DeleteRoomTypeEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoi
 export { DeleteRoomTypeController } from "EnviroSense/Infrastructure/WebApi/Controllers/DeleteRoomTypeController.ts";
 export type { DeleteRoomTypeRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/DeleteRoomTypeController.ts";
 export { DeleteRoomTypePresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/DeleteRoomTypePresenter.ts";
-export type { DeleteRoomTypePresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/DeleteRoomTypePresenter.ts";
 
 // Device Data
 export { ShowDeviceDataEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowDeviceDataEndpoint.ts";
