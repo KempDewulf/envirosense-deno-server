@@ -8,8 +8,8 @@ export interface RoomTypeState {
 
 export class RoomType {
     private readonly _id: string;
-    private readonly _name: string;
-    private readonly _icon: string;
+    private _name: string;
+    private _icon: string;
 
     private constructor(id: string, name: string, icon: string) {
         this._id = id;
@@ -33,6 +33,14 @@ export class RoomType {
         room_type.validateState();
 
         return room_type;
+    }
+
+    public updateName(name: string): void {
+        this._name = name;
+    }
+
+    public updateIcon(icon: string): void {
+        this._icon = icon;
     }
 
     public validateState(): void {
