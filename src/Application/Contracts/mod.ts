@@ -45,7 +45,6 @@ export type { ShowRoomTypeByDocumentIdInput } from "./RoomType/ShowRoomTypeByDoc
 export type { ShowRoomTypeByDocumentIdOutput } from "./RoomType/ShowRoomTypeByDocumentIdOutput.ts";
 
 export type { DeleteRoomTypeInput } from "./RoomType/DeleteRoomTypeInput.ts";
-export type { DeleteRoomTypeOutput } from "./RoomType/DeleteRoomTypeOutput.ts";
 
 export type {
     RoomTypeQueryDto,

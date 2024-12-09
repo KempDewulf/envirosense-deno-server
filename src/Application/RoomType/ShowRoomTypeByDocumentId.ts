@@ -3,7 +3,7 @@ import {
     UseCase,
     ShowRoomTypeByDocumentIdInput,
     ShowRoomTypeByDocumentIdOutput,
-    RoomTypeQueryByDocumentIdDto,
+    RoomTypeQueryDto,
     RoomTypeRepository,
 } from "EnviroSense/Application/Contracts/mod.ts";
 
@@ -30,7 +30,7 @@ export class ShowRoomTypeByDocumentId
     }
 
     private mapDtoToOutput(
-        dto: RoomTypeQueryByDocumentIdDto
+        dto: RoomTypeQueryDto
     ): ShowRoomTypeByDocumentIdOutput {
         return {
             id: dto.id,
