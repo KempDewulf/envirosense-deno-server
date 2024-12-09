@@ -30,7 +30,6 @@ export class RoomTypeStrapiQueryRepository
         const response = await this.get<any>(endpoint, params);
 
         console.log("reponse", response);
-        console.log("response.data", response.data);
 
         const roomType = this.mapToDto(response.data);
 
