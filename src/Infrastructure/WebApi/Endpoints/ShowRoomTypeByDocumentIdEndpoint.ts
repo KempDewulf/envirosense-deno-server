@@ -36,9 +36,9 @@ export class ShowRoomTypeByDocumentIdEndpoint implements Endpoint {
     private buildRequest(
         context: RouterContext<string>
     ): ShowRoomTypeByDocumentIdRequest {
-        const roomTypeDocumentId = context.request.url.searchParams.get("roomTypeDocumentId")
-            ? context.request.url.searchParams.get("roomTypeDocumentId")
-            : "";
+        const roomTypeDocumentId = context.params.roomTypeDocumentId || "";
+
+        console.log("buildRequest Id from url", roomTypeDocumentId);
 
         return { roomTypeDocumentId } as ShowRoomTypeByDocumentIdRequest;
     }
