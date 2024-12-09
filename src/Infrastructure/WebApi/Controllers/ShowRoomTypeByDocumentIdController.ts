@@ -24,9 +24,7 @@ export class ShowRoomTypeByDocumentIdController
         await this._useCase.execute(useCaseInput);
     }
 
-    protected mapToUseCaseInput(
-        request: ShowRoomTypeByDocumentIdRequest
-    ): ShowRoomTypeByDocumentIdInput {
+    protected mapToUseCaseInput(request: ShowRoomTypeByDocumentIdRequest): ShowRoomTypeByDocumentIdInput {
         return { roomTypeDocumentId: request.roomTypeDocumentId };
     }
 }
