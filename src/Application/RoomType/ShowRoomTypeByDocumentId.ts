@@ -26,13 +26,13 @@ export class ShowRoomTypeByDocumentId
             input.roomTypeDocumentId
         );
 
-        console.log(roomTypeOptional);
+        console.log("roomTypeOptional", roomTypeOptional);
 
         const roomTypeDto = roomTypeOptional.orElseThrow(() =>
             new Error(`RoomType with ID ${input.roomTypeDocumentId} not found.`)
         );
 
-        console.log(roomTypeDto);
+        console.log("roomTypeDto", roomTypeDto);
 
         const roomType = this.mapDtoToOutput(roomTypeDto);
         this._outputPort.present(roomType);

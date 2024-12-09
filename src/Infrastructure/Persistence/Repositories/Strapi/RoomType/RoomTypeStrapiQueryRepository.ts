@@ -21,11 +21,21 @@ export class RoomTypeStrapiQueryRepository
     }
 
     async find(roomTypeDocumentId: string): Promise<Optional<RoomTypeQueryDto>> {
+        console.log("roomTypeDocumentId", roomTypeDocumentId);
         const endpoint = `room-types/${roomTypeDocumentId.toString()}`;
         const params: Record<string, string> = {};
 
+        console.log("endpoint:params", endpoint, params);
+
         const response = await this.get<any>(endpoint, params);
+
+        console.log("reponse", response);
+        console.log("response.data", response.data);
+
         const roomType = this.mapToDto(response.data);
+
+        console.log("roomType:", roomType);
+
         return Optional.of<RoomTypeQueryDto>(roomType);
     }
 
