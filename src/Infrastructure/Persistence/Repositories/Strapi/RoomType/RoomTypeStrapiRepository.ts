@@ -41,9 +41,9 @@ export class RoomTypeStrapiRepository
 
     private mapToDomain(data: any): RoomType {
         const roomType = RoomType.load({
-            id: data.documentId,
+            id: data.documentId.toString(),
             name: data.name,
-            icon: data.icon,
+            icon: data.icon || "default-icon.png",
         });
 
         return roomType;
