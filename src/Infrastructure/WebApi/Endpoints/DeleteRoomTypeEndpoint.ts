@@ -40,15 +40,16 @@ export class DeleteRoomTypeEndpoint implements Endpoint {
         context.response.status = 204;
     }
 
-    private async buildRequest(context: RouterContext<string>): Promise<DeleteRoomTypeRequest> {
-        return await context.request.body.json() as DeleteRoomTypeRequest;
+    private buildRequest(context: RouterContext<string>): DeleteRoomTypeRequest {
+        const roomTypeDocumentId = context.params.roomTypeDocumentId || "";
+        return {roomTypeDocumentId} as DeleteRoomTypeRequest;
     }
 
     private validateRequest(request: DeleteRoomTypeRequest): void {
         this._errorsBag.clear();
 
-        if (!request.id) {
-            this._errorsBag.add('id is required');
+        if (!request.roomTypeDocumentId) {
+            this._errorsBag.add('roomTypeDocumentId is required');
         }
     }
 }
