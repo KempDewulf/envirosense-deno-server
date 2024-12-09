@@ -14,32 +14,32 @@ export type ShowRoomTypeByDocumentIdPresentedData = {
 };
 
 export class ShowRoomTypeByDocumentIdPresenter
-    implements OutputPort<ShowRoomTypeByDocumentIdOutput[]>
+    implements OutputPort<ShowRoomTypeByDocumentIdOutput>
 {
     private readonly _device: RequestResponseDevice<
-        ShowRoomTypeByDocumentIdPresentedData[]
+        ShowRoomTypeByDocumentIdPresentedData
     >;
 
     constructor(
-        device: RequestResponseDevice<ShowRoomTypeByDocumentIdPresentedData[]>
+        device: RequestResponseDevice<ShowRoomTypeByDocumentIdPresentedData>
     ) {
         this._device = device;
     }
 
-    present(data: ShowRoomTypeByDocumentIdOutput[]): void {
+    present(data: ShowRoomTypeByDocumentIdOutput): void {
         const presentedData = this.mapToPresentedData(data);
         this._device.update(presentedData);
     }
 
     protected mapToPresentedData(
-        data: ShowRoomTypeByDocumentIdOutput[]
-    ): ShowRoomTypeByDocumentIdPresentedData[] {
-        return data.map((roomType: ShowRoomTypeByDocumentIdOutput) => ({
-            id: roomType.id,
-            documentId: roomType.documentId,
-            name: roomType.name,
-            icon: roomType.icon,
-            rooms: roomType.rooms,
-        }));
+        data: ShowRoomTypeByDocumentIdOutput
+    ): ShowRoomTypeByDocumentIdPresentedData {
+        return {
+            id: data.id,
+            documentId: data.documentId,
+            name: data.name,
+            icon: data.icon,
+            rooms: data.rooms,
+        };
     }
 }
