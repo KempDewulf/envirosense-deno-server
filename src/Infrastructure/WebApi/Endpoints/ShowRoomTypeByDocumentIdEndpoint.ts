@@ -12,7 +12,7 @@ import { ShowRoomTypeByDocumentId } from "EnviroSense/Application/mod.ts";
 
 export class ShowRoomTypeByDocumentIdEndpoint implements Endpoint {
     async handle(context: RouterContext<string>): Promise<void> {
-        const outputDevice = new RequestResponse<ShowRoomTypeByDocumentIdPresentedData[]>();
+        const outputDevice = new RequestResponse<ShowRoomTypeByDocumentIdPresentedData>();
         const presenter = new ShowRoomTypeByDocumentIdPresenter(outputDevice);
 
         const repository = new RoomTypeStrapiQueryRepository();
