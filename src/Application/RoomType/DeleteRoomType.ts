@@ -22,8 +22,6 @@ export class DeleteRoomType implements UseCase<DeleteRoomTypeInput> {
             .orElseThrow(() => new Error(`RoomType with ID ${input.roomTypeDocumentId} not found.`));
 
         await this._roomTypeRepository.deleteEntity(roomType);
-
-        this._outputPort.present();
     }
 }
 
