@@ -21,7 +21,6 @@ export function endpoints(): Router {
 
     router.get('/', use(new TestEndpoint())); //maybe show docs of openApi.yml?
     router.get('/rooms', use(new ShowRoomsEndpoint()));
-
     router.get('/buildings', use(new ShowBuildingsEndpoint()));
 
     router.get('/room-types', use(new ShowRoomTypesEndpoint()));
