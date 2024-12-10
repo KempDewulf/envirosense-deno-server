@@ -1,11 +1,10 @@
 import { RouterContext } from '@oak/oak';
 import {
     DeleteRoomTypeController,
-    DeleteRoomTypePresenter,
     DeleteRoomTypeRequest,
     Endpoint,
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
-import { ErrorsBag, RequestResponse } from 'EnviroSense/Infrastructure/Shared/mod.ts';
+import { ErrorsBag } from 'EnviroSense/Infrastructure/Shared/mod.ts';
 
 import { RoomTypeStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 
@@ -26,12 +25,9 @@ export class DeleteRoomTypeEndpoint implements Endpoint {
             return;
         }
 
-        const outputDevice = new RequestResponse<void>();
-        const presenter = new DeleteRoomTypePresenter(outputDevice);
-
         const repository: RoomTypeRepository = new RoomTypeStrapiRepository();
 
-        const useCase = new DeleteRoomType(presenter, repository);
+        const useCase = new DeleteRoomType(repository);
 
         const controller = new DeleteRoomTypeController(useCase);
 

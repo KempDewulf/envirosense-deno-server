@@ -1,19 +1,15 @@
 import {
     DeleteRoomTypeInput,
-    OutputPort,
     RoomTypeRepository,
     UseCase,
 } from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class DeleteRoomType implements UseCase<DeleteRoomTypeInput> {
-    private readonly _outputPort: OutputPort<void>;
     private readonly _roomTypeRepository: RoomTypeRepository;
 
     constructor(
-        outputPort: OutputPort<void>,
         roomTypeRepository: RoomTypeRepository,
     ) {
-        this._outputPort = outputPort;
         this._roomTypeRepository = roomTypeRepository;
     }
 
