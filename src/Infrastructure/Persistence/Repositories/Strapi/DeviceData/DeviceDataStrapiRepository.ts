@@ -44,9 +44,11 @@ export class DeviceDataStrapiRepository
             id: data.id,
             device: data.device,
             timestamp: data.timestamp,
-            temperature: data.temperature,
-            humidity: data.humidity,
-            gasPpm: data.gas_ppm,
+            airData: {
+                temperature: data.temperature,
+                humidity: data.humidity,
+                ppm: data.gas_ppm,
+            },
         });
 
         return deviceData;
@@ -56,9 +58,9 @@ export class DeviceDataStrapiRepository
         return {
             device: deviceData.device ? {connect: [deviceData.device.id]} : null,
             timestamp: deviceData.timestamp,
-            temperature: deviceData.temperature,
-            humidity: deviceData.humidity,
-            gas_ppm: deviceData.gasPpm,
+            temperature: deviceData.airData.temperature,
+            humidity: deviceData.airData.humidity,
+            gas_ppm: deviceData.airData.ppm,
         };
     }
 }
