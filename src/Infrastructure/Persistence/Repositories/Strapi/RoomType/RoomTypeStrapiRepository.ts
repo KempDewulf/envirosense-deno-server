@@ -52,7 +52,7 @@ export class RoomTypeStrapiRepository
     private mapFromDomain(roomType: RoomType): any {
         return {
             name: roomType.name,
-            icon: roomType.iconId,
+            icon: roomType.icon,
         };
     }
 }

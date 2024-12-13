@@ -59,7 +59,7 @@ export class RoomStrapiRepository
             ? RoomType.load({
                   id: roomTypeData.documentId,
                   name: roomTypeData.name,
-                  iconId: roomTypeData.icon.id,
+                  icon: roomTypeData.icon,
               })
             : null;
 

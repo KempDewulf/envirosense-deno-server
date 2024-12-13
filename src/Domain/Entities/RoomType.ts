@@ -68,7 +68,7 @@ export class RoomType {
         return this._name;
     }
 
-    get iconId(): string {
+    get icon(): string {
         return this._icon;
     }
 }
