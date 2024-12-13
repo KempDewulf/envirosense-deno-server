@@ -17,4 +17,4 @@ RUN deno cache src/Main/start.ts
 EXPOSE 8000
 
 # Run the Deno application
-CMD ["deno run start"]
+CMD ["deno", "run", "start"]
