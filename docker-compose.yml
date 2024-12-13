@@ -5,8 +5,4 @@ services:
       - "8101:8101"
     volumes:
       - .:/app
-    networks:
-      app-network:
-        aliases:
-          - deno
     restart: unless-stopped
