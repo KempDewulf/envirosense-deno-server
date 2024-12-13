@@ -1,12 +1,16 @@
-import { Router, RouterContext } from "@oak/oak";
+import { Router, RouterContext } from '@oak/oak';
 import {
+    CreateRoomTypeEndpoint,
+    DeleteRoomTypeEndpoint,
+    UpdateRoomTypeEndpoint,
     Endpoint,
-    TestEndpoint,
-    ShowRoomsEndpoint,
+    ShowBuildingsEndpoint,
     ShowDeviceDataEndpoint,
-} from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import { ShowBuildingsEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowBuildingsEndpoint.ts";
-import { ShowRoomTypesEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowRoomTypesEndpoint.ts";
+    ShowRoomsEndpoint,
+    ShowRoomTypeByDocumentIdEndpoint,
+    ShowRoomTypesEndpoint,
+    TestEndpoint,
+} from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 
 function use(endpoint: Endpoint) {
     return (context: RouterContext<string>) => endpoint.handle(context);
@@ -15,11 +19,16 @@ function use(endpoint: Endpoint) {
 export function endpoints(): Router {
     const router = new Router();
 
-    router.get("/", use(new TestEndpoint())); //maybe show docs of openApi.yml?
-    router.get("/rooms", use(new ShowRoomsEndpoint()));
-    router.get("/buildings", use(new ShowBuildingsEndpoint()));
-    router.get("/room-types", use(new ShowRoomTypesEndpoint()));
-    router.get("/device-data", use(new ShowDeviceDataEndpoint()));
+    router.get('/', use(new TestEndpoint())); //TODO: maybe show docs of openApi.yml?
+    router.get('/rooms', use(new ShowRoomsEndpoint()));
+    router.get('/buildings', use(new ShowBuildingsEndpoint()));
 
+    router.get('/room-types', use(new ShowRoomTypesEndpoint()));
+    router.post('/room-types', use(new CreateRoomTypeEndpoint()));
+    router.get('/room-types/:roomTypeDocumentId', use(new ShowRoomTypeByDocumentIdEndpoint()));
+    router.delete('/room-types/:roomTypeDocumentId', use(new DeleteRoomTypeEndpoint()));
+    router.put('/room-types/:roomTypeDocumentId', use(new UpdateRoomTypeEndpoint()));
+
+    router.get('/device-data', use(new ShowDeviceDataEndpoint()));
     return router;
 }

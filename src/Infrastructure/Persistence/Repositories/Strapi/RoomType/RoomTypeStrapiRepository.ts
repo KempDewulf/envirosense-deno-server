@@ -6,8 +6,8 @@ export class RoomTypeStrapiRepository
     extends StrapiQueryRepository
     implements RoomTypeRepository
 {
-    async find(roomTypeId: string): Promise<Optional<RoomType>> {
-        const endpoint = `room-types/${roomTypeId.toString()}`;
+    async find(roomTypeDocumentId: string): Promise<Optional<RoomType>> {
+        const endpoint = `room-types/${roomTypeDocumentId.toString()}`;
         const params: Record<string, string> = {};
 
         try {
@@ -30,6 +30,7 @@ export class RoomTypeStrapiRepository
         const endpoint = `room-types/${roomType.id}`;
         const body = this.mapFromDomain(roomType);
 
+
         return await this.put(endpoint, { data: body });
     }
 
@@ -41,9 +42,9 @@ export class RoomTypeStrapiRepository
 
     private mapToDomain(data: any): RoomType {
         const roomType = RoomType.load({
-            id: data.documentId,
+            id: data.documentId.toString(),
             name: data.name,
-            icon: data.icon,
+            icon: data.icon || "default-icon.png",
         });
 
         return roomType;
@@ -52,7 +53,19 @@ export class RoomTypeStrapiRepository
     private mapFromDomain(roomType: RoomType): any {
         return {
             name: roomType.name,
-            icon: roomType.icon,
+            icon: this.getIconId(roomType.icon),
         };
+    }
+
+    private getIconId(icon: string | { id: string } | null): string | null {
+        if (!icon) {
+            return null;
+        }
+
+        if (typeof icon === 'object' && 'id' in icon) {
+            return icon.id;
+        }
+
+        return icon;
     }
 }

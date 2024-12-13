@@ -8,8 +8,8 @@ export interface RoomTypeState {
 
 export class RoomType {
     private readonly _id: string;
-    private readonly _name: string;
-    private readonly _icon: string;
+    private _name: string;
+    private _icon: string;
 
     private constructor(id: string, name: string, icon: string) {
         this._id = id;
@@ -35,6 +35,14 @@ export class RoomType {
         return room_type;
     }
 
+    public updateName(name: string): void {
+        this._name = name;
+    }
+
+    public updateIcon(icon: string): void {
+        this._icon = icon;
+    }
+
     public validateState(): void {
         this.ensureNameIsNotEmpty();
         this.ensureIconIsNotEmpty();
@@ -48,7 +56,7 @@ export class RoomType {
 
     private ensureIconIsNotEmpty(): void {
         if (!this._icon) {
-            throw new DomainException("Room type icon cannot be empty.");
+            throw new DomainException("Room type icon cannot be empty. Enter the ID of the icon.");
         }
     }
 
