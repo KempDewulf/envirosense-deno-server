@@ -37,7 +37,7 @@ export class UpdateRoomType implements UseCase<UpdateRoomTypeInput> {
         const output: UpdateRoomTypeOutput = {
             id: roomType.id,
             name: roomType.name,
-            icon: roomType.icon,
+            icon: roomType.iconId,
         };
 
         this._outputPort.present(output);

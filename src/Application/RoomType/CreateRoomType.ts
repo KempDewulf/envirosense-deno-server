@@ -25,7 +25,7 @@ export class CreateRoomType implements UseCase<CreateRoomTypeInput> {
         const roomType = RoomType.create(
             '',
             input.name,
-            input.icon,
+            input.icon
         );
 
         await this._roomTypeRepository.save(roomType);

@@ -43,7 +43,7 @@ export class RoomTypeStrapiRepository
         const roomType = RoomType.load({
             id: data.documentId.toString(),
             name: data.name,
-            iconId: data.icon || "default-icon.png",
+            icon: data.icon || "default-icon.png",
         });
 
         return roomType;
@@ -52,7 +52,7 @@ export class RoomTypeStrapiRepository
     private mapFromDomain(roomType: RoomType): any {
         return {
             name: roomType.name,
-            icon: roomType.icon,
+            icon: roomType.iconId,
         };
     }
 }
