@@ -16,3 +16,4 @@ export { ShowRoomTypeByDocumentId } from "./RoomType/ShowRoomTypeByDocumentId.ts
 
 // Device Data
 export { ShowDeviceData } from "./DeviceData/ShowDeviceData.ts";
+export { ProcessAirData } from "./AirData/ProcessAirData.ts";

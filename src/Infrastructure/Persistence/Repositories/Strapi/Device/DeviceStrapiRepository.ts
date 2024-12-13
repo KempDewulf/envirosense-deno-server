@@ -19,6 +19,22 @@ export class DeviceStrapiRepository
         }
     }
 
+    async findByIdentifier(identifier: string): Promise<Optional<Device>> {
+        const endpoint = `devices`;
+        const params = { 'filters[identifier][$eq]': identifier, 'populate': '*' };
+
+        try {
+            const response = await this.get<any>(endpoint, params);
+            if (response.data.length === 0) {
+                throw new Error('Device not found');
+            }
+            const device = this.mapToDomain(response.data[0]);
+            return Optional.of<Device>(device);
+        } catch {
+            return Optional.empty<Device>();
+        }
+    }
+
     async save(device: Device): Promise<void> {
         const endpoint = `devices`;
         const body = this.mapFromDomain(device);

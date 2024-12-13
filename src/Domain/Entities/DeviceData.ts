@@ -1,53 +1,42 @@
 import { Device } from "EnviroSense/Domain/mod.ts";
+import { AirData } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceDataState {
     id: string;
     device: Device;
     timestamp: Date;
-    temperature: number;
-    humidity: number;
-    gasPpm: number;
+    airData: AirData;
 }
 
 export class DeviceData {
     private readonly _id: string;
     private readonly _device: Device;
     private readonly _timestamp: Date;
-    private readonly _temperature: number;
-    private readonly _humidity: number;
-    private readonly _gasPpm: number;
+    private readonly _airData: AirData;
 
     private constructor(
         id: string,
         device: Device,
         timestamp: Date,
-        temperature: number,
-        humidity: number,
-        gasPpm: number
+        airData: AirData
     ) {
         this._id = id;
         this._device = device;
         this._timestamp = timestamp;
-        this._temperature = temperature;
-        this._humidity = humidity;
-        this._gasPpm = gasPpm;
+        this._airData = airData;
     }
 
     static create(
         id: string,
         device: Device,
         timestamp: Date,
-        temperature: number,
-        humidity: number,
-        gasPpm: number
+        airData: AirData
     ): DeviceData {
         const deviceData = new DeviceData(
             id,
             device,
             timestamp,
-            temperature,
-            humidity,
-            gasPpm
+            airData
         );
         deviceData.validateState();
 
@@ -59,9 +48,7 @@ export class DeviceData {
             state.id,
             state.device,
             state.timestamp,
-            state.temperature,
-            state.humidity,
-            state.gasPpm
+            state.airData
         );
         deviceData.validateState();
 
@@ -71,9 +58,7 @@ export class DeviceData {
     public validateState(): void {
         this.ensureDeviceIsNotEmpty();
         this.ensureTimestampIsNotEmpty();
-        this.ensureTemperatureIsNotEmpty();
-        this.ensureHumidityIsNotEmpty();
-        this.ensureGasPpmIsNotEmpty();
+        this.ensureAirDataIsValid();
     }
 
     private ensureDeviceIsNotEmpty(): void {
@@ -88,21 +73,19 @@ export class DeviceData {
         }
     }
 
-    private ensureTemperatureIsNotEmpty(): void {
-        if (!this._temperature) {
-            throw new Error("Temperature is required");
+    private ensureAirDataIsValid(): void {
+        if (!this._airData) {
+            throw new Error("AirData is required");
         }
-    }
-
-    private ensureHumidityIsNotEmpty(): void {
-        if (!this._humidity) {
-            throw new Error("Humidity is required");
+        const { temperature, humidity, ppm } = this._airData;
+        if (temperature == null) {
+            throw new Error("Temperature is required in AirData");
         }
-    }
-
-    private ensureGasPpmIsNotEmpty(): void {
-        if (!this._gasPpm) {
-            throw new Error("Gas PPM is required");
+        if (humidity == null) {
+            throw new Error("Humidity is required in AirData");
+        }
+        if (ppm == null) {
+            throw new Error("PPM is required in AirData");
         }
     }
 
@@ -118,15 +101,7 @@ export class DeviceData {
         return this._timestamp;
     }
 
-    get temperature(): number {
-        return this._temperature;
-    }
-
-    get humidity(): number {
-        return this._humidity;
-    }
-
-    get gasPpm(): number {
-        return this._gasPpm;
+    get airData(): AirData {
+        return this._airData;
     }
 }
