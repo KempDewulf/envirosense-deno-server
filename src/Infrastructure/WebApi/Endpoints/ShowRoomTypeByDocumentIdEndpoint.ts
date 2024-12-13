@@ -38,8 +38,6 @@ export class ShowRoomTypeByDocumentIdEndpoint implements Endpoint {
     ): ShowRoomTypeByDocumentIdRequest {
         const roomTypeDocumentId = context.params.roomTypeDocumentId || "";
 
-        console.log("buildRequest Id from url", roomTypeDocumentId);
-
         return { roomTypeDocumentId } as ShowRoomTypeByDocumentIdRequest;
     }
 }
