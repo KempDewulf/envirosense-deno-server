@@ -6,8 +6,6 @@ WORKDIR /app
 
 # Cache dependencies first
 COPY deno.json* .
-COPY deps.ts* .
-RUN deno cache deps.ts
 
 # Copy project files
 COPY . .
