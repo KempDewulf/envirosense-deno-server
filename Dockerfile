@@ -14,7 +14,7 @@ COPY . .
 RUN deno cache src/Main/start.ts
 
 # Expose the application port (e.g., 8000)
-EXPOSE 8000
+EXPOSE 8101
 
 # Run the Deno application
 CMD ["deno", "run", "start"]
