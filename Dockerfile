@@ -4,6 +4,11 @@ FROM denoland/deno:latest
 # Set the working directory
 WORKDIR /app
 
+# Cache dependencies first
+COPY deno.json* .
+COPY deps.ts* .
+RUN deno cache deps.ts
+
 # Copy project files
 COPY . .
 
@@ -14,4 +19,4 @@ RUN deno cache src/Main/start.ts
 EXPOSE 8000
 
 # Run the Deno application
-CMD ["run", "--allow-net", "src/Main/start.ts"]
+CMD ["deno run start"]
