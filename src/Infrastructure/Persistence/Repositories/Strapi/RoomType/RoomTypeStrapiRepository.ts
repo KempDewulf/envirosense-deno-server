@@ -66,6 +66,6 @@ export class RoomTypeStrapiRepository
             return icon.id;
         }
 
-        return icon as string;
+        return icon;
     }
 }
