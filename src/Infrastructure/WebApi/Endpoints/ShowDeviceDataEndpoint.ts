@@ -7,7 +7,7 @@ import {
     ShowDeviceDataRequest,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { BuildingStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceDataStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { ShowDeviceData } from "EnviroSense/Application/mod.ts";
 
 export class ShowDeviceDataEndpoint implements Endpoint {
@@ -17,7 +17,7 @@ export class ShowDeviceDataEndpoint implements Endpoint {
         >();
         const presenter = new ShowDeviceDataPresenter(outputDevice);
 
-        const repository = new BuildingStrapiQueryRepository();
+        const repository = new DeviceDataStrapiQueryRepository();
 
         const useCase = new ShowDeviceData(presenter, repository);
 
@@ -35,14 +35,13 @@ export class ShowDeviceDataEndpoint implements Endpoint {
         return new ShowDeviceDataEndpoint();
     }
 
-     //check if this really works like this since we need to filter on device its identifier probably - now we juts use device
     private buildRequest(
         context: RouterContext<string>
     ): ShowDeviceDataRequest {
-        const device = context.request.url.searchParams.get("device")
-            ? context.request.url.searchParams.get("device")
+        const identifier = context.request.url.searchParams.get("identifier")
+            ? context.request.url.searchParams.get("identifier")
             : "";
 
-        return { device } as ShowDeviceDataRequest;
+        return { identifier } as ShowDeviceDataRequest;
     }
 }
