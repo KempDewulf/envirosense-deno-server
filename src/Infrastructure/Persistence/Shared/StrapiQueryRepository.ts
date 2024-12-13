@@ -2,7 +2,7 @@ export class StrapiQueryRepository {
     protected readonly baseUrl: string;
 
     //http://94.130.75.173:1331/api
-    constructor(baseUrl: string = 'http://localhost:1331/api') {
+    constructor(baseUrl: string = 'http://host.docker.internal:1331/api') {
         this.baseUrl = baseUrl;
     }
 
