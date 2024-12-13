@@ -1,6 +1,5 @@
 import { assertEquals, assertThrows } from "@std/assert";
-import { RoomType, RoomTypeState } from "EnviroSense/Domain/mod.ts";
-import { DomainException } from "EnviroSense/Domain/mod.ts";
+import { DomainException, RoomType, RoomTypeState } from "EnviroSense/Domain/mod.ts";
 
 Deno.test("RoomType - create method with valid parameters", () => {
     // Arrange

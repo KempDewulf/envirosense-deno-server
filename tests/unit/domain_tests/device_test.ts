@@ -1,9 +1,5 @@
 import { assertEquals, assertThrows } from "@std/assert";
-import { Device, DeviceState } from "EnviroSense/Domain/mod.ts";
-import { DeviceData, DomainException } from "EnviroSense/Domain/mod.ts";
-import { Room } from "EnviroSense/Domain/mod.ts";
-import { Building } from "EnviroSense/Domain/mod.ts";
-import { RoomType } from "EnviroSense/Domain/mod.ts";
+import { Building, Device, DeviceData, DeviceState, DomainException, Room, RoomType } from "EnviroSense/Domain/mod.ts";
 
 Deno.test("Device - create method with valid parameters", () => {
     // Arrange
