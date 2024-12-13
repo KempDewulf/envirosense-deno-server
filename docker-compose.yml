@@ -1,10 +1,14 @@
 services:
-  app:
-    build: .
-    ports:
-      - "8101:8101"
-    volumes:
-      - .:/app
-    restart: unless-stopped
-    networks:
-      - envirosense-network
+    app:
+        build: .
+        ports:
+            - "8101:8101"
+        volumes:
+            - .:/app
+        restart: unless-stopped
+        networks:
+            - envirosense-network
+
+networks:
+    envirosense-network:
+        external: true
