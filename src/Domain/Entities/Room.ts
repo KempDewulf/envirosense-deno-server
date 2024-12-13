@@ -49,8 +49,8 @@ export class Room {
         const room = new Room(
           state.id,
           state.name,
-          state.building,
-          state.roomType
+          state.building ?? (() => { throw new DomainException("Building cannot be null."); })(),
+          state.roomType ?? (() => { throw new DomainException("Room type cannot be null."); })()
         );
 
         room._devices = state.devices ?? [];
