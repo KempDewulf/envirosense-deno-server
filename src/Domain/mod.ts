@@ -19,4 +19,4 @@ export type { RoomState } from "EnviroSense/Domain/Entities/Room.ts";
 export { RoomType } from "EnviroSense/Domain/Entities/RoomType.ts";
 export type { RoomTypeState } from "EnviroSense/Domain/Entities/RoomType.ts";
 
-export type { AirData } from "./Entities/AirData.ts";
+export type { AirData } from "EnviroSense/Domain/Shared/AirData.ts";
