@@ -31,9 +31,7 @@ export class ProcessAirData implements UseCase<ProcessAirDataInput> {
             '',
             device,
             new Date(),
-            input.airData.temperature,
-            input.airData.humidity,
-            input.airData.ppm
+            input.airData
         );
 
         await this._deviceDataRepository.save(deviceData);
