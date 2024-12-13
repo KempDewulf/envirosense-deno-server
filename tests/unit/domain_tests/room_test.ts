@@ -1,6 +1,5 @@
 import { assertEquals, assertThrows } from "@std/assert";
-import { Room, RoomState } from "EnviroSense/Domain/mod.ts";
-import { Building, DomainException, RoomType } from "EnviroSense/Domain/mod.ts";
+import { Building, DomainException, Room, RoomState, RoomType } from "EnviroSense/Domain/mod.ts";
 
 Deno.test("Room - create method with valid parameters", () => {
     // Arrange
@@ -41,7 +40,7 @@ Deno.test("Room - create method with null building throws error", () => {
 
     // Act & Assert
     assertThrows(() => {
-        Room.create(id, name, building, roomType);
+        Room.create(id, name, building as unknown as Building, roomType);
     }, DomainException, "Building cannot be empty.");
 });
 
@@ -54,7 +53,7 @@ Deno.test("Room - create method with null roomType throws error", () => {
 
     // Act & Assert
     assertThrows(() => {
-        Room.create(id, name, building, roomType);
+        Room.create(id, name, building, roomType as unknown as RoomType);
     }, DomainException, "Room type cannot be empty.");
 });
 
