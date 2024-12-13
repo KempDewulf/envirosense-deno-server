@@ -3,22 +3,22 @@ import { DomainException } from "EnviroSense/Domain/mod.ts";
 export interface RoomTypeState {
     id: string;
     name: string;
-    icon: string;
+    iconId: string;
 }
 
 export class RoomType {
     private readonly _id: string;
     private _name: string;
-    private _icon: string;
+    private _iconId: string;
 
-    private constructor(id: string, name: string, icon: string) {
+    private constructor(id: string, name: string, iconId: string) {
         this._id = id;
         this._name = name;
-        this._icon = icon;
+        this._iconId = iconId;
     }
 
-    static create(id: string, name: string, icon: string): RoomType {
-        const room_type = new RoomType(id, name, icon);
+    static create(id: string, name: string, iconId: string): RoomType {
+        const room_type = new RoomType(id, name, iconId);
         room_type.validateState();
 
         return room_type;
@@ -28,7 +28,7 @@ export class RoomType {
         const room_type = new RoomType(
             state.id,
             state.name,
-            state.icon
+            state.iconId
         );
         room_type.validateState();
 
@@ -39,8 +39,8 @@ export class RoomType {
         this._name = name;
     }
 
-    public updateIcon(icon: string): void {
-        this._icon = icon;
+    public updateIcon(iconId: string): void {
+        this._iconId = iconId;
     }
 
     public validateState(): void {
@@ -55,8 +55,8 @@ export class RoomType {
     }
 
     private ensureIconIsNotEmpty(): void {
-        if (!this._icon) {
-            throw new DomainException("Room type icon cannot be empty.");
+        if (!this._iconId) {
+            throw new DomainException("Room type icon cannot be empty. Enter the ID of the icon.");
         }
     }
 
@@ -69,6 +69,6 @@ export class RoomType {
     }
 
     get icon(): string {
-        return this._icon;
+        return this._iconId;
     }
 }
