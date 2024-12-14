@@ -28,7 +28,7 @@ export type { UpdateBuildingOutput } from "./Building/UpdateBuildingOutput.ts";
 export type { DeleteBuildingInput } from "./Building/DeleteBuildingInput.ts";
 
 export type {
-    BuildingQueryAllDto,
+    BuildingQueryDto,
     BuildingQueryRepository,
 } from "./Ports/Repositories/Building/BuildingQueryRepository.ts";
 
