@@ -21,7 +21,7 @@ export type { ShowBuildingsRequest } from "EnviroSense/Infrastructure/WebApi/Con
 export { ShowBuildingsPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowBuildingsPresenter.ts";
 export type { ShowBuildingsPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowBuildingsPresenter.ts";
 
-export { ShowBuildingByDocumentIdEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowRoBuildingDocumentIdEndpoint.ts";
+export { ShowBuildingByDocumentIdEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowBuildingByDocumentIdEndpoint.ts";
 export { ShowBuildingByDocumentIdController } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowBuildingByDocumentIdController.ts";
 export type { ShowBuildingByDocumentIdRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowBuildingByDocumentIdController.ts";
 export { ShowBuildingByDocumentIdPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowBuildingByDocumentIdPresenter.ts";
