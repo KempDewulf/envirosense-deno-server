@@ -44,7 +44,7 @@ export class BuildingStrapiRepository
             id: data.documentId,
             name: data.name,
             address: data.address,
-            rooms: data.rooms,
+            rooms: data.rooms || [],
         });
 
         return building;
