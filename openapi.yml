@@ -2,291 +2,245 @@ openapi: 3.0.0
 info:
   title: EnviroSense API
   version: 1.0.0
-  description: API documentation for the EnviroSense project.
+  description: API documentation for EnviroSense.
 
 servers:
-  - url: http://localhost:8101
-    description: Local development server
+  - url: http://94.130.75.173:8101
+    description: Deployed API Server
 
 paths:
   /rooms:
     get:
-      summary: Retrieve a list of rooms
-      description: Fetches all available rooms.
+      summary: List all rooms
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+          description: Filter rooms by name
       responses:
-        '200':
-          description: A list of rooms
+        200:
+          description: List of rooms
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Room'
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
 
   /buildings:
     get:
-      summary: Retrieve a list of buildings
-      description: Fetches all available buildings.
+      summary: List all buildings
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+          description: Filter buildings by name
       responses:
-        '200':
-          description: A list of buildings
+        200:
+          description: List of buildings
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Building'
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
 
   /room-types:
     get:
-      summary: Retrieve a list of room types
-      description: Fetches all available room types.
+      summary: List all room types
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+          description: Filter room types by name
       responses:
-        '200':
-          description: A list of room types
+        200:
+          description: List of room types
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/RoomType'
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-
     post:
       summary: Create a new room type
-      description: Adds a new room type to the system.
       requestBody:
-        description: Room type object that needs to be added
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RoomType'
+              type: object
+              required:
+                - name
+                - icon
+              properties:
+                name:
+                  type: string
+                icon:
+                  type: number
       responses:
-        '201':
+        201:
           description: Room type created successfully
-          content:
-            application/json:
+          headers:
+            Location:
               schema:
-                $ref: '#/components/schemas/RoomType'
-        '400':
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
+                type: string
+              description: URL of the created room type
 
   /room-types/{roomTypeDocumentId}:
+    parameters:
+      - name: roomTypeDocumentId
+        in: path
+        required: true
+        schema:
+          type: string
     get:
-      summary: Retrieve a specific room type
-      description: Fetches a room type by its document ID.
-      parameters:
-        - in: path
-          name: roomTypeDocumentId
-          required: true
-          schema:
-            type: string
-          description: The document ID of the room type
+      summary: Get room type by ID
       responses:
-        '200':
+        200:
           description: Room type details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RoomType'
-        '404':
+        404:
           description: Room type not found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-
-    delete:
-      summary: Delete a room type
-      description: Removes a room type by its document ID.
-      parameters:
-        - in: path
-          name: roomTypeDocumentId
-          required: true
-          schema:
-            type: string
-          description: The document ID of the room type
-      responses:
-        '204':
-          description: Room type deleted successfully
-        '404':
-          description: Room type not found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-
     put:
-      summary: Update a room type
-      description: Updates an existing room type by its document ID.
-      parameters:
-        - in: path
-          name: roomTypeDocumentId
-          required: true
-          schema:
-            type: string
-          description: The document ID of the room type
+      summary: Update room type
       requestBody:
-        description: Updated room type object
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RoomType'
+              type: object
+              properties:
+                name:
+                  type: string
+                icon:
+                  type: number
       responses:
-        '200':
+        200:
           description: Room type updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RoomType'
-        '400':
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-        '404':
+        400:
+          description: Invalid request
+        404:
           description: Room type not found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
+    delete:
+      summary: Delete room type
+      responses:
+        204:
+          description: Room type deleted successfully
+        404:
+          description: Room type not found
 
   /device-data:
     get:
-      summary: Retrieve device data
-      description: Fetches data from devices.
+      summary: List device data
+      parameters:
+        - name: identifier
+          in: query
+          schema:
+            type: string
+          description: Filter device data by device identifier
       responses:
-        '200':
-          description: Device data retrieved successfully
+        200:
+          description: List of device data
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/DeviceData'
-        '500':
-          description: Server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
 
 components:
   schemas:
-    Room:
-      type: object
-      properties:
-        id:
-          type: string
-          example: "room-123"
-        name:
-          type: string
-          example: "Conference Room A"
-        capacity:
-          type: integer
-          example: 20
-
     Building:
       type: object
       properties:
         id:
           type: string
-          example: "building-456"
+        documentId:
+          type: string
         name:
           type: string
-          example: "Main Office"
         address:
           type: string
-          example: "1234 Elm Street, Springfield, IL"
+        rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Room'
+
+    Room:
+      type: object
+      properties:
+        id:
+          type: string
+        documentId:
+          type: string
+        name:
+          type: string
+        building:
+          $ref: '#/components/schemas/Building'
+        room-type:
+          $ref: '#/components/schemas/RoomType'
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Device'
 
     RoomType:
       type: object
       properties:
         id:
           type: string
-          example: "type-789"
+        documentId:
+          type: string
         name:
           type: string
-          example: "Lecture Hall"
-        description:
+        icon:
+          type: number
+        rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Room'
+
+    Device:
+      type: object
+      properties:
+        id:
           type: string
-          example: "A large room suitable for lectures and presentations."
+        documentId:
+          type: string
+        identifier:
+          type: string
+        room:
+          $ref: '#/components/schemas/Room'
+        device_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceData'
 
     DeviceData:
       type: object
       properties:
-        deviceId:
+        id:
           type: string
-          example: "device-001"
-        temperature:
-          type: number
-          format: float
-          example: 23.5
-        humidity:
-          type: number
-          format: float
-          example: 45.2
+        documentId:
+          type: string
+        device:
+          $ref: '#/components/schemas/Device'
         timestamp:
           type: string
           format: date-time
-          example: "2023-10-01T12:34:56Z"
+        temperature:
+          type: number
+          format: float
+        humidity:
+          type: number
+          format: float
+        gas_ppm:
+          type: number
+          format: float
