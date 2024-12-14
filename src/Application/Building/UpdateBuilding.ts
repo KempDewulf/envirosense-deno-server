@@ -28,7 +28,7 @@ export class UpdateBuilding implements UseCase<UpdateBuildingInput> {
             building.updateName(input.name);
         }
 
-        if (input.icon !== undefined) {
+        if (input.address !== undefined) {
             building.updateAddress(input.address);
         }
 
