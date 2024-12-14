@@ -2,10 +2,247 @@ openapi: 3.0.0
 info:
   title: EnviroSense API
   version: 1.0.0
-  description: API documentation for the EnviroSense project.
+  description: API documentation for EnviroSense.
 
 servers:
   - url: http://localhost:8101
     description: Local Development Server
   - url: http://94.130.75.173:8101
     description: Deployed API Server
+
+paths:
+  /rooms:
+    get:
+      summary: List all rooms
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+          description: Filter rooms by name
+      responses:
+        200:
+          description: List of rooms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+
+  /buildings:
+    get:
+      summary: List all buildings
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+          description: Filter buildings by name
+      responses:
+        200:
+          description: List of buildings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Building'
+
+  /room-types:
+    get:
+      summary: List all room types
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+          description: Filter room types by name
+      responses:
+        200:
+          description: List of room types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoomType'
+    post:
+      summary: Create a new room type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - icon
+              properties:
+                name:
+                  type: string
+                icon:
+                  type: string
+      responses:
+        201:
+          description: Room type created successfully
+          headers:
+            Location:
+              schema:
+                type: string
+              description: URL of the created room type
+
+  /room-types/{roomTypeDocumentId}:
+    parameters:
+      - name: roomTypeDocumentId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get room type by ID
+      responses:
+        200:
+          description: Room type details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomType'
+        404:
+          description: Room type not found
+    put:
+      summary: Update room type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                icon:
+                  type: string
+      responses:
+        200:
+          description: Room type updated successfully
+        400:
+          description: Invalid request
+        404:
+          description: Room type not found
+    delete:
+      summary: Delete room type
+      responses:
+        204:
+          description: Room type deleted successfully
+        404:
+          description: Room type not found
+
+  /device-data:
+    get:
+      summary: List device data
+      parameters:
+        - name: identifier
+          in: query
+          schema:
+            type: string
+          description: Filter device data by device identifier
+      responses:
+        200:
+          description: List of device data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeviceData'
+
+components:
+  schemas:
+    Building:
+      type: object
+      properties:
+        id:
+          type: string
+        documentId:
+          type: string
+        name:
+          type: string
+        address:
+          type: string
+        rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Room'
+
+    Room:
+      type: object
+      properties:
+        id:
+          type: string
+        documentId:
+          type: string
+        name:
+          type: string
+        building:
+          $ref: '#/components/schemas/Building'
+        room-type:
+          $ref: '#/components/schemas/RoomType'
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Device'
+
+    RoomType:
+      type: object
+      properties:
+        id:
+          type: string
+        documentId:
+          type: string
+        name:
+          type: string
+        icon:
+          type: string
+        rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Room'
+
+    Device:
+      type: object
+      properties:
+        id:
+          type: string
+        documentId:
+          type: string
+        identifier:
+          type: string
+        room:
+          $ref: '#/components/schemas/Room'
+        device_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceData'
+
+    DeviceData:
+      type: object
+      properties:
+        id:
+          type: string
+        documentId:
+          type: string
+        device:
+          $ref: '#/components/schemas/Device'
+        timestamp:
+          type: string
+          format: date-time
+        temperature:
+          type: number
+          format: float
+        humidity:
+          type: number
+          format: float
+        gas_ppm:
+          type: number
+          format: float
