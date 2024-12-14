@@ -7,6 +7,9 @@ WORKDIR /app
 # Cache dependencies first
 COPY deno.json* .
 
+# Copy source files needed for caching
+COPY src/ ./src/
+
 # Install dependencies (if any)
 RUN deno cache src/Main/start.ts
 
