@@ -16,6 +16,17 @@ export type { RoomRepository } from "./Ports/Repositories/Room/RoomRepository.ts
 export type { ShowBuildingsInput } from "./Building/ShowBuildingsInput.ts";
 export type { ShowBuildingsOutput } from "./Building/ShowBuildingsOutput.ts";
 
+export type { CreateBuildingInput } from "./Building/CreateBuildingInput.ts";
+export type { CreateBuildingOutput } from "./Building/CreateBuildingOutput.ts";
+
+export type { ShowBuildingByDocumentIdInput } from "./Building/ShowBuildingByDocumentIdInput.ts";
+export type { ShowBuildingByDocumentIdOutput } from "./Building/ShowBuildingByDocumentIdOutput.ts";
+
+export type { UpdateBuildingInput } from "./Building/UpdateBuildingInput.ts";
+export type { UpdateBuildingOutput } from "./Building/UpdateBuildingOutput.ts";
+
+export type { DeleteBuildingInput } from "./Building/DeleteBuildingInput.ts";
+
 export type {
     BuildingQueryAllDto,
     BuildingQueryRepository,
