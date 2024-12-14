@@ -10,15 +10,11 @@ export interface BuildingState {
 
 export class Building {
     private readonly _id: string;
-    private readonly _name: string;
-    private readonly _address: string;
+    private _name: string;
+    private _address: string;
     private _rooms: Room[] = [];
 
-    private constructor(
-        id: string,
-        name: string,
-        address: string
-    ) {
+    private constructor(id: string, name: string, address: string) {
         this._id = id;
         this._name = name;
         this._address = address;
@@ -32,14 +28,22 @@ export class Building {
     }
 
     static load(state: BuildingState): Building {
-        const building = new Building(
-            state.id,
-            state.name,
-            state.address
-        );
+        const building = new Building(state.id, state.name, state.address);
         building.validateState();
 
         return building;
+    }
+
+    public updateName(name: string): void {
+        this._name = name;
+    }
+
+    public updateAddress(address: string): void {
+        this._address = address;
+    }
+
+    public updateRooms(rooms: Room[]): void {
+        this._rooms = rooms;
     }
 
     public validateState(): void {
