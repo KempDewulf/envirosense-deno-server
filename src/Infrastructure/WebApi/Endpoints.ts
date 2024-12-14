@@ -2,14 +2,18 @@ import { Router, RouterContext } from '@oak/oak';
 import {
     CreateRoomTypeEndpoint,
     DeleteRoomTypeEndpoint,
-    UpdateRoomTypeEndpoint,
     Endpoint,
     ShowBuildingsEndpoint,
+    CreateBuildingEndpoint,
+    DeleteBuildingEndpoint,
+    ShowBuildingByDocumentIdEndpoint,
+    UpdateBuildingEndpoint,
     ShowDeviceDataEndpoint,
+    ShowOpenApiEndpoint,
     ShowRoomsEndpoint,
     ShowRoomTypeByDocumentIdEndpoint,
     ShowRoomTypesEndpoint,
-    ShowOpenApiEndpoint,
+    UpdateRoomTypeEndpoint,
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 
 function use(endpoint: Endpoint) {
@@ -21,7 +25,12 @@ export function endpoints(): Router {
 
     router.get('/', use(new ShowOpenApiEndpoint()));
     router.get('/rooms', use(new ShowRoomsEndpoint()));
+
     router.get('/buildings', use(new ShowBuildingsEndpoint()));
+    router.post('/buildings', use(new CreateBuildingEndpoint()));
+    router.get('/buildings/:buildingDocumentId', use(new ShowBuildingByDocumentIdEndpoint()));
+    router.delete('/buildings/:buildingDocumentId', use(new DeleteBuildingEndpoint()));
+    router.put('/buildings/:buildingDocumentId', use(new UpdateBuildingEndpoint()));
 
     router.get('/room-types', use(new ShowRoomTypesEndpoint()));
     router.post('/room-types', use(new CreateRoomTypeEndpoint()));
