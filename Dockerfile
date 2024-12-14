@@ -7,11 +7,11 @@ WORKDIR /app
 # Cache dependencies first
 COPY deno.json* .
 
-# Copy project files
-COPY . .
-
 # Install dependencies (if any)
 RUN deno cache src/Main/start.ts
+
+# Copy project files
+COPY . .
 
 # Expose the application port (e.g., 8000)
 EXPOSE 8101
