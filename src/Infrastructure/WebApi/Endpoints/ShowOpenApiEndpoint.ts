@@ -16,14 +16,13 @@ export class ShowOpenApiEndpoint implements Endpoint {
                 <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
                 <script>
                     const ui = SwaggerUIBundle({
-                        url: './openapi.yml',
+                        url: 'C:\\Users\\user\\Documents\\Coding\\School\\ccett\\deno-server\\openapi.yaml',
                         dom_id: '#swagger-ui',
                     });
                 </script>
             </body>
             </html>
         `;
-
         context.response.body = html;
         context.response.headers.set('Content-Type', 'text/html');
 
