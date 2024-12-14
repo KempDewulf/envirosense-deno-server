@@ -9,7 +9,7 @@ import {
     ShowRoomsEndpoint,
     ShowRoomTypeByDocumentIdEndpoint,
     ShowRoomTypesEndpoint,
-    TestEndpoint,
+    ShowOpenApiEndpoint,
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 
 function use(endpoint: Endpoint) {
@@ -19,7 +19,7 @@ function use(endpoint: Endpoint) {
 export function endpoints(): Router {
     const router = new Router();
 
-    router.get('/', use(new TestEndpoint())); //TODO: maybe show docs of openApi.yml?
+    router.get('/', use(new ShowOpenApiEndpoint()));
     router.get('/rooms', use(new ShowRoomsEndpoint()));
     router.get('/buildings', use(new ShowBuildingsEndpoint()));
 

@@ -5,6 +5,10 @@ export { errorHandlingMiddleware } from "EnviroSense/Infrastructure/WebApi/Middl
 export type { Endpoint } from "EnviroSense/Infrastructure/WebApi/Shared/Endpoint.ts";
 export { TestEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/TestEndpoint.ts";
 
+//OpenAPI
+export { ShowOpenApiEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowOpenApiEndpoint.ts";
+
+
 //Room
 export { ShowRoomsEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowRoomsEndpoint.ts";
 export { ShowRoomsController } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowRoomsController.ts";
