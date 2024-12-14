@@ -16,7 +16,7 @@ export class ShowOpenApiEndpoint implements Endpoint {
                 <script src="./openapi.yml"></script>
                 <script>
                     const ui = SwaggerUIBundle({
-                        url: 'https://petstore.swagger.io/v2/swagger.json',
+                        url: '../../../../openapi.yml',
                         dom_id: '#swagger-ui',
                         presets: [
                             SwaggerUIBundle.presets.apis,
