@@ -80,7 +80,7 @@ paths:
                 name:
                   type: string
                 icon:
-                  type: string
+                  type: number
       responses:
         201:
           description: Room type created successfully
@@ -120,7 +120,7 @@ paths:
                 name:
                   type: string
                 icon:
-                  type: string
+                  type: number
       responses:
         200:
           description: Room type updated successfully
@@ -201,7 +201,7 @@ components:
         name:
           type: string
         icon:
-          type: string
+          type: number
         rooms:
           type: array
           items:
