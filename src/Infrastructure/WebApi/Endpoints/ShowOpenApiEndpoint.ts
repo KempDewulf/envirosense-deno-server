@@ -16,7 +16,7 @@ export class ShowOpenApiEndpoint implements Endpoint {
                 <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
                 <script>
                     const ui = SwaggerUIBundle({
-                        url: '../../../../openapi.yml', // Updated URL
+                        url: './openapi.yml', // Updated URL
                         dom_id: '#swagger-ui',
                         presets: [
                             SwaggerUIBundle.presets.apis,
