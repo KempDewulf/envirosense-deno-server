@@ -11,6 +11,7 @@ export class WebApiModule implements Module {
     }
 
     run(): Promise<void> {
+        console.log('WebApi module started');
         console.log(`WebApi running on port http://127.0.0.1:${this._port}`);
 
         const app = new Application();
