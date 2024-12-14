@@ -30,7 +30,6 @@ export class RoomTypeStrapiRepository
         const endpoint = `room-types/${roomType.id}`;
         const body = this.mapFromDomain(roomType);
 
-
         return await this.put(endpoint, { data: body });
     }
 
@@ -62,7 +61,7 @@ export class RoomTypeStrapiRepository
             return null;
         }
 
-        if (typeof icon === 'object' && 'id' in icon) {
+        if (typeof icon === "object" && "id" in icon) {
             return icon.id;
         }
 
