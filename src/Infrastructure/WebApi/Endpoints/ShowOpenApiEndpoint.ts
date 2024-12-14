@@ -13,7 +13,7 @@ export class ShowOpenApiEndpoint implements Endpoint {
             </head>
             <body>
                 <div id="swagger-ui"></div>
-                <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+                <script src="./openapi.yml"></script>
                 <script>
                     const ui = SwaggerUIBundle({
                         url: 'https://petstore.swagger.io/v2/swagger.json',
