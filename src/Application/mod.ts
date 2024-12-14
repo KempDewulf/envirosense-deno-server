@@ -3,6 +3,10 @@ export { ShowRooms } from "./Room/ShowRooms.ts";
 
 // Building
 export { ShowBuildings } from "./Building/ShowBuildings.ts";
+export { CreateBuilding } from "./Building/CreateBuilding.ts";
+export { DeleteBuilding } from "./Building/DeleteBuilding.ts";
+export { UpdateBuilding } from "./Building/UpdateBuilding.ts";
+export { ShowBuildingByDocumentId } from "./Building/ShowBuildingByDocumentId.ts";
 
 // Device
 export { ShowDevices } from "./Device/ShowDevices.ts";
