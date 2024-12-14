@@ -1,6 +1,6 @@
 import { Module } from 'EnviroSense/Infrastructure/Shared/mod.ts';
 import { endpoints, errorHandlingMiddleware } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
-import { Application } from '@oak/oak';
+import { Application, send } from '@oak/oak';
 import { oakCors } from '@tajpouria/cors';
 
 export class WebApiModule implements Module {
@@ -26,6 +26,19 @@ export class WebApiModule implements Module {
                 exposedHeaders: ['*'],
             },
         ));
+
+        // Static file serving middleware
+        app.use(async (context, next) => {
+            const filePath = context.request.url.pathname;
+            try {
+                await send(context, filePath, {
+                    root: `${Deno.cwd()}/`,
+                    index: 'index.html',
+                });
+            } catch {
+                await next();
+            }
+        });
 
         const router = endpoints();
 
