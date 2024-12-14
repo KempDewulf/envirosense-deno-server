@@ -1,11 +1,6 @@
 import { assertEquals, assertThrows } from "@std/assert";
 import { Building, DomainException, Room, RoomState, RoomType } from "EnviroSense/Domain/mod.ts";
 
-
-Deno.test("Workflow - Failing test to check workflow", () => {
-    assertEquals(1, 2);
-});
-
 Deno.test("Room - create method with valid parameters", () => {
     // Arrange
     const id = "1";
