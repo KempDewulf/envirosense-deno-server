@@ -42,10 +42,6 @@ export class Building {
         this._address = address;
     }
 
-    public updateRooms(rooms: Room[]): void {
-        this._rooms = rooms;
-    }
-
     public validateState(): void {
         this.ensureNameIsNotEmpty();
         this.ensureAddressIsNotEmpty();
