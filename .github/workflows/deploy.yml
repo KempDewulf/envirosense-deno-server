@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - uses: actions/checkout@v2
+
+      - name: Run Deno tests
+        run: deno test
+      
       - name: Install SSH key
         run: |
           mkdir -p ~/.ssh
