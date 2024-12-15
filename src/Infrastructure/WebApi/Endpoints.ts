@@ -8,6 +8,8 @@ import {
     DeleteBuildingEndpoint,
     ShowBuildingByDocumentIdEndpoint,
     UpdateBuildingEndpoint,
+    AddRoomToBuildingEndpoint,
+    RemoveRoomFromBuildingEndpoint,
     ShowDeviceDataEndpoint,
     ShowOpenApiEndpoint,
     ShowRoomsEndpoint,
@@ -31,6 +33,8 @@ export function endpoints(): Router {
     router.get('/buildings/:buildingDocumentId', use(new ShowBuildingByDocumentIdEndpoint()));
     router.delete('/buildings/:buildingDocumentId', use(new DeleteBuildingEndpoint()));
     router.put('/buildings/:buildingDocumentId', use(new UpdateBuildingEndpoint()));
+    router.post('/buildings/:buildingDocumentId/rooms', use(new AddRoomToBuildingEndpoint()));
+    router.delete('/buildings/:buildingDocumentId/rooms/:roomDocumentId', use(new RemoveRoomFromBuildingEndpoint()));
 
     router.get('/room-types', use(new ShowRoomTypesEndpoint()));
     router.post('/room-types', use(new CreateRoomTypeEndpoint()));
