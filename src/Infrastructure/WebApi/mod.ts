@@ -45,12 +45,12 @@ export { UpdateBuildingPresenter } from "EnviroSense/Infrastructure/WebApi/Prese
 export type { UpdateBuildingPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/UpdateBuildingPresenter.ts";
 
 export { AddRoomToBuildingEndpoint } from 'EnviroSense/Infrastructure/WebApi/Endpoints/AddRoomToBuildingEndpoint.ts';
-export { AddRoomToBuildingEventController } from 'EnviroSense/Infrastructure/WebApi/Controllers/AddRoomToBuildingEventController.ts';
-export type { AddRoomToBuildingEventRequest } from 'EnviroSense/Infrastructure/WebApi/Controllers/AddRoomToBuildingEventRequest.ts';
+export { AddRoomToBuildingController } from 'EnviroSense/Infrastructure/WebApi/Controllers/AddRoomToBuildingController.ts';
+export type { AddRoomToBuildingRequest } from 'EnviroSense/Infrastructure/WebApi/Controllers/AddRoomToBuildingRequest.ts';
 
 export { RemoveRoomFromBuildingEndpoint } from 'EnviroSense/Infrastructure/WebApi/Endpoints/RemoveRoomFromBuildingEndpoint.ts';
-export { RemoveRoomFromBuildingEventController } from 'EnviroSense/Infrastructure/WebApi/Controllers/RemoveRoomFromBuildingEventController.ts';
-export type { RemoveRoomFromBuildingEventRequest } from 'EnviroSense/Infrastructure/WebApi/Controllers/RemoveRoomFromBuildingEventRequest.ts';
+export { RemoveRoomFromBuildingController } from 'EnviroSense/Infrastructure/WebApi/Controllers/RemoveRoomFromBuildingController.ts';
+export type { RemoveRoomFromBuildingRequest } from 'EnviroSense/Infrastructure/WebApi/Controllers/RemoveRoomFromBuildingRequest.ts';
 
 // Device
 export { ShowDevicesEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowDevicesEndpoint.ts";
