@@ -116,7 +116,7 @@ Deno.test("Room - load method with null roomType in state throws error", () => {
         id: "1",
         name: "Conference Room",
         building: Building.create("1", "Main Building", "123 Main St"),
-        roomType: null,
+        roomType: null as unknown as RoomType,
         devices: []
     };
 

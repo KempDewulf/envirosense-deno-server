@@ -63,6 +63,10 @@ export class Device {
     }
 
     public addRoom(room: Room): void {
+        if(room.building === null) {
+            throw new DomainException("Room must be assigned to a building");
+        }
+        
         room.building.ensureRoomExists(room.id);
         this._room = room;
     }
