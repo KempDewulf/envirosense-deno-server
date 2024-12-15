@@ -7,6 +7,7 @@ export { CreateBuilding } from "./Building/CreateBuilding.ts";
 export { DeleteBuilding } from "./Building/DeleteBuilding.ts";
 export { UpdateBuilding } from "./Building/UpdateBuilding.ts";
 export { ShowBuildingByDocumentId } from "./Building/ShowBuildingByDocumentId.ts";
+export { AddRoomToBuilding } from "./Building/AddRoomToBuilding.ts";
 
 // Device
 export { ShowDevices } from "./Device/ShowDevices.ts";
