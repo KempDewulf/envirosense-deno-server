@@ -48,6 +48,10 @@ export { AddRoomToBuildingEndpoint } from 'EnviroSense/Infrastructure/WebApi/End
 export { AddRoomToBuildingController } from 'EnviroSense/Infrastructure/WebApi/Controllers/AddRoomToBuildingController.ts';
 export type { AddRoomToBuildingRequest } from 'EnviroSense/Infrastructure/WebApi/Controllers/AddRoomToBuildingController.ts';
 
+export { RemoveRoomFromBuildingEndpoint } from 'EnviroSense/Infrastructure/WebApi/Endpoints/RemoveRoomFromBuildingEndpoint.ts';
+export { RemoveRoomFromBuildingController } from 'EnviroSense/Infrastructure/WebApi/Controllers/RemoveRoomFromBuildingController.ts';
+export type { RemoveRoomFromBuildingRequest } from 'EnviroSense/Infrastructure/WebApi/Controllers/RemoveRoomFromBuildingController.ts';
+
 // Device
 export { ShowDevicesEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowDevicesEndpoint.ts";
 export { ShowDevicesController } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowDevicesController.ts";

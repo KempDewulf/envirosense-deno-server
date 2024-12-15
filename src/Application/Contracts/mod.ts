@@ -29,6 +29,8 @@ export type { DeleteBuildingInput } from "./Building/DeleteBuildingInput.ts";
 
 export type { AddRoomToBuildingInput } from "./Building/AddRoomToBuildingInput.ts";
 
+export type { RemoveRoomFromBuildingInput } from "./Building/RemoveRoomFromBuildingInput.ts";
+
 export type {
     BuildingQueryDto,
     BuildingQueryRepository,

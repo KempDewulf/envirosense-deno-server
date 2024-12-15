@@ -4,6 +4,7 @@ import {
     AddRoomToBuildingInput,
     RoomRepository,
 } from "EnviroSense/Application/Contracts/mod.ts";
+import { RoomOperation } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 
 export class AddRoomToBuilding implements UseCase<AddRoomToBuildingInput> {
     private readonly _buildingRepository: BuildingRepository;
@@ -47,6 +48,6 @@ export class AddRoomToBuilding implements UseCase<AddRoomToBuildingInput> {
             roomDocumentIdsToConnect.push(room.id);
         }
 
-        await this._buildingRepository.addRooms(building.id, roomDocumentIdsToConnect);
+        await this._buildingRepository.manageRooms(building.id, roomDocumentIdsToConnect, RoomOperation.ADD);
     }
 }
