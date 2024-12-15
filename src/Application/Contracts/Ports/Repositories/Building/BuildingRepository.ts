@@ -5,4 +5,5 @@ export interface BuildingRepository {
     save(building: Building): Promise<void>;
     update(building: Building): Promise<void>;
     deleteEntity(building: Building): Promise<void>;
+    addRooms(buildingId: string, roomDocumentIds: string[]): Promise<void>;
 }

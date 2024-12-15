@@ -9,21 +9,21 @@ export interface RoomState {
     id: string;
     name: string;
     building: Building | null;
-    roomType: RoomType | null;
+    roomType: RoomType;
     devices?: Device[];
 }
 
 export class Room {
     private readonly _id: string;
     private readonly _name: string;
-    private readonly _building: Building;
+    private readonly _building: Building | null;
     private readonly _roomType: RoomType;
     private _devices: Device[];
 
     private constructor(
         id: string,
         name: string,
-        building: Building,
+        building: Building | null,
         roomType: RoomType
     ) {
         this._id = id;
@@ -49,7 +49,7 @@ export class Room {
         const room = new Room(
           state.id,
           state.name,
-          state.building ?? (() => { throw new DomainException("Building cannot be null."); })(),
+          state.building,
           state.roomType ?? (() => { throw new DomainException("Room type cannot be null."); })()
         );
 
@@ -62,7 +62,6 @@ export class Room {
 
     public validateState(): void {
         this.ensureNameIsNotEmpty();
-        this.ensureBuildingIsNotEmpty();
         this.ensureRoomTypeIsNotEmpty();
     }
 
@@ -92,12 +91,6 @@ export class Room {
         }
     }
 
-    private ensureBuildingIsNotEmpty(): void {
-        if (!this._building) {
-            throw new DomainException("Building cannot be empty.");
-        }
-    }
-
     private ensureDeviceDoesNotExist(device: Device): void {
         if (this._devices.some((d) => d.id === device.id)) {
             throw new DomainException("Device already exists in this room.");
@@ -118,7 +111,7 @@ export class Room {
         return this._name;
     }
 
-    get building(): Building {
+    get building(): Building | null {
         return this._building;
     }
 

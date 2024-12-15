@@ -2,34 +2,51 @@ import {
     BuildingRepository,
     UseCase,
     AddRoomToBuildingInput,
-    RoomTypeRepository,
+    RoomRepository,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { DomainException, Room } from "EnviroSense/Domain/mod.ts";
 
 export class AddRoomToBuilding implements UseCase<AddRoomToBuildingInput> {
     private readonly _buildingRepository: BuildingRepository;
-    private readonly _roomTypeRepository: RoomTypeRepository;
+    private readonly _roomRepository: RoomRepository;
 
-    constructor(buildingRepository: BuildingRepository, roomTypeRepository: RoomTypeRepository) {
+    constructor(
+        buildingRepository: BuildingRepository,
+        roomRepository: RoomRepository
+    ) {
         this._buildingRepository = buildingRepository;
-        this._roomTypeRepository = roomTypeRepository;
+        this._roomRepository = roomRepository;
     }
 
     async execute(input: AddRoomToBuildingInput): Promise<void> {
-        const buildingDocumentId = input.buildingDocumentId;
-        const roomTypeDocumentId = input.roomTypeDocumentId;
+        const buildingOptional = await this._buildingRepository.find(
+            input.buildingDocumentId
+        );
+        const building = buildingOptional.orElseThrow(
+            () =>
+                new Error(
+                    `Building with ID ${input.buildingDocumentId} not found.`
+                )
+        );
 
-        const building = (
-            await this._buildingRepository.find(buildingDocumentId)
-        ).orElseThrow(() => new DomainException("Building not found"));
+        const roomDocumentIdsToConnect: string[] = [];
 
-        const roomType = (
-            await this._roomTypeRepository.find(roomTypeDocumentId)
-        ).orElseThrow(() => new DomainException("Room type not found"));
+        for (const roomDocumentId of input.rooms) {
+            const roomOptional = await this._roomRepository.find(
+                roomDocumentId
+            );
 
-        const room = Room.create('', input.name, building, roomType);
-        building.addRoom(room);
+            const room = roomOptional.orElseThrow(
+                () =>
+                    new Error(
+                        `Room with documentId ${roomDocumentId} not found.`
+                    )
+            );
 
-        this._buildingRepository.update(building);
+            building.addRoom(room);
+
+            roomDocumentIdsToConnect.push(room.id);
+        }
+
+        await this._buildingRepository.addRooms(building.id, roomDocumentIdsToConnect);
     }
 }

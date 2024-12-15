@@ -6,8 +6,8 @@ export class RoomStrapiRepository
     extends StrapiQueryRepository
     implements RoomRepository
 {
-    async find(roomId: string): Promise<Optional<Room>> {
-        const endpoint = `rooms/${roomId.toString()}`;
+    async find(roomDocumentId: string): Promise<Optional<Room>> {
+        const endpoint = `rooms/${roomDocumentId.toString()}`;
         const params: Record<string, string> = {
             "populate[0]": "building",
             "populate[1]": "room_type.icon",
@@ -17,6 +17,7 @@ export class RoomStrapiRepository
         try {
             const response = await this.get<any>(endpoint, params);
             const room = this.mapToDomain(response.data);
+            
             return Optional.of<Room>(room);
         } catch {
             return Optional.empty<Room>();
@@ -44,7 +45,7 @@ export class RoomStrapiRepository
     }
 
     private mapToDomain(data: any): Room {
-        const buildingData = data.building;
+        const buildingData = data?.building;
         const roomTypeData = data.room_type;
 
         const building = buildingData
@@ -55,13 +56,11 @@ export class RoomStrapiRepository
               })
             : null;
 
-        const roomType = roomTypeData
-            ? RoomType.load({
-                  id: roomTypeData.documentId,
-                  name: roomTypeData.name,
-                  icon: roomTypeData.icon,
-              })
-            : null;
+        const roomType = RoomType.load({
+            id: roomTypeData.documentId,
+            name: roomTypeData.name,
+            icon: roomTypeData.icon,
+        });
 
         const room = Room.load({
             id: data.documentId,
@@ -79,7 +78,7 @@ export class RoomStrapiRepository
             name: room.name,
             building: room.building
                 ? {
-                      connect: [room.building.id], //for the scope of the project, we will hardcode it to the only existing building
+                      connect: [room.building.id],
                   }
                 : null,
             room_type: room.roomType

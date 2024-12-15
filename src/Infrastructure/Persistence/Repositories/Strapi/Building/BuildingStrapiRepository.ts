@@ -33,6 +33,16 @@ export class BuildingStrapiRepository
         return await this.put(endpoint, { data: body });
     }
 
+    async addRooms(buildingId: string, roomDocumentIds: string[]) {
+        const endpoint = `buildings/${buildingId}`;
+        const body = {
+            rooms: {
+                connect: roomDocumentIds,
+            },
+        };
+        await this.put(endpoint, { data: body });
+    }
+
     async deleteEntity(building: Building): Promise<void> {
         const endpoint = `buildings/${building.id}`;
 

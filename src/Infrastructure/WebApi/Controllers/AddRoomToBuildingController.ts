@@ -6,8 +6,7 @@ import {
 
 export interface AddRoomToBuildingRequest {
     buildingDocumentId: string;
-    nameOfRoom: string;
-    roomTypeDocumentId: string;
+    rooms: string[];
 }
 
 export class AddRoomToBuildingController
@@ -28,8 +27,7 @@ export class AddRoomToBuildingController
     ): AddRoomToBuildingInput {
         return {
             buildingDocumentId: request.buildingDocumentId,
-            name: request.nameOfRoom,
-            roomTypeDocumentId: request.roomTypeDocumentId
+            rooms: request.rooms
         };
     }
 }
