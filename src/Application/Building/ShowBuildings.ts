@@ -2,7 +2,7 @@ import {
     OutputPort,
     ShowBuildingsInput,
     ShowBuildingsOutput,
-    BuildingQueryAllDto,
+    BuildingQueryDto,
     BuildingQueryRepository,
     UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
@@ -25,7 +25,7 @@ export class ShowBuildings implements UseCase<ShowBuildingsInput> {
         this._outputPort.present(buildings);
     }
 
-    private mapDtoToOutput(dto: BuildingQueryAllDto[]): ShowBuildingsOutput[] {
+    private mapDtoToOutput(dto: BuildingQueryDto[]): ShowBuildingsOutput[] {
         return dto.map((item) => ({
             id: item.id,
             documentId: item.documentId,

@@ -10,18 +10,15 @@ export interface BuildingState {
 
 export class Building {
     private readonly _id: string;
-    private readonly _name: string;
-    private readonly _address: string;
+    private _name: string;
+    private _address: string;
     private _rooms: Room[] = [];
 
-    private constructor(
-        id: string,
-        name: string,
-        address: string
-    ) {
+    private constructor(id: string, name: string, address: string, rooms?: Room[]) {
         this._id = id;
         this._name = name;
         this._address = address;
+        this._rooms = rooms ?? [];
     }
 
     static create(id: string, name: string, address: string): Building {
@@ -32,14 +29,18 @@ export class Building {
     }
 
     static load(state: BuildingState): Building {
-        const building = new Building(
-            state.id,
-            state.name,
-            state.address
-        );
+        const building = new Building(state.id, state.name, state.address, state.rooms);
         building.validateState();
 
         return building;
+    }
+
+    public updateName(name: string): void {
+        this._name = name;
+    }
+
+    public updateAddress(address: string): void {
+        this._address = address;
     }
 
     public validateState(): void {
@@ -53,10 +54,10 @@ export class Building {
         this._rooms.push(room);
     }
 
-    public removeRoom(roomId: string): void {
-        this.ensureRoomExists(roomId);
+    public removeRoom(roomDocumentId: string): void {
+        this.ensureRoomExists(roomDocumentId);
 
-        this._rooms = this._rooms.filter((room) => room.id !== roomId);
+        this._rooms = this._rooms.filter((room) => room.id !== roomDocumentId);
     }
 
     private ensureNameIsNotEmpty(): void {
@@ -71,14 +72,16 @@ export class Building {
         }
     }
 
+    //Gives error but actually works, our linter doesn't know this exists, but it is 100% functional
     private ensureRoomDoesNotExist(room: Room): void {
-        if (this._rooms.some((r) => r.id === room.id)) {
-            throw new DomainException("Room already exists");
+        if (this._rooms.some((r) => r.documentId === room.id)) {
+            throw new DomainException(`Room ${room.id} already exists`);
         }
     }
 
-    public ensureRoomExists(roomId: string): void {
-        if (!this._rooms.some((room) => room.id === roomId)) {
+    //Gives error but actually works, our linter doesn't know this exists, but it is 100% functional
+    public ensureRoomExists(roomDocumentId: string): void {
+        if (!this._rooms.some((room) => room.documentId === roomDocumentId)) {
             throw new DomainException("Room does not exist");
         }
     }

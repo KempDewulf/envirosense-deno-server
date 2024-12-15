@@ -7,7 +7,6 @@ export type { Endpoint } from "EnviroSense/Infrastructure/WebApi/Shared/Endpoint
 //OpenAPI
 export { ShowOpenApiEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowOpenApiEndpoint.ts";
 
-
 //Room
 export { ShowRoomsEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowRoomsEndpoint.ts";
 export { ShowRoomsController } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowRoomsController.ts";
@@ -21,6 +20,37 @@ export { ShowBuildingsController } from "EnviroSense/Infrastructure/WebApi/Contr
 export type { ShowBuildingsRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowBuildingsController.ts";
 export { ShowBuildingsPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowBuildingsPresenter.ts";
 export type { ShowBuildingsPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowBuildingsPresenter.ts";
+
+export { ShowBuildingByDocumentIdEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowBuildingByDocumentIdEndpoint.ts";
+export { ShowBuildingByDocumentIdController } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowBuildingByDocumentIdController.ts";
+export type { ShowBuildingByDocumentIdRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowBuildingByDocumentIdController.ts";
+export { ShowBuildingByDocumentIdPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowBuildingByDocumentIdPresenter.ts";
+export type { ShowBuildingByDocumentIdPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowBuildingByDocumentIdPresenter.ts";
+
+export { CreateBuildingEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/CreateBuildingEndpoint.ts";
+export { CreateBuildingController } from "EnviroSense/Infrastructure/WebApi/Controllers/CreateBuildingController.ts";
+export type { CreateBuildingRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/CreateBuildingController.ts";
+export { CreateBuildingPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/CreateBuildingPresenter.ts";
+export type { CreateBuildingPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/CreateBuildingPresenter.ts";
+
+export { DeleteBuildingEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/DeleteBuildingEndpoint.ts";
+export { DeleteBuildingController } from "EnviroSense/Infrastructure/WebApi/Controllers/DeleteBuildingController.ts";
+export type { DeleteBuildingRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/DeleteBuildingController.ts";
+export { DeleteBuildingPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/DeleteBuildingPresenter.ts";
+
+export { UpdateBuildingEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/UpdateBuildingEndpoint.ts";
+export { UpdateBuildingController } from "EnviroSense/Infrastructure/WebApi/Controllers/UpdateBuildingController.ts";
+export type { UpdateBuildingRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/UpdateBuildingController.ts";
+export { UpdateBuildingPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/UpdateBuildingPresenter.ts";
+export type { UpdateBuildingPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/UpdateBuildingPresenter.ts";
+
+export { AddRoomToBuildingEndpoint } from 'EnviroSense/Infrastructure/WebApi/Endpoints/AddRoomToBuildingEndpoint.ts';
+export { AddRoomToBuildingController } from 'EnviroSense/Infrastructure/WebApi/Controllers/AddRoomToBuildingController.ts';
+export type { AddRoomToBuildingRequest } from 'EnviroSense/Infrastructure/WebApi/Controllers/AddRoomToBuildingController.ts';
+
+export { RemoveRoomFromBuildingEndpoint } from 'EnviroSense/Infrastructure/WebApi/Endpoints/RemoveRoomFromBuildingEndpoint.ts';
+export { RemoveRoomFromBuildingController } from 'EnviroSense/Infrastructure/WebApi/Controllers/RemoveRoomFromBuildingController.ts';
+export type { RemoveRoomFromBuildingRequest } from 'EnviroSense/Infrastructure/WebApi/Controllers/RemoveRoomFromBuildingController.ts';
 
 // Device
 export { ShowDevicesEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowDevicesEndpoint.ts";

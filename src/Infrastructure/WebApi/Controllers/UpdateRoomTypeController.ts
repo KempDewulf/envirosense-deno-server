@@ -3,8 +3,8 @@ import { Controller } from 'EnviroSense/Infrastructure/Shared/mod.ts';
 
 export interface UpdateRoomTypeRequest {
     roomTypeDocumentId: string;
-    name?: string;
-    icon?: string;
+    name: string;
+    icon: string;
 }
 
 export class UpdateRoomTypeController implements Controller<UpdateRoomTypeRequest> {
