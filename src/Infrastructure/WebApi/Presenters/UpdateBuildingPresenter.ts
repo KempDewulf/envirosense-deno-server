@@ -32,7 +32,7 @@ export class UpdateBuildingPresenter
     ): UpdateBuildingPresentedData {
         return {
             id: data.id,
-            documentId: data.id,
+            documentId: data.documentId,
             name: data.name,
             address: data.address,
             rooms: data.rooms,
