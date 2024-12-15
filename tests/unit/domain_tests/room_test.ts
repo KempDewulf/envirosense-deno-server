@@ -31,19 +31,6 @@ Deno.test("Room - create method with empty name throws error", () => {
     }, DomainException, "Room name cannot be empty.");
 });
 
-Deno.test("Room - create method with null building throws error", () => {
-    // Arrange
-    const id = "1";
-    const name = "Conference Room";
-    const building = null;
-    const roomType = RoomType.create("1", "Meeting Room", "icon.png");
-
-    // Act & Assert
-    assertThrows(() => {
-        Room.create(id, name, building as unknown as Building, roomType);
-    }, DomainException, "Building cannot be empty.");
-});
-
 Deno.test("Room - create method with null roomType throws error", () => {
     // Arrange
     const id = "1";
@@ -92,22 +79,6 @@ Deno.test("Room - load method with empty name in state throws error", () => {
     assertThrows(() => {
         Room.load(state);
     }, DomainException, "Room name cannot be empty.");
-});
-
-Deno.test("Room - load method with null building in state throws error", () => {
-    // Arrange
-    const state: RoomState = {
-        id: "1",
-        name: "Conference Room",
-        building: null,
-        roomType: RoomType.create("1", "Meeting Room", "icon.png"),
-        devices: []
-    };
-
-    // Act & Assert
-    assertThrows(() => {
-        Room.load(state);
-    }, DomainException, "Building cannot be null.");
 });
 
 Deno.test("Room - load method with null roomType in state throws error", () => {

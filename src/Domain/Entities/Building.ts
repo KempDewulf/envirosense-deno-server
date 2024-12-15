@@ -72,16 +72,14 @@ export class Building {
         }
     }
 
-    //Gives error but actually works, our linter doesn't know this exists, but it is 100% functional
     private ensureRoomDoesNotExist(room: Room): void {
-        if (this._rooms.some((r) => r.documentId === room.id)) {
+        if (this._rooms.some((r) => r.id === room.id)) {
             throw new DomainException(`Room ${room.id} already exists`);
         }
     }
 
-    //Gives error but actually works, our linter doesn't know this exists, but it is 100% functional
     public ensureRoomExists(roomDocumentId: string): void {
-        if (!this._rooms.some((room) => room.documentId === roomDocumentId)) {
+        if (!this._rooms.some((room) => room.id === roomDocumentId)) {
             throw new DomainException("Room does not exist");
         }
     }

@@ -97,7 +97,7 @@ Deno.test("Building - addRoom method with existing room throws error", () => {
     // Act & Assert
     assertThrows(() => {
         building.addRoom(room);
-    }, DomainException, "Room already exists");
+    }, DomainException, "Room 2 already exists");
 });
 
 Deno.test("Building - removeRoom method removes room from the building", () => {
@@ -130,6 +130,8 @@ Deno.test("Building - ensureRoomExists method with existing room does not throw 
     const roomType = RoomType.create("4", "Conference", "conference_icon.png");
     const room = Room.create("4", "Conference Room", building, roomType);
     building.addRoom(room);
+
+    console.log(building.rooms);
 
     // Act & Assert
     building.ensureRoomExists(room.id);
