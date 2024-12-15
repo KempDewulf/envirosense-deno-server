@@ -5,7 +5,7 @@ import {
     Endpoint,
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 import { ErrorsBag } from 'EnviroSense/Infrastructure/Shared/mod.ts';
-import { BuildingStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
+import { BuildingStrapiRepository, RoomTypeStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 import { AddRoomToBuilding } from 'EnviroSense/Application/mod.ts';
 
 export class AddRoomToBuildingEndpoint implements Endpoint {
@@ -22,8 +22,9 @@ export class AddRoomToBuildingEndpoint implements Endpoint {
             return;
         }
 
-        const repository = new BuildingStrapiRepository();
-        const useCase = new AddRoomToBuilding(repository);
+        const buildingRepository = new BuildingStrapiRepository();
+        const roomTypeRepository = new RoomTypeStrapiRepository();
+        const useCase = new AddRoomToBuilding(buildingRepository, roomTypeRepository);
 
         const controller = new AddRoomToBuildingController(useCase);
         await controller.handle(request);
@@ -34,12 +35,13 @@ export class AddRoomToBuildingEndpoint implements Endpoint {
     private async buildRequest(
         context: RouterContext<string>,
     ): Promise<AddRoomToBuildingRequest> {
-        const { nameOfRoom } = await context.request.body.json();
-        const id = context.params.id;
+        const { nameOfRoom, roomTypeDocumentId } = await context.request.body.json();
+        const buildingDocumentId = context.params.buildingDocumentId;
 
         return {
-            buildingDocumentId: id,
+            buildingDocumentId: buildingDocumentId,
             nameOfRoom,
+            roomTypeDocumentId
         } as AddRoomToBuildingRequest;
     }
 
@@ -52,6 +54,10 @@ export class AddRoomToBuildingEndpoint implements Endpoint {
 
         if (!request.nameOfRoom) {
             this._errors.add('nameOfRoom is required');
+        }
+
+        if (!request.roomTypeDocumentId) {
+            this._errors.add('roomTypeDocumentId is required');
         }
 
         if (this._errors.hasErrors) {
