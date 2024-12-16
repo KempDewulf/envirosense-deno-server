@@ -15,7 +15,7 @@ export interface RoomState {
 
 export class Room {
     private readonly _id: string;
-    private readonly _name: string;
+    private _name: string;
     private readonly _building: Building | null;
     private readonly _roomType: RoomType;
     private _devices: Device[];
@@ -58,6 +58,10 @@ export class Room {
         room.validateState();
 
         return room;
+    }
+
+    public updateName(name: string): void {
+        this._name = name;
     }
 
     public validateState(): void {
