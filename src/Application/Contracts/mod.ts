@@ -5,6 +5,21 @@ export type { OutputPort } from "./Ports/OutputPort.ts";
 export type { ShowRoomsInput } from "./Room/ShowRoomsInput.ts";
 export type { ShowRoomsOutput } from "./Room/ShowRoomsOutput.ts";
 
+export type { CreateRoomInput } from "./Room/CreateRoomInput.ts";
+export type { CreateRoomOutput } from "./Room/CreateRoomOutput.ts";
+
+export type { ShowRoomByDocumentIdInput } from "./Room/ShowRoomByDocumentIdInput.ts";
+export type { ShowRoomByDocumentIdOutput } from "./Room/ShowRoomByDocumentIdOutput.ts";
+
+export type { UpdateRoomInput } from "./Room/UpdateRoomInput.ts";
+export type { UpdateRoomOutput } from "./Room/UpdateRoomOutput.ts";
+
+export type { DeleteRoomInput } from "./Room/DeleteRoomInput.ts";
+
+export type { AddDeviceToRoomInput } from "./Room/AddDeviceToRoomInput.ts";
+
+export type { RemoveDeviceFromRoomInput } from "./Room/RemoveDeviceFromRoomInput.ts";
+
 export type {
     RoomQueryAllDto,
     RoomQueryRepository,
