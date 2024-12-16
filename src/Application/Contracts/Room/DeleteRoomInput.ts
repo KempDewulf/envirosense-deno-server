@@ -1,3 +1,3 @@
 export interface DeleteRoomInput {
-    broomDocumentId: string;
+    roomDocumentId: string;
 }
