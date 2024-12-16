@@ -63,9 +63,9 @@ export class DeviceStrapiRepository
         operation: DeviceDataOperation
     ) {
         const endpoint = `devices/${deviceDocumentId}`;
-        //TODO: figure our how strapi works internally here to add
+        
         const body = {
-            "device-data": {
+            "device_data": {
                 [operation]: deviceDataDocumentIds,
             },
         };
