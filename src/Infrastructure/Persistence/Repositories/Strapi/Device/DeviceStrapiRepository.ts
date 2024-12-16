@@ -62,7 +62,7 @@ export class DeviceStrapiRepository
         deviceDataDocumentIds: string[],
         operation: DeviceDataOperation
     ) {
-        const endpoint = `device-data/${deviceDocumentId}`;
+        const endpoint = `devices/${deviceDocumentId}`;
         const body = {
             'device-data': {
                 [operation]: deviceDataDocumentIds,
