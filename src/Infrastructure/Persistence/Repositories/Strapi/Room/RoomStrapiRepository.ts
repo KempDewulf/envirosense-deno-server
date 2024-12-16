@@ -1,6 +1,11 @@
 import { RoomRepository } from "EnviroSense/Application/Contracts/mod.ts";
-import { Optional, Room, Building, RoomType } from "EnviroSense/Domain/mod.ts";
+import { Optional, Room, Building, RoomType, Device } from "EnviroSense/Domain/mod.ts";
 import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
+
+export enum DeviceOperation {
+    ADD = "connect",
+    REMOVE = "disconnect",
+}
 
 export class RoomStrapiRepository
     extends StrapiQueryRepository
@@ -38,6 +43,20 @@ export class RoomStrapiRepository
         return await this.put(endpoint, { data: body });
     }
 
+    async manageDevices(
+            roomDocumentId: string,
+            deviceDocumentIds: string[],
+            operation: DeviceOperation
+        ) {
+            const endpoint = `rooms/${roomDocumentId}`;
+            const body = {
+                devices: {
+                    [operation]: deviceDocumentIds,
+                },
+            };
+            await this.put(endpoint, { data: body });
+        }
+
     async deleteEntity(room: Room): Promise<void> {
         const endpoint = `rooms/${room.id}`;
 
@@ -47,6 +66,7 @@ export class RoomStrapiRepository
     private mapToDomain(data: any): Room {
         const buildingData = data?.building;
         const roomTypeData = data.room_type;
+        const devicesData = data.devices;
 
         const building = buildingData
             ? Building.load({
@@ -62,12 +82,19 @@ export class RoomStrapiRepository
             icon: roomTypeData.icon,
         });
 
+        const devices = devicesData.map((device: any) => {
+            return Device.load({
+                id: device.documentId,
+                identifier: device.identifier,
+            });
+        });
+
         const room = Room.load({
             id: data.documentId,
             name: data.name,
             building: building,
             roomType: roomType,
-            devices: [],
+            devices: devices,
         });
 
         return room;

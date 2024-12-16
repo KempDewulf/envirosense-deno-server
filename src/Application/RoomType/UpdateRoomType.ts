@@ -36,6 +36,7 @@ export class UpdateRoomType implements UseCase<UpdateRoomTypeInput> {
 
         const output: UpdateRoomTypeOutput = {
             id: roomType.id,
+            documentId: roomType.id,
             name: roomType.name,
             icon: roomType.icon,
         };
