@@ -22,8 +22,8 @@ export class AddDeviceDataToDeviceEndpoint implements Endpoint {
             return;
         }
 
-        const deviceRepository = new DeviceStrapiRepository();
         const deviceDataRepository = new DeviceDataStrapiRepository();
+        const deviceRepository = new DeviceStrapiRepository();
         const useCase = new AddDeviceDataToDevice(deviceRepository, deviceDataRepository);
 
         const controller = new AddDeviceDataToDeviceController(useCase);
@@ -51,8 +51,8 @@ export class AddDeviceDataToDeviceEndpoint implements Endpoint {
             this._errors.add('deviceDocumentId is required');
         }
 
-        if (!request.deviceData || request.deviceData.length === 0) {
-            this._errors.add('deviceData is required. It must be an array of strings (the documentIds of the deviceData)');
+        if (!request.device_data || request.device_data.length === 0) {
+            this._errors.add('device_data is required. It must be an array of strings (the documentIds of the device data)');
         }
     }
 }
