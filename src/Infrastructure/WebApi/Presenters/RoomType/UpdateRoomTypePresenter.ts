@@ -1,13 +1,11 @@
 import { RequestResponseDevice } from 'EnviroSense/Infrastructure/Shared/mod.ts';
 import { UpdateRoomTypeOutput, OutputPort } from 'EnviroSense/Application/Contracts/mod.ts';
-import { Room } from 'EnviroSense/Domain/mod.ts';
 
 export interface UpdateRoomTypePresentedData {
     id: string;
     documentId: string;
     name: string;
     icon: string;
-    rooms: Room[];
 }
 
 export class UpdateRoomTypePresenter implements OutputPort<UpdateRoomTypeOutput> {
@@ -28,7 +26,6 @@ export class UpdateRoomTypePresenter implements OutputPort<UpdateRoomTypeOutput>
             documentId: data.documentId,
             name: data.name,
             icon: data.icon,
-            rooms: data.rooms
         };
     }
 }
