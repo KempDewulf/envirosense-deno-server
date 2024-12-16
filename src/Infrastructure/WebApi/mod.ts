@@ -90,6 +90,33 @@ export type { ShowDevicesRequest } from "EnviroSense/Infrastructure/WebApi/Contr
 export { ShowDevicesPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowDevicesPresenter.ts";
 export type { ShowDevicesPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowDevicesPresenter.ts";
 
+export { ShowDeviceByDocumentIdEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowDeviceByDocumentIdEndpoint.ts";
+export { ShowDeviceByDocumentIdController } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowDeviceByDocumentIdController.ts";
+export type { ShowDeviceByDocumentIdRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowDeviceByDocumentIdController.ts";
+export { ShowDeviceByDocumentIdPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowDeviceByDocumentIdPresenter.ts";
+export type { ShowDeviceByDocumentIdPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/ShowDeviceByDocumentIdPresenter.ts";
+
+export { CreateDeviceEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/CreateDeviceEndpoint.ts";
+export { CreateDeviceController } from "EnviroSense/Infrastructure/WebApi/Controllers/CreateDeviceController.ts";
+export type { CreateDeviceRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/CreateDeviceController.ts";
+export { CreateDevicePresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/CreateDevicePresenter.ts";
+export type { CreateDevicePresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/CreateDevicePresenter.ts";
+
+export { DeleteDeviceEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/DeleteDeviceEndpoint.ts";
+export { DeleteDeviceController } from "EnviroSense/Infrastructure/WebApi/Controllers/DeleteDeviceController.ts";
+export type { DeleteDeviceRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/DeleteDeviceController.ts";
+export { DeleteDevicePresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/DeleteDevicePresenter.ts";
+
+export { UpdateDeviceEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/UpdateDeviceEndpoint.ts";
+export { UpdateDeviceController } from "EnviroSense/Infrastructure/WebApi/Controllers/UpdateDeviceController.ts";
+export type { UpdateDeviceRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/UpdateDeviceController.ts";
+export { UpdateDevicePresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/UpdateDevicePresenter.ts";
+export type { UpdateDevicePresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/UpdateDevicePresenter.ts";
+
+export { AddDeviceDataToRoomEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/AddDeviceDataToRoomEndpoint.ts";
+export { AddDeviceDataToRoomController } from "EnviroSense/Infrastructure/WebApi/Controllers/AddDeviceDataToRoomController.ts";
+export type { AddDeviceDataToRoomRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/AddDeviceDataToRoomController.ts";
+
 // Room Type
 export { ShowRoomTypesEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/ShowRoomTypesEndpoint.ts";
 export { ShowRoomTypesController } from "EnviroSense/Infrastructure/WebApi/Controllers/ShowRoomTypesController.ts";
