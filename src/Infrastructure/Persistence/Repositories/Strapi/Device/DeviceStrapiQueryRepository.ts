@@ -23,7 +23,7 @@ export class DeviceStrapiQueryRepository
     async find(
         deviceDocumentId: string
     ): Promise<Optional<DeviceQueryDto>> {
-        const endpoint = `devices${deviceDocumentId.toString()}`;
+        const endpoint = `devices/${deviceDocumentId.toString()}`;
         const params: Record<string, string> = {};
 
         const response = await this.get<any>(endpoint, params);
