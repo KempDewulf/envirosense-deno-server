@@ -1,8 +1,11 @@
 import { Router, RouterContext } from '@oak/oak';
 import {
+    Endpoint,
     CreateRoomTypeEndpoint,
     DeleteRoomTypeEndpoint,
-    Endpoint,
+    ShowRoomTypeByDocumentIdEndpoint,
+    ShowRoomTypesEndpoint,
+    UpdateRoomTypeEndpoint,
     ShowBuildingsEndpoint,
     CreateBuildingEndpoint,
     DeleteBuildingEndpoint,
@@ -13,9 +16,12 @@ import {
     ShowDeviceDataEndpoint,
     ShowOpenApiEndpoint,
     ShowRoomsEndpoint,
-    ShowRoomTypeByDocumentIdEndpoint,
-    ShowRoomTypesEndpoint,
-    UpdateRoomTypeEndpoint,
+    CreateRoomEndpoint,
+    ShowRoomByDocumentIdEndpoint,
+    AddDeviceToRoomEndpoint,
+    DeleteRoomEndpoint,
+    RemoveDeviceFromRoomEndpoint,
+    UpdateRoomEndpoint
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 
 function use(endpoint: Endpoint) {
