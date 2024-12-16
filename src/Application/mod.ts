@@ -1,5 +1,11 @@
 // Room
 export { ShowRooms } from "./Room/ShowRooms.ts";
+export { CreateRoom } from "./Room/CreateRoom.ts";
+export { DeleteRoom } from "./Room/DeleteRoom.ts";
+export { UpdateRoom } from "./Room/UpdateRoom.ts";
+export { ShowRoomByDocumentId } from "./Room/ShowRoomByDocumentId.ts";
+export { AddDeviceToRoom } from "./Room/AddDeviceToRoom.ts";
+export { RemoveDeviceFromRoom } from "./Room/RemoveDeviceFromRoom.ts";
 
 // Building
 export { ShowBuildings } from "./Building/ShowBuildings.ts";
