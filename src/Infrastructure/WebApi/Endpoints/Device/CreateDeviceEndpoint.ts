@@ -8,10 +8,10 @@ import {
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 import { ErrorsBag, RequestResponse } from 'EnviroSense/Infrastructure/Shared/mod.ts';
 
-import { DeviceStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
+import { DeviceStrapiRepository, RoomStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 
 import { CreateDevice } from 'EnviroSense/Application/mod.ts';
-import { DeviceRepository } from 'EnviroSense/Application/Contracts/mod.ts';
+import { DeviceRepository, RoomRepository } from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class CreateDeviceEndpoint implements Endpoint {
     private readonly _errorsBag = new ErrorsBag();
@@ -30,11 +30,13 @@ export class CreateDeviceEndpoint implements Endpoint {
         const outputDevice = new RequestResponse<CreateDevicePresentedData>();
         const presenter = new CreateDevicePresenter(outputDevice);
 
-        const repository: DeviceRepository = new DeviceStrapiRepository();
+        const deviceRepository: DeviceRepository = new DeviceStrapiRepository();
+        const roomRepository: RoomRepository = new RoomStrapiRepository();
 
         const useCase = new CreateDevice(
             presenter,
-            repository
+            deviceRepository,
+            roomRepository
         );
 
         const controller = new CreateDeviceController(useCase);
