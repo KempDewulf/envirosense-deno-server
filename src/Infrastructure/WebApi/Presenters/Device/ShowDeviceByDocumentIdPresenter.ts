@@ -39,7 +39,7 @@ export class ShowDeviceByDocumentIdPresenter
             documentId: data.documentId,
             identifier: data.identifier,
             room: data.room,
-            device_data: data.deviceData,
+            device_data: data.device_data,
         };
     }
 }
