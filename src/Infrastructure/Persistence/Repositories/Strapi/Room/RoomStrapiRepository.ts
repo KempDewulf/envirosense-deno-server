@@ -17,7 +17,7 @@ export class RoomStrapiRepository
         try {
             const response = await this.get<any>(endpoint, params);
             const room = this.mapToDomain(response.data);
-            
+
             return Optional.of<Room>(room);
         } catch {
             return Optional.empty<Room>();

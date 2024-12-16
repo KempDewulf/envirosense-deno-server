@@ -72,6 +72,7 @@ export class Building {
         }
     }
 
+    //TODO: check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
     private ensureRoomDoesNotExist(room: Room): void {
         if (this._rooms.some((r) => r.id === room.id)) {
             throw new DomainException(`Room ${room.id} already exists`);
@@ -80,7 +81,7 @@ export class Building {
 
     public ensureRoomExists(roomDocumentId: string): void {
         if (!this._rooms.some((room) => room.id === roomDocumentId)) {
-            throw new DomainException("Room does not exist");
+            throw new DomainException(`Room does not exist`);
         }
     }
 
