@@ -34,14 +34,6 @@ export function endpoints(): Router {
 
     router.get('/', use(new ShowOpenApiEndpoint()));
 
-    router.get('/rooms', use(new ShowRoomsEndpoint()));
-    router.get('/rooms/:roomDocumentId', use(new ShowRoomByDocumentIdEndpoint()));
-    router.post('/rooms', use(new CreateRoomEndpoint()));
-    router.post('/rooms/:roomDocumentId/devices', use(new AddDeviceToRoomEndpoint()));
-    router.delete('/rooms/:roomDocumentId', use(new DeleteRoomEndpoint()));
-    router.delete('/rooms/:roomDocumentId/devices/:deviceDocumentId', use(new RemoveDeviceFromRoomEndpoint()));
-    router.put('/rooms/:roomDocumentId', use(new UpdateRoomEndpoint()));
-
     router.get('/buildings', use(new ShowBuildingsEndpoint()));
     router.get('/buildings/:buildingDocumentId', use(new ShowBuildingByDocumentIdEndpoint()));
     router.post('/buildings', use(new CreateBuildingEndpoint()));
@@ -50,13 +42,23 @@ export function endpoints(): Router {
     router.delete('/buildings/:buildingDocumentId/rooms/:roomDocumentId', use(new RemoveRoomFromBuildingEndpoint()));
     router.put('/buildings/:buildingDocumentId', use(new UpdateBuildingEndpoint()));
 
+    router.get('/rooms', use(new ShowRoomsEndpoint()));
+    router.get('/rooms/:roomDocumentId', use(new ShowRoomByDocumentIdEndpoint()));
+    router.post('/rooms', use(new CreateRoomEndpoint()));
+    router.post('/rooms/:roomDocumentId/devices', use(new AddDeviceToRoomEndpoint()));
+    router.delete('/rooms/:roomDocumentId', use(new DeleteRoomEndpoint()));
+    router.delete('/rooms/:roomDocumentId/devices/:deviceDocumentId', use(new RemoveDeviceFromRoomEndpoint()));
+    router.put('/rooms/:roomDocumentId', use(new UpdateRoomEndpoint()));
+
     router.get('/room-types', use(new ShowRoomTypesEndpoint()));
     router.get('/room-types/:roomTypeDocumentId', use(new ShowRoomTypeByDocumentIdEndpoint()));
     router.post('/room-types', use(new CreateRoomTypeEndpoint()));
     router.delete('/room-types/:roomTypeDocumentId', use(new DeleteRoomTypeEndpoint()));
     router.put('/room-types/:roomTypeDocumentId', use(new UpdateRoomTypeEndpoint()));
 
-    router.get('/device-data', use(new ShowDeviceDataEndpoint()));
     router.get('/devices', use(new ShowDevicesEndpoint()));
+
+    router.get('/device-data', use(new ShowDeviceDataEndpoint()));
+    
     return router;
 }
