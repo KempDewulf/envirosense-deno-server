@@ -11,8 +11,8 @@ export class BuildingStrapiRepository
     extends StrapiQueryRepository
     implements BuildingRepository
 {
-    async find(buildingId: string): Promise<Optional<Building>> {
-        const endpoint = `buildings/${buildingId.toString()}`;
+    async find(buildingDocumentId: string): Promise<Optional<Building>> {
+        const endpoint = `buildings/${buildingDocumentId.toString()}`;
         const params: Record<string, string> = {};
 
         try {
@@ -39,11 +39,11 @@ export class BuildingStrapiRepository
     }
 
     async manageRooms(
-        buildingId: string,
+        buildingDocumentId: string,
         roomDocumentIds: string[],
         operation: RoomOperation
     ) {
-        const endpoint = `buildings/${buildingId}`;
+        const endpoint = `buildings/${buildingDocumentId}`;
         const body = {
             rooms: {
                 [operation]: roomDocumentIds,

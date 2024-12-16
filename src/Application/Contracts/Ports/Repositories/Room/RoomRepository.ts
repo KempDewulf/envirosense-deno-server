@@ -6,5 +6,5 @@ export interface RoomRepository {
     save(room: Room): Promise<void>;
     update(room: Room): Promise<void>;
     deleteEntity(room: Room): Promise<void>;
-    manageDevices(roomId: string, deviceDocumentIds: string[], operation: DeviceOperation): Promise<void>;
+    manageDevices(roomDocumentId: string, deviceDocumentIds: string[], operation: DeviceOperation): Promise<void>;
 }

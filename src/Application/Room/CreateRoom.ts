@@ -29,17 +29,23 @@ export class CreateRoom implements UseCase<CreateRoomInput> {
 
     public async execute(input: CreateRoomInput): Promise<void> {
         const buildingOptional = await this._buildingRepository.find(
-            input.buildingId
+            input.buildingDocumentId
         );
         const building = buildingOptional.orElseThrow(
-            () => new Error(`Building with ID ${input.buildingId} not found.`)
+            () =>
+                new Error(
+                    `Building with ID ${input.buildingDocumentId} not found.`
+                )
         );
 
         const roomTypeOptional = await this._roomTypeRepository.find(
-            input.roomTypeId
+            input.roomTypeDocumentId
         );
         const roomType = roomTypeOptional.orElseThrow(
-            () => new Error(`Room Type with ID ${input.roomTypeId} not found.`)
+            () =>
+                new Error(
+                    `Room Type with ID ${input.roomTypeDocumentId} not found.`
+                )
         );
 
         const room = Room.create("", input.name, building, roomType);

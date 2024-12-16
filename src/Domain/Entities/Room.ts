@@ -47,10 +47,13 @@ export class Room {
 
     static load(state: RoomState): Room {
         const room = new Room(
-          state.id,
-          state.name,
-          state.building,
-          state.roomType ?? (() => { throw new DomainException("Room type cannot be null."); })()
+            state.id,
+            state.name,
+            state.building,
+            state.roomType ??
+                (() => {
+                    throw new DomainException("Room type cannot be null.");
+                })()
         );
 
         room._devices = state.devices ?? [];
@@ -75,11 +78,11 @@ export class Room {
         this._devices.push(device);
     }
 
-    public removeDevice(deviceId: string): void {
-        this.ensureDeviceExists(deviceId);
+    public removeDevice(deviceDocumentId: string): void {
+        this.ensureDeviceExists(deviceDocumentId);
 
         this._devices = this._devices.filter(
-            (device) => device.id !== deviceId
+            (device) => device.id !== deviceDocumentId
         );
     }
 
@@ -101,8 +104,8 @@ export class Room {
         }
     }
 
-    private ensureDeviceExists(deviceId: string): void {
-        if (!this._devices.some((d) => d.id === deviceId)) {
+    private ensureDeviceExists(deviceDocumentId: string): void {
+        if (!this._devices.some((d) => d.id === deviceDocumentId)) {
             throw new DomainException("Device does not exist in this room.");
         }
     }
@@ -123,7 +126,7 @@ export class Room {
         return this._roomType;
     }
 
-    get ['room-type'](): RoomType {
+    get ["room-type"](): RoomType {
         return this._roomType;
     }
 

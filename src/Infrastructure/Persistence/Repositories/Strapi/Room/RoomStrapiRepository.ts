@@ -44,11 +44,11 @@ export class RoomStrapiRepository
     }
 
     async manageDevices(
-            roomId: string,
+            roomDocumentId: string,
             deviceDocumentIds: string[],
             operation: DeviceOperation
         ) {
-            const endpoint = `rooms/${roomId}`;
+            const endpoint = `rooms/${roomDocumentId}`;
             const body = {
                 devices: {
                     [operation]: deviceDocumentIds,

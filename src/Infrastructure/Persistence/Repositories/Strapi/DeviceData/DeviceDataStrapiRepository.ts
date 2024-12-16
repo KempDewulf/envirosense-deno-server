@@ -6,8 +6,8 @@ export class DeviceDataStrapiRepository
     extends StrapiQueryRepository
     implements DeviceDataRepository
 {
-    async find(deviceDataId: string): Promise<Optional<DeviceData>> {
-        const endpoint = `device-datas/${deviceDataId.toString()}`;
+    async find(deviceDataDocumentId: string): Promise<Optional<DeviceData>> {
+        const endpoint = `device-datas/${deviceDataDocumentId.toString()}`;
         const params: Record<string, string> = {};
 
         try {
@@ -56,7 +56,9 @@ export class DeviceDataStrapiRepository
 
     private mapFromDomain(deviceData: DeviceData): any {
         return {
-            device: deviceData.device ? {connect: [deviceData.device.id]} : null,
+            device: deviceData.device
+                ? { connect: [deviceData.device.id] }
+                : null,
             timestamp: deviceData.timestamp,
             temperature: deviceData.airData.temperature,
             humidity: deviceData.airData.humidity,
