@@ -16,7 +16,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/deno
-          key: ${{ runner.os }}-deno-cache-${{ hashFiles('deno.json', 'deno.lock') }}
+          key: ${{ runner.os }}-deno-cache-${{ hashFiles('deno.json') }}
           restore-keys: |
             ${{ runner.os }}-deno-cache-
 
