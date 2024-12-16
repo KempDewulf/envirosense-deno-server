@@ -13,29 +13,27 @@ export interface DeviceState {
 
 export class Device {
     private readonly _id: string;
-    private readonly _identifier: string;
+    private _identifier: string;
     private _room: Room | null;
-    private readonly _deviceData: DeviceData[];
+    private _deviceData: DeviceData[];
 
     private constructor(
         id: string,
         identifier: string,
-        room: Room | null,
-        deviceData: DeviceData[]
+        room: Room | null
     ) {
         this._id = id;
         this._identifier = identifier;
         this._room = room;
-        this._deviceData = deviceData;
+        this._deviceData = [];
     }
 
     static create(
         id: string,
         identifier: string,
-        room: Room,
-        deviceData: DeviceData[]
+        room: Room
     ): Device {
-        const device = new Device(id, identifier, room, deviceData);
+        const device = new Device(id, identifier, room);
         device.validateState();
 
         return device;
@@ -46,12 +44,17 @@ export class Device {
             state.id,
             state.identifier,
             state.room || null,
-            state.deviceData || []
         );
+
+        device._deviceData = state.deviceData ?? [];
 
         device.validateState();
 
         return device;
+    }
+
+    public updateIdentifier(identifier: string): void {
+        this._identifier = identifier;
     }
 
     public validateState(): void {
@@ -66,7 +69,7 @@ export class Device {
         if(room.building === null) {
             throw new DomainException("Room must be assigned to a building");
         }
-        
+
         room.building.ensureRoomExists(room.id);
         this._room = room;
     }
