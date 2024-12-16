@@ -1,11 +1,9 @@
 import { CreateDeviceInput, UseCase } from 'EnviroSense/Application/Contracts/mod.ts';
 import { Controller } from 'EnviroSense/Infrastructure/Shared/mod.ts';
-import { DeviceData, Room } from 'EnviroSense/Domain/mod.ts';
 
 export interface CreateDeviceRequest {
     identifier: string;
-    room: Room;
-    device_data: DeviceData[];
+    roomDocumentId: string;
 }
 
 export class CreateDeviceController implements Controller<CreateDeviceRequest> {
@@ -23,8 +21,7 @@ export class CreateDeviceController implements Controller<CreateDeviceRequest> {
     protected mapToUseCaseInput(request: CreateDeviceRequest): CreateDeviceInput {
         return {
             identifier: request.identifier,
-            room: request.room,
-            device_data: request.device_data,
+            roomDocumentId: request.roomDocumentId
         };
     }
 }
