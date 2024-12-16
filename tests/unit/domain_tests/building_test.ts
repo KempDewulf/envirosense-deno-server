@@ -1,6 +1,7 @@
 import { assertEquals, assertThrows } from "@std/assert";
 import { Building, DomainException, Room, RoomType } from "EnviroSense/Domain/mod.ts";
 
+
 Deno.test("Building - create method with valid parameters", () => {
     // Arrange
     const id = "1";
