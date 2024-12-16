@@ -5,7 +5,7 @@ import {
 } from 'EnviroSense/Application/Contracts/mod.ts';
 
 export interface AddDeviceDataToDeviceRequest {
-    roomDocumentId: string;
+    deviceDocumentId: string;
     device_data: string[];
 }
 
@@ -26,8 +26,8 @@ export class AddDeviceDataToDeviceController
         request: AddDeviceDataToDeviceRequest,
     ): AddDeviceDataToDeviceInput {
         return {
-            roomDocumentId: request.roomDocumentId,
-            device_data: request.deviceData
+            deviceDocumentId: request.deviceDocumentId,
+            device_data: request.device_data
         };
     }
 }
