@@ -38,10 +38,10 @@ export class CreateRoom implements UseCase<CreateRoomInput> {
                 )
         );
 
-        const roomTypeOptional = await this._roomTypeRepository.find(
+        const roomOptional = await this._roomTypeRepository.find(
             input.roomTypeDocumentId
         );
-        const roomType = roomTypeOptional.orElseThrow(
+        const roomType = roomOptional.orElseThrow(
             () =>
                 new Error(
                     `Room Type with ID ${input.roomTypeDocumentId} not found.`

@@ -1,5 +1,5 @@
 import { RoomRepository } from "EnviroSense/Application/Contracts/mod.ts";
-import { Optional, Room, Building, RoomType } from "EnviroSense/Domain/mod.ts";
+import { Optional, Room, Building, RoomType, Device } from "EnviroSense/Domain/mod.ts";
 import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 
 export enum DeviceOperation {
@@ -66,6 +66,7 @@ export class RoomStrapiRepository
     private mapToDomain(data: any): Room {
         const buildingData = data?.building;
         const roomTypeData = data.room_type;
+        const devicesData = data.devices;
 
         const building = buildingData
             ? Building.load({
@@ -81,12 +82,19 @@ export class RoomStrapiRepository
             icon: roomTypeData.icon,
         });
 
+        const devices = devicesData.map((device: any) => {
+            return Device.load({
+                id: device.documentId,
+                identifier: device.identifier,
+            });
+        });
+
         const room = Room.load({
             id: data.documentId,
             name: data.name,
             building: building,
             roomType: roomType,
-            devices: [],
+            devices: devices,
         });
 
         return room;

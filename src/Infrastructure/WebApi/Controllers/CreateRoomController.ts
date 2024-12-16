@@ -4,7 +4,7 @@ import { Controller } from 'EnviroSense/Infrastructure/Shared/mod.ts';
 export interface CreateRoomRequest {
     name: string;
     buildingDocumentId: string;
-    roomDocumentId: string;
+    roomTypeDocumentId: string;
 }
 
 export class CreateRoomController implements Controller<CreateRoomRequest> {
@@ -23,7 +23,7 @@ export class CreateRoomController implements Controller<CreateRoomRequest> {
         return {
             name: request.name,
             buildingDocumentId: request.buildingDocumentId,
-            roomDocumentId: request.roomDocumentId
+            roomTypeDocumentId: request.roomTypeDocumentId
         };
     }
 }

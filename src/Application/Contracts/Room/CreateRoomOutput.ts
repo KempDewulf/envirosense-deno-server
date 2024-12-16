@@ -1,3 +1,3 @@
-export interface CreateBuildingOutput {
+export interface CreateRoomOutput {
     id: string;
 }
