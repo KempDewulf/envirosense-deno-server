@@ -12,6 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache Deno dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/deno
+          key: ${{ runner.os }}-deno-cache-${{ hashFiles('deno.json', 'deno.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-cache-
+
       - name: Setup Deno
         uses: denolib/setup-deno@v2
         with:
