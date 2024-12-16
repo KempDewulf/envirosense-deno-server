@@ -19,7 +19,7 @@ export class CreateDevicePresenter implements OutputPort<CreateDeviceOutput> {
 
     protected mapToPresentedData(data: CreateDeviceOutput): CreateDevicePresentedData {
         return {
-            url: `/device-data/${data.id}`,
+            url: `/devices/${data.id}`,
         };
     }
 }
