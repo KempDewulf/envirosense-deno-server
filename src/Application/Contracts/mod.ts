@@ -57,8 +57,21 @@ export type { BuildingRepository } from "./Ports/Repositories/Building/BuildingR
 export type { ShowDevicesInput } from "./Device/ShowDevicesInput.ts";
 export type { ShowDevicesOutput } from "./Device/ShowDevicesOutput.ts";
 
+export type { CreateDeviceInput } from "./Device/CreateDeviceInput.ts";
+export type { CreateDeviceOutput } from "./Device/CreateDeviceOutput.ts";
+
+export type { ShowDeviceByDocumentIdInput } from "./Device/ShowDeviceByDocumentIdInput.ts";
+export type { ShowDeviceByDocumentIdOutput } from "./Device/ShowDeviceByDocumentIdOutput.ts";
+
+export type { UpdateDeviceInput } from "./Device/UpdateDeviceInput.ts";
+export type { UpdateDeviceOutput } from "./Device/UpdateDeviceOutput.ts";
+
+export type { DeleteDeviceInput } from "./Device/DeleteDeviceInput.ts";
+
+export type { AddDeviceDataToDeviceInput } from "./Building/AddDeviceDataToDeviceInput.ts";
+
 export type {
-    DeviceQueryAllDto,
+    DeviceQueryDto,
     DeviceQueryRepository,
 } from "./Ports/Repositories/Device/DeviceQueryRepository.ts";
 
