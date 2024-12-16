@@ -5,7 +5,7 @@ import { DeviceData, Room } from 'EnviroSense/Domain/mod.ts';
 export interface CreateDeviceRequest {
     identifier: string;
     room: Room;
-    deviceData: DeviceData[];
+    device_data: DeviceData[];
 }
 
 export class CreateDeviceController implements Controller<CreateDeviceRequest> {
@@ -24,7 +24,7 @@ export class CreateDeviceController implements Controller<CreateDeviceRequest> {
         return {
             identifier: request.identifier,
             room: request.room,
-            deviceData: request.deviceData,
+            device_data: request.device_data,
         };
     }
 }

@@ -6,7 +6,7 @@ import {
 
 export interface AddDeviceDataToDeviceRequest {
     roomDocumentId: string;
-    deviceData: string[];
+    device_data: string[];
 }
 
 export class AddDeviceDataToDeviceController
@@ -27,7 +27,7 @@ export class AddDeviceDataToDeviceController
     ): AddDeviceDataToDeviceInput {
         return {
             roomDocumentId: request.roomDocumentId,
-            deviceData: request.deviceData
+            device_data: request.deviceData
         };
     }
 }

@@ -5,5 +5,5 @@ export interface ShowDeviceByDocumentIdOutput {
     documentId: string;
     identifier: string;
     room: Room;
-    deviceData: DeviceData[];
+    device_data: DeviceData[];
 }

@@ -40,7 +40,7 @@ export class AddDeviceDataToDeviceEndpoint implements Endpoint {
 
         return {
             deviceDocumentId: deviceDocumentId,
-            deviceData: deviceData,
+            device_data: deviceData,
         } as AddDeviceDataToDeviceRequest;
     }
 

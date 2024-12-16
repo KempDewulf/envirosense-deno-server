@@ -10,7 +10,7 @@ export type ShowDeviceByDocumentIdPresentedData = {
     documentId: string;
     identifier: string;
     room: Room;
-    deviceData: DeviceData[];
+    device_data: DeviceData[];
 };
 
 export class ShowDeviceByDocumentIdPresenter
@@ -39,7 +39,7 @@ export class ShowDeviceByDocumentIdPresenter
             documentId: data.documentId,
             identifier: data.identifier,
             room: data.room,
-            deviceData: data.deviceData,
+            device_data: data.deviceData,
         };
     }
 }

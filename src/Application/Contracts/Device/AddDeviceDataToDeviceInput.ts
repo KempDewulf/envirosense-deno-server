@@ -1,5 +1,5 @@
 export interface AddDeviceDataToDeviceInput {
     deviceDocumentId: string;
-    deviceData: string[];
+    device_data: string[];
 }
 
