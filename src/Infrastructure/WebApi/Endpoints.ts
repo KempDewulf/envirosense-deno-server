@@ -22,7 +22,12 @@ import {
     DeleteRoomEndpoint,
     RemoveDeviceFromRoomEndpoint,
     UpdateRoomEndpoint,
-    ShowDevicesEndpoint
+    ShowDevicesEndpoint,
+    CreateDeviceEndpoint,
+    ShowDeviceByDocumentIdEndpoint,
+    AddDeviceDataToRoomEndpoint,
+    DeleteDeviceEndpoint,
+    UpdateDeviceEndpoint,
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 
 function use(endpoint: Endpoint) {
@@ -57,8 +62,13 @@ export function endpoints(): Router {
     router.put('/room-types/:roomTypeDocumentId', use(new UpdateRoomTypeEndpoint()));
 
     router.get('/devices', use(new ShowDevicesEndpoint()));
+    router.get('/devices/:deviceDocumentId', use(new ShowDeviceByDocumentIdEndpoint()));
+    router.post('/devices', use(new CreateDeviceEndpoint()));
+    router.post('/devices/:deviceDocumentId/device-data', use(new AddDeviceDataToRoomEndpoint()));
+    router.delete('/devices/:deviceDocumentId', use(new DeleteDeviceEndpoint()));
+    router.put('/devices/:deviceDocumentId', use(new UpdateDeviceEndpoint()));
 
     router.get('/device-data', use(new ShowDeviceDataEndpoint()));
-    
+
     return router;
 }
