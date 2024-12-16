@@ -10,28 +10,15 @@ Deno.test("DeviceData - create method with valid parameters", () => {
     const device = Device.create("1", "Device001", room, []);
     const timestamp = new Date();
     const airData: AirData = { temperature: 25, humidity: 50, ppm: 400 };
-    
+
     // Act
     const deviceData = DeviceData.create(id, device, timestamp, airData);
-    
+
     // Assert
     assertEquals(deviceData.id, id);
     assertEquals(deviceData.device, device);
     assertEquals(deviceData.timestamp, timestamp);
     assertEquals(deviceData.airData, airData);
-});
-
-Deno.test("DeviceData - create method with null device throws error", () => {
-    // Arrange
-    const id = "2";
-    const device = null;
-    const timestamp = new Date();
-    const airData: AirData = { temperature: 25, humidity: 50, ppm: 400 };
-    
-    // Act & Assert
-    assertThrows(() => {
-        DeviceData.create(id, device as unknown as Device, timestamp, airData);
-    }, Error, "Device is required");
 });
 
 Deno.test("DeviceData - create method with null timestamp throws error", () => {
@@ -43,7 +30,7 @@ Deno.test("DeviceData - create method with null timestamp throws error", () => {
     const device = Device.create("3", "Device003", room, []);
     const timestamp = null;
     const airData: AirData = { temperature: 25, humidity: 50, ppm: 400 };
-    
+
     // Act & Assert
     assertThrows(() => {
         DeviceData.create(id, device, timestamp as unknown as Date, airData);
@@ -59,7 +46,7 @@ Deno.test("DeviceData - create method with null airData throws error", () => {
     const device = Device.create("4", "Device004", room, []);
     const timestamp = new Date();
     const airData = null;
-    
+
     // Act & Assert
     assertThrows(() => {
         DeviceData.create(id, device, timestamp, airData as unknown as AirData);
@@ -75,7 +62,7 @@ Deno.test("DeviceData - create method with invalid airData throws error", () => 
     const device = Device.create("5", "Device005", room, []);
     const timestamp = new Date();
     const airData = { temperature: null, humidity: 50, ppm: 400 };
-    
+
     // Act & Assert
     assertThrows(() => {
         DeviceData.create(id, device, timestamp, airData as unknown as AirData);
@@ -94,10 +81,10 @@ Deno.test("DeviceData - load method with valid state", () => {
         timestamp: new Date(),
         airData: { temperature: 25, humidity: 50, ppm: 400 }
     };
-    
+
     // Act
     const deviceData = DeviceData.load(state);
-    
+
     // Assert
     assertEquals(deviceData.id, state.id);
     assertEquals(deviceData.device, state.device);
@@ -105,17 +92,3 @@ Deno.test("DeviceData - load method with valid state", () => {
     assertEquals(deviceData.airData, state.airData);
 });
 
-Deno.test("DeviceData - load method with null device in state throws error", () => {
-    // Arrange
-    const state = {
-        id: "7",
-        device: null,
-        timestamp: new Date(),
-        airData: { temperature: 25, humidity: 50, ppm: 400 }
-    };
-    
-    // Act & Assert
-    assertThrows(() => {
-        DeviceData.load(state as unknown as DeviceDataState);
-    }, Error, "Device is required");
-});

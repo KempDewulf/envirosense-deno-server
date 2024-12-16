@@ -56,15 +56,8 @@ export class DeviceData {
     }
 
     public validateState(): void {
-        this.ensureDeviceIsNotEmpty();
         this.ensureTimestampIsNotEmpty();
         this.ensureAirDataIsValid();
-    }
-
-    private ensureDeviceIsNotEmpty(): void {
-        if (!this._device) {
-            throw new Error("Device is required");
-        }
     }
 
     private ensureTimestampIsNotEmpty(): void {
