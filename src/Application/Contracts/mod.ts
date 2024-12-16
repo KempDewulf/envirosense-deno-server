@@ -21,7 +21,7 @@ export type { AddDeviceToRoomInput } from "./Room/AddDeviceToRoomInput.ts";
 export type { RemoveDeviceFromRoomInput } from "./Room/RemoveDeviceFromRoomInput.ts";
 
 export type {
-    RoomQueryAllDto,
+    RoomQueryDto,
     RoomQueryRepository,
 } from "./Ports/Repositories/Room/RoomQueryRepository.ts";
 
@@ -78,7 +78,6 @@ export type { UpdateRoomTypeInput } from "./RoomType/UpdateRoomTypeInput.ts";
 export type { UpdateRoomTypeOutput } from "./RoomType/UpdateRoomTypeOutput.ts";
 
 export type { DeleteRoomTypeInput } from "./RoomType/DeleteRoomTypeInput.ts";
-
 
 export type {
     RoomTypeQueryDto,
