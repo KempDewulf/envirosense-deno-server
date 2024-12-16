@@ -2,6 +2,11 @@ import { Optional, Device } from "EnviroSense/Domain/mod.ts";
 import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 import { DeviceRepository } from "EnviroSense/Application/Contracts/mod.ts";
 
+export enum DeviceDataOperation {
+    ADD = "connect",
+    REMOVE = "disconnect",
+}
+
 export class DeviceStrapiRepository
     extends StrapiQueryRepository
     implements DeviceRepository
@@ -50,6 +55,20 @@ export class DeviceStrapiRepository
         const body = this.mapFromDomain(device);
 
         return await this.put(endpoint, { data: body });
+    }
+
+    async manageDeviceData(
+        deviceDocumentId: string,
+        deviceDataDocumentIds: string[],
+        operation: DeviceDataOperation
+    ) {
+        const endpoint = `device-data/${deviceDocumentId}`;
+        const body = {
+            'device-data': {
+                [operation]: deviceDataDocumentIds,
+            },
+        };
+        await this.put(endpoint, { data: body });
     }
 
     async deleteEntity(device: Device): Promise<void> {
