@@ -1,4 +1,4 @@
-import { Device } from "EnviroSense/Domain/mod.ts";
+import { Device, Optional } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceDataQueryAllDto {
     id: string;
@@ -12,4 +12,5 @@ export interface DeviceDataQueryAllDto {
 
 export interface DeviceDataQueryRepository {
     all(identifier: string): Promise<DeviceDataQueryAllDto[]>;
+    find(deviceDataDocumentId: string): Promise<Optional<DeviceDataQueryAllDto>>
 }

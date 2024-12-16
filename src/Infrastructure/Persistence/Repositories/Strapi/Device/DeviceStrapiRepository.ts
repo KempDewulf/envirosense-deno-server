@@ -63,8 +63,9 @@ export class DeviceStrapiRepository
         operation: DeviceDataOperation
     ) {
         const endpoint = `devices/${deviceDocumentId}`;
+        //TODO: figure our how strapi works internally here to add
         const body = {
-            'device-data': {
+            "device-data": {
                 [operation]: deviceDataDocumentIds,
             },
         };
@@ -91,7 +92,11 @@ export class DeviceStrapiRepository
     private mapFromDomain(device: Device): any {
         return {
             identifier: device.identifier,
-            room: device.room,
+            room: device.room
+                ? {
+                      connect: [device.room.id],
+                  }
+                : null,
             device_data: device.deviceData,
         };
     }

@@ -35,12 +35,12 @@ export class AddDeviceDataToDeviceEndpoint implements Endpoint {
     private async buildRequest(
         context: RouterContext<string>,
     ): Promise<AddDeviceDataToDeviceRequest> {
-        const { deviceData } = await context.request.body.json();
+        const { device_data } = await context.request.body.json();
         const deviceDocumentId = context.params.deviceDocumentId;
 
         return {
             deviceDocumentId: deviceDocumentId,
-            device_data: deviceData,
+            device_data: device_data,
         } as AddDeviceDataToDeviceRequest;
     }
 

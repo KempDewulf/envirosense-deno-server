@@ -28,7 +28,7 @@ export class RemoveDeviceFromRoom
         const room = roomOptional.orElseThrow(
             () =>
                 new Error(
-                    `Building with ID ${input.roomDocumentId} not found.`
+                    `Room with ID ${input.roomDocumentId} not found.`
                 )
         );
 

@@ -1,4 +1,4 @@
-import { Optional, DeviceData } from "EnviroSense/Domain/mod.ts";
+import { Optional, DeviceData, AirData } from "EnviroSense/Domain/mod.ts";
 import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 import { DeviceDataRepository } from "EnviroSense/Application/Contracts/mod.ts";
 
@@ -40,15 +40,17 @@ export class DeviceDataStrapiRepository
     }
 
     private mapToDomain(data: any): DeviceData {
+        const airData: AirData = {
+            temperature: data.temperature,
+            humidity: data.humidity,
+            ppm: data.gas_ppm,
+        };
+
         const deviceData = DeviceData.load({
             id: data.id,
             device: data.device,
             timestamp: data.timestamp,
-            airData: {
-                temperature: data.temperature,
-                humidity: data.humidity,
-                ppm: data.gas_ppm,
-            },
+            airData: airData
         });
 
         return deviceData;

@@ -57,7 +57,7 @@ export class CreateDeviceEndpoint implements Endpoint {
         this._errorsBag.clear();
 
         if (!request.identifier) {
-            this._errorsBag.add('name is required');
+            this._errorsBag.add('identifier is required');
         }
 
         if (!request.roomDocumentId) {
