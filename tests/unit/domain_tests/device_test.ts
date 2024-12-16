@@ -8,16 +8,14 @@ Deno.test("Device - create method with valid parameters", () => {
     const building = Building.create("1", "Main Building", "123 Main St");
     const roomType = RoomType.create("1", "Office", "office_icon.png");
     const room = Room.create("1", "Office Room", building, roomType);
-    const deviceData: DeviceData[] = [];
 
     // Act
-    const device = Device.create(id, identifier, room, deviceData);
+    const device = Device.create(id, identifier, room);
 
     // Assert
     assertEquals(device.id, id);
     assertEquals(device.identifier, identifier);
     assertEquals(device.room, room);
-    assertEquals(device.deviceData, deviceData);
 });
 
 Deno.test("Device - create method with empty identifier throws error", () => {
@@ -27,11 +25,10 @@ Deno.test("Device - create method with empty identifier throws error", () => {
     const building = Building.create("2", "Main Building", "123 Main St");
     const roomType = RoomType.create("2", "Office", "office_icon.png");
     const room = Room.create("2", "Office Room", building, roomType);
-    const deviceData: DeviceData[] = [];
 
     // Act & Assert
     assertThrows(() => {
-        Device.create(id, identifier, room, deviceData);
+        Device.create(id, identifier, room);
     }, DomainException, "Identifier is required");
 });
 
@@ -79,11 +76,10 @@ Deno.test("Device - removeRoom method removes the room from the device", () => {
     // Arrange
     const id = "5";
     const identifier = "Device005";
-    const deviceData: DeviceData[] = [];
     const building = Building.create("5", "Main Building", "123 Main St");
     const roomType = RoomType.create("5", "Office", "office_icon.png");
     const room = Room.create("5", "Office Room", building, roomType);
-    const device = Device.create(id, identifier, room, deviceData);
+    const device = Device.create(id, identifier, room);
 
     // Act
     device.removeRoom();
@@ -96,7 +92,6 @@ Deno.test("Device - addRoom method adds a new room after removing the current ro
     // Arrange
     const id = "6";
     const identifier = "Device006";
-    const deviceData: DeviceData[] = [];
 
     const building = Building.create("6", "Main Building", "123 Main St");
 
@@ -108,7 +103,7 @@ Deno.test("Device - addRoom method adds a new room after removing the current ro
     const room2 = Room.create("7", "Conference Room", building, roomType2);
     building.addRoom(room2); // Add room2 to the building
 
-    const device = Device.create(id, identifier, room1, deviceData);
+    const device = Device.create(id, identifier, room1);
 
     // Act
     device.removeRoom();

@@ -7,7 +7,7 @@ Deno.test("DeviceData - create method with valid parameters", () => {
     const building = Building.create("1", "Main Building", "123 Main St");
     const roomType = RoomType.create("1", "Office", "office_icon.png");
     const room = Room.create("1", "Office Room", building, roomType);
-    const device = Device.create("1", "Device001", room, []);
+    const device = Device.create("1", "Device001", room);
     const timestamp = new Date();
     const airData: AirData = { temperature: 25, humidity: 50, ppm: 400 };
 
@@ -27,7 +27,7 @@ Deno.test("DeviceData - create method with null timestamp throws error", () => {
     const building = Building.create("3", "Main Building", "123 Main St");
     const roomType = RoomType.create("3", "Office", "office_icon.png");
     const room = Room.create("3", "Office Room", building, roomType);
-    const device = Device.create("3", "Device003", room, []);
+    const device = Device.create("3", "Device003", room);
     const timestamp = null;
     const airData: AirData = { temperature: 25, humidity: 50, ppm: 400 };
 
@@ -43,7 +43,7 @@ Deno.test("DeviceData - create method with null airData throws error", () => {
     const building = Building.create("4", "Main Building", "123 Main St");
     const roomType = RoomType.create("4", "Office", "office_icon.png");
     const room = Room.create("4", "Office Room", building, roomType);
-    const device = Device.create("4", "Device004", room, []);
+    const device = Device.create("4", "Device004", room);
     const timestamp = new Date();
     const airData = null;
 
@@ -59,7 +59,7 @@ Deno.test("DeviceData - create method with invalid airData throws error", () => 
     const building = Building.create("5", "Main Building", "123 Main St");
     const roomType = RoomType.create("5", "Office", "office_icon.png");
     const room = Room.create("5", "Office Room", building, roomType);
-    const device = Device.create("5", "Device005", room, []);
+    const device = Device.create("5", "Device005", room);
     const timestamp = new Date();
     const airData = { temperature: null, humidity: 50, ppm: 400 };
 
@@ -74,7 +74,7 @@ Deno.test("DeviceData - load method with valid state", () => {
     const building = Building.create("6", "Main Building", "123 Main St");
     const roomType = RoomType.create("6", "Office", "office_icon.png");
     const room = Room.create("6", "Office Room", building, roomType);
-    const device = Device.create("6", "Device006", room, []);
+    const device = Device.create("6", "Device006", room);
     const state: DeviceDataState = {
         id: "6",
         device: device,
