@@ -2,6 +2,11 @@ import { RoomRepository } from "EnviroSense/Application/Contracts/mod.ts";
 import { Optional, Room, Building, RoomType } from "EnviroSense/Domain/mod.ts";
 import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 
+export enum DeviceOperation {
+    ADD = "connect",
+    REMOVE = "disconnect",
+}
+
 export class RoomStrapiRepository
     extends StrapiQueryRepository
     implements RoomRepository
@@ -37,6 +42,20 @@ export class RoomStrapiRepository
 
         return await this.put(endpoint, { data: body });
     }
+
+    async manageDevices(
+            roomId: string,
+            deviceDocumentIds: string[],
+            operation: DeviceOperation
+        ) {
+            const endpoint = `rooms/${roomId}`;
+            const body = {
+                devices: {
+                    [operation]: deviceDocumentIds,
+                },
+            };
+            await this.put(endpoint, { data: body });
+        }
 
     async deleteEntity(room: Room): Promise<void> {
         const endpoint = `rooms/${room.id}`;
