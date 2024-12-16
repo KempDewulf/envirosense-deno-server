@@ -79,6 +79,7 @@ export type { UpdateRoomTypeOutput } from "./RoomType/UpdateRoomTypeOutput.ts";
 
 export type { DeleteRoomTypeInput } from "./RoomType/DeleteRoomTypeInput.ts";
 
+
 export type {
     RoomTypeQueryDto,
     RoomTypeQueryRepository,
