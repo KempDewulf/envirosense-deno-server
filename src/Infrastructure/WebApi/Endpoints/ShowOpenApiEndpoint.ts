@@ -8,7 +8,7 @@ export class ShowOpenApiEndpoint implements Endpoint {
             <html>
             <head>
                 <meta charset="UTF-8">
-                <title>OpenAPI UI</title>
+                <title>EnviroSense OpenAPI Documentation</title>
                 <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css" />
             </head>
             <body>
