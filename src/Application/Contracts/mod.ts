@@ -103,8 +103,11 @@ export type { RoomTypeRepository } from "./Ports/Repositories/RoomType/RoomTypeR
 export type { ShowDeviceDataInput } from "./DeviceData/ShowDeviceDataInput.ts";
 export type { ShowDeviceDataOutput } from "./DeviceData/ShowDeviceDataOutput.ts";
 
+export type { ShowDeviceDataByDocumentIdInput } from "./DeviceData/ShowDeviceDataByDocumentIdInput.ts";
+export type { ShowDeviceDataByDocumentIdOutput } from "./DeviceData/ShowDeviceDataByDocumentIdOutput.ts";
+
 export type {
-    DeviceDataQueryAllDto,
+    DeviceDataQueryDto,
     DeviceDataQueryRepository,
 } from "./Ports/Repositories/DeviceData/DeviceDataQueryRepository.ts";
 
