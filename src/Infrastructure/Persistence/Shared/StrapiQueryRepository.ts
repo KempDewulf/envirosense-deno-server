@@ -5,6 +5,7 @@ export class StrapiQueryRepository {
     constructor() {
         this.baseUrl = Deno.env.get("PRODUCTION_STRAPI_URL") || "";
         this.apiToken = Deno.env.get("STRAPI_API_TOKEN") || "";
+        
         if (!this.apiToken) {
             console.warn("⚠️ No STRAPI_API_TOKEN found in environment variables");
         }
