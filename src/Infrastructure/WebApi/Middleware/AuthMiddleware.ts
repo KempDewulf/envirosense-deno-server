@@ -6,7 +6,7 @@ const PUBLIC_PATHS = new Set([
 ]);
 
 const validTokens = new Set([
-  Deno.env.get("API_KEY")
+  Deno.env.get("DENO_API_KEY")
 ]);
 
 export const authMiddleware: Middleware = async (context, next) => {
