@@ -1,5 +1,8 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { OutputPort, UpdateDeviceOutput } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	OutputPort,
+	UpdateDeviceOutput,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface UpdateDevicePresentedData {
 	id: string;
@@ -19,7 +22,9 @@ export class UpdateDevicePresenter implements OutputPort<UpdateDeviceOutput> {
 		this._device.update(presentedData);
 	}
 
-	protected mapToPresentedData(data: UpdateDeviceOutput): UpdateDevicePresentedData {
+	protected mapToPresentedData(
+		data: UpdateDeviceOutput,
+	): UpdateDevicePresentedData {
 		return {
 			id: data.id,
 			documentId: data.documentId,

@@ -1,12 +1,18 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { CreateBuildingOutput, OutputPort } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	CreateBuildingOutput,
+	OutputPort,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface CreateBuildingPresentedData {
 	url: string;
 }
 
-export class CreateBuildingPresenter implements OutputPort<CreateBuildingOutput> {
-	private readonly _device: RequestResponseDevice<CreateBuildingPresentedData>;
+export class CreateBuildingPresenter
+	implements OutputPort<CreateBuildingOutput> {
+	private readonly _device: RequestResponseDevice<
+		CreateBuildingPresentedData
+	>;
 
 	constructor(device: RequestResponseDevice<CreateBuildingPresentedData>) {
 		this._device = device;
@@ -17,7 +23,9 @@ export class CreateBuildingPresenter implements OutputPort<CreateBuildingOutput>
 		this._device.update(presentedData);
 	}
 
-	protected mapToPresentedData(data: CreateBuildingOutput): CreateBuildingPresentedData {
+	protected mapToPresentedData(
+		data: CreateBuildingOutput,
+	): CreateBuildingPresentedData {
 		return {
 			url: `/buildings/${data.id}`,
 		};

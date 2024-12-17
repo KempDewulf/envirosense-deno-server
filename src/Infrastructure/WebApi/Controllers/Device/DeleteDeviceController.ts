@@ -1,4 +1,7 @@
-import { DeleteDeviceInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	DeleteDeviceInput,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export interface DeleteDeviceRequest {
@@ -17,7 +20,9 @@ export class DeleteDeviceController implements Controller<DeleteDeviceRequest> {
 		await this._useCase.execute(useCaseInput);
 	}
 
-	protected mapToUseCaseInput(request: DeleteDeviceRequest): DeleteDeviceInput {
+	protected mapToUseCaseInput(
+		request: DeleteDeviceRequest,
+	): DeleteDeviceInput {
 		return {
 			deviceDocumentId: request.deviceDocumentId,
 		};

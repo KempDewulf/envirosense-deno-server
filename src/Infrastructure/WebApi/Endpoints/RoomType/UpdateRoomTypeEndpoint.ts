@@ -6,7 +6,10 @@ import {
 	UpdateRoomTypePresenter,
 	UpdateRoomTypeRequest,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import { ErrorsBag, RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import {
+	ErrorsBag,
+	RequestResponse,
+} from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 import { RoomTypeStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
@@ -47,9 +50,13 @@ export class UpdateRoomTypeEndpoint implements Endpoint {
 		context.response.body = response;
 	}
 
-	private async buildRequest(context: RouterContext<string>): Promise<UpdateRoomTypeRequest> {
+	private async buildRequest(
+		context: RouterContext<string>,
+	): Promise<UpdateRoomTypeRequest> {
 		const roomTypeDocumentId = context.params.roomTypeDocumentId || "";
-		const body = context.request.hasBody ? await context.request.body.json() : {};
+		const body = context.request.hasBody
+			? await context.request.body.json()
+			: {};
 
 		return {
 			roomTypeDocumentId,
@@ -66,7 +73,9 @@ export class UpdateRoomTypeEndpoint implements Endpoint {
 		}
 
 		if (request.name === undefined && request.icon === undefined) {
-			this._errorsBag.add('At least one of "name" or "icon" must be provided');
+			this._errorsBag.add(
+				'At least one of "name" or "icon" must be provided',
+			);
 		}
 	}
 }

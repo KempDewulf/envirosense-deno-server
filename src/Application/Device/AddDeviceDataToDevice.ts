@@ -6,7 +6,8 @@ import {
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceDataOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Device/DeviceStrapiRepository.ts";
 
-export class AddDeviceDataToDevice implements UseCase<AddDeviceDataToDeviceInput> {
+export class AddDeviceDataToDevice
+	implements UseCase<AddDeviceDataToDeviceInput> {
 	private readonly _deviceRepository: DeviceRepository;
 	private readonly _deviceDataRepository: DeviceDataRepository;
 

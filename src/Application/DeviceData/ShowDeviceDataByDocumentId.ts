@@ -7,7 +7,8 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 
-export class ShowDeviceDataByDocumentId implements UseCase<ShowDeviceDataByDocumentIdInput> {
+export class ShowDeviceDataByDocumentId
+	implements UseCase<ShowDeviceDataByDocumentIdInput> {
 	private readonly _outputPort: OutputPort<ShowDeviceDataByDocumentIdOutput>;
 	private readonly _deviceDataRepository: DeviceDataQueryRepository;
 
@@ -19,13 +20,17 @@ export class ShowDeviceDataByDocumentId implements UseCase<ShowDeviceDataByDocum
 		this._deviceDataRepository = deviceDataRepository;
 	}
 
-	public async execute(input: ShowDeviceDataByDocumentIdInput): Promise<void> {
+	public async execute(
+		input: ShowDeviceDataByDocumentIdInput,
+	): Promise<void> {
 		const deviceDataOptional = await this._deviceDataRepository.find(
 			input.deviceDataDocumentId,
 		);
 
 		const deviceDataDto = deviceDataOptional.orElseThrow(() =>
-			new Error(`DeviceData with ID ${input.deviceDataDocumentId} not found.`)
+			new Error(
+				`DeviceData with ID ${input.deviceDataDocumentId} not found.`,
+			)
 		);
 
 		const deviceData = this.mapDtoToOutput(deviceDataDto);

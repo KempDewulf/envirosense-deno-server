@@ -10,10 +10,15 @@ export class DeviceDataStrapiQueryRepository extends StrapiQueryRepository
 	async all(identifier: string): Promise<DeviceDataQueryDto[]> {
 		const endpoint = "device-datas";
 		const params = identifier
-			? { "filters[device][identifier][$contains]": identifier, "populate": "*" }
+			? {
+				"filters[device][identifier][$contains]": identifier,
+				"populate": "*",
+			}
 			: undefined;
 		const response = await this.get<any>(endpoint, params);
-		const deviceData = response.data.map((item: any) => this.mapToDto(item));
+		const deviceData = response.data.map((item: any) =>
+			this.mapToDto(item)
+		);
 
 		return deviceData;
 	}

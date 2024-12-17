@@ -6,7 +6,10 @@ import {
 	CreateBuildingRequest,
 	Endpoint,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import { ErrorsBag, RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import {
+	ErrorsBag,
+	RequestResponse,
+} from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 import { BuildingStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
@@ -47,7 +50,9 @@ export class CreateBuildingEndpoint implements Endpoint {
 		context.response.status = 201;
 	}
 
-	private async buildRequest(context: RouterContext<string>): Promise<CreateBuildingRequest> {
+	private async buildRequest(
+		context: RouterContext<string>,
+	): Promise<CreateBuildingRequest> {
 		return await context.request.body.json() as CreateBuildingRequest;
 	}
 

@@ -14,7 +14,12 @@ export class Building {
 	private _address: string;
 	private _rooms: Room[] = [];
 
-	private constructor(id: string, name: string, address: string, rooms?: Room[]) {
+	private constructor(
+		id: string,
+		name: string,
+		address: string,
+		rooms?: Room[],
+	) {
 		this._id = id;
 		this._name = name;
 		this._address = address;
@@ -29,7 +34,12 @@ export class Building {
 	}
 
 	static load(state: BuildingState): Building {
-		const building = new Building(state.id, state.name, state.address, state.rooms);
+		const building = new Building(
+			state.id,
+			state.name,
+			state.address,
+			state.rooms,
+		);
 		building.validateState();
 
 		return building;

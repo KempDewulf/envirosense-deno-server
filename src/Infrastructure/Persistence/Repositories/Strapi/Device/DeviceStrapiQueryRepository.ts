@@ -1,4 +1,7 @@
-import { DeviceQueryDto, DeviceQueryRepository } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	DeviceQueryDto,
+	DeviceQueryRepository,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 import { Optional } from "EnviroSense/Domain/mod.ts";
 

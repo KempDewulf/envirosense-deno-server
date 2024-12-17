@@ -1,5 +1,8 @@
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { ShowDeviceDataByDocumentIdInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	ShowDeviceDataByDocumentIdInput,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface ShowDeviceDataByDocumentIdRequest {
 	deviceDataDocumentId: string;

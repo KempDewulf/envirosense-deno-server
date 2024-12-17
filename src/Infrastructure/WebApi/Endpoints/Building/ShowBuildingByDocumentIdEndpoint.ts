@@ -12,7 +12,9 @@ import { ShowBuildingByDocumentId } from "EnviroSense/Application/mod.ts";
 
 export class ShowBuildingByDocumentIdEndpoint implements Endpoint {
 	async handle(context: RouterContext<string>): Promise<void> {
-		const outputDevice = new RequestResponse<ShowBuildingByDocumentIdPresentedData>();
+		const outputDevice = new RequestResponse<
+			ShowBuildingByDocumentIdPresentedData
+		>();
 		const presenter = new ShowBuildingByDocumentIdPresenter(outputDevice);
 
 		const repository = new BuildingStrapiQueryRepository();

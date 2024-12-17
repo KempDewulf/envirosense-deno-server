@@ -1,5 +1,8 @@
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { ShowDevicesInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	ShowDevicesInput,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface ShowDevicesRequest {
 	identifier: string;

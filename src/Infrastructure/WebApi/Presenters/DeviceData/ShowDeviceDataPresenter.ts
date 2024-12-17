@@ -1,5 +1,8 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { OutputPort, ShowDeviceDataOutput } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	OutputPort,
+	ShowDeviceDataOutput,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { AirData, Device } from "EnviroSense/Domain/mod.ts";
 
 export type ShowDeviceDataPresentedData = {
@@ -10,7 +13,8 @@ export type ShowDeviceDataPresentedData = {
 	airData: AirData;
 };
 
-export class ShowDeviceDataPresenter implements OutputPort<ShowDeviceDataOutput[]> {
+export class ShowDeviceDataPresenter
+	implements OutputPort<ShowDeviceDataOutput[]> {
 	private readonly _device: RequestResponseDevice<
 		ShowDeviceDataPresentedData[]
 	>;

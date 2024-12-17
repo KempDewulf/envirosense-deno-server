@@ -12,7 +12,9 @@ import { ShowBuildings } from "EnviroSense/Application/mod.ts";
 
 export class ShowBuildingsEndpoint implements Endpoint {
 	async handle(context: RouterContext<string>): Promise<void> {
-		const outputDevice = new RequestResponse<ShowBuildingsPresentedData[]>();
+		const outputDevice = new RequestResponse<
+			ShowBuildingsPresentedData[]
+		>();
 		const presenter = new ShowBuildingsPresenter(outputDevice);
 
 		const repository = new BuildingStrapiQueryRepository();

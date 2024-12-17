@@ -1,5 +1,8 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { OutputPort, UpdateRoomTypeOutput } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	OutputPort,
+	UpdateRoomTypeOutput,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface UpdateRoomTypePresentedData {
 	id: string;
@@ -8,8 +11,11 @@ export interface UpdateRoomTypePresentedData {
 	icon: string;
 }
 
-export class UpdateRoomTypePresenter implements OutputPort<UpdateRoomTypeOutput> {
-	private readonly _device: RequestResponseDevice<UpdateRoomTypePresentedData>;
+export class UpdateRoomTypePresenter
+	implements OutputPort<UpdateRoomTypeOutput> {
+	private readonly _device: RequestResponseDevice<
+		UpdateRoomTypePresentedData
+	>;
 
 	constructor(device: RequestResponseDevice<UpdateRoomTypePresentedData>) {
 		this._device = device;
@@ -20,7 +26,9 @@ export class UpdateRoomTypePresenter implements OutputPort<UpdateRoomTypeOutput>
 		this._device.update(presentedData);
 	}
 
-	protected mapToPresentedData(data: UpdateRoomTypeOutput): UpdateRoomTypePresentedData {
+	protected mapToPresentedData(
+		data: UpdateRoomTypeOutput,
+	): UpdateRoomTypePresentedData {
 		return {
 			id: data.id,
 			documentId: data.documentId,

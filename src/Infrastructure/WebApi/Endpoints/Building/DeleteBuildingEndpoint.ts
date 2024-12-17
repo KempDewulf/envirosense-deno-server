@@ -36,7 +36,9 @@ export class DeleteBuildingEndpoint implements Endpoint {
 		context.response.status = 204;
 	}
 
-	private buildRequest(context: RouterContext<string>): DeleteBuildingRequest {
+	private buildRequest(
+		context: RouterContext<string>,
+	): DeleteBuildingRequest {
 		const buildingDocumentId = context.params.buildingDocumentId || "";
 		return { buildingDocumentId } as DeleteBuildingRequest;
 	}

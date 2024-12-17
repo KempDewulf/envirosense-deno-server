@@ -18,7 +18,8 @@ export class MessagingModule implements Module {
 
 	constructor() {
 		const deviceRepository: DeviceRepository = new DeviceStrapiRepository();
-		const deviceDataRepository: DeviceDataRepository = new DeviceDataStrapiRepository();
+		const deviceDataRepository: DeviceDataRepository =
+			new DeviceDataStrapiRepository();
 
 		this.processDeviceDataUseCase = new ProcessDeviceData(
 			deviceRepository,

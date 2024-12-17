@@ -36,7 +36,9 @@ export class DeleteRoomTypeEndpoint implements Endpoint {
 		context.response.status = 204;
 	}
 
-	private buildRequest(context: RouterContext<string>): DeleteRoomTypeRequest {
+	private buildRequest(
+		context: RouterContext<string>,
+	): DeleteRoomTypeRequest {
 		const roomTypeDocumentId = context.params.roomTypeDocumentId || "";
 		return { roomTypeDocumentId } as DeleteRoomTypeRequest;
 	}

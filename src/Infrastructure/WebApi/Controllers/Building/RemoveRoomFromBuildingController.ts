@@ -1,12 +1,16 @@
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { RemoveRoomFromBuildingInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	RemoveRoomFromBuildingInput,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface RemoveRoomFromBuildingRequest {
 	buildingDocumentId: string;
 	roomDocumentId: string;
 }
 
-export class RemoveRoomFromBuildingController implements Controller<RemoveRoomFromBuildingRequest> {
+export class RemoveRoomFromBuildingController
+	implements Controller<RemoveRoomFromBuildingRequest> {
 	private readonly _useCase: UseCase<RemoveRoomFromBuildingInput>;
 
 	constructor(useCase: UseCase<RemoveRoomFromBuildingInput>) {

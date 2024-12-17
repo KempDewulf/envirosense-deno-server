@@ -1,5 +1,8 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { OutputPort, UpdateBuildingOutput } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	OutputPort,
+	UpdateBuildingOutput,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { Room } from "EnviroSense/Domain/mod.ts";
 
 export interface UpdateBuildingPresentedData {
@@ -10,8 +13,11 @@ export interface UpdateBuildingPresentedData {
 	rooms?: Room[];
 }
 
-export class UpdateBuildingPresenter implements OutputPort<UpdateBuildingOutput> {
-	private readonly _device: RequestResponseDevice<UpdateBuildingPresentedData>;
+export class UpdateBuildingPresenter
+	implements OutputPort<UpdateBuildingOutput> {
+	private readonly _device: RequestResponseDevice<
+		UpdateBuildingPresentedData
+	>;
 
 	constructor(device: RequestResponseDevice<UpdateBuildingPresentedData>) {
 		this._device = device;

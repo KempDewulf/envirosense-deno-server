@@ -14,10 +14,13 @@ export class DeleteBuilding implements UseCase<DeleteBuildingInput> {
 	}
 
 	public async execute(input: DeleteBuildingInput): Promise<void> {
-		const building = (await this._buildingRepository.find(input.buildingDocumentId))
-			.orElseThrow(() =>
-				new Error(`Building with ID ${input.buildingDocumentId} not found.`)
-			);
+		const building =
+			(await this._buildingRepository.find(input.buildingDocumentId))
+				.orElseThrow(() =>
+					new Error(
+						`Building with ID ${input.buildingDocumentId} not found.`,
+					)
+				);
 
 		await this._buildingRepository.deleteEntity(building);
 	}

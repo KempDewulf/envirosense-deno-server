@@ -12,7 +12,9 @@ import { ShowDeviceByDocumentId } from "EnviroSense/Application/mod.ts";
 
 export class ShowDeviceByDocumentIdEndpoint implements Endpoint {
 	async handle(context: RouterContext<string>): Promise<void> {
-		const outputDevice = new RequestResponse<ShowDeviceByDocumentIdPresentedData>();
+		const outputDevice = new RequestResponse<
+			ShowDeviceByDocumentIdPresentedData
+		>();
 		const presenter = new ShowDeviceByDocumentIdPresenter(outputDevice);
 
 		const repository = new DeviceStrapiQueryRepository();

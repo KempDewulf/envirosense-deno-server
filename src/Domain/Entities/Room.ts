@@ -1,4 +1,9 @@
-import { Building, Device, DomainException, RoomType } from "EnviroSense/Domain/mod.ts";
+import {
+	Building,
+	Device,
+	DomainException,
+	RoomType,
+} from "EnviroSense/Domain/mod.ts";
 
 export interface RoomState {
 	id: string;

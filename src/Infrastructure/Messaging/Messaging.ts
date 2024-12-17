@@ -1,6 +1,9 @@
 import { Client } from "https://deno.land/x/mqtt@0.1.2/deno/mod.ts";
 import { AirData } from "EnviroSense/Domain/mod.ts";
-import { ProcessDeviceDataInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	ProcessDeviceDataInput,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import "jsr:@std/dotenv/load";
 
 export class Messaging {

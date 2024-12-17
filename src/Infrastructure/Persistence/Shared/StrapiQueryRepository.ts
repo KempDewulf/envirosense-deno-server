@@ -7,11 +7,16 @@ export class StrapiQueryRepository {
 		this.apiToken = Deno.env.get("STRAPI_API_TOKEN") || "";
 
 		if (!this.apiToken) {
-			console.warn("⚠️ No STRAPI_API_TOKEN found in environment variables");
+			console.warn(
+				"⚠️ No STRAPI_API_TOKEN found in environment variables",
+			);
 		}
 	}
 
-	private buildUrl(endpoint: string, params?: Record<string, string>): string {
+	private buildUrl(
+		endpoint: string,
+		params?: Record<string, string>,
+	): string {
 		const url = new URL(`${this.baseUrl}/${endpoint}`);
 
 		if (params) {
@@ -47,7 +52,9 @@ export class StrapiQueryRepository {
 		if (!response.ok) {
 			const errorResponse = await response.json();
 			if (errorResponse.error) {
-				const errorMessages = this.extractErrorMessages(errorResponse.error);
+				const errorMessages = this.extractErrorMessages(
+					errorResponse.error,
+				);
 				throw new Error(errorMessages.join("\n"));
 			} else {
 				throw new Error(`Failed to ${response.statusText}`);
@@ -55,7 +62,10 @@ export class StrapiQueryRepository {
 		}
 	}
 
-	private async processResponse<T>(response: Response, method: string): Promise<T> {
+	private async processResponse<T>(
+		response: Response,
+		method: string,
+	): Promise<T> {
 		if (method.toUpperCase() !== "DELETE") {
 			const data = await response.json();
 			return data as T;
@@ -83,7 +93,10 @@ export class StrapiQueryRepository {
 		return await this.processResponse<T>(response, method);
 	}
 
-	protected async get<T>(endpoint: string, params?: Record<string, string>): Promise<T> {
+	protected async get<T>(
+		endpoint: string,
+		params?: Record<string, string>,
+	): Promise<T> {
 		return await this.request<T>("GET", endpoint, undefined, params);
 	}
 

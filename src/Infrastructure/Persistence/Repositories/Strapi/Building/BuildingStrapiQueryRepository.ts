@@ -9,7 +9,9 @@ export class BuildingStrapiQueryRepository extends StrapiQueryRepository
 	implements BuildingQueryRepository {
 	async all(name: string): Promise<BuildingQueryDto[]> {
 		const endpoint = "buildings";
-		const params = name ? { "filters[name][$contains]": name, populate: "*" } : undefined;
+		const params = name
+			? { "filters[name][$contains]": name, populate: "*" }
+			: undefined;
 		const response = await this.get<any>(endpoint, params);
 
 		const buildings = response.data.map((item: any) => this.mapToDto(item));

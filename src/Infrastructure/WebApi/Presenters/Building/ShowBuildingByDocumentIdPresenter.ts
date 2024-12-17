@@ -15,7 +15,9 @@ export type ShowBuildingByDocumentIdPresentedData = {
 
 export class ShowBuildingByDocumentIdPresenter
 	implements OutputPort<ShowBuildingByDocumentIdOutput> {
-	private readonly _device: RequestResponseDevice<ShowBuildingByDocumentIdPresentedData>;
+	private readonly _device: RequestResponseDevice<
+		ShowBuildingByDocumentIdPresentedData
+	>;
 
 	constructor(
 		device: RequestResponseDevice<ShowBuildingByDocumentIdPresentedData>,

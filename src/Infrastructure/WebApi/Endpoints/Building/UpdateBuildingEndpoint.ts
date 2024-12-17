@@ -6,7 +6,10 @@ import {
 	UpdateBuildingPresenter,
 	UpdateBuildingRequest,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import { ErrorsBag, RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import {
+	ErrorsBag,
+	RequestResponse,
+} from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 import { BuildingStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
@@ -48,7 +51,9 @@ export class UpdateBuildingEndpoint implements Endpoint {
 		context: RouterContext<string>,
 	): Promise<UpdateBuildingRequest> {
 		const buildingDocumentId = context.params.buildingDocumentId || "";
-		const body = context.request.hasBody ? await context.request.body.json() : {};
+		const body = context.request.hasBody
+			? await context.request.body.json()
+			: {};
 
 		return {
 			buildingDocumentId,

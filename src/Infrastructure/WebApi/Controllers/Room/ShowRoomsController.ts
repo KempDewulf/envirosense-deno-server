@@ -1,5 +1,8 @@
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { ShowRoomsInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	ShowRoomsInput,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface ShowRoomsRequest {
 	name: string;

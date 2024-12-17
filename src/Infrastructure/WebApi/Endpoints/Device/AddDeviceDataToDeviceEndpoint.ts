@@ -27,7 +27,10 @@ export class AddDeviceDataToDeviceEndpoint implements Endpoint {
 
 		const deviceDataRepository = new DeviceDataStrapiRepository();
 		const deviceRepository = new DeviceStrapiRepository();
-		const useCase = new AddDeviceDataToDevice(deviceRepository, deviceDataRepository);
+		const useCase = new AddDeviceDataToDevice(
+			deviceRepository,
+			deviceDataRepository,
+		);
 
 		const controller = new AddDeviceDataToDeviceController(useCase);
 		await controller.handle(request);

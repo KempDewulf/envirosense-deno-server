@@ -1,4 +1,7 @@
-import { UpdateBuildingInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	UpdateBuildingInput,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export interface UpdateBuildingRequest {
@@ -7,7 +10,8 @@ export interface UpdateBuildingRequest {
 	address: string;
 }
 
-export class UpdateBuildingController implements Controller<UpdateBuildingRequest> {
+export class UpdateBuildingController
+	implements Controller<UpdateBuildingRequest> {
 	private readonly _useCase: UseCase<UpdateBuildingInput>;
 
 	constructor(useCase: UseCase<UpdateBuildingInput>) {

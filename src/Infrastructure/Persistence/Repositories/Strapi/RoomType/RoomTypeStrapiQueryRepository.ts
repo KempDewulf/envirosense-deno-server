@@ -9,7 +9,9 @@ export class RoomTypeStrapiQueryRepository extends StrapiQueryRepository
 	implements RoomTypeQueryRepository {
 	async all(name: string): Promise<RoomTypeQueryDto[]> {
 		const endpoint = "room-types";
-		const params = name ? { "filters[name][$contains]": name, populate: "*" } : undefined;
+		const params = name
+			? { "filters[name][$contains]": name, populate: "*" }
+			: undefined;
 		const response = await this.get<any>(endpoint, params);
 
 		const roomTypes = response.data.map((item: any) => this.mapToDto(item));

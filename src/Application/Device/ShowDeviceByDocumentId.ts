@@ -7,7 +7,8 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 
-export class ShowDeviceByDocumentId implements UseCase<ShowDeviceByDocumentIdInput> {
+export class ShowDeviceByDocumentId
+	implements UseCase<ShowDeviceByDocumentIdInput> {
 	private readonly _outputPort: OutputPort<ShowDeviceByDocumentIdOutput>;
 	private readonly _deviceRepository: DeviceQueryRepository;
 

@@ -1,4 +1,7 @@
-import { RoomQueryDto, RoomQueryRepository } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	RoomQueryDto,
+	RoomQueryRepository,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 import { Optional } from "EnviroSense/Domain/mod.ts";
 
@@ -6,7 +9,9 @@ export class RoomStrapiQueryRepository extends StrapiQueryRepository
 	implements RoomQueryRepository {
 	async all(name: string): Promise<RoomQueryDto[]> {
 		const endpoint = "rooms";
-		const params = name ? { "filters[name][$contains]": name, populate: "*" } : undefined;
+		const params = name
+			? { "filters[name][$contains]": name, populate: "*" }
+			: undefined;
 		const response = await this.get<any>(endpoint, params);
 
 		const rooms = response.data.map((item: any) => this.mapToDto(item));

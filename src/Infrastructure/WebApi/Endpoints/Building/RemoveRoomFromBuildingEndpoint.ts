@@ -27,7 +27,10 @@ export class RemoveRoomFromBuildingEndpoint implements Endpoint {
 
 		const buildingRepository = new BuildingStrapiRepository();
 		const roomRepository = new RoomStrapiRepository();
-		const useCase = new RemoveRoomFromBuilding(buildingRepository, roomRepository);
+		const useCase = new RemoveRoomFromBuilding(
+			buildingRepository,
+			roomRepository,
+		);
 
 		const controller = new RemoveRoomFromBuildingController(useCase);
 		await controller.handle(request);

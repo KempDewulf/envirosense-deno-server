@@ -6,7 +6,10 @@ import {
 	CreateRoomTypeRequest,
 	Endpoint,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import { ErrorsBag, RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import {
+	ErrorsBag,
+	RequestResponse,
+} from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 import { RoomTypeStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
@@ -47,7 +50,9 @@ export class CreateRoomTypeEndpoint implements Endpoint {
 		context.response.status = 201;
 	}
 
-	private async buildRequest(context: RouterContext<string>): Promise<CreateRoomTypeRequest> {
+	private async buildRequest(
+		context: RouterContext<string>,
+	): Promise<CreateRoomTypeRequest> {
 		return await context.request.body.json() as CreateRoomTypeRequest;
 	}
 

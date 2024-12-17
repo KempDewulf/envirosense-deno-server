@@ -1,4 +1,9 @@
-import { Building, Device, Optional, RoomType } from "EnviroSense/Domain/mod.ts";
+import {
+	Building,
+	Device,
+	Optional,
+	RoomType,
+} from "EnviroSense/Domain/mod.ts";
 
 export interface RoomQueryDto {
 	id: string;

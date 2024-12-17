@@ -1,12 +1,18 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { CreateRoomTypeOutput, OutputPort } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	CreateRoomTypeOutput,
+	OutputPort,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface CreateRoomTypePresentedData {
 	url: string;
 }
 
-export class CreateRoomTypePresenter implements OutputPort<CreateRoomTypeOutput> {
-	private readonly _device: RequestResponseDevice<CreateRoomTypePresentedData>;
+export class CreateRoomTypePresenter
+	implements OutputPort<CreateRoomTypeOutput> {
+	private readonly _device: RequestResponseDevice<
+		CreateRoomTypePresentedData
+	>;
 
 	constructor(device: RequestResponseDevice<CreateRoomTypePresentedData>) {
 		this._device = device;
@@ -17,7 +23,9 @@ export class CreateRoomTypePresenter implements OutputPort<CreateRoomTypeOutput>
 		this._device.update(presentedData);
 	}
 
-	protected mapToPresentedData(data: CreateRoomTypeOutput): CreateRoomTypePresentedData {
+	protected mapToPresentedData(
+		data: CreateRoomTypeOutput,
+	): CreateRoomTypePresentedData {
 		return {
 			url: `/room-types/${data.id}`,
 		};

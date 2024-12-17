@@ -5,14 +5,20 @@ export class Optional<T> {
 		this._value = value;
 	}
 
-	public static of<T>(this: new (value: T) => Optional<T>, value: T): Optional<T> {
+	public static of<T>(
+		this: new (value: T) => Optional<T>,
+		value: T,
+	): Optional<T> {
 		if (value === undefined || value === null) {
 			throw new Error("Cannot create Optional.of with undefined or null");
 		}
 		return new this(value);
 	}
 
-	public static ofNullable<T>(this: new (value?: T) => Optional<T>, value?: T): Optional<T> {
+	public static ofNullable<T>(
+		this: new (value?: T) => Optional<T>,
+		value?: T,
+	): Optional<T> {
 		return new this(value);
 	}
 
@@ -45,7 +51,9 @@ export class Optional<T> {
 			: Optional.of<U>(result as NonNullable<U>);
 	}
 
-	public flatMap<U>(mapper: (value: T) => Optional<U> | null | undefined): Optional<U> {
+	public flatMap<U>(
+		mapper: (value: T) => Optional<U> | null | undefined,
+	): Optional<U> {
 		if (this._value === undefined) {
 			return Optional.empty<U>();
 		}
@@ -81,6 +89,8 @@ export class Optional<T> {
 	}
 
 	public toString(): string {
-		return this._value !== undefined ? `Optional(${this._value})` : "Optional.empty";
+		return this._value !== undefined
+			? `Optional(${this._value})`
+			: "Optional.empty";
 	}
 }

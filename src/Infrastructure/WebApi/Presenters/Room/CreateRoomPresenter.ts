@@ -1,5 +1,8 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { CreateRoomOutput, OutputPort } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	CreateRoomOutput,
+	OutputPort,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface CreateRoomPresentedData {
 	url: string;
@@ -17,7 +20,9 @@ export class CreateRoomPresenter implements OutputPort<CreateRoomOutput> {
 		this._device.update(presentedData);
 	}
 
-	protected mapToPresentedData(data: CreateRoomOutput): CreateRoomPresentedData {
+	protected mapToPresentedData(
+		data: CreateRoomOutput,
+	): CreateRoomPresentedData {
 		return {
 			url: `/rooms/${data.id}`,
 		};

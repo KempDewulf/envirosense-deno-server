@@ -1,5 +1,11 @@
 import { RoomRepository } from "EnviroSense/Application/Contracts/mod.ts";
-import { Building, Device, Optional, Room, RoomType } from "EnviroSense/Domain/mod.ts";
+import {
+	Building,
+	Device,
+	Optional,
+	Room,
+	RoomType,
+} from "EnviroSense/Domain/mod.ts";
 import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 
 export enum DeviceOperation {
@@ -7,7 +13,8 @@ export enum DeviceOperation {
 	REMOVE = "disconnect",
 }
 
-export class RoomStrapiRepository extends StrapiQueryRepository implements RoomRepository {
+export class RoomStrapiRepository extends StrapiQueryRepository
+	implements RoomRepository {
 	async find(roomDocumentId: string): Promise<Optional<Room>> {
 		const endpoint = `rooms/${roomDocumentId.toString()}`;
 		const params: Record<string, string> = {

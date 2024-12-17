@@ -23,7 +23,9 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 			input.deviceIdentifier,
 		);
 		if (!optionalDevice.isPresent) {
-			console.error(`Device with identifier ${input.deviceIdentifier} not found.`);
+			console.error(
+				`Device with identifier ${input.deviceIdentifier} not found.`,
+			);
 			return;
 		}
 

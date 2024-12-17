@@ -6,7 +6,10 @@ import {
 	CreateRoomRequest,
 	Endpoint,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import { ErrorsBag, RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import {
+	ErrorsBag,
+	RequestResponse,
+} from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 import {
 	BuildingStrapiRepository,
@@ -39,8 +42,10 @@ export class CreateRoomEndpoint implements Endpoint {
 		const presenter = new CreateRoomPresenter(outputDevice);
 
 		const roomRepository: RoomRepository = new RoomStrapiRepository();
-		const buildingRepository: BuildingRepository = new BuildingStrapiRepository();
-		const roomTypeRepository: RoomTypeRepository = new RoomTypeStrapiRepository();
+		const buildingRepository: BuildingRepository =
+			new BuildingStrapiRepository();
+		const roomTypeRepository: RoomTypeRepository =
+			new RoomTypeStrapiRepository();
 
 		const useCase = new CreateRoom(
 			presenter,
@@ -59,7 +64,9 @@ export class CreateRoomEndpoint implements Endpoint {
 		context.response.status = 201;
 	}
 
-	private async buildRequest(context: RouterContext<string>): Promise<CreateRoomRequest> {
+	private async buildRequest(
+		context: RouterContext<string>,
+	): Promise<CreateRoomRequest> {
 		return await context.request.body.json() as CreateRoomRequest;
 	}
 

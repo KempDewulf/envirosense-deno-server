@@ -7,7 +7,8 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 
-export class ShowBuildingByDocumentId implements UseCase<ShowBuildingByDocumentIdInput> {
+export class ShowBuildingByDocumentId
+	implements UseCase<ShowBuildingByDocumentIdInput> {
 	private readonly _outputPort: OutputPort<ShowBuildingByDocumentIdOutput>;
 	private readonly _buildingRepository: BuildingQueryRepository;
 

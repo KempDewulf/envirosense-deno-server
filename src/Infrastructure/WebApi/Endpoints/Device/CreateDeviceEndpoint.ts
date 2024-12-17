@@ -6,7 +6,10 @@ import {
 	CreateDeviceRequest,
 	Endpoint,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import { ErrorsBag, RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import {
+	ErrorsBag,
+	RequestResponse,
+} from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 import {
 	DeviceStrapiRepository,
@@ -14,7 +17,10 @@ import {
 } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
 import { CreateDevice } from "EnviroSense/Application/mod.ts";
-import { DeviceRepository, RoomRepository } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	DeviceRepository,
+	RoomRepository,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export class CreateDeviceEndpoint implements Endpoint {
 	private readonly _errorsBag = new ErrorsBag();
@@ -52,7 +58,9 @@ export class CreateDeviceEndpoint implements Endpoint {
 		context.response.status = 201;
 	}
 
-	private async buildRequest(context: RouterContext<string>): Promise<CreateDeviceRequest> {
+	private async buildRequest(
+		context: RouterContext<string>,
+	): Promise<CreateDeviceRequest> {
 		return await context.request.body.json() as CreateDeviceRequest;
 	}
 

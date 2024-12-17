@@ -27,7 +27,10 @@ export class AddRoomToBuildingEndpoint implements Endpoint {
 
 		const buildingRepository = new BuildingStrapiRepository();
 		const roomRepository = new RoomStrapiRepository();
-		const useCase = new AddRoomToBuilding(buildingRepository, roomRepository);
+		const useCase = new AddRoomToBuilding(
+			buildingRepository,
+			roomRepository,
+		);
 
 		const controller = new AddRoomToBuildingController(useCase);
 		await controller.handle(request);

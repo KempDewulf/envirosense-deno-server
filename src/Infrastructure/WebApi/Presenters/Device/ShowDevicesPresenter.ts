@@ -1,5 +1,8 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { OutputPort, ShowDevicesOutput } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	OutputPort,
+	ShowDevicesOutput,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceData, Room } from "EnviroSense/Domain/mod.ts";
 
 export type ShowDevicesPresentedData = {

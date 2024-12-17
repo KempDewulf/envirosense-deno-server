@@ -6,7 +6,8 @@ import {
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { RoomOperation } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
-export class RemoveRoomFromBuilding implements UseCase<RemoveRoomFromBuildingInput> {
+export class RemoveRoomFromBuilding
+	implements UseCase<RemoveRoomFromBuildingInput> {
 	private readonly _buildingRepository: BuildingRepository;
 	private readonly _roomRepository: RoomRepository;
 

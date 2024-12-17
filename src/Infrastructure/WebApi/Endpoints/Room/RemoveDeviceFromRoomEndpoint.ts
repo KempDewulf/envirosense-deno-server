@@ -27,7 +27,10 @@ export class RemoveDeviceFromRoomEndpoint implements Endpoint {
 
 		const roomRepository = new RoomStrapiRepository();
 		const deviceRepository = new DeviceStrapiRepository();
-		const useCase = new RemoveDeviceFromRoom(roomRepository, deviceRepository);
+		const useCase = new RemoveDeviceFromRoom(
+			roomRepository,
+			deviceRepository,
+		);
 
 		const controller = new RemoveDeviceFromRoomController(useCase);
 		await controller.handle(request);

@@ -19,7 +19,9 @@ export class UpdateRoomType implements UseCase<UpdateRoomTypeInput> {
 	}
 
 	public async execute(input: UpdateRoomTypeInput): Promise<void> {
-		const roomTypeOptional = await this._roomTypeRepository.find(input.roomTypeDocumentId);
+		const roomTypeOptional = await this._roomTypeRepository.find(
+			input.roomTypeDocumentId,
+		);
 		const roomType = roomTypeOptional.orElseThrow(() =>
 			new Error(`RoomType with ID ${input.roomTypeDocumentId} not found.`)
 		);
