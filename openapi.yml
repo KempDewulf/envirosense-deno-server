@@ -9,37 +9,13 @@ servers:
     description: Deployed API Server
 
 paths:
-  /rooms:
-    get:
-      summary: List all rooms
-      parameters:
-        - name: name
-          in: query
-          schema:
-            type: string
-          description: Filter rooms by name
-      responses:
-        200:
-          description: List of rooms
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Room'
-
   /buildings:
     get:
-      summary: List all buildings
-      parameters:
-        - name: name
-          in: query
-          schema:
-            type: string
-          description: Filter buildings by name
+      summary: Get all buildings
+      operationId: getBuildings
       responses:
-        200:
-          description: List of buildings
+        '200':
+          description: A list of buildings
           content:
             application/json:
               schema:
@@ -47,113 +23,521 @@ paths:
                 items:
                   $ref: '#/components/schemas/Building'
 
-  /room-types:
+    post:
+      summary: Create a new building
+      operationId: createBuilding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBuildingRequest'
+      responses:
+        '201':
+          description: Building created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Building'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /buildings/{buildingDocumentId}:
     get:
-      summary: List all room types
+      summary: Get a building by document ID
+      operationId: getBuildingById
       parameters:
-        - name: name
-          in: query
+        - name: buildingDocumentId
+          in: path
+          required: true
           schema:
             type: string
-          description: Filter room types by name
       responses:
-        200:
-          description: List of room types
+        '200':
+          description: A single building
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Building'
+        '404':
+          description: Building not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      summary: Update an existing building
+      operationId: updateBuilding
+      parameters:
+        - name: buildingDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBuildingRequest'
+      responses:
+        '200':
+          description: Building updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Building'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Building not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Delete a building
+      operationId: deleteBuilding
+      parameters:
+        - name: buildingDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Building deleted successfully
+        '404':
+          description: Building not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /buildings/{buildingDocumentId}/rooms:
+    post:
+      summary: Add rooms to a building
+      operationId: addRoomsToBuilding
+      parameters:
+        - name: buildingDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRoomsToBuildingRequest'
+      responses:
+        '200':
+          description: Rooms added to building
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Building'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /buildings/{buildingDocumentId}/rooms/{roomDocumentId}:
+    delete:
+      summary: Remove a room from a building
+      operationId: removeRoomFromBuilding
+      parameters:
+        - name: buildingDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: roomDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Room removed from building
+        '404':
+          description: Building or room not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /rooms:
+    get:
+      summary: Get all rooms
+      operationId: getRooms
+      responses:
+        '200':
+          description: A list of rooms
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/RoomType'
+                  $ref: '#/components/schemas/Room'
+
     post:
-      summary: Create a new room type
+      summary: Create a new room
+      operationId: createRoom
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - name
-                - icon
-              properties:
-                name:
-                  type: string
-                icon:
-                  type: number
+              $ref: '#/components/schemas/CreateRoomRequest'
       responses:
-        201:
-          description: Room type created successfully
-          headers:
-            Location:
-              schema:
-                type: string
-              description: URL of the created room type
-
-  /room-types/{roomTypeDocumentId}:
-    parameters:
-      - name: roomTypeDocumentId
-        in: path
-        required: true
-        schema:
-          type: string
-    get:
-      summary: Get room type by ID
-      responses:
-        200:
-          description: Room type details
+        '201':
+          description: Room created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RoomType'
-        404:
-          description: Room type not found
+                $ref: '#/components/schemas/Room'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /rooms/{roomDocumentId}:
+    get:
+      summary: Get a room by document ID
+      operationId: getRoomById
+      parameters:
+        - name: roomDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A single room
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
     put:
-      summary: Update room type
+      summary: Update an existing room
+      operationId: updateRoom
+      parameters:
+        - name: roomDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                icon:
-                  type: number
+              $ref: '#/components/schemas/UpdateRoomRequest'
       responses:
-        200:
-          description: Room type updated successfully
-        400:
-          description: Invalid request
-        404:
-          description: Room type not found
+        '200':
+          description: Room updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
     delete:
-      summary: Delete room type
+      summary: Delete a room
+      operationId: deleteRoom
+      parameters:
+        - name: roomDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
-        204:
-          description: Room type deleted successfully
-        404:
-          description: Room type not found
+        '204':
+          description: Room deleted successfully
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /rooms/{roomDocumentId}/devices:
+    post:
+      summary: Add a device to a room
+      operationId: addDeviceToRoom
+      parameters:
+        - name: roomDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddDeviceToRoomRequest'
+      responses:
+        '200':
+          description: Device added to room
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /rooms/{roomDocumentId}/devices/{deviceDocumentId}:
+    delete:
+      summary: Remove a device from a room
+      operationId: removeDeviceFromRoom
+      parameters:
+        - name: roomDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: deviceDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Device removed from room
+        '404':
+          description: Room or device not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /devices:
+    get:
+      summary: Get all devices
+      operationId: getDevices
+      responses:
+        '200':
+          description: A list of devices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
+
+    post:
+      summary: Create a new device
+      operationId: createDevice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeviceRequest'
+      responses:
+        '201':
+          description: Device created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /devices/{deviceDocumentId}:
+    get:
+      summary: Get a device by document ID
+      operationId: getDeviceById
+      parameters:
+        - name: deviceDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A single device
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '404':
+          description: Device not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      summary: Update an existing device
+      operationId: updateDevice
+      parameters:
+        - name: deviceDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeviceRequest'
+      responses:
+        '200':
+          description: Device updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Device not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Delete a device
+      operationId: deleteDevice
+      parameters:
+        - name: deviceDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Device deleted successfully
+        '404':
+          description: Device not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /devices/{deviceDocumentId}/device-data:
+    post:
+      summary: Add device data to a device
+      operationId: addDeviceData
+      parameters:
+        - name: deviceDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddDeviceDataRequest'
+      responses:
+        '200':
+          description: Device data added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceData'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /device-data:
     get:
-      summary: List device data
+      summary: Get all device data entries
+      operationId: getDeviceData
       parameters:
         - name: identifier
           in: query
+          required: false
           schema:
             type: string
-          description: Filter device data by device identifier
+          description: Device identifier to filter data
       responses:
-        200:
-          description: List of device data
+        '200':
+          description: A list of device data entries
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/DeviceData'
+
+  /device-data/{deviceDataDocumentId}:
+    get:
+      summary: Get device data by document ID
+      operationId: getDeviceDataById
+      parameters:
+        - name: deviceDataDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A single device data entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceData'
+        '404':
+          description: Device data not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
@@ -172,6 +556,40 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Room'
+      required:
+        - id
+        - name
+        - address
+
+    CreateBuildingRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+      required:
+        - name
+        - address
+
+    UpdateBuildingRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+
+    AddRoomsToBuildingRequest:
+      type: object
+      properties:
+        rooms:
+          type: array
+          items:
+            type: string
+          description: Array of room document IDs to add
+      required:
+        - rooms
 
     Room:
       type: object
@@ -184,12 +602,48 @@ components:
           type: string
         building:
           $ref: '#/components/schemas/Building'
-        room-type:
+        roomType:
           $ref: '#/components/schemas/RoomType'
         devices:
           type: array
           items:
             $ref: '#/components/schemas/Device'
+      required:
+        - id
+        - name
+        - roomType
+
+    CreateRoomRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        roomTypeDocumentId:
+          type: string
+        buildingDocumentId:
+          type: string
+      required:
+        - name
+        - roomTypeDocumentId
+
+    UpdateRoomRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        roomTypeDocumentId:
+          type: string
+
+    AddDeviceToRoomRequest:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            type: string
+          description: Array of device document IDs to add
+      required:
+        - devices
 
     RoomType:
       type: object
@@ -198,14 +652,13 @@ components:
           type: string
         documentId:
           type: string
-        name:
+        typeName:
           type: string
-        icon:
-          type: number
-        rooms:
-          type: array
-          items:
-            $ref: '#/components/schemas/Room'
+        description:
+          type: string
+      required:
+        - id
+        - typeName
 
     Device:
       type: object
@@ -214,14 +667,41 @@ components:
           type: string
         documentId:
           type: string
+        name:
+          type: string
         identifier:
           type: string
         room:
           $ref: '#/components/schemas/Room'
-        device_data:
+        deviceData:
           type: array
           items:
             $ref: '#/components/schemas/DeviceData'
+      required:
+        - id
+        - name
+        - identifier
+
+    CreateDeviceRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        identifier:
+          type: string
+        roomDocumentId:
+          type: string
+      required:
+        - name
+        - identifier
+
+    UpdateDeviceRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        roomDocumentId:
+          type: string
 
     DeviceData:
       type: object
@@ -235,12 +715,40 @@ components:
         timestamp:
           type: string
           format: date-time
+        airData:
+          $ref: '#/components/schemas/AirData'
+      required:
+        - id
+        - device
+        - timestamp
+        - airData
+
+    AddDeviceDataRequest:
+      type: object
+      properties:
+        airData:
+          $ref: '#/components/schemas/AirData'
+      required:
+        - airData
+
+    AirData:
+      type: object
+      properties:
         temperature:
           type: number
-          format: float
         humidity:
           type: number
-          format: float
-        gas_ppm:
+        co2:
           type: number
-          format: float
+      required:
+        - temperature
+        - humidity
+        - co2
+
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
