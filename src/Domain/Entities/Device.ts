@@ -50,6 +50,9 @@ export class Device {
 	}
 
 	public updateIdentifier(identifier: string): void {
+		if(!identifier) {
+			throw new DomainException("Identifier is required");
+		}
 		this._identifier = identifier;
 	}
 
@@ -77,13 +80,13 @@ export class Device {
 
 	private ensureIdentifierIsNotEmpty(): void {
 		if (!this._identifier) {
-			throw new DomainException("Identifier is required");
+			throw new DomainException("Identifier is required.");
 		}
 	}
 
 	private ensureRoomIsNotEmpty(): void {
 		if (!this._room) {
-			throw new DomainException("Room is required");
+			throw new DomainException("Room is required.");
 		}
 	}
 

@@ -50,14 +50,14 @@ export class RoomType {
 
 	private ensureNameIsNotEmpty(): void {
 		if (!this._name) {
-			throw new DomainException("Room type name cannot be empty.");
+			throw new DomainException("Room type name is required.");
 		}
 	}
 
 	private ensureIconIsNotEmpty(): void {
 		if (!this._icon) {
 			throw new DomainException(
-				"Room type icon cannot be empty. Enter the ID of the icon.",
+				"Room type icon is required. Enter the ID of the icon.",
 			);
 		}
 	}
