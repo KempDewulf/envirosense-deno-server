@@ -11,10 +11,10 @@ export class DeviceDataStrapiQueryRepository
 {
     async all(identifier: string): Promise<DeviceDataQueryDto[]> {
         const endpoint = 'device-datas';
-        console.log(identifier)
         const params = identifier ? { 'filters[device][identifier][$contains]': identifier, 'populate': '*' } : undefined;
         const response = await this.get<any>(endpoint, params);
         const deviceData = response.data.map((item: any) => this.mapToDto(item));
+
         return deviceData;
     }
 
@@ -37,7 +37,11 @@ export class DeviceDataStrapiQueryRepository
             documentId: item.documentId,
             device: item.device,
             timestamp: item.timestamp,
-            airData: item.airData
+            airData: {
+                temperature: item.temperature,
+                humidity: item.humidity,
+                ppm: item.gas_ppm
+            }
         };
     }
 }
