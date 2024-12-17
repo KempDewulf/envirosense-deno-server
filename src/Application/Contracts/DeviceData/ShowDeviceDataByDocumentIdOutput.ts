@@ -1,6 +1,6 @@
 import { AirData, Device } from 'EnviroSense/Domain/mod.ts';
 
-export interface ShowDeviceDataOutput {
+export interface ShowDeviceDataByDocumentIdOutput {
     id: string;
     documentId: string;
     device: Device;

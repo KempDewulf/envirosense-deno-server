@@ -3,16 +3,14 @@ import {
     OutputPort,
     ShowDeviceDataOutput,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { Device } from "EnviroSense/Domain/mod.ts";
+import { AirData, Device } from "EnviroSense/Domain/mod.ts";
 
 export type ShowDeviceDataPresentedData = {
     id: string;
     documentId: string;
     device: Device;
-    timestamp: number;
-    temperature: number;
-    humidity: number;
-    gas_ppm: number;
+    timestamp: Date;
+    airData: AirData;
 };
 
 export class ShowDeviceDataPresenter
@@ -39,9 +37,7 @@ export class ShowDeviceDataPresenter
             documentId: deviceData.documentId,
             device: deviceData.device,
             timestamp: deviceData.timestamp,
-            temperature: deviceData.temperature,
-            humidity: deviceData.humidity,
-            gas_ppm: deviceData.gas_ppm,
+            airData: deviceData.airData
         }));
     }
 }

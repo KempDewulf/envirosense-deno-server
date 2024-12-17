@@ -1,6 +1,6 @@
 import { AirData } from "EnviroSense/Domain/mod.ts";
 
-export interface ProcessAirDataInput {
+export interface ProcessDeviceDataInput {
     deviceIdentifier: string;
     airData: AirData;
 }
