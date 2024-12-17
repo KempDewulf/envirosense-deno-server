@@ -131,8 +131,6 @@ Deno.test("Building - ensureRoomExists method with existing room does not throw 
     const room = Room.create("4", "Conference Room", building, roomType);
     building.addRoom(room);
 
-    console.log(building.rooms);
-
     // Act & Assert
     building.ensureRoomExists(room.id);
 });
