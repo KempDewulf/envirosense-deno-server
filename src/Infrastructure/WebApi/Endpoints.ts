@@ -14,6 +14,7 @@ import {
     AddRoomToBuildingEndpoint,
     RemoveRoomFromBuildingEndpoint,
     ShowDeviceDataEndpoint,
+    ShowDeviceDataByDocumentIdEndpoint,
     ShowOpenApiEndpoint,
     ShowRoomsEndpoint,
     CreateRoomEndpoint,
@@ -69,6 +70,7 @@ export function endpoints(): Router {
     router.put('/devices/:deviceDocumentId', use(new UpdateDeviceEndpoint()));
 
     router.get('/device-data', use(new ShowDeviceDataEndpoint()));
+    router.get('/device-data/:deviceDataDocumentId', use(new ShowDeviceDataByDocumentIdEndpoint()));
 
     return router;
 }
