@@ -1,21 +1,16 @@
 import { Middleware } from '@oak/oak';
 
-// Debug: Log environment variable during initialization
-const apiKey = Deno.env.get("API_KEY");
-console.log('Loading API_KEY:', apiKey);
-
 const PUBLIC_PATHS = new Set([
   '/',
   '/openapi.yml',
 ]);
 
 const validTokens = new Set([
-  apiKey // Store the value, not the getter
+  Deno.env.get("API_KEY")
 ]);
 
 export const authMiddleware: Middleware = async (context, next) => {
   console.log('⚡ Auth Middleware executing...');
-  console.log('🔑 Valid tokens:', Array.from(validTokens)); // Debug: Log valid tokens
 
   const path = context.request.url.pathname;
 
@@ -36,11 +31,9 @@ export const authMiddleware: Middleware = async (context, next) => {
   }
 
   const token = authorization.substring(7);
-  console.log('🔑 Received token:', token); // Debug: Log received token
 
   if (!validTokens.has(token)) {
     console.log('❌ Invalid token');
-    console.log('Expected one of:', Array.from(validTokens)); // Debug: Log expected tokens
     context.response.status = 401;
     context.response.body = { error: 'Invalid token' };
     return;
