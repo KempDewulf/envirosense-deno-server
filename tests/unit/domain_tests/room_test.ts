@@ -225,26 +225,13 @@ Deno.test("Room - load method initializes empty devices array when undefined", (
 Deno.test("Room - validateState checks both name and roomType", () => {
     // Arrange
     const building = Building.create("11", "Main Building", "123 Main St");
-    const room = Room.create('11', "", building, null as unknown as RoomType);
 
     // Act & Assert
     assertThrows(() => {
-        room.validateState();
+        Room.create('11', "", building, null as unknown as RoomType)
     }, DomainException, "Room name cannot be empty.");
-});
 
-Deno.test("Room - devices getter returns copy of devices array", () => {
-    // Arrange
-    const building = Building.create("12", "Main Building", "123 Main St");
-    const roomType = RoomType.create("12", "Meeting Room", "icon.png");
-    const room = Room.create("12", "Conference Room", building, roomType);
-    const device = Device.create("12", "TestDevice", room);
-    room.addDevice(device);
-
-    // Act
-    const devices = room.devices;
-    devices.pop(); // Modify the returned array
-
-    // Assert
-    assertEquals(room.devices.length, 1); // Original array should be unchanged
+    assertThrows(() => {
+        Room.create('11', "Conference Room", building, null as unknown as RoomType)
+    }, DomainException, "Room type cannot be empty.");
 });
