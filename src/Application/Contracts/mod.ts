@@ -106,13 +106,12 @@ export type { ShowDeviceDataOutput } from "./DeviceData/ShowDeviceDataOutput.ts"
 export type { ShowDeviceDataByDocumentIdInput } from "./DeviceData/ShowDeviceDataByDocumentIdInput.ts";
 export type { ShowDeviceDataByDocumentIdOutput } from "./DeviceData/ShowDeviceDataByDocumentIdOutput.ts";
 
+export type { ProcessDeviceDataInput } from "./DeviceData/ProcessDeviceDataInput.ts";
+export type { ProcessDeviceDataOutput } from "./DeviceData/ProcessDeviceDataOutput.ts";
+
 export type {
     DeviceDataQueryDto,
     DeviceDataQueryRepository,
 } from "./Ports/Repositories/DeviceData/DeviceDataQueryRepository.ts";
 
 export type { DeviceDataRepository } from "./Ports/Repositories/DeviceData/DeviceDataRepository.ts";
-
-//AirData
-export type { ProcessAirDataInput } from "./AirData/ProcessAirDataInput.ts";
-export type { ProcessAirDataOutput } from "./AirData/ProcessAirDataOutput.ts";

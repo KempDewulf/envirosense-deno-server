@@ -3,7 +3,7 @@ export class StrapiQueryRepository {
 
     //http://94.130.75.173:1331/api
     //http://strapi-cms:1331/api
-    constructor(baseUrl: string = 'http://strapi-cms:1331/api') {
+    constructor(baseUrl: string = 'http://94.130.75.173:1331/api') {
         this.baseUrl = baseUrl;
     }
 

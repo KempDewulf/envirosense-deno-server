@@ -35,5 +35,5 @@ export { ShowRoomTypeByDocumentId } from "./RoomType/ShowRoomTypeByDocumentId.ts
 export { ShowDeviceData } from "./DeviceData/ShowDeviceData.ts";
 export { ShowDeviceDataByDocumentId } from "./DeviceData/ShowDeviceDataByDocumentId.ts";
 
-// Air Data (Broker)
-export { ProcessAirData } from "./AirData/ProcessAirData.ts";
+//Via the broker
+export { ProcessDeviceData } from "./DeviceData/ProcessDeviceData.ts";

@@ -70,7 +70,9 @@ export class DeviceData {
         if (!this._airData) {
             throw new Error("AirData is required");
         }
+
         const { temperature, humidity, ppm } = this._airData;
+        
         if (temperature == null) {
             throw new Error("Temperature is required in AirData");
         }
