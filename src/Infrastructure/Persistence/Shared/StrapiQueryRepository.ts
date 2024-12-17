@@ -2,11 +2,8 @@ export class StrapiQueryRepository {
     protected readonly baseUrl: string;
     private readonly apiToken: string;
 
-    //http://94.130.75.173:1331/api
-    //http://strapi-cms:1331/api
-    constructor(baseUrl: string = 'http://strapi-cms:1331/api') {
-        this.baseUrl = baseUrl;
-
+    constructor() {
+        this.baseUrl = Deno.env.get("PRODUCTION_STRAPI_URL") || "";
         this.apiToken = Deno.env.get("STRAPI_API_TOKEN") || "";
         if (!this.apiToken) {
             console.warn("⚠️ No STRAPI_API_TOKEN found in environment variables");
