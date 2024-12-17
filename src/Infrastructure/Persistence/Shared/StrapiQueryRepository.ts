@@ -1,10 +1,16 @@
 export class StrapiQueryRepository {
     protected readonly baseUrl: string;
+    private readonly apiToken: string;
 
     //http://94.130.75.173:1331/api
     //http://strapi-cms:1331/api
     constructor(baseUrl: string = 'http://strapi-cms:1331/api') {
         this.baseUrl = baseUrl;
+
+        this.apiToken = Deno.env.get("STRAPI_API_TOKEN") || "";
+        if (!this.apiToken) {
+            console.warn("⚠️ No STRAPI_API_TOKEN found in environment variables");
+        }
     }
 
     private buildUrl(endpoint: string, params?: Record<string, string>): string {
@@ -24,6 +30,7 @@ export class StrapiQueryRepository {
     private buildRequestOptions(method: string, body?: any): RequestInit {
         const headers = {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.apiToken}`
         };
 
         const options: RequestInit = {
