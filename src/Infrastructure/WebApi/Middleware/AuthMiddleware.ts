@@ -2,6 +2,7 @@ import { Middleware } from '@oak/oak';
 
 const PUBLIC_PATHS = new Set([
   '/',
+  '/openapi.yml',
 ]);
 
 const validTokens = new Set([
