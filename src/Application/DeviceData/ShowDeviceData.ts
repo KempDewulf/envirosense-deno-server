@@ -2,7 +2,7 @@ import {
     OutputPort,
     ShowDeviceDataInput,
     ShowDeviceDataOutput,
-    DeviceDataQueryAllDto,
+    DeviceDataQueryDto,
     DeviceDataQueryRepository,
     UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
@@ -27,17 +27,13 @@ export class ShowDeviceData implements UseCase<ShowDeviceDataInput> {
         this._outputPort.present(deviceData);
     }
 
-    private mapDtoToOutput(
-        dto: DeviceDataQueryAllDto[]
-    ): ShowDeviceDataOutput[] {
+    private mapDtoToOutput(dto: DeviceDataQueryDto[]): ShowDeviceDataOutput[] {
         return dto.map((item) => ({
             id: item.id,
             documentId: item.documentId,
             device: item.device,
             timestamp: item.timestamp,
-            temperature: item.temperature,
-            humidity: item.humidity,
-            gas_ppm: item.gas_ppm,
+            airData: item.airData
         }));
     }
 }
