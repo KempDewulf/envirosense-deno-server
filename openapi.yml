@@ -8,9 +8,21 @@ servers:
   - url: http://94.130.75.173:8101
     description: Deployed API Server
 
+tags:
+  - name: Building
+    description: Endpoints related to buildings
+  - name: Room
+    description: Endpoints related to rooms
+  - name: Device
+    description: Endpoints related to devices
+  - name: Device Data
+    description: Endpoints related to device data
+
 paths:
   /buildings:
     get:
+      tags:
+        - Building
       summary: Get all buildings
       operationId: getBuildings
       responses:
@@ -22,8 +34,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Building'
-
     post:
+      tags:
+        - Building
       summary: Create a new building
       operationId: createBuilding
       requestBody:
@@ -48,6 +61,8 @@ paths:
 
   /buildings/{buildingDocumentId}:
     get:
+      tags:
+        - Building
       summary: Get a building by document ID
       operationId: getBuildingById
       parameters:
@@ -69,8 +84,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-
     put:
+      tags:
+        - Building
       summary: Update an existing building
       operationId: updateBuilding
       parameters:
@@ -104,8 +120,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-
     delete:
+      tags:
+        - Building
       summary: Delete a building
       operationId: deleteBuilding
       parameters:
@@ -126,6 +143,8 @@ paths:
 
   /buildings/{buildingDocumentId}/rooms:
     post:
+      tags:
+        - Building
       summary: Add rooms to a building
       operationId: addRoomsToBuilding
       parameters:
@@ -156,6 +175,8 @@ paths:
 
   /buildings/{buildingDocumentId}/rooms/{roomDocumentId}:
     delete:
+      tags:
+        - Building
       summary: Remove a room from a building
       operationId: removeRoomFromBuilding
       parameters:
@@ -181,6 +202,8 @@ paths:
 
   /rooms:
     get:
+      tags:
+        - Room
       summary: Get all rooms
       operationId: getRooms
       responses:
@@ -192,8 +215,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Room'
-
     post:
+      tags:
+        - Room
       summary: Create a new room
       operationId: createRoom
       requestBody:
@@ -218,6 +242,8 @@ paths:
 
   /rooms/{roomDocumentId}:
     get:
+      tags:
+        - Room
       summary: Get a room by document ID
       operationId: getRoomById
       parameters:
@@ -239,8 +265,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-
     put:
+      tags:
+        - Room
       summary: Update an existing room
       operationId: updateRoom
       parameters:
@@ -274,8 +301,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-
     delete:
+      tags:
+        - Room
       summary: Delete a room
       operationId: deleteRoom
       parameters:
@@ -296,6 +324,8 @@ paths:
 
   /rooms/{roomDocumentId}/devices:
     post:
+      tags:
+        - Room
       summary: Add a device to a room
       operationId: addDeviceToRoom
       parameters:
@@ -326,6 +356,8 @@ paths:
 
   /rooms/{roomDocumentId}/devices/{deviceDocumentId}:
     delete:
+      tags:
+        - Room
       summary: Remove a device from a room
       operationId: removeDeviceFromRoom
       parameters:
@@ -351,6 +383,8 @@ paths:
 
   /devices:
     get:
+      tags:
+        - Device
       summary: Get all devices
       operationId: getDevices
       responses:
@@ -362,8 +396,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Device'
-
     post:
+      tags:
+        - Device
       summary: Create a new device
       operationId: createDevice
       requestBody:
@@ -388,6 +423,8 @@ paths:
 
   /devices/{deviceDocumentId}:
     get:
+      tags:
+        - Device
       summary: Get a device by document ID
       operationId: getDeviceById
       parameters:
@@ -409,8 +446,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-
     put:
+      tags:
+        - Device
       summary: Update an existing device
       operationId: updateDevice
       parameters:
@@ -444,8 +482,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-
     delete:
+      tags:
+        - Device
       summary: Delete a device
       operationId: deleteDevice
       parameters:
@@ -466,6 +505,8 @@ paths:
 
   /devices/{deviceDocumentId}/device-data:
     post:
+      tags:
+        - Device
       summary: Add device data to a device
       operationId: addDeviceData
       parameters:
@@ -496,6 +537,8 @@ paths:
 
   /device-data:
     get:
+      tags:
+        - Device Data
       summary: Get all device data entries
       operationId: getDeviceData
       parameters:
@@ -517,6 +560,8 @@ paths:
 
   /device-data/{deviceDataDocumentId}:
     get:
+      tags:
+        - Device Data
       summary: Get device data by document ID
       operationId: getDeviceDataById
       parameters:
