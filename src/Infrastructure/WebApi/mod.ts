@@ -153,3 +153,9 @@ export { ShowDeviceDataController } from "./Controllers/DeviceData/ShowDeviceDat
 export type { ShowDeviceDataRequest } from "./Controllers/DeviceData/ShowDeviceDataController.ts";
 export { ShowDeviceDataPresenter } from "./Presenters/DeviceData/ShowDeviceDataPresenter.ts";
 export type { ShowDeviceDataPresentedData } from "./Presenters/DeviceData/ShowDeviceDataPresenter.ts";
+
+export { ShowDeviceDataByDocumentIdEndpoint } from "./Endpoints/DeviceData/ShowDeviceDataByDocumentIdEndpoint.ts";
+export { ShowDeviceDataByDocumentIdController } from "./Controllers/DeviceData/ShowDeviceDataByDocumentIdController.ts";
+export type { ShowDeviceDataByDocumentIdRequest } from "./Controllers/DeviceData/ShowDeviceDataByDocumentIdController.ts";
+export { ShowDeviceDataByDocumentIdPresenter } from "./Presenters/DeviceData/ShowDeviceDataByDocumentIdPresenter.ts";
+export type { ShowDeviceDataByDocumentIdPresentedData } from "./Presenters/DeviceData/ShowDeviceDataByDocumentIdPresenter.ts";
