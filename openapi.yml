@@ -8,6 +8,9 @@ servers:
   - url: http://94.130.75.173:8101
     description: Deployed API Server
 
+security:
+  - bearerAuth: []
+
 tags:
   - name: Building
     description: Endpoints related to buildings
@@ -797,3 +800,9 @@ components:
           type: array
           items:
             type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: UUID
+      description: Provide your bearer token in the format `Bearer {token}`
