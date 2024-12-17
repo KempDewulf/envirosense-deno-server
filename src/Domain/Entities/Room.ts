@@ -64,6 +64,9 @@ export class Room {
 	}
 
 	public updateName(name: string): void {
+		if (!name) {
+			throw new DomainException("Room name cannot be empty.");
+		}
 		this._name = name;
 	}
 
