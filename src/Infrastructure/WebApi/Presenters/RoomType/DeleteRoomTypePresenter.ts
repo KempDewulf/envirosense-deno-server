@@ -1,14 +1,14 @@
-import { RequestResponseDevice } from 'EnviroSense/Infrastructure/Shared/mod.ts';
-import { OutputPort } from 'EnviroSense/Application/Contracts/mod.ts';
+import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import { OutputPort } from "EnviroSense/Application/Contracts/mod.ts";
 
 export class DeleteRoomTypePresenter implements OutputPort<void> {
-    private readonly _device: RequestResponseDevice<void>;
+	private readonly _device: RequestResponseDevice<void>;
 
-    constructor(device: RequestResponseDevice<void>) {
-        this._device = device;
-    }
+	constructor(device: RequestResponseDevice<void>) {
+		this._device = device;
+	}
 
-    present(): void {
-        this._device.update();
-    }
+	present(): void {
+		this._device.update();
+	}
 }

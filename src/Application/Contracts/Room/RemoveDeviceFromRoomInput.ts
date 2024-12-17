@@ -1,4 +1,4 @@
 export interface RemoveDeviceFromRoomInput {
-    roomDocumentId: string;
-    deviceDocumentId: string;
+	roomDocumentId: string;
+	deviceDocumentId: string;
 }

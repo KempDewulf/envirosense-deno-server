@@ -1,5 +1,5 @@
-import { RouterContext } from '@oak/oak';
+import { RouterContext } from "@oak/oak";
 
 export interface Endpoint {
-    handle(context: RouterContext<string>): Promise<void>;
+	handle(context: RouterContext<string>): Promise<void>;
 }

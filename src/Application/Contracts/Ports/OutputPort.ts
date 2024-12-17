@@ -1,3 +1,3 @@
 export interface OutputPort<Output> {
-    present(output: Output): void;
+	present(output: Output): void;
 }

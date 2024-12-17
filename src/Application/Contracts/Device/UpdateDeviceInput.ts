@@ -1,4 +1,4 @@
 export interface UpdateDeviceInput {
-    deviceDocumentId: string;
-    identifier: string;
+	deviceDocumentId: string;
+	identifier: string;
 }

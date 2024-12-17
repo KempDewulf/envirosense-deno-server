@@ -1,3 +1,3 @@
 export interface ProcessDeviceDataOutput {
-    success: boolean;
+	success: boolean;
 }

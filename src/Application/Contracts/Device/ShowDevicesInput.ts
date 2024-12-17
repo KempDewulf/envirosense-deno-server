@@ -1,3 +1,3 @@
 export interface ShowDevicesInput {
-    identifier: string;
+	identifier: string;
 }

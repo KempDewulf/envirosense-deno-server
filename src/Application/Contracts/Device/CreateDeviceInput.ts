@@ -1,4 +1,4 @@
 export interface CreateDeviceInput {
-    identifier: string;
-    roomDocumentId: string;
+	identifier: string;
+	roomDocumentId: string;
 }

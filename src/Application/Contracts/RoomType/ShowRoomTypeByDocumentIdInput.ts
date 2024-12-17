@@ -1,3 +1,3 @@
 export interface ShowRoomTypeByDocumentIdInput {
-    roomTypeDocumentId: string;
+	roomTypeDocumentId: string;
 }

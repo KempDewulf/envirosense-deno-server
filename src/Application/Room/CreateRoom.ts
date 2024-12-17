@@ -1,56 +1,56 @@
-import { Room } from 'EnviroSense/Domain/mod.ts';
+import { Room } from "EnviroSense/Domain/mod.ts";
 import {
-    BuildingRepository,
-    CreateRoomInput,
-    CreateRoomOutput,
-    OutputPort,
-    RoomRepository,
-    RoomTypeRepository,
-    UseCase,
-} from 'EnviroSense/Application/Contracts/mod.ts';
+	BuildingRepository,
+	CreateRoomInput,
+	CreateRoomOutput,
+	OutputPort,
+	RoomRepository,
+	RoomTypeRepository,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export class CreateRoom implements UseCase<CreateRoomInput> {
-    private readonly _outputPort: OutputPort<CreateRoomOutput>;
-    private readonly _roomRepository: RoomRepository;
-    private readonly _buildingRepository: BuildingRepository;
-    private readonly _roomTypeRepository: RoomTypeRepository;
+	private readonly _outputPort: OutputPort<CreateRoomOutput>;
+	private readonly _roomRepository: RoomRepository;
+	private readonly _buildingRepository: BuildingRepository;
+	private readonly _roomTypeRepository: RoomTypeRepository;
 
-    constructor(
-        outputPort: OutputPort<CreateRoomOutput>,
-        roomRepository: RoomRepository,
-        buildingRepository: BuildingRepository,
-        roomTypeRepository: RoomTypeRepository,
-    ) {
-        this._outputPort = outputPort;
-        this._roomRepository = roomRepository;
-        this._buildingRepository = buildingRepository;
-        this._roomTypeRepository = roomTypeRepository;
-    }
+	constructor(
+		outputPort: OutputPort<CreateRoomOutput>,
+		roomRepository: RoomRepository,
+		buildingRepository: BuildingRepository,
+		roomTypeRepository: RoomTypeRepository,
+	) {
+		this._outputPort = outputPort;
+		this._roomRepository = roomRepository;
+		this._buildingRepository = buildingRepository;
+		this._roomTypeRepository = roomTypeRepository;
+	}
 
-    public async execute(input: CreateRoomInput): Promise<void> {
-        const buildingOptional = await this._buildingRepository.find(
-            input.buildingDocumentId,
-        );
-        const building = buildingOptional.orElseThrow(
-            () =>
-                new Error(
-                    `Building with ID ${input.buildingDocumentId} not found.`,
-                ),
-        );
+	public async execute(input: CreateRoomInput): Promise<void> {
+		const buildingOptional = await this._buildingRepository.find(
+			input.buildingDocumentId,
+		);
+		const building = buildingOptional.orElseThrow(
+			() =>
+				new Error(
+					`Building with ID ${input.buildingDocumentId} not found.`,
+				),
+		);
 
-        const roomOptional = await this._roomTypeRepository.find(
-            input.roomTypeDocumentId,
-        );
-        const roomType = roomOptional.orElseThrow(
-            () =>
-                new Error(
-                    `Room Type with ID ${input.roomTypeDocumentId} not found.`,
-                ),
-        );
+		const roomOptional = await this._roomTypeRepository.find(
+			input.roomTypeDocumentId,
+		);
+		const roomType = roomOptional.orElseThrow(
+			() =>
+				new Error(
+					`Room Type with ID ${input.roomTypeDocumentId} not found.`,
+				),
+		);
 
-        const room = Room.create('', input.name, building, roomType);
+		const room = Room.create("", input.name, building, roomType);
 
-        await this._roomRepository.save(room);
-        this._outputPort.present({ id: room.id.toString() });
-    }
+		await this._roomRepository.save(room);
+		this._outputPort.present({ id: room.id.toString() });
+	}
 }

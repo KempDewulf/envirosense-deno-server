@@ -1,3 +1,3 @@
 export interface DeleteDeviceInput {
-    deviceDocumentId: string;
+	deviceDocumentId: string;
 }

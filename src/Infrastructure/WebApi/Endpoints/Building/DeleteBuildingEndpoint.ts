@@ -1,51 +1,51 @@
-import { RouterContext } from '@oak/oak';
+import { RouterContext } from "@oak/oak";
 import {
-    DeleteBuildingController,
-    DeleteBuildingRequest,
-    Endpoint,
-} from 'EnviroSense/Infrastructure/WebApi/mod.ts';
-import { ErrorsBag } from 'EnviroSense/Infrastructure/Shared/mod.ts';
+	DeleteBuildingController,
+	DeleteBuildingRequest,
+	Endpoint,
+} from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import { ErrorsBag } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
-import { BuildingStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
+import { BuildingStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
-import { DeleteBuilding } from 'EnviroSense/Application/mod.ts';
-import { BuildingRepository } from 'EnviroSense/Application/Contracts/mod.ts';
+import { DeleteBuilding } from "EnviroSense/Application/mod.ts";
+import { BuildingRepository } from "EnviroSense/Application/Contracts/mod.ts";
 
 export class DeleteBuildingEndpoint implements Endpoint {
-    private readonly _errorsBag = new ErrorsBag();
+	private readonly _errorsBag = new ErrorsBag();
 
-    async handle(context: RouterContext<string>): Promise<void> {
-        const request = await this.buildRequest(context);
+	async handle(context: RouterContext<string>): Promise<void> {
+		const request = await this.buildRequest(context);
 
-        this.validateRequest(request);
+		this.validateRequest(request);
 
-        if (this._errorsBag.hasErrors) {
-            context.response.status = 400;
-            context.response.body = { errors: this._errorsBag.errors };
-            return;
-        }
+		if (this._errorsBag.hasErrors) {
+			context.response.status = 400;
+			context.response.body = { errors: this._errorsBag.errors };
+			return;
+		}
 
-        const repository: BuildingRepository = new BuildingStrapiRepository();
+		const repository: BuildingRepository = new BuildingStrapiRepository();
 
-        const useCase = new DeleteBuilding(repository);
+		const useCase = new DeleteBuilding(repository);
 
-        const controller = new DeleteBuildingController(useCase);
+		const controller = new DeleteBuildingController(useCase);
 
-        await controller.handle(request);
+		await controller.handle(request);
 
-        context.response.status = 204;
-    }
+		context.response.status = 204;
+	}
 
-    private buildRequest(context: RouterContext<string>): DeleteBuildingRequest {
-        const buildingDocumentId = context.params.buildingDocumentId || '';
-        return { buildingDocumentId } as DeleteBuildingRequest;
-    }
+	private buildRequest(context: RouterContext<string>): DeleteBuildingRequest {
+		const buildingDocumentId = context.params.buildingDocumentId || "";
+		return { buildingDocumentId } as DeleteBuildingRequest;
+	}
 
-    private validateRequest(request: DeleteBuildingRequest): void {
-        this._errorsBag.clear();
+	private validateRequest(request: DeleteBuildingRequest): void {
+		this._errorsBag.clear();
 
-        if (!request.buildingDocumentId) {
-            this._errorsBag.add('buildingDocumentId is required');
-        }
-    }
+		if (!request.buildingDocumentId) {
+			this._errorsBag.add("buildingDocumentId is required");
+		}
+	}
 }

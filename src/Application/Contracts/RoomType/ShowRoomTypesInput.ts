@@ -1,3 +1,3 @@
 export interface ShowRoomTypesInput {
-    name: string;
+	name: string;
 }

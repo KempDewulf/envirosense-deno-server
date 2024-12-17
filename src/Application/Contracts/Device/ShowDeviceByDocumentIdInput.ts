@@ -1,3 +1,3 @@
 export interface ShowDeviceByDocumentIdInput {
-    deviceDocumentId: string;
+	deviceDocumentId: string;
 }

@@ -1,25 +1,25 @@
-import { DeleteBuildingInput, UseCase } from 'EnviroSense/Application/Contracts/mod.ts';
-import { Controller } from 'EnviroSense/Infrastructure/Shared/mod.ts';
+import { DeleteBuildingInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export interface DeleteBuildingRequest {
-    buildingDocumentId: string;
+	buildingDocumentId: string;
 }
 
 export class DeleteBuildingController implements Controller<DeleteBuildingRequest> {
-    private readonly _useCase: UseCase<DeleteBuildingInput>;
+	private readonly _useCase: UseCase<DeleteBuildingInput>;
 
-    constructor(useCase: UseCase<DeleteBuildingInput>) {
-        this._useCase = useCase;
-    }
+	constructor(useCase: UseCase<DeleteBuildingInput>) {
+		this._useCase = useCase;
+	}
 
-    public async handle(request: DeleteBuildingRequest): Promise<void> {
-        const useCaseInput = this.mapToUseCaseInput(request);
-        await this._useCase.execute(useCaseInput);
-    }
+	public async handle(request: DeleteBuildingRequest): Promise<void> {
+		const useCaseInput = this.mapToUseCaseInput(request);
+		await this._useCase.execute(useCaseInput);
+	}
 
-    protected mapToUseCaseInput(request: DeleteBuildingRequest): DeleteBuildingInput {
-        return {
-            buildingDocumentId: request.buildingDocumentId,
-        };
-    }
+	protected mapToUseCaseInput(request: DeleteBuildingRequest): DeleteBuildingInput {
+		return {
+			buildingDocumentId: request.buildingDocumentId,
+		};
+	}
 }

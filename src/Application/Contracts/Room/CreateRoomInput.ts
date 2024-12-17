@@ -1,5 +1,5 @@
 export interface CreateRoomInput {
-    name: string;
-    buildingDocumentId: string;
-    roomTypeDocumentId: string;
+	name: string;
+	buildingDocumentId: string;
+	roomTypeDocumentId: string;
 }

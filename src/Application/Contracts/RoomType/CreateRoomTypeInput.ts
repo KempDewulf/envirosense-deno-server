@@ -1,4 +1,4 @@
 export interface CreateRoomTypeInput {
-    name: string;
-    icon: string;
+	name: string;
+	icon: string;
 }

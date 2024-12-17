@@ -1,3 +1,3 @@
 export interface ShowBuildingByDocumentIdInput {
-    buildingDocumentId: string;
+	buildingDocumentId: string;
 }

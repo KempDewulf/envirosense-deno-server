@@ -1,4 +1,4 @@
 export interface RemoveRoomFromBuildingInput {
-    buildingDocumentId: string;
-    roomDocumentId: string;
+	buildingDocumentId: string;
+	roomDocumentId: string;
 }

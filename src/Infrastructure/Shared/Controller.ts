@@ -1,3 +1,3 @@
 export interface Controller<Request> {
-    handle(request: Request): Promise<void>;
+	handle(request: Request): Promise<void>;
 }

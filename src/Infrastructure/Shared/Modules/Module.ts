@@ -1,3 +1,3 @@
 export interface Module {
-    run(): Promise<void>;
+	run(): Promise<void>;
 }

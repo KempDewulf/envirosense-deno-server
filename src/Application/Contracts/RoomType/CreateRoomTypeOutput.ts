@@ -1,3 +1,3 @@
 export interface CreateRoomTypeOutput {
-    id: string;
+	id: string;
 }

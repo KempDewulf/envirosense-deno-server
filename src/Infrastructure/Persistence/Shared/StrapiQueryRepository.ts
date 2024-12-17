@@ -1,114 +1,114 @@
 export class StrapiQueryRepository {
-    protected readonly baseUrl: string;
-    private readonly apiToken: string;
+	protected readonly baseUrl: string;
+	private readonly apiToken: string;
 
-    constructor() {
-        this.baseUrl = Deno.env.get('PRODUCTION_STRAPI_URL') || '';
-        this.apiToken = Deno.env.get('STRAPI_API_TOKEN') || '';
+	constructor() {
+		this.baseUrl = Deno.env.get("PRODUCTION_STRAPI_URL") || "";
+		this.apiToken = Deno.env.get("STRAPI_API_TOKEN") || "";
 
-        if (!this.apiToken) {
-            console.warn('⚠️ No STRAPI_API_TOKEN found in environment variables');
-        }
-    }
+		if (!this.apiToken) {
+			console.warn("⚠️ No STRAPI_API_TOKEN found in environment variables");
+		}
+	}
 
-    private buildUrl(endpoint: string, params?: Record<string, string>): string {
-        const url = new URL(`${this.baseUrl}/${endpoint}`);
+	private buildUrl(endpoint: string, params?: Record<string, string>): string {
+		const url = new URL(`${this.baseUrl}/${endpoint}`);
 
-        if (params) {
-            Object.entries(params).forEach(([key, value]) => {
-                if (value !== undefined && value !== null) {
-                    url.searchParams.append(key, value);
-                }
-            });
-        }
+		if (params) {
+			Object.entries(params).forEach(([key, value]) => {
+				if (value !== undefined && value !== null) {
+					url.searchParams.append(key, value);
+				}
+			});
+		}
 
-        return url.toString();
-    }
+		return url.toString();
+	}
 
-    private buildRequestOptions(method: string, body?: any): RequestInit {
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.apiToken}`,
-        };
+	private buildRequestOptions(method: string, body?: any): RequestInit {
+		const headers = {
+			"Content-Type": "application/json",
+			"Authorization": `Bearer ${this.apiToken}`,
+		};
 
-        const options: RequestInit = {
-            method,
-            headers,
-        };
+		const options: RequestInit = {
+			method,
+			headers,
+		};
 
-        if (body) {
-            options.body = JSON.stringify(body);
-        }
+		if (body) {
+			options.body = JSON.stringify(body);
+		}
 
-        return options;
-    }
+		return options;
+	}
 
-    private async handleErrors(response: Response): Promise<void> {
-        if (!response.ok) {
-            const errorResponse = await response.json();
-            if (errorResponse.error) {
-                const errorMessages = this.extractErrorMessages(errorResponse.error);
-                throw new Error(errorMessages.join('\n'));
-            } else {
-                throw new Error(`Failed to ${response.statusText}`);
-            }
-        }
-    }
+	private async handleErrors(response: Response): Promise<void> {
+		if (!response.ok) {
+			const errorResponse = await response.json();
+			if (errorResponse.error) {
+				const errorMessages = this.extractErrorMessages(errorResponse.error);
+				throw new Error(errorMessages.join("\n"));
+			} else {
+				throw new Error(`Failed to ${response.statusText}`);
+			}
+		}
+	}
 
-    private async processResponse<T>(response: Response, method: string): Promise<T> {
-        if (method.toUpperCase() !== 'DELETE') {
-            const data = await response.json();
-            return data as T;
-        }
-        return undefined as unknown as T;
-    }
+	private async processResponse<T>(response: Response, method: string): Promise<T> {
+		if (method.toUpperCase() !== "DELETE") {
+			const data = await response.json();
+			return data as T;
+		}
+		return undefined as unknown as T;
+	}
 
-    public async request<T>(
-        method: string,
-        endpoint: string,
-        body?: any,
-        params?: Record<string, string>,
-    ): Promise<T> {
-        if (method.toUpperCase() === 'GET') {
-            if (!params || Object.keys(params).length === 0) {
-                params = { populate: '*' };
-            }
-        }
+	public async request<T>(
+		method: string,
+		endpoint: string,
+		body?: any,
+		params?: Record<string, string>,
+	): Promise<T> {
+		if (method.toUpperCase() === "GET") {
+			if (!params || Object.keys(params).length === 0) {
+				params = { populate: "*" };
+			}
+		}
 
-        const url = this.buildUrl(endpoint, params);
-        const options = this.buildRequestOptions(method, body);
-        console.log(url, options, method, params);
-        const response = await fetch(url, options);
-        await this.handleErrors(response);
-        return await this.processResponse<T>(response, method);
-    }
+		const url = this.buildUrl(endpoint, params);
+		const options = this.buildRequestOptions(method, body);
+		console.log(url, options, method, params);
+		const response = await fetch(url, options);
+		await this.handleErrors(response);
+		return await this.processResponse<T>(response, method);
+	}
 
-    protected async get<T>(endpoint: string, params?: Record<string, string>): Promise<T> {
-        return await this.request<T>('GET', endpoint, undefined, params);
-    }
+	protected async get<T>(endpoint: string, params?: Record<string, string>): Promise<T> {
+		return await this.request<T>("GET", endpoint, undefined, params);
+	}
 
-    protected async post<T>(endpoint: string, body: any): Promise<T> {
-        return await this.request<T>('POST', endpoint, body);
-    }
+	protected async post<T>(endpoint: string, body: any): Promise<T> {
+		return await this.request<T>("POST", endpoint, body);
+	}
 
-    protected async put<T>(endpoint: string, body: any): Promise<T> {
-        return await this.request<T>('PUT', endpoint, body);
-    }
+	protected async put<T>(endpoint: string, body: any): Promise<T> {
+		return await this.request<T>("PUT", endpoint, body);
+	}
 
-    protected async delete(endpoint: string): Promise<void> {
-        await await this.request('DELETE', endpoint);
-    }
+	protected async delete(endpoint: string): Promise<void> {
+		await await this.request("DELETE", endpoint);
+	}
 
-    private extractErrorMessages(error: any): string[] {
-        const messages: string[] = [];
-        if (error.message) {
-            messages.push(error.message);
-        }
-        if (error.details?.errors) {
-            for (const err of error.details.errors) {
-                messages.push(err.message);
-            }
-        }
-        return messages;
-    }
+	private extractErrorMessages(error: any): string[] {
+		const messages: string[] = [];
+		if (error.message) {
+			messages.push(error.message);
+		}
+		if (error.details?.errors) {
+			for (const err of error.details.errors) {
+				messages.push(err.message);
+			}
+		}
+		return messages;
+	}
 }

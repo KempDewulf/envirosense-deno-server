@@ -19,11 +19,11 @@
         }
     },
     "fmt": {
-        "useTabs": false,
+        "useTabs": true,
         "lineWidth": 100,
         "indentWidth": 4,
         "semiColons": true,
-        "singleQuote": true,
+        "singleQuote": false,
         "proseWrap": "preserve",
         "include": ["src/"],
         "exclude": ["old/"]

@@ -1,4 +1,4 @@
 export interface AddRoomToBuildingInput {
-    buildingDocumentId: string;
-    rooms: string[];
+	buildingDocumentId: string;
+	rooms: string[];
 }

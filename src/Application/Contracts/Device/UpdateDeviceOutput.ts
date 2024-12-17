@@ -1,5 +1,5 @@
 export interface UpdateDeviceOutput {
-    id: string;
-    documentId: string;
-    identifier: string;
+	id: string;
+	documentId: string;
+	identifier: string;
 }

@@ -1,3 +1,3 @@
 export interface DeleteRoomTypeInput {
-    roomTypeDocumentId: string;
+	roomTypeDocumentId: string;
 }

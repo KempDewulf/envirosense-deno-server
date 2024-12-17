@@ -1,4 +1,4 @@
 export interface AddDeviceToRoomInput {
-    roomDocumentId: string;
-    devices: string[];
+	roomDocumentId: string;
+	devices: string[];
 }

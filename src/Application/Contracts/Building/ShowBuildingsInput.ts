@@ -1,3 +1,3 @@
 export interface ShowBuildingsInput {
-    name: string;
+	name: string;
 }

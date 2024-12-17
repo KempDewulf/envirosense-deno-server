@@ -1,4 +1,4 @@
 export interface UpdateRoomInput {
-    roomDocumentId: string;
-    name: string;
+	roomDocumentId: string;
+	name: string;
 }

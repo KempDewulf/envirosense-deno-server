@@ -1,3 +1,3 @@
 export interface DeleteBuildingInput {
-    buildingDocumentId: string;
+	buildingDocumentId: string;
 }
