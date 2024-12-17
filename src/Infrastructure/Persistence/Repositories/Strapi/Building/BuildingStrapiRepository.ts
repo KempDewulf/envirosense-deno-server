@@ -1,16 +1,13 @@
-import { Optional, Building } from "EnviroSense/Domain/mod.ts";
-import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
-import { BuildingRepository } from "EnviroSense/Application/Contracts/mod.ts";
+import { Building, Optional } from 'EnviroSense/Domain/mod.ts';
+import { StrapiQueryRepository } from '../../../Shared/StrapiQueryRepository.ts';
+import { BuildingRepository } from 'EnviroSense/Application/Contracts/mod.ts';
 
 export enum RoomOperation {
-    ADD = "connect",
-    REMOVE = "disconnect",
+    ADD = 'connect',
+    REMOVE = 'disconnect',
 }
 
-export class BuildingStrapiRepository
-    extends StrapiQueryRepository
-    implements BuildingRepository
-{
+export class BuildingStrapiRepository extends StrapiQueryRepository implements BuildingRepository {
     async find(buildingDocumentId: string): Promise<Optional<Building>> {
         const endpoint = `buildings/${buildingDocumentId.toString()}`;
         const params: Record<string, string> = {};
@@ -41,7 +38,7 @@ export class BuildingStrapiRepository
     async manageRooms(
         buildingDocumentId: string,
         roomDocumentIds: string[],
-        operation: RoomOperation
+        operation: RoomOperation,
     ) {
         const endpoint = `buildings/${buildingDocumentId}`;
         const body = {

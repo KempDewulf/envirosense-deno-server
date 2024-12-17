@@ -37,5 +37,4 @@ export class ShowOpenApiEndpoint implements Endpoint {
     static create(): Endpoint {
         return new ShowOpenApiEndpoint();
     }
-
 }

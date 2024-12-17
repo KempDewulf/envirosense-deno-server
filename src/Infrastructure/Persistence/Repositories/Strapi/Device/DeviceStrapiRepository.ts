@@ -1,16 +1,13 @@
-import { Optional, Device } from "EnviroSense/Domain/mod.ts";
-import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
-import { DeviceRepository } from "EnviroSense/Application/Contracts/mod.ts";
+import { Device, Optional } from 'EnviroSense/Domain/mod.ts';
+import { StrapiQueryRepository } from '../../../Shared/StrapiQueryRepository.ts';
+import { DeviceRepository } from 'EnviroSense/Application/Contracts/mod.ts';
 
 export enum DeviceDataOperation {
-    ADD = "connect",
-    REMOVE = "disconnect",
+    ADD = 'connect',
+    REMOVE = 'disconnect',
 }
 
-export class DeviceStrapiRepository
-    extends StrapiQueryRepository
-    implements DeviceRepository
-{
+export class DeviceStrapiRepository extends StrapiQueryRepository implements DeviceRepository {
     async find(deviceDocumentId: string): Promise<Optional<Device>> {
         const endpoint = `devices/${deviceDocumentId.toString()}`;
         const params: Record<string, string> = {};
@@ -27,14 +24,14 @@ export class DeviceStrapiRepository
     async findByIdentifier(identifier: string): Promise<Optional<Device>> {
         const endpoint = `devices`;
         const params = {
-            "filters[identifier][$eq]": identifier,
-            populate: "*",
+            'filters[identifier][$eq]': identifier,
+            populate: '*',
         };
 
         try {
             const response = await this.get<any>(endpoint, params);
             if (response.data.length === 0) {
-                throw new Error("Device not found");
+                throw new Error('Device not found');
             }
             const device = this.mapToDomain(response.data[0]);
             return Optional.of<Device>(device);
@@ -60,12 +57,12 @@ export class DeviceStrapiRepository
     async manageDeviceData(
         deviceDocumentId: string,
         deviceDataDocumentIds: string[],
-        operation: DeviceDataOperation
+        operation: DeviceDataOperation,
     ) {
         const endpoint = `devices/${deviceDocumentId}`;
-        
+
         const body = {
-            "device_data": {
+            'device_data': {
                 [operation]: deviceDataDocumentIds,
             },
         };
@@ -94,8 +91,8 @@ export class DeviceStrapiRepository
             identifier: device.identifier,
             room: device.room
                 ? {
-                      connect: [device.room.id],
-                  }
+                    connect: [device.room.id],
+                }
                 : null,
             device_data: device.deviceData,
         };

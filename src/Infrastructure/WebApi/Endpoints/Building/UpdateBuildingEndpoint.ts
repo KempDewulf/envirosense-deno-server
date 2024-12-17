@@ -1,20 +1,17 @@
-import { RouterContext } from "@oak/oak";
+import { RouterContext } from '@oak/oak';
 import {
+    Endpoint,
     UpdateBuildingController,
     UpdateBuildingPresentedData,
     UpdateBuildingPresenter,
     UpdateBuildingRequest,
-    Endpoint,
-} from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import {
-    ErrorsBag,
-    RequestResponse,
-} from "EnviroSense/Infrastructure/Shared/mod.ts";
+} from 'EnviroSense/Infrastructure/WebApi/mod.ts';
+import { ErrorsBag, RequestResponse } from 'EnviroSense/Infrastructure/Shared/mod.ts';
 
-import { BuildingStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { BuildingStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 
-import { UpdateBuilding } from "EnviroSense/Application/mod.ts";
-import { BuildingRepository } from "EnviroSense/Application/Contracts/mod.ts";
+import { UpdateBuilding } from 'EnviroSense/Application/mod.ts';
+import { BuildingRepository } from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class UpdateBuildingEndpoint implements Endpoint {
     private readonly _errorsBag = new ErrorsBag();
@@ -48,12 +45,10 @@ export class UpdateBuildingEndpoint implements Endpoint {
     }
 
     private async buildRequest(
-        context: RouterContext<string>
+        context: RouterContext<string>,
     ): Promise<UpdateBuildingRequest> {
-        const buildingDocumentId = context.params.buildingDocumentId || "";
-        const body = context.request.hasBody
-            ? await context.request.body.json()
-            : {};
+        const buildingDocumentId = context.params.buildingDocumentId || '';
+        const body = context.request.hasBody ? await context.request.body.json() : {};
 
         return {
             buildingDocumentId,
@@ -66,12 +61,12 @@ export class UpdateBuildingEndpoint implements Endpoint {
         this._errorsBag.clear();
 
         if (!request.buildingDocumentId) {
-            this._errorsBag.add("buildingDocumentId is required");
+            this._errorsBag.add('buildingDocumentId is required');
         }
 
         if (request.name === undefined && request.address === undefined) {
             this._errorsBag.add(
-                'At least one of "name" or "address" must be provided'
+                'At least one of "name" or "address" must be provided',
             );
         }
     }

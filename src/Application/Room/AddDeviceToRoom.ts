@@ -1,9 +1,9 @@
 import {
-    UseCase,
     AddDeviceToRoomInput,
-    RoomRepository,
     DeviceRepository,
-} from "EnviroSense/Application/Contracts/mod.ts";
+    RoomRepository,
+    UseCase,
+} from 'EnviroSense/Application/Contracts/mod.ts';
 import { DeviceOperation } from 'EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Room/RoomStrapiRepository.ts';
 
 export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
@@ -20,28 +20,28 @@ export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
 
     async execute(input: AddDeviceToRoomInput): Promise<void> {
         const roomOptional = await this._roomRepository.find(
-            input.roomDocumentId
+            input.roomDocumentId,
         );
 
         const room = roomOptional.orElseThrow(
             () =>
                 new Error(
-                    `Room with ID ${input.roomDocumentId} not found.`
-                )
+                    `Room with ID ${input.roomDocumentId} not found.`,
+                ),
         );
 
         const deviceDocumentIdsToConnect: string[] = [];
 
         for (const deviceDocumentId of input.devices) {
             const deviceOptional = await this._deviceRepository.find(
-                deviceDocumentId
+                deviceDocumentId,
             );
 
             const device = deviceOptional.orElseThrow(
                 () =>
                     new Error(
-                        `Device with documentId ${deviceDocumentId} not found.`
-                    )
+                        `Device with documentId ${deviceDocumentId} not found.`,
+                    ),
             );
 
             room.addDevice(device);
@@ -49,6 +49,10 @@ export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
             deviceDocumentIdsToConnect.push(device.id);
         }
 
-        await this._roomRepository.manageDevices(room.id, deviceDocumentIdsToConnect, DeviceOperation.ADD);
+        await this._roomRepository.manageDevices(
+            room.id,
+            deviceDocumentIdsToConnect,
+            DeviceOperation.ADD,
+        );
     }
 }

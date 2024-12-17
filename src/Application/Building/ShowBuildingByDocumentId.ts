@@ -1,21 +1,19 @@
 import {
-    OutputPort,
-    UseCase,
-    ShowBuildingByDocumentIdInput,
-    ShowBuildingByDocumentIdOutput,
     BuildingQueryDto,
     BuildingQueryRepository,
-} from "EnviroSense/Application/Contracts/mod.ts";
+    OutputPort,
+    ShowBuildingByDocumentIdInput,
+    ShowBuildingByDocumentIdOutput,
+    UseCase,
+} from 'EnviroSense/Application/Contracts/mod.ts';
 
-export class ShowBuildingByDocumentId
-    implements UseCase<ShowBuildingByDocumentIdInput>
-{
+export class ShowBuildingByDocumentId implements UseCase<ShowBuildingByDocumentIdInput> {
     private readonly _outputPort: OutputPort<ShowBuildingByDocumentIdOutput>;
     private readonly _buildingRepository: BuildingQueryRepository;
 
     constructor(
         outputPort: OutputPort<ShowBuildingByDocumentIdOutput>,
-        buildingRepository: BuildingQueryRepository
+        buildingRepository: BuildingQueryRepository,
     ) {
         this._outputPort = outputPort;
         this._buildingRepository = buildingRepository;
@@ -23,7 +21,7 @@ export class ShowBuildingByDocumentId
 
     public async execute(input: ShowBuildingByDocumentIdInput): Promise<void> {
         const buildingOptional = await this._buildingRepository.find(
-            input.buildingDocumentId
+            input.buildingDocumentId,
         );
 
         const buildingDto = buildingOptional.orElseThrow(() =>
@@ -35,7 +33,7 @@ export class ShowBuildingByDocumentId
     }
 
     private mapDtoToOutput(
-        dto: BuildingQueryDto
+        dto: BuildingQueryDto,
     ): ShowBuildingByDocumentIdOutput {
         return {
             id: dto.id,

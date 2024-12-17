@@ -8,10 +8,18 @@ import {
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 import { ErrorsBag, RequestResponse } from 'EnviroSense/Infrastructure/Shared/mod.ts';
 
-import { BuildingStrapiRepository, RoomStrapiRepository, RoomTypeStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
+import {
+    BuildingStrapiRepository,
+    RoomStrapiRepository,
+    RoomTypeStrapiRepository,
+} from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 
 import { CreateRoom } from 'EnviroSense/Application/mod.ts';
-import { BuildingRepository, RoomRepository, RoomTypeRepository } from 'EnviroSense/Application/Contracts/mod.ts';
+import {
+    BuildingRepository,
+    RoomRepository,
+    RoomTypeRepository,
+} from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class CreateRoomEndpoint implements Endpoint {
     private readonly _errorsBag = new ErrorsBag();
@@ -38,7 +46,7 @@ export class CreateRoomEndpoint implements Endpoint {
             presenter,
             roomRepository,
             buildingRepository,
-            roomTypeRepository
+            roomTypeRepository,
         );
 
         const controller = new CreateRoomController(useCase);

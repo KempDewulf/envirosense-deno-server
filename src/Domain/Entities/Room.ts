@@ -1,9 +1,4 @@
-import {
-    Building,
-    Device,
-    DomainException,
-    RoomType,
-} from "EnviroSense/Domain/mod.ts";
+import { Building, Device, DomainException, RoomType } from 'EnviroSense/Domain/mod.ts';
 
 export interface RoomState {
     id: string;
@@ -24,7 +19,7 @@ export class Room {
         id: string,
         name: string,
         building: Building | null,
-        roomType: RoomType
+        roomType: RoomType,
     ) {
         this._id = id;
         this._name = name;
@@ -37,7 +32,7 @@ export class Room {
         id: string,
         name: string,
         building: Building,
-        roomType: RoomType
+        roomType: RoomType,
     ): Room {
         const room = new Room(id, name, building, roomType);
         room.validateState();
@@ -52,8 +47,8 @@ export class Room {
             state.building,
             state.roomType ??
                 (() => {
-                    throw new DomainException("Room type cannot be null.");
-                })()
+                    throw new DomainException('Room type cannot be null.');
+                })(),
         );
 
         room._devices = state.devices ?? [];
@@ -82,33 +77,33 @@ export class Room {
         this.ensureDeviceExists(deviceDocumentId);
 
         this._devices = this._devices.filter(
-            (device) => device.id !== deviceDocumentId
+            (device) => device.id !== deviceDocumentId,
         );
     }
 
     private ensureNameIsNotEmpty(): void {
         if (!this._name) {
-            throw new DomainException("Room name cannot be empty.");
+            throw new DomainException('Room name cannot be empty.');
         }
     }
 
     private ensureRoomTypeIsNotEmpty(): void {
         if (!this._roomType) {
-            throw new DomainException("Room type cannot be empty.");
+            throw new DomainException('Room type cannot be empty.');
         }
     }
 
-    //TODO: check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
+    //TODO(@layton): check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
     private ensureDeviceDoesNotExist(device: Device): void {
         if (this._devices.some((d) => d.id === device.id)) {
-            throw new DomainException("Device already exists in this room.");
+            throw new DomainException('Device already exists in this room.');
         }
     }
 
-    //TODO: check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
+    //TODO(@layton): check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
     private ensureDeviceExists(deviceDocumentId: string): void {
         if (!this._devices.some((d) => d.id === deviceDocumentId)) {
-            throw new DomainException("Device does not exist in this room.");
+            throw new DomainException('Device does not exist in this room.');
         }
     }
 
@@ -128,7 +123,7 @@ export class Room {
         return this._roomType;
     }
 
-    get ["room-type"](): RoomType {
+    get ['room-type'](): RoomType {
         return this._roomType;
     }
 

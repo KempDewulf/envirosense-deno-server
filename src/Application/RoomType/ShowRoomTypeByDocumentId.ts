@@ -1,21 +1,19 @@
 import {
     OutputPort,
-    UseCase,
-    ShowRoomTypeByDocumentIdInput,
-    ShowRoomTypeByDocumentIdOutput,
     RoomTypeQueryDto,
     RoomTypeQueryRepository,
-} from "EnviroSense/Application/Contracts/mod.ts";
+    ShowRoomTypeByDocumentIdInput,
+    ShowRoomTypeByDocumentIdOutput,
+    UseCase,
+} from 'EnviroSense/Application/Contracts/mod.ts';
 
-export class ShowRoomTypeByDocumentId
-    implements UseCase<ShowRoomTypeByDocumentIdInput>
-{
+export class ShowRoomTypeByDocumentId implements UseCase<ShowRoomTypeByDocumentIdInput> {
     private readonly _outputPort: OutputPort<ShowRoomTypeByDocumentIdOutput>;
     private readonly _roomTypeRepository: RoomTypeQueryRepository;
 
     constructor(
         outputPort: OutputPort<ShowRoomTypeByDocumentIdOutput>,
-        roomTypeRepository: RoomTypeQueryRepository
+        roomTypeRepository: RoomTypeQueryRepository,
     ) {
         this._outputPort = outputPort;
         this._roomTypeRepository = roomTypeRepository;
@@ -23,7 +21,7 @@ export class ShowRoomTypeByDocumentId
 
     public async execute(input: ShowRoomTypeByDocumentIdInput): Promise<void> {
         const roomTypeOptional = await this._roomTypeRepository.find(
-            input.roomTypeDocumentId
+            input.roomTypeDocumentId,
         );
 
         const roomTypeDto = roomTypeOptional.orElseThrow(() =>
@@ -35,7 +33,7 @@ export class ShowRoomTypeByDocumentId
     }
 
     private mapDtoToOutput(
-        dto: RoomTypeQueryDto
+        dto: RoomTypeQueryDto,
     ): ShowRoomTypeByDocumentIdOutput {
         return {
             id: dto.id,

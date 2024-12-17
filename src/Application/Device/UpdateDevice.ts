@@ -1,10 +1,10 @@
 import {
+    DeviceRepository,
+    OutputPort,
     UpdateDeviceInput,
     UpdateDeviceOutput,
-    OutputPort,
-    DeviceRepository,
     UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+} from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class UpdateDevice implements UseCase<UpdateDeviceInput> {
     private readonly _outputPort: OutputPort<UpdateDeviceOutput>;
@@ -12,7 +12,7 @@ export class UpdateDevice implements UseCase<UpdateDeviceInput> {
 
     constructor(
         outputPort: OutputPort<UpdateDeviceOutput>,
-        deviceRepository: DeviceRepository
+        deviceRepository: DeviceRepository,
     ) {
         this._outputPort = outputPort;
         this._deviceRepository = deviceRepository;
@@ -20,14 +20,14 @@ export class UpdateDevice implements UseCase<UpdateDeviceInput> {
 
     public async execute(input: UpdateDeviceInput): Promise<void> {
         const deviceOptional = await this._deviceRepository.find(
-            input.deviceDocumentId
+            input.deviceDocumentId,
         );
 
         const device = deviceOptional.orElseThrow(
             () =>
                 new Error(
-                    `Device with ID ${input.deviceDocumentId} not found.`
-                )
+                    `Device with ID ${input.deviceDocumentId} not found.`,
+                ),
         );
 
         if (input.identifier !== undefined) {

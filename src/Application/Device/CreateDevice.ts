@@ -1,12 +1,12 @@
-import { Device } from "EnviroSense/Domain/mod.ts";
+import { Device } from 'EnviroSense/Domain/mod.ts';
 import {
     CreateDeviceInput,
     CreateDeviceOutput,
-    OutputPort,
     DeviceRepository,
-    UseCase,
+    OutputPort,
     RoomRepository,
-} from "EnviroSense/Application/Contracts/mod.ts";
+    UseCase,
+} from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class CreateDevice implements UseCase<CreateDeviceInput> {
     private readonly _outputPort: OutputPort<CreateDeviceOutput>;
@@ -16,7 +16,7 @@ export class CreateDevice implements UseCase<CreateDeviceInput> {
     constructor(
         outputPort: OutputPort<CreateDeviceOutput>,
         _deviceRepository: DeviceRepository,
-        _roomRepository: RoomRepository
+        _roomRepository: RoomRepository,
     ) {
         this._outputPort = outputPort;
         this._deviceRepository = _deviceRepository;
@@ -25,17 +25,17 @@ export class CreateDevice implements UseCase<CreateDeviceInput> {
 
     public async execute(input: CreateDeviceInput): Promise<void> {
         const roomOptional = await this._roomRepository.find(
-            input.roomDocumentId
+            input.roomDocumentId,
         );
 
         const room = roomOptional.orElseThrow(
             () =>
                 new Error(
-                    `Room with ID ${input.roomDocumentId} not found.`
-                )
+                    `Room with ID ${input.roomDocumentId} not found.`,
+                ),
         );
 
-        const device = Device.create("", input.identifier, room);
+        const device = Device.create('', input.identifier, room);
 
         await this._deviceRepository.save(device);
         this._outputPort.present({ id: device.id.toString() });

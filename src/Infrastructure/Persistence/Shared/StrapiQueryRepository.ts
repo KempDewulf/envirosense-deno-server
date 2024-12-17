@@ -3,11 +3,11 @@ export class StrapiQueryRepository {
     private readonly apiToken: string;
 
     constructor() {
-        this.baseUrl = Deno.env.get("PRODUCTION_STRAPI_URL") || "";
-        this.apiToken = Deno.env.get("STRAPI_API_TOKEN") || "";
-        
+        this.baseUrl = Deno.env.get('PRODUCTION_STRAPI_URL') || '';
+        this.apiToken = Deno.env.get('STRAPI_API_TOKEN') || '';
+
         if (!this.apiToken) {
-            console.warn("⚠️ No STRAPI_API_TOKEN found in environment variables");
+            console.warn('⚠️ No STRAPI_API_TOKEN found in environment variables');
         }
     }
 
@@ -28,7 +28,7 @@ export class StrapiQueryRepository {
     private buildRequestOptions(method: string, body?: any): RequestInit {
         const headers = {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.apiToken}`
+            'Authorization': `Bearer ${this.apiToken}`,
         };
 
         const options: RequestInit = {

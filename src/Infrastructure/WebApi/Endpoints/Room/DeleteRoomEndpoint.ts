@@ -37,8 +37,8 @@ export class DeleteRoomEndpoint implements Endpoint {
     }
 
     private buildRequest(context: RouterContext<string>): DeleteRoomRequest {
-        const roomDocumentId = context.params.roomDocumentId || "";
-        return {roomDocumentId} as DeleteRoomRequest;
+        const roomDocumentId = context.params.roomDocumentId || '';
+        return { roomDocumentId } as DeleteRoomRequest;
     }
 
     private validateRequest(request: DeleteRoomRequest): void {

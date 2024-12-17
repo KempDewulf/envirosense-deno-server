@@ -21,7 +21,7 @@ export class CreateDeviceController implements Controller<CreateDeviceRequest> {
     protected mapToUseCaseInput(request: CreateDeviceRequest): CreateDeviceInput {
         return {
             identifier: request.identifier,
-            roomDocumentId: request.roomDocumentId
+            roomDocumentId: request.roomDocumentId,
         };
     }
 }

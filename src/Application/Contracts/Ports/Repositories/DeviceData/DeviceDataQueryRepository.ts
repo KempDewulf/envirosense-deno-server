@@ -1,4 +1,4 @@
-import { AirData, Device, Optional } from "EnviroSense/Domain/mod.ts";
+import { AirData, Device, Optional } from 'EnviroSense/Domain/mod.ts';
 
 export interface DeviceDataQueryDto {
     id: string;

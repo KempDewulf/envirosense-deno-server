@@ -1,11 +1,11 @@
 import {
+    BuildingQueryDto,
+    BuildingQueryRepository,
     OutputPort,
     ShowBuildingsInput,
     ShowBuildingsOutput,
-    BuildingQueryDto,
-    BuildingQueryRepository,
     UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+} from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class ShowBuildings implements UseCase<ShowBuildingsInput> {
     private readonly _outputPort: OutputPort<ShowBuildingsOutput[]>;
@@ -13,7 +13,7 @@ export class ShowBuildings implements UseCase<ShowBuildingsInput> {
 
     constructor(
         outputPort: OutputPort<ShowBuildingsOutput[]>,
-        buildingQueryRepository: BuildingQueryRepository
+        buildingQueryRepository: BuildingQueryRepository,
     ) {
         this._outputPort = outputPort;
         this._buildingQueryRepository = buildingQueryRepository;

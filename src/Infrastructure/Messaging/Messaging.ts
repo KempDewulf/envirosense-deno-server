@@ -1,10 +1,7 @@
-import { Client } from "https://deno.land/x/mqtt@0.1.2/deno/mod.ts";
-import { AirData } from "EnviroSense/Domain/mod.ts";
-import {
-    ProcessDeviceDataInput,
-    UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
-import "jsr:@std/dotenv/load";
+import { Client } from 'https://deno.land/x/mqtt@0.1.2/deno/mod.ts';
+import { AirData } from 'EnviroSense/Domain/mod.ts';
+import { ProcessDeviceDataInput, UseCase } from 'EnviroSense/Application/Contracts/mod.ts';
+import 'jsr:@std/dotenv/load';
 
 export class Messaging {
     private client: Client;
@@ -12,9 +9,9 @@ export class Messaging {
 
     constructor(processDeviceDataUseCase: UseCase<ProcessDeviceDataInput>) {
         this.client = new Client({
-            url: Deno.env.get("MQTT_BROKER"),
-            username: Deno.env.get("MQTT_USERNAME"),
-            password: Deno.env.get("MQTT_PASSWORD"),
+            url: Deno.env.get('MQTT_BROKER'),
+            username: Deno.env.get('MQTT_USERNAME'),
+            password: Deno.env.get('MQTT_PASSWORD'),
         });
         this.processDeviceDataUseCase = processDeviceDataUseCase;
     }
@@ -26,7 +23,7 @@ export class Messaging {
     public async subscribe(topic: string): Promise<void> {
         await this.client.subscribe(topic);
         this.client.on(
-            "message",
+            'message',
             async (topic: string, payload: Uint8Array) => {
                 const msg: string = new TextDecoder().decode(payload);
                 const deviceIdentifier: string = this.getDeviceId(topic);
@@ -38,7 +35,7 @@ export class Messaging {
                 };
 
                 await this.processDeviceDataUseCase.execute(input);
-            }
+            },
         );
     }
 
@@ -47,6 +44,6 @@ export class Messaging {
     }
 
     private getDeviceId(topic: string): string {
-        return topic.split("/")[1] || "";
+        return topic.split('/')[1] || '';
     }
 }

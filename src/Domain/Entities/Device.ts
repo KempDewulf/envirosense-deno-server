@@ -1,8 +1,4 @@
-import {
-    DeviceData,
-    DomainException,
-    Room,
-} from "EnviroSense/Domain/mod.ts";
+import { DeviceData, DomainException, Room } from 'EnviroSense/Domain/mod.ts';
 
 export interface DeviceState {
     id: string;
@@ -20,7 +16,7 @@ export class Device {
     private constructor(
         id: string,
         identifier: string,
-        room: Room | null
+        room: Room | null,
     ) {
         this._id = id;
         this._identifier = identifier;
@@ -31,7 +27,7 @@ export class Device {
     static create(
         id: string,
         identifier: string,
-        room: Room
+        room: Room,
     ): Device {
         const device = new Device(id, identifier, room);
         device.validateState();
@@ -66,8 +62,8 @@ export class Device {
     }
 
     public addRoom(room: Room): void {
-        if(room.building === null) {
-            throw new DomainException("Room must be assigned to a building");
+        if (room.building === null) {
+            throw new DomainException('Room must be assigned to a building');
         }
 
         room.building.ensureRoomExists(room.id);
@@ -81,13 +77,13 @@ export class Device {
 
     private ensureIdentifierIsNotEmpty(): void {
         if (!this._identifier) {
-            throw new DomainException("Identifier is required");
+            throw new DomainException('Identifier is required');
         }
     }
 
     private ensureRoomIsNotEmpty(): void {
         if (!this._room) {
-            throw new DomainException("Room is required");
+            throw new DomainException('Room is required');
         }
     }
 

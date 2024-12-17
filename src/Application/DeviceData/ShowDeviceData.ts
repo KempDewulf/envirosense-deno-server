@@ -1,11 +1,11 @@
 import {
+    DeviceDataQueryDto,
+    DeviceDataQueryRepository,
     OutputPort,
     ShowDeviceDataInput,
     ShowDeviceDataOutput,
-    DeviceDataQueryDto,
-    DeviceDataQueryRepository,
     UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+} from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class ShowDeviceData implements UseCase<ShowDeviceDataInput> {
     private readonly _outputPort: OutputPort<ShowDeviceDataOutput[]>;
@@ -13,7 +13,7 @@ export class ShowDeviceData implements UseCase<ShowDeviceDataInput> {
 
     constructor(
         outputPort: OutputPort<ShowDeviceDataOutput[]>,
-        deviceDataQueryRepository: DeviceDataQueryRepository
+        deviceDataQueryRepository: DeviceDataQueryRepository,
     ) {
         this._outputPort = outputPort;
         this._deviceDataQueryRepository = deviceDataQueryRepository;
@@ -21,7 +21,7 @@ export class ShowDeviceData implements UseCase<ShowDeviceDataInput> {
 
     public async execute(input: ShowDeviceDataInput): Promise<void> {
         const deviceDataDto = await this._deviceDataQueryRepository.all(
-            input.identifier
+            input.identifier,
         );
 
         const deviceData = this.mapDtoToOutput(deviceDataDto);
@@ -35,7 +35,7 @@ export class ShowDeviceData implements UseCase<ShowDeviceDataInput> {
             documentId: item.documentId,
             device: item.device,
             timestamp: item.timestamp,
-            airData: item.airData
+            airData: item.airData,
         }));
     }
 }

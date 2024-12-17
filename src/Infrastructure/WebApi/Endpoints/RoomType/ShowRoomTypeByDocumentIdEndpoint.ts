@@ -1,14 +1,14 @@
-import { RouterContext } from "@oak/oak";
+import { RouterContext } from '@oak/oak';
 import {
     Endpoint,
     ShowRoomTypeByDocumentIdController,
     ShowRoomTypeByDocumentIdPresentedData,
     ShowRoomTypeByDocumentIdPresenter,
     ShowRoomTypeByDocumentIdRequest,
-} from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import { RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { RoomTypeStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
-import { ShowRoomTypeByDocumentId } from "EnviroSense/Application/mod.ts";
+} from 'EnviroSense/Infrastructure/WebApi/mod.ts';
+import { RequestResponse } from 'EnviroSense/Infrastructure/Shared/mod.ts';
+import { RoomTypeStrapiQueryRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
+import { ShowRoomTypeByDocumentId } from 'EnviroSense/Application/mod.ts';
 
 export class ShowRoomTypeByDocumentIdEndpoint implements Endpoint {
     async handle(context: RouterContext<string>): Promise<void> {
@@ -23,7 +23,7 @@ export class ShowRoomTypeByDocumentIdEndpoint implements Endpoint {
         const request = this.buildRequest(context);
         await controller.handle(request);
 
-        context.response.headers.set("Content-Type", "application/json");
+        context.response.headers.set('Content-Type', 'application/json');
         context.response.body = outputDevice.response;
 
         return Promise.resolve();
@@ -34,9 +34,9 @@ export class ShowRoomTypeByDocumentIdEndpoint implements Endpoint {
     }
 
     private buildRequest(
-        context: RouterContext<string>
+        context: RouterContext<string>,
     ): ShowRoomTypeByDocumentIdRequest {
-        const roomTypeDocumentId = context.params.roomTypeDocumentId || "";
+        const roomTypeDocumentId = context.params.roomTypeDocumentId || '';
 
         return { roomTypeDocumentId } as ShowRoomTypeByDocumentIdRequest;
     }

@@ -20,4 +20,3 @@ export class DeleteDevice implements UseCase<DeleteDeviceInput> {
         await this._deviceRepository.deleteEntity(device);
     }
 }
-

@@ -1,4 +1,4 @@
-import { Optional, Room } from "EnviroSense/Domain/mod.ts";
+import { Optional, Room } from 'EnviroSense/Domain/mod.ts';
 
 export interface BuildingQueryDto {
     id: string;
@@ -10,5 +10,5 @@ export interface BuildingQueryDto {
 
 export interface BuildingQueryRepository {
     all(name: string): Promise<BuildingQueryDto[]>;
-    find(buildingDocumentId: string): Promise<Optional<BuildingQueryDto>>
+    find(buildingDocumentId: string): Promise<Optional<BuildingQueryDto>>;
 }

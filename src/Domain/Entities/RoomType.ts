@@ -1,4 +1,4 @@
-import { DomainException } from "EnviroSense/Domain/mod.ts";
+import { DomainException } from 'EnviroSense/Domain/mod.ts';
 
 export interface RoomTypeState {
     id: string;
@@ -28,7 +28,7 @@ export class RoomType {
         const room_type = new RoomType(
             state.id,
             state.name,
-            state.icon
+            state.icon,
         );
         room_type.validateState();
 
@@ -50,13 +50,13 @@ export class RoomType {
 
     private ensureNameIsNotEmpty(): void {
         if (!this._name) {
-            throw new DomainException("Room type name cannot be empty.");
+            throw new DomainException('Room type name cannot be empty.');
         }
     }
 
     private ensureIconIsNotEmpty(): void {
         if (!this._icon) {
-            throw new DomainException("Room type icon cannot be empty. Enter the ID of the icon.");
+            throw new DomainException('Room type icon cannot be empty. Enter the ID of the icon.');
         }
     }
 

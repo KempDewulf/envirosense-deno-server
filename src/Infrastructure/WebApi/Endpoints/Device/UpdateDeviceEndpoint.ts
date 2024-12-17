@@ -1,20 +1,17 @@
-import { RouterContext } from "@oak/oak";
+import { RouterContext } from '@oak/oak';
 import {
+    Endpoint,
     UpdateDeviceController,
     UpdateDevicePresentedData,
     UpdateDevicePresenter,
     UpdateDeviceRequest,
-    Endpoint,
-} from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import {
-    ErrorsBag,
-    RequestResponse,
-} from "EnviroSense/Infrastructure/Shared/mod.ts";
+} from 'EnviroSense/Infrastructure/WebApi/mod.ts';
+import { ErrorsBag, RequestResponse } from 'EnviroSense/Infrastructure/Shared/mod.ts';
 
-import { DeviceStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 
-import { UpdateDevice } from "EnviroSense/Application/mod.ts";
-import { DeviceRepository } from "EnviroSense/Application/Contracts/mod.ts";
+import { UpdateDevice } from 'EnviroSense/Application/mod.ts';
+import { DeviceRepository } from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class UpdateDeviceEndpoint implements Endpoint {
     private readonly _errorsBag = new ErrorsBag();
@@ -48,12 +45,10 @@ export class UpdateDeviceEndpoint implements Endpoint {
     }
 
     private async buildRequest(
-        context: RouterContext<string>
+        context: RouterContext<string>,
     ): Promise<UpdateDeviceRequest> {
-        const deviceDocumentId = context.params.deviceDocumentId || "";
-        const body = context.request.hasBody
-            ? await context.request.body.json()
-            : {};
+        const deviceDocumentId = context.params.deviceDocumentId || '';
+        const body = context.request.hasBody ? await context.request.body.json() : {};
 
         return {
             deviceDocumentId,
@@ -65,12 +60,12 @@ export class UpdateDeviceEndpoint implements Endpoint {
         this._errorsBag.clear();
 
         if (!request.deviceDocumentId) {
-            this._errorsBag.add("deviceDocumentId is required");
+            this._errorsBag.add('deviceDocumentId is required');
         }
 
         if (request.identifier === undefined) {
             this._errorsBag.add(
-                'identifier is required. It must be a string.'
+                'identifier is required. It must be a string.',
             );
         }
     }

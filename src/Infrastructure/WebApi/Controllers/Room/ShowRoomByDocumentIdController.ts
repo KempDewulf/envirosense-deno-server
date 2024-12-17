@@ -1,16 +1,11 @@
-import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-    ShowRoomByDocumentIdInput,
-    UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { Controller } from 'EnviroSense/Infrastructure/Shared/mod.ts';
+import { ShowRoomByDocumentIdInput, UseCase } from 'EnviroSense/Application/Contracts/mod.ts';
 
 export interface ShowRoomByDocumentIdRequest {
     roomDocumentId: string;
 }
 
-export class ShowRoomByDocumentIdController
-    implements Controller<ShowRoomByDocumentIdRequest>
-{
+export class ShowRoomByDocumentIdController implements Controller<ShowRoomByDocumentIdRequest> {
     private readonly _useCase: UseCase<ShowRoomByDocumentIdInput>;
 
     constructor(useCase: UseCase<ShowRoomByDocumentIdInput>) {
@@ -23,7 +18,7 @@ export class ShowRoomByDocumentIdController
     }
 
     protected mapToUseCaseInput(
-        request: ShowRoomByDocumentIdRequest
+        request: ShowRoomByDocumentIdRequest,
     ): ShowRoomByDocumentIdInput {
         return { roomDocumentId: request.roomDocumentId };
     }

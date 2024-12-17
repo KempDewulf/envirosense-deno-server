@@ -1,11 +1,9 @@
+import { Building } from 'EnviroSense/Domain/mod.ts';
 import {
-    Building,
-} from 'EnviroSense/Domain/mod.ts';
-import {
+    BuildingRepository,
     CreateBuildingInput,
     CreateBuildingOutput,
     OutputPort,
-    BuildingRepository,
     UseCase,
 } from 'EnviroSense/Application/Contracts/mod.ts';
 
@@ -25,11 +23,10 @@ export class CreateBuilding implements UseCase<CreateBuildingInput> {
         const building = Building.create(
             '',
             input.name,
-            input.address
+            input.address,
         );
 
         await this._buildingRepository.save(building);
         this._outputPort.present({ id: building.id.toString() });
     }
 }
-

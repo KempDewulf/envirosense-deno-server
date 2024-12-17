@@ -37,8 +37,8 @@ export class DeleteDeviceEndpoint implements Endpoint {
     }
 
     private buildRequest(context: RouterContext<string>): DeleteDeviceRequest {
-        const deviceDocumentId = context.params.deviceDocumentId || "";
-        return {deviceDocumentId} as DeleteDeviceRequest;
+        const deviceDocumentId = context.params.deviceDocumentId || '';
+        return { deviceDocumentId } as DeleteDeviceRequest;
     }
 
     private validateRequest(request: DeleteDeviceRequest): void {

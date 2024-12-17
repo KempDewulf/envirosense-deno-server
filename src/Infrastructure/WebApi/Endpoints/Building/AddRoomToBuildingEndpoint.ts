@@ -5,7 +5,10 @@ import {
     Endpoint,
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 import { ErrorsBag } from 'EnviroSense/Infrastructure/Shared/mod.ts';
-import { BuildingStrapiRepository, RoomStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
+import {
+    BuildingStrapiRepository,
+    RoomStrapiRepository,
+} from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 import { AddRoomToBuilding } from 'EnviroSense/Application/mod.ts';
 
 export class AddRoomToBuildingEndpoint implements Endpoint {
@@ -52,7 +55,9 @@ export class AddRoomToBuildingEndpoint implements Endpoint {
         }
 
         if (!request.rooms || request.rooms.length === 0) {
-            this._errors.add('rooms is required. It must be an array of strings (the documentIds of the room)');
+            this._errors.add(
+                'rooms is required. It must be an array of strings (the documentIds of the room)',
+            );
         }
     }
 }

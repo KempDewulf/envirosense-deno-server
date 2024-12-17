@@ -1,4 +1,4 @@
-import { Optional, RoomType } from "EnviroSense/Domain/mod.ts";
+import { Optional, RoomType } from 'EnviroSense/Domain/mod.ts';
 
 export interface RoomTypeRepository {
     find(roomTypeDocumentId: string): Promise<Optional<RoomType>>;

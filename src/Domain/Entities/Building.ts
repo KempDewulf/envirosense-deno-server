@@ -1,5 +1,5 @@
-import { Room } from "EnviroSense/Domain/mod.ts";
-import { DomainException } from "EnviroSense/Domain/Shared/Exceptions/DomainException.ts";
+import { Room } from 'EnviroSense/Domain/mod.ts';
+import { DomainException } from 'EnviroSense/Domain/Shared/Exceptions/DomainException.ts';
 
 export interface BuildingState {
     id: string;
@@ -62,24 +62,24 @@ export class Building {
 
     private ensureNameIsNotEmpty(): void {
         if (!this._name) {
-            throw new DomainException("Name is required");
+            throw new DomainException('Name is required');
         }
     }
 
     private ensureAddressIsNotEmpty(): void {
         if (!this._address) {
-            throw new DomainException("Address is required");
+            throw new DomainException('Address is required');
         }
     }
 
-    //TODO: check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
+    //TODO(@layton): check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
     private ensureRoomDoesNotExist(room: Room): void {
         if (this._rooms.some((r) => r.id === room.id)) {
             throw new DomainException(`Room ${room.id} already exists`);
         }
     }
 
-    //TODO: check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
+    //TODO(@layton): check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
     public ensureRoomExists(roomDocumentId: string): void {
         if (!this._rooms.some((room) => room.id === roomDocumentId)) {
             throw new DomainException(`Room does not exist`);

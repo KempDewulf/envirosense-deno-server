@@ -1,16 +1,12 @@
 import { Controller } from 'EnviroSense/Infrastructure/Shared/mod.ts';
-import {
-    AddDeviceDataToDeviceInput,
-    UseCase,
-} from 'EnviroSense/Application/Contracts/mod.ts';
+import { AddDeviceDataToDeviceInput, UseCase } from 'EnviroSense/Application/Contracts/mod.ts';
 
 export interface AddDeviceDataToDeviceRequest {
     deviceDocumentId: string;
     device_data: string[];
 }
 
-export class AddDeviceDataToDeviceController
-    implements Controller<AddDeviceDataToDeviceRequest> {
+export class AddDeviceDataToDeviceController implements Controller<AddDeviceDataToDeviceRequest> {
     private readonly _useCase: UseCase<AddDeviceDataToDeviceInput>;
 
     constructor(useCase: UseCase<AddDeviceDataToDeviceInput>) {
@@ -27,7 +23,7 @@ export class AddDeviceDataToDeviceController
     ): AddDeviceDataToDeviceInput {
         return {
             deviceDocumentId: request.deviceDocumentId,
-            device_data: request.device_data
+            device_data: request.device_data,
         };
     }
 }

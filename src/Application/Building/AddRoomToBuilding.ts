@@ -1,9 +1,9 @@
 import {
-    BuildingRepository,
-    UseCase,
     AddRoomToBuildingInput,
+    BuildingRepository,
     RoomRepository,
-} from "EnviroSense/Application/Contracts/mod.ts";
+    UseCase,
+} from 'EnviroSense/Application/Contracts/mod.ts';
 import { RoomOperation } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 
 export class AddRoomToBuilding implements UseCase<AddRoomToBuildingInput> {
@@ -12,7 +12,7 @@ export class AddRoomToBuilding implements UseCase<AddRoomToBuildingInput> {
 
     constructor(
         buildingRepository: BuildingRepository,
-        roomRepository: RoomRepository
+        roomRepository: RoomRepository,
     ) {
         this._buildingRepository = buildingRepository;
         this._roomRepository = roomRepository;
@@ -20,27 +20,27 @@ export class AddRoomToBuilding implements UseCase<AddRoomToBuildingInput> {
 
     async execute(input: AddRoomToBuildingInput): Promise<void> {
         const buildingOptional = await this._buildingRepository.find(
-            input.buildingDocumentId
+            input.buildingDocumentId,
         );
         const building = buildingOptional.orElseThrow(
             () =>
                 new Error(
-                    `Building with ID ${input.buildingDocumentId} not found.`
-                )
+                    `Building with ID ${input.buildingDocumentId} not found.`,
+                ),
         );
 
         const roomDocumentIdsToConnect: string[] = [];
 
         for (const roomDocumentId of input.rooms) {
             const roomOptional = await this._roomRepository.find(
-                roomDocumentId
+                roomDocumentId,
             );
 
             const room = roomOptional.orElseThrow(
                 () =>
                     new Error(
-                        `Room with documentId ${roomDocumentId} not found.`
-                    )
+                        `Room with documentId ${roomDocumentId} not found.`,
+                    ),
             );
 
             building.addRoom(room);
@@ -48,6 +48,10 @@ export class AddRoomToBuilding implements UseCase<AddRoomToBuildingInput> {
             roomDocumentIdsToConnect.push(room.id);
         }
 
-        await this._buildingRepository.manageRooms(building.id, roomDocumentIdsToConnect, RoomOperation.ADD);
+        await this._buildingRepository.manageRooms(
+            building.id,
+            roomDocumentIdsToConnect,
+            RoomOperation.ADD,
+        );
     }
 }

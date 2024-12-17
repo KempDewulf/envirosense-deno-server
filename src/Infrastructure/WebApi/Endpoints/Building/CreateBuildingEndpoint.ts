@@ -34,7 +34,7 @@ export class CreateBuildingEndpoint implements Endpoint {
 
         const useCase = new CreateBuilding(
             presenter,
-            repository
+            repository,
         );
 
         const controller = new CreateBuildingController(useCase);

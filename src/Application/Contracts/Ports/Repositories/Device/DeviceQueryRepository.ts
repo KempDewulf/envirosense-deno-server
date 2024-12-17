@@ -1,4 +1,4 @@
-import { DeviceData, Optional, Room } from "EnviroSense/Domain/mod.ts";
+import { DeviceData, Optional, Room } from 'EnviroSense/Domain/mod.ts';
 
 export interface DeviceQueryDto {
     id: string;
@@ -10,5 +10,5 @@ export interface DeviceQueryDto {
 
 export interface DeviceQueryRepository {
     all(identifier: string): Promise<DeviceQueryDto[]>;
-    find(deviceDocumentId: string): Promise<Optional<DeviceQueryDto>>
+    find(deviceDocumentId: string): Promise<Optional<DeviceQueryDto>>;
 }

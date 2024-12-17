@@ -1,11 +1,14 @@
 import { RouterContext } from '@oak/oak';
 import {
+    Endpoint,
     RemoveDeviceFromRoomController,
     RemoveDeviceFromRoomRequest,
-    Endpoint,
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 import { ErrorsBag } from 'EnviroSense/Infrastructure/Shared/mod.ts';
-import { DeviceStrapiRepository, RoomStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
+import {
+    DeviceStrapiRepository,
+    RoomStrapiRepository,
+} from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 import { RemoveDeviceFromRoom } from 'EnviroSense/Application/mod.ts';
 
 export class RemoveDeviceFromRoomEndpoint implements Endpoint {

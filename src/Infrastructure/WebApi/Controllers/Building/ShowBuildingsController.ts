@@ -1,8 +1,5 @@
-import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-    ShowBuildingsInput,
-    UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { Controller } from 'EnviroSense/Infrastructure/Shared/mod.ts';
+import { ShowBuildingsInput, UseCase } from 'EnviroSense/Application/Contracts/mod.ts';
 
 export interface ShowBuildingsRequest {
     name: string;

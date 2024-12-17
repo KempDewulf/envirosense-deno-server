@@ -5,7 +5,10 @@ import {
     Endpoint,
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 import { ErrorsBag } from 'EnviroSense/Infrastructure/Shared/mod.ts';
-import { DeviceDataStrapiRepository, DeviceStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
+import {
+    DeviceDataStrapiRepository,
+    DeviceStrapiRepository,
+} from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 import { AddDeviceDataToDevice } from 'EnviroSense/Application/mod.ts';
 
 export class AddDeviceDataToDeviceEndpoint implements Endpoint {
@@ -52,7 +55,9 @@ export class AddDeviceDataToDeviceEndpoint implements Endpoint {
         }
 
         if (!request.device_data || request.device_data.length === 0) {
-            this._errors.add('device_data is required. It must be an array of strings (the documentIds of the device data)');
+            this._errors.add(
+                'device_data is required. It must be an array of strings (the documentIds of the device data)',
+            );
         }
     }
 }

@@ -15,9 +15,10 @@ export class DeleteRoomType implements UseCase<DeleteRoomTypeInput> {
 
     public async execute(input: DeleteRoomTypeInput): Promise<void> {
         const roomType = (await this._roomTypeRepository.find(input.roomTypeDocumentId))
-            .orElseThrow(() => new Error(`RoomType with ID ${input.roomTypeDocumentId} not found.`));
+            .orElseThrow(() =>
+                new Error(`RoomType with ID ${input.roomTypeDocumentId} not found.`)
+            );
 
         await this._roomTypeRepository.deleteEntity(roomType);
     }
 }
-

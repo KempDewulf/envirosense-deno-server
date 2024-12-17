@@ -1,4 +1,4 @@
-import { DeviceData, Room } from "EnviroSense/Domain/mod.ts";
+import { DeviceData, Room } from 'EnviroSense/Domain/mod.ts';
 
 export interface ShowDeviceByDocumentIdOutput {
     id: string;

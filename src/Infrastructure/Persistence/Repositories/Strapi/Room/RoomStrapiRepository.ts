@@ -1,22 +1,19 @@
-import { RoomRepository } from "EnviroSense/Application/Contracts/mod.ts";
-import { Optional, Room, Building, RoomType, Device } from "EnviroSense/Domain/mod.ts";
-import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
+import { RoomRepository } from 'EnviroSense/Application/Contracts/mod.ts';
+import { Building, Device, Optional, Room, RoomType } from 'EnviroSense/Domain/mod.ts';
+import { StrapiQueryRepository } from '../../../Shared/StrapiQueryRepository.ts';
 
 export enum DeviceOperation {
-    ADD = "connect",
-    REMOVE = "disconnect",
+    ADD = 'connect',
+    REMOVE = 'disconnect',
 }
 
-export class RoomStrapiRepository
-    extends StrapiQueryRepository
-    implements RoomRepository
-{
+export class RoomStrapiRepository extends StrapiQueryRepository implements RoomRepository {
     async find(roomDocumentId: string): Promise<Optional<Room>> {
         const endpoint = `rooms/${roomDocumentId.toString()}`;
         const params: Record<string, string> = {
-            "populate[0]": "building",
-            "populate[1]": "room_type.icon",
-            "populate[2]": "devices",
+            'populate[0]': 'building',
+            'populate[1]': 'room_type.icon',
+            'populate[2]': 'devices',
         };
 
         try {
@@ -44,18 +41,18 @@ export class RoomStrapiRepository
     }
 
     async manageDevices(
-            roomDocumentId: string,
-            deviceDocumentIds: string[],
-            operation: DeviceOperation
-        ) {
-            const endpoint = `rooms/${roomDocumentId}`;
-            const body = {
-                devices: {
-                    [operation]: deviceDocumentIds,
-                },
-            };
-            await this.put(endpoint, { data: body });
-        }
+        roomDocumentId: string,
+        deviceDocumentIds: string[],
+        operation: DeviceOperation,
+    ) {
+        const endpoint = `rooms/${roomDocumentId}`;
+        const body = {
+            devices: {
+                [operation]: deviceDocumentIds,
+            },
+        };
+        await this.put(endpoint, { data: body });
+    }
 
     async deleteEntity(room: Room): Promise<void> {
         const endpoint = `rooms/${room.id}`;
@@ -70,10 +67,10 @@ export class RoomStrapiRepository
 
         const building = buildingData
             ? Building.load({
-                  id: buildingData.documentId,
-                  name: buildingData.name,
-                  address: buildingData.address,
-              })
+                id: buildingData.documentId,
+                name: buildingData.name,
+                address: buildingData.address,
+            })
             : null;
 
         const roomType = RoomType.load({
@@ -105,20 +102,19 @@ export class RoomStrapiRepository
             name: room.name,
             building: room.building
                 ? {
-                      connect: [room.building.id],
-                  }
+                    connect: [room.building.id],
+                }
                 : null,
             room_type: room.roomType
                 ? {
-                      connect: [room.roomType.id],
-                  }
+                    connect: [room.roomType.id],
+                }
                 : null,
-            devices:
-                room.devices && room.devices.length > 0
-                    ? {
-                          connect: room.devices.map((device) => device.id),
-                      }
-                    : [],
+            devices: room.devices && room.devices.length > 0
+                ? {
+                    connect: room.devices.map((device) => device.id),
+                }
+                : [],
         };
     }
 }

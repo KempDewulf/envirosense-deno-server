@@ -1,4 +1,4 @@
-import { Optional, DeviceData } from "EnviroSense/Domain/mod.ts";
+import { DeviceData, Optional } from 'EnviroSense/Domain/mod.ts';
 
 export interface DeviceDataRepository {
     find(deviceDataDocumentId: string): Promise<Optional<DeviceData>>;

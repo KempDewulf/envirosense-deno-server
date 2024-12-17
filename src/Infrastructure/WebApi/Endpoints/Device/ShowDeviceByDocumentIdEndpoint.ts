@@ -1,14 +1,14 @@
-import { RouterContext } from "@oak/oak";
+import { RouterContext } from '@oak/oak';
 import {
     Endpoint,
     ShowDeviceByDocumentIdController,
     ShowDeviceByDocumentIdPresentedData,
     ShowDeviceByDocumentIdPresenter,
     ShowDeviceByDocumentIdRequest,
-} from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import { RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { DeviceStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
-import { ShowDeviceByDocumentId } from "EnviroSense/Application/mod.ts";
+} from 'EnviroSense/Infrastructure/WebApi/mod.ts';
+import { RequestResponse } from 'EnviroSense/Infrastructure/Shared/mod.ts';
+import { DeviceStrapiQueryRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
+import { ShowDeviceByDocumentId } from 'EnviroSense/Application/mod.ts';
 
 export class ShowDeviceByDocumentIdEndpoint implements Endpoint {
     async handle(context: RouterContext<string>): Promise<void> {
@@ -23,7 +23,7 @@ export class ShowDeviceByDocumentIdEndpoint implements Endpoint {
         const request = this.buildRequest(context);
         await controller.handle(request);
 
-        context.response.headers.set("Content-Type", "application/json");
+        context.response.headers.set('Content-Type', 'application/json');
         context.response.body = outputDevice.response;
 
         return Promise.resolve();
@@ -34,9 +34,9 @@ export class ShowDeviceByDocumentIdEndpoint implements Endpoint {
     }
 
     private buildRequest(
-        context: RouterContext<string>
+        context: RouterContext<string>,
     ): ShowDeviceByDocumentIdRequest {
-        const deviceDocumentId = context.params.deviceDocumentId || "";
+        const deviceDocumentId = context.params.deviceDocumentId || '';
 
         return { deviceDocumentId } as ShowDeviceByDocumentIdRequest;
     }

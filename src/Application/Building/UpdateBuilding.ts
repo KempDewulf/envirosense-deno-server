@@ -1,10 +1,10 @@
 import {
+    BuildingRepository,
+    OutputPort,
     UpdateBuildingInput,
     UpdateBuildingOutput,
-    OutputPort,
-    BuildingRepository,
     UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+} from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class UpdateBuilding implements UseCase<UpdateBuildingInput> {
     private readonly _outputPort: OutputPort<UpdateBuildingOutput>;
@@ -12,7 +12,7 @@ export class UpdateBuilding implements UseCase<UpdateBuildingInput> {
 
     constructor(
         outputPort: OutputPort<UpdateBuildingOutput>,
-        buildingRepository: BuildingRepository
+        buildingRepository: BuildingRepository,
     ) {
         this._outputPort = outputPort;
         this._buildingRepository = buildingRepository;
@@ -20,13 +20,13 @@ export class UpdateBuilding implements UseCase<UpdateBuildingInput> {
 
     public async execute(input: UpdateBuildingInput): Promise<void> {
         const buildingOptional = await this._buildingRepository.find(
-            input.buildingDocumentId
+            input.buildingDocumentId,
         );
         const building = buildingOptional.orElseThrow(
             () =>
                 new Error(
-                    `Building with ID ${input.buildingDocumentId} not found.`
-                )
+                    `Building with ID ${input.buildingDocumentId} not found.`,
+                ),
         );
 
         if (input.name !== undefined) {

@@ -1,11 +1,8 @@
-import { Optional, RoomType } from "EnviroSense/Domain/mod.ts";
-import { RoomTypeRepository } from "EnviroSense/Application/Contracts/mod.ts";
-import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
+import { Optional, RoomType } from 'EnviroSense/Domain/mod.ts';
+import { RoomTypeRepository } from 'EnviroSense/Application/Contracts/mod.ts';
+import { StrapiQueryRepository } from '../../../Shared/StrapiQueryRepository.ts';
 
-export class RoomTypeStrapiRepository
-    extends StrapiQueryRepository
-    implements RoomTypeRepository
-{
+export class RoomTypeStrapiRepository extends StrapiQueryRepository implements RoomTypeRepository {
     async find(roomTypeDocumentId: string): Promise<Optional<RoomType>> {
         const endpoint = `room-types/${roomTypeDocumentId.toString()}`;
         const params: Record<string, string> = {};
@@ -43,7 +40,7 @@ export class RoomTypeStrapiRepository
         const roomType = RoomType.load({
             id: data.documentId.toString(),
             name: data.name,
-            icon: data.icon || "default-icon.png",
+            icon: data.icon || 'default-icon.png',
         });
 
         return roomType;
@@ -61,7 +58,7 @@ export class RoomTypeStrapiRepository
             return null;
         }
 
-        if (typeof icon === "object" && "id" in icon) {
+        if (typeof icon === 'object' && 'id' in icon) {
             return icon.id;
         }
 

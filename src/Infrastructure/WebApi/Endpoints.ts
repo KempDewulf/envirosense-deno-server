@@ -1,34 +1,34 @@
 import { Router, RouterContext } from '@oak/oak';
 import {
-    Endpoint,
+    AddDeviceDataToDeviceEndpoint,
+    AddDeviceToRoomEndpoint,
+    AddRoomToBuildingEndpoint,
+    CreateBuildingEndpoint,
+    CreateDeviceEndpoint,
+    CreateRoomEndpoint,
     CreateRoomTypeEndpoint,
+    DeleteBuildingEndpoint,
+    DeleteDeviceEndpoint,
+    DeleteRoomEndpoint,
     DeleteRoomTypeEndpoint,
+    Endpoint,
+    RemoveDeviceFromRoomEndpoint,
+    RemoveRoomFromBuildingEndpoint,
+    ShowBuildingByDocumentIdEndpoint,
+    ShowBuildingsEndpoint,
+    ShowDeviceByDocumentIdEndpoint,
+    ShowDeviceDataByDocumentIdEndpoint,
+    ShowDeviceDataEndpoint,
+    ShowDevicesEndpoint,
+    ShowOpenApiEndpoint,
+    ShowRoomByDocumentIdEndpoint,
+    ShowRoomsEndpoint,
     ShowRoomTypeByDocumentIdEndpoint,
     ShowRoomTypesEndpoint,
-    UpdateRoomTypeEndpoint,
-    ShowBuildingsEndpoint,
-    CreateBuildingEndpoint,
-    DeleteBuildingEndpoint,
-    ShowBuildingByDocumentIdEndpoint,
     UpdateBuildingEndpoint,
-    AddRoomToBuildingEndpoint,
-    RemoveRoomFromBuildingEndpoint,
-    ShowDeviceDataEndpoint,
-    ShowDeviceDataByDocumentIdEndpoint,
-    ShowOpenApiEndpoint,
-    ShowRoomsEndpoint,
-    CreateRoomEndpoint,
-    ShowRoomByDocumentIdEndpoint,
-    AddDeviceToRoomEndpoint,
-    DeleteRoomEndpoint,
-    RemoveDeviceFromRoomEndpoint,
-    UpdateRoomEndpoint,
-    ShowDevicesEndpoint,
-    CreateDeviceEndpoint,
-    ShowDeviceByDocumentIdEndpoint,
-    AddDeviceDataToDeviceEndpoint,
-    DeleteDeviceEndpoint,
     UpdateDeviceEndpoint,
+    UpdateRoomEndpoint,
+    UpdateRoomTypeEndpoint,
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 
 function use(endpoint: Endpoint) {
@@ -45,7 +45,10 @@ export function endpoints(): Router {
     router.post('/buildings', use(new CreateBuildingEndpoint()));
     router.post('/buildings/:buildingDocumentId/rooms', use(new AddRoomToBuildingEndpoint()));
     router.delete('/buildings/:buildingDocumentId', use(new DeleteBuildingEndpoint()));
-    router.delete('/buildings/:buildingDocumentId/rooms/:roomDocumentId', use(new RemoveRoomFromBuildingEndpoint()));
+    router.delete(
+        '/buildings/:buildingDocumentId/rooms/:roomDocumentId',
+        use(new RemoveRoomFromBuildingEndpoint()),
+    );
     router.put('/buildings/:buildingDocumentId', use(new UpdateBuildingEndpoint()));
 
     router.get('/rooms', use(new ShowRoomsEndpoint()));
@@ -53,7 +56,10 @@ export function endpoints(): Router {
     router.post('/rooms', use(new CreateRoomEndpoint()));
     router.post('/rooms/:roomDocumentId/devices', use(new AddDeviceToRoomEndpoint()));
     router.delete('/rooms/:roomDocumentId', use(new DeleteRoomEndpoint()));
-    router.delete('/rooms/:roomDocumentId/devices/:deviceDocumentId', use(new RemoveDeviceFromRoomEndpoint()));
+    router.delete(
+        '/rooms/:roomDocumentId/devices/:deviceDocumentId',
+        use(new RemoveDeviceFromRoomEndpoint()),
+    );
     router.put('/rooms/:roomDocumentId', use(new UpdateRoomEndpoint()));
 
     router.get('/room-types', use(new ShowRoomTypesEndpoint()));

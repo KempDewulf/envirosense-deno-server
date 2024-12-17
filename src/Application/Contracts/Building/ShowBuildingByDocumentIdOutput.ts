@@ -1,4 +1,4 @@
-import { Room } from "EnviroSense/Domain/mod.ts";
+import { Room } from 'EnviroSense/Domain/mod.ts';
 
 export interface ShowBuildingByDocumentIdOutput {
     id: string;

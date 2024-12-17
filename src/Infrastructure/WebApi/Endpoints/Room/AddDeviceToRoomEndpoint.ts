@@ -5,7 +5,10 @@ import {
     Endpoint,
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 import { ErrorsBag } from 'EnviroSense/Infrastructure/Shared/mod.ts';
-import { DeviceStrapiRepository, RoomStrapiRepository } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
+import {
+    DeviceStrapiRepository,
+    RoomStrapiRepository,
+} from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 import { AddDeviceToRoom } from 'EnviroSense/Application/mod.ts';
 
 export class AddDeviceToRoomEndpoint implements Endpoint {
@@ -52,7 +55,9 @@ export class AddDeviceToRoomEndpoint implements Endpoint {
         }
 
         if (!request.devices || request.devices.length === 0) {
-            this._errors.add('devices is required. It must be an array of strings (the documentIds of the devices)');
+            this._errors.add(
+                'devices is required. It must be an array of strings (the documentIds of the devices)',
+            );
         }
     }
 }

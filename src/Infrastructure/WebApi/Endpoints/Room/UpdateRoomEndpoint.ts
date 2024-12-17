@@ -1,10 +1,10 @@
 import { RouterContext } from '@oak/oak';
 import {
+    Endpoint,
     UpdateRoomController,
     UpdateRoomPresentedData,
     UpdateRoomPresenter,
     UpdateRoomRequest,
-    Endpoint,
 } from 'EnviroSense/Infrastructure/WebApi/mod.ts';
 import { ErrorsBag, RequestResponse } from 'EnviroSense/Infrastructure/Shared/mod.ts';
 
@@ -34,7 +34,7 @@ export class UpdateRoomEndpoint implements Endpoint {
 
         const useCase = new UpdateRoom(
             presenter,
-            repository
+            repository,
         );
 
         const controller = new UpdateRoomController(useCase);
@@ -48,16 +48,14 @@ export class UpdateRoomEndpoint implements Endpoint {
     }
 
     private async buildRequest(context: RouterContext<string>): Promise<UpdateRoomRequest> {
-    const roomDocumentId = context.params.roomDocumentId || "";
-    const body = context.request.hasBody
-        ? await context.request.body.json()
-        : {};
+        const roomDocumentId = context.params.roomDocumentId || '';
+        const body = context.request.hasBody ? await context.request.body.json() : {};
 
-    return {
-        roomDocumentId,
-        name: body.name,
-    } as UpdateRoomRequest;
-}
+        return {
+            roomDocumentId,
+            name: body.name,
+        } as UpdateRoomRequest;
+    }
 
     private validateRequest(request: UpdateRoomRequest): void {
         this._errorsBag.clear();

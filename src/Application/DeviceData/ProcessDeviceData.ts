@@ -1,10 +1,10 @@
 import {
-    UseCase,
-    ProcessDeviceDataInput,
-    DeviceRepository,
     DeviceDataRepository,
-} from "EnviroSense/Application/Contracts/mod.ts";
-import { DeviceData } from "EnviroSense/Domain/mod.ts";
+    DeviceRepository,
+    ProcessDeviceDataInput,
+    UseCase,
+} from 'EnviroSense/Application/Contracts/mod.ts';
+import { DeviceData } from 'EnviroSense/Domain/mod.ts';
 
 export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
     private readonly _deviceRepository: DeviceRepository;
@@ -12,14 +12,16 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 
     constructor(
         deviceRepository: DeviceRepository,
-        deviceDataRepository: DeviceDataRepository
+        deviceDataRepository: DeviceDataRepository,
     ) {
         this._deviceRepository = deviceRepository;
         this._deviceDataRepository = deviceDataRepository;
     }
 
     public async execute(input: ProcessDeviceDataInput): Promise<void> {
-        const optionalDevice = await this._deviceRepository.findByIdentifier(input.deviceIdentifier);
+        const optionalDevice = await this._deviceRepository.findByIdentifier(
+            input.deviceIdentifier,
+        );
         if (!optionalDevice.isPresent) {
             console.error(`Device with identifier ${input.deviceIdentifier} not found.`);
             return;
@@ -31,7 +33,7 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
             '',
             device,
             new Date(),
-            input.airData
+            input.airData,
         );
 
         await this._deviceDataRepository.save(deviceData);

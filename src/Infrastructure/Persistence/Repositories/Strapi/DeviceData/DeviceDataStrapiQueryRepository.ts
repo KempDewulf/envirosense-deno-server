@@ -1,17 +1,17 @@
 import {
-    DeviceDataQueryRepository,
     DeviceDataQueryDto,
-} from "EnviroSense/Application/Contracts/mod.ts";
-import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
+    DeviceDataQueryRepository,
+} from 'EnviroSense/Application/Contracts/mod.ts';
+import { StrapiQueryRepository } from '../../../Shared/StrapiQueryRepository.ts';
 import { Optional } from 'EnviroSense/Domain/mod.ts';
 
-export class DeviceDataStrapiQueryRepository
-    extends StrapiQueryRepository
-    implements DeviceDataQueryRepository
-{
+export class DeviceDataStrapiQueryRepository extends StrapiQueryRepository
+    implements DeviceDataQueryRepository {
     async all(identifier: string): Promise<DeviceDataQueryDto[]> {
         const endpoint = 'device-datas';
-        const params = identifier ? { 'filters[device][identifier][$contains]': identifier, 'populate': '*' } : undefined;
+        const params = identifier
+            ? { 'filters[device][identifier][$contains]': identifier, 'populate': '*' }
+            : undefined;
         const response = await this.get<any>(endpoint, params);
         const deviceData = response.data.map((item: any) => this.mapToDto(item));
 
@@ -19,7 +19,7 @@ export class DeviceDataStrapiQueryRepository
     }
 
     async find(
-        deviceDataDocumentId: string
+        deviceDataDocumentId: string,
     ): Promise<Optional<DeviceDataQueryDto>> {
         const endpoint = `device-datas/${deviceDataDocumentId.toString()}`;
         const params: Record<string, string> = {};
@@ -40,8 +40,8 @@ export class DeviceDataStrapiQueryRepository
             airData: {
                 temperature: item.temperature,
                 humidity: item.humidity,
-                ppm: item.gas_ppm
-            }
+                ppm: item.gas_ppm,
+            },
         };
     }
 }

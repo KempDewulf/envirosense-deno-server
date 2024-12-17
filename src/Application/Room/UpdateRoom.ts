@@ -1,10 +1,10 @@
 import {
-    UpdateRoomInput,
-    UpdateRoomOutput,
     OutputPort,
     RoomRepository,
+    UpdateRoomInput,
+    UpdateRoomOutput,
     UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+} from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class UpdateRoom implements UseCase<UpdateRoomInput> {
     private readonly _outputPort: OutputPort<UpdateRoomOutput>;
@@ -12,7 +12,7 @@ export class UpdateRoom implements UseCase<UpdateRoomInput> {
 
     constructor(
         outputPort: OutputPort<UpdateRoomOutput>,
-        roomRepository: RoomRepository
+        roomRepository: RoomRepository,
     ) {
         this._outputPort = outputPort;
         this._roomRepository = roomRepository;
@@ -20,10 +20,10 @@ export class UpdateRoom implements UseCase<UpdateRoomInput> {
 
     public async execute(input: UpdateRoomInput): Promise<void> {
         const roomOptional = await this._roomRepository.find(
-            input.roomDocumentId
+            input.roomDocumentId,
         );
         const room = roomOptional.orElseThrow(
-            () => new Error(`Room with ID ${input.roomDocumentId} not found.`)
+            () => new Error(`Room with ID ${input.roomDocumentId} not found.`),
         );
 
         if (input.name !== undefined) {

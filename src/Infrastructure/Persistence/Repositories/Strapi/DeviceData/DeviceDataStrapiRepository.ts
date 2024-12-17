@@ -1,11 +1,9 @@
-import { Optional, DeviceData, AirData } from "EnviroSense/Domain/mod.ts";
-import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
-import { DeviceDataRepository } from "EnviroSense/Application/Contracts/mod.ts";
+import { AirData, DeviceData, Optional } from 'EnviroSense/Domain/mod.ts';
+import { StrapiQueryRepository } from '../../../Shared/StrapiQueryRepository.ts';
+import { DeviceDataRepository } from 'EnviroSense/Application/Contracts/mod.ts';
 
-export class DeviceDataStrapiRepository
-    extends StrapiQueryRepository
-    implements DeviceDataRepository
-{
+export class DeviceDataStrapiRepository extends StrapiQueryRepository
+    implements DeviceDataRepository {
     async find(deviceDataDocumentId: string): Promise<Optional<DeviceData>> {
         const endpoint = `device-datas/${deviceDataDocumentId.toString()}`;
         const params: Record<string, string> = {};
@@ -50,7 +48,7 @@ export class DeviceDataStrapiRepository
             id: data.id,
             device: data.device,
             timestamp: data.timestamp,
-            airData: airData
+            airData: airData,
         });
 
         return deviceData;
@@ -58,9 +56,7 @@ export class DeviceDataStrapiRepository
 
     private mapFromDomain(deviceData: DeviceData): any {
         return {
-            device: deviceData.device
-                ? { connect: [deviceData.device.id] }
-                : null,
+            device: deviceData.device ? { connect: [deviceData.device.id] } : null,
             timestamp: deviceData.timestamp,
             temperature: deviceData.airData.temperature,
             humidity: deviceData.airData.humidity,

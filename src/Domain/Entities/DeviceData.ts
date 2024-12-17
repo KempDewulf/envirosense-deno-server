@@ -1,5 +1,5 @@
-import { Device } from "EnviroSense/Domain/mod.ts";
-import { AirData } from "EnviroSense/Domain/mod.ts";
+import { Device } from 'EnviroSense/Domain/mod.ts';
+import { AirData } from 'EnviroSense/Domain/mod.ts';
 
 export interface DeviceDataState {
     id: string;
@@ -18,7 +18,7 @@ export class DeviceData {
         id: string,
         device: Device,
         timestamp: Date,
-        airData: AirData
+        airData: AirData,
     ) {
         this._id = id;
         this._device = device;
@@ -30,13 +30,13 @@ export class DeviceData {
         id: string,
         device: Device,
         timestamp: Date,
-        airData: AirData
+        airData: AirData,
     ): DeviceData {
         const deviceData = new DeviceData(
             id,
             device,
             timestamp,
-            airData
+            airData,
         );
         deviceData.validateState();
 
@@ -48,7 +48,7 @@ export class DeviceData {
             state.id,
             state.device,
             state.timestamp,
-            state.airData
+            state.airData,
         );
         deviceData.validateState();
 
@@ -62,25 +62,25 @@ export class DeviceData {
 
     private ensureTimestampIsNotEmpty(): void {
         if (!this._timestamp) {
-            throw new Error("Timestamp is required");
+            throw new Error('Timestamp is required');
         }
     }
 
     private ensureAirDataIsValid(): void {
         if (!this._airData) {
-            throw new Error("AirData is required");
+            throw new Error('AirData is required');
         }
 
         const { temperature, humidity, ppm } = this._airData;
-        
+
         if (temperature == null) {
-            throw new Error("Temperature is required in AirData");
+            throw new Error('Temperature is required in AirData');
         }
         if (humidity == null) {
-            throw new Error("Humidity is required in AirData");
+            throw new Error('Humidity is required in AirData');
         }
         if (ppm == null) {
-            throw new Error("PPM is required in AirData");
+            throw new Error('PPM is required in AirData');
         }
     }
 

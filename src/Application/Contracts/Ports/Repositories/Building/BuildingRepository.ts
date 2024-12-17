@@ -1,5 +1,5 @@
-import { Optional, Building } from "EnviroSense/Domain/mod.ts";
-import { RoomOperation } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { Building, Optional } from 'EnviroSense/Domain/mod.ts';
+import { RoomOperation } from 'EnviroSense/Infrastructure/Persistence/mod.ts';
 
 export interface BuildingRepository {
     find(buildingDocumentId: string): Promise<Optional<Building>>;
@@ -9,6 +9,6 @@ export interface BuildingRepository {
     manageRooms(
         buildingDocumentId: string,
         roomDocumentIds: string[],
-        Rooperation: RoomOperation
+        Rooperation: RoomOperation,
     ): Promise<void>;
 }

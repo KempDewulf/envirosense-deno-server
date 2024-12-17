@@ -1,4 +1,4 @@
-import { Room } from "EnviroSense/Domain/mod.ts";
+import { Room } from 'EnviroSense/Domain/mod.ts';
 import {
     BuildingRepository,
     CreateRoomInput,
@@ -7,7 +7,7 @@ import {
     RoomRepository,
     RoomTypeRepository,
     UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+} from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class CreateRoom implements UseCase<CreateRoomInput> {
     private readonly _outputPort: OutputPort<CreateRoomOutput>;
@@ -19,7 +19,7 @@ export class CreateRoom implements UseCase<CreateRoomInput> {
         outputPort: OutputPort<CreateRoomOutput>,
         roomRepository: RoomRepository,
         buildingRepository: BuildingRepository,
-        roomTypeRepository: RoomTypeRepository
+        roomTypeRepository: RoomTypeRepository,
     ) {
         this._outputPort = outputPort;
         this._roomRepository = roomRepository;
@@ -29,26 +29,26 @@ export class CreateRoom implements UseCase<CreateRoomInput> {
 
     public async execute(input: CreateRoomInput): Promise<void> {
         const buildingOptional = await this._buildingRepository.find(
-            input.buildingDocumentId
+            input.buildingDocumentId,
         );
         const building = buildingOptional.orElseThrow(
             () =>
                 new Error(
-                    `Building with ID ${input.buildingDocumentId} not found.`
-                )
+                    `Building with ID ${input.buildingDocumentId} not found.`,
+                ),
         );
 
         const roomOptional = await this._roomTypeRepository.find(
-            input.roomTypeDocumentId
+            input.roomTypeDocumentId,
         );
         const roomType = roomOptional.orElseThrow(
             () =>
                 new Error(
-                    `Room Type with ID ${input.roomTypeDocumentId} not found.`
-                )
+                    `Room Type with ID ${input.roomTypeDocumentId} not found.`,
+                ),
         );
 
-        const room = Room.create("", input.name, building, roomType);
+        const room = Room.create('', input.name, building, roomType);
 
         await this._roomRepository.save(room);
         this._outputPort.present({ id: room.id.toString() });

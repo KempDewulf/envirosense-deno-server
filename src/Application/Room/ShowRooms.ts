@@ -1,11 +1,11 @@
 import {
     OutputPort,
-    ShowRoomsInput,
-    ShowRoomsOutput,
     RoomQueryDto,
     RoomQueryRepository,
+    ShowRoomsInput,
+    ShowRoomsOutput,
     UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+} from 'EnviroSense/Application/Contracts/mod.ts';
 
 export class ShowRooms implements UseCase<ShowRoomsInput> {
     private readonly _outputPort: OutputPort<ShowRoomsOutput[]>;
@@ -13,7 +13,7 @@ export class ShowRooms implements UseCase<ShowRoomsInput> {
 
     constructor(
         outputPort: OutputPort<ShowRoomsOutput[]>,
-        roomQueryRepository: RoomQueryRepository
+        roomQueryRepository: RoomQueryRepository,
     ) {
         this._outputPort = outputPort;
         this._roomQueryRepository = roomQueryRepository;
@@ -31,7 +31,7 @@ export class ShowRooms implements UseCase<ShowRoomsInput> {
             documentId: item.documentId,
             name: item.name,
             building: item.building,
-            "room-type": item["room-type"],
+            'room-type': item['room-type'],
             devices: item.devices,
         }));
     }

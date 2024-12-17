@@ -1,5 +1,5 @@
 import { RequestResponseDevice } from 'EnviroSense/Infrastructure/Shared/mod.ts';
-import { UpdateRoomTypeOutput, OutputPort } from 'EnviroSense/Application/Contracts/mod.ts';
+import { OutputPort, UpdateRoomTypeOutput } from 'EnviroSense/Application/Contracts/mod.ts';
 
 export interface UpdateRoomTypePresentedData {
     id: string;

@@ -1,8 +1,5 @@
-import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-    OutputPort,
-    ShowDevicesOutput,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { RequestResponseDevice } from 'EnviroSense/Infrastructure/Shared/mod.ts';
+import { OutputPort, ShowDevicesOutput } from 'EnviroSense/Application/Contracts/mod.ts';
 import { DeviceData, Room } from 'EnviroSense/Domain/mod.ts';
 
 export type ShowDevicesPresentedData = {
@@ -26,14 +23,14 @@ export class ShowDevicesPresenter implements OutputPort<ShowDevicesOutput[]> {
     }
 
     protected mapToPresentedData(
-        data: ShowDevicesOutput[]
+        data: ShowDevicesOutput[],
     ): ShowDevicesPresentedData[] {
         return data.map((device: ShowDevicesOutput) => ({
             id: device.id,
             documentId: device.documentId,
             identifier: device.identifier,
             room: device.room,
-            device_data: device.device_data
+            device_data: device.device_data,
         }));
     }
 }

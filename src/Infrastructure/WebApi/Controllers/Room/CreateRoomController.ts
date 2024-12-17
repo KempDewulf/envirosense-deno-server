@@ -23,7 +23,7 @@ export class CreateRoomController implements Controller<CreateRoomRequest> {
         return {
             name: request.name,
             buildingDocumentId: request.buildingDocumentId,
-            roomTypeDocumentId: request.roomTypeDocumentId
+            roomTypeDocumentId: request.roomTypeDocumentId,
         };
     }
 }

@@ -1,9 +1,9 @@
-import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import { RequestResponseDevice } from 'EnviroSense/Infrastructure/Shared/mod.ts';
 import {
     OutputPort,
     ShowBuildingByDocumentIdOutput,
-} from "EnviroSense/Application/Contracts/mod.ts";
-import { Room } from "EnviroSense/Domain/mod.ts";
+} from 'EnviroSense/Application/Contracts/mod.ts';
+import { Room } from 'EnviroSense/Domain/mod.ts';
 
 export type ShowBuildingByDocumentIdPresentedData = {
     id: string;
@@ -14,12 +14,11 @@ export type ShowBuildingByDocumentIdPresentedData = {
 };
 
 export class ShowBuildingByDocumentIdPresenter
-    implements OutputPort<ShowBuildingByDocumentIdOutput>
-{
+    implements OutputPort<ShowBuildingByDocumentIdOutput> {
     private readonly _device: RequestResponseDevice<ShowBuildingByDocumentIdPresentedData>;
 
     constructor(
-        device: RequestResponseDevice<ShowBuildingByDocumentIdPresentedData>
+        device: RequestResponseDevice<ShowBuildingByDocumentIdPresentedData>,
     ) {
         this._device = device;
     }
@@ -30,7 +29,7 @@ export class ShowBuildingByDocumentIdPresenter
     }
 
     protected mapToPresentedData(
-        data: ShowBuildingByDocumentIdOutput
+        data: ShowBuildingByDocumentIdOutput,
     ): ShowBuildingByDocumentIdPresentedData {
         return {
             id: data.id,

@@ -1,16 +1,12 @@
-import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-    ShowBuildingByDocumentIdInput,
-    UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { Controller } from 'EnviroSense/Infrastructure/Shared/mod.ts';
+import { ShowBuildingByDocumentIdInput, UseCase } from 'EnviroSense/Application/Contracts/mod.ts';
 
 export interface ShowBuildingByDocumentIdRequest {
     buildingDocumentId: string;
 }
 
 export class ShowBuildingByDocumentIdController
-    implements Controller<ShowBuildingByDocumentIdRequest>
-{
+    implements Controller<ShowBuildingByDocumentIdRequest> {
     private readonly _useCase: UseCase<ShowBuildingByDocumentIdInput>;
 
     constructor(useCase: UseCase<ShowBuildingByDocumentIdInput>) {
@@ -18,13 +14,15 @@ export class ShowBuildingByDocumentIdController
     }
 
     public async handle(
-        request: ShowBuildingByDocumentIdRequest
+        request: ShowBuildingByDocumentIdRequest,
     ): Promise<void> {
         const useCaseInput = this.mapToUseCaseInput(request);
         await this._useCase.execute(useCaseInput);
     }
 
-    protected mapToUseCaseInput(request: ShowBuildingByDocumentIdRequest): ShowBuildingByDocumentIdInput {
+    protected mapToUseCaseInput(
+        request: ShowBuildingByDocumentIdRequest,
+    ): ShowBuildingByDocumentIdInput {
         return { buildingDocumentId: request.buildingDocumentId };
     }
 }

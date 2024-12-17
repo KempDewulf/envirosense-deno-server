@@ -34,7 +34,7 @@ export class CreateRoomTypeEndpoint implements Endpoint {
 
         const useCase = new CreateRoomType(
             presenter,
-            repository
+            repository,
         );
 
         const controller = new CreateRoomTypeController(useCase);

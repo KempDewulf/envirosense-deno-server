@@ -1,6 +1,4 @@
-import {
-    RoomType,
-} from 'EnviroSense/Domain/mod.ts';
+import { RoomType } from 'EnviroSense/Domain/mod.ts';
 import {
     CreateRoomTypeInput,
     CreateRoomTypeOutput,
@@ -25,11 +23,10 @@ export class CreateRoomType implements UseCase<CreateRoomTypeInput> {
         const roomType = RoomType.create(
             '',
             input.name,
-            input.icon
+            input.icon,
         );
 
         await this._roomTypeRepository.save(roomType);
         this._outputPort.present({ id: roomType.id.toString() });
     }
 }
-

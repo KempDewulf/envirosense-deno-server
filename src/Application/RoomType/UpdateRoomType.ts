@@ -1,8 +1,8 @@
 import {
-    UpdateRoomTypeInput,
-    UpdateRoomTypeOutput,
     OutputPort,
     RoomTypeRepository,
+    UpdateRoomTypeInput,
+    UpdateRoomTypeOutput,
     UseCase,
 } from 'EnviroSense/Application/Contracts/mod.ts';
 
