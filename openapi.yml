@@ -797,3 +797,11 @@ components:
           type: array
           items:
             type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Enter your API token as a Bearer token
+
+security:
+  - bearerAuth: []
