@@ -783,12 +783,12 @@ components:
           type: number
         humidity:
           type: number
-        co2:
+        ppm:
           type: number
       required:
         - temperature
         - humidity
-        - co2
+        - ppm
 
     ErrorResponse:
       type: object
