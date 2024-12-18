@@ -61,6 +61,10 @@ export class Device {
 	}
 
 	public addDeviceData(deviceData: DeviceData): void {
+		if(!deviceData) {
+			throw new DomainException("DeviceData is required.");
+		}
+
 		this._deviceData.push(deviceData);
 	}
 

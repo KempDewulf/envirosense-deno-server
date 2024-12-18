@@ -318,3 +318,32 @@ Deno.test("Device - removeRoom method ensures room exists before removal", () =>
         device.removeRoom(); // Try to remove again when room is already null
     }, DomainException, "Room is required.");
 });
+
+Deno.test("Device - addDeviceData method with null deviceData throws error", () => {
+    // Arrange
+    const id = "24";
+    const identifier = "Device024";
+    const building = Building.create("24", "Main Building", "123 Main St");
+    const roomType = RoomType.create("24", "Office", "office_icon.png");
+    const room = Room.create("24", "Office Room", building, roomType);
+    const device = Device.create(id, identifier, room);
+
+    // Act & Assert
+    assertThrows(() => {
+        device.addDeviceData(null as unknown as DeviceData);
+    }, DomainException, "DeviceData is required");
+});
+
+Deno.test("Device - create method with null identifier throws error", () => {
+    // Arrange
+    const id = "25";
+    const identifier = null;
+    const building = Building.create("25", "Main Building", "123 Main St");
+    const roomType = RoomType.create("25", "Office", "office_icon.png");
+    const room = Room.create("25", "Office Room", building, roomType);
+
+    // Act & Assert
+    assertThrows(() => {
+        Device.create(id, identifier as unknown as string, room);
+    }, DomainException, "Identifier is required.");
+});
