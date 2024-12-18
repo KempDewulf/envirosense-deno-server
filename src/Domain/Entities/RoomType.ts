@@ -36,14 +36,14 @@ export class RoomType {
 	}
 
 	public updateName(name: string): void {
-		if(!name) {
+		if (!name) {
 			throw new DomainException("Name is required.");
 		}
 		this._name = name;
 	}
 
 	public updateIcon(icon: string): void {
-		if(!icon) {
+		if (!icon) {
 			throw new DomainException("Icon is required.");
 		}
 		this._icon = icon;
