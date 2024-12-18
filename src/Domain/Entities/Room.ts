@@ -115,6 +115,31 @@ export class Room {
 		}
 	}
 
+	public calculateEnviroScore(): number {
+		const Threshold_Gas = 800;
+		const Penalty_Humidity = 2;
+		const Penalty_Temp = 3;
+
+		let totalEnviroScore = 0;
+		const devices = this._devices;
+
+		for (const device of devices) {
+			for (const data of device.deviceData) {
+				const { temperature, humidity, ppm } = data.airData;
+
+				const Gas_Subscore = Math.max(0, 100 - (ppm / Threshold_Gas) * 100);
+				const Humidity_Subscore = Math.max(0, 100 - Math.abs(humidity - 50) * Penalty_Humidity);
+				const Temperature_Subscore = Math.max(0, 100 - Math.abs(temperature - 21) * Penalty_Temp);
+
+				const EnviroScore = (0.4 * Gas_Subscore) + (0.3 * Humidity_Subscore) + (0.3 * Temperature_Subscore);
+
+				totalEnviroScore += EnviroScore;
+			}
+		}
+
+		return devices.length > 0 ? totalEnviroScore / devices.length : 0; //0 because room doesn't have devices yet
+	}
+
 	get id(): string {
 		return this._id;
 	}
