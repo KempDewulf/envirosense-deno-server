@@ -24,6 +24,7 @@ import {
 	ShowRoomByDocumentIdEndpoint,
 	ShowRoomsEndpoint,
 	ShowRoomTypeByDocumentIdEndpoint,
+	ShowRoomAirQualityEndpoint,
 	ShowRoomTypesEndpoint,
 	UpdateBuildingEndpoint,
 	UpdateDeviceEndpoint,
@@ -68,6 +69,7 @@ export function endpoints(): Router {
 		"/rooms/:roomDocumentId",
 		use(new ShowRoomByDocumentIdEndpoint()),
 	);
+	router.get("/rooms/:roomDocumentId/air-quality", use(new ShowRoomAirQualityEndpoint()));
 	router.post("/rooms", use(new CreateRoomEndpoint()));
 	router.post(
 		"/rooms/:roomDocumentId/devices",

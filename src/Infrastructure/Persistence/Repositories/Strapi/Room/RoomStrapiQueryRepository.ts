@@ -32,7 +32,6 @@ export class RoomStrapiQueryRepository extends StrapiQueryRepository
 	}
 
 	private mapToDto(item: any): RoomQueryDto {
-		console.log(item);
 		return {
 			id: item.id,
 			documentId: item.documentId,

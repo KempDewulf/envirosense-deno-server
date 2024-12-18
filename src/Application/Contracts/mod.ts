@@ -11,6 +11,9 @@ export type { CreateRoomOutput } from "./Room/CreateRoomOutput.ts";
 export type { ShowRoomByDocumentIdInput } from "./Room/ShowRoomByDocumentIdInput.ts";
 export type { ShowRoomByDocumentIdOutput } from "./Room/ShowRoomByDocumentIdOutput.ts";
 
+export type { ShowRoomAirQualityInput } from "./Room/ShowRoomAirQualityInput.ts";
+export type { ShowRoomAirQualityOutput } from "./Room/ShowRoomAirQualityOutput.ts;
+
 export type { UpdateRoomInput } from "./Room/UpdateRoomInput.ts";
 export type { UpdateRoomOutput } from "./Room/UpdateRoomOutput.ts";
 

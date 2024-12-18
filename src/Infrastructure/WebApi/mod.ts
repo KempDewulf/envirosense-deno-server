@@ -21,6 +21,12 @@ export type { ShowRoomByDocumentIdRequest } from "./Controllers/Room/ShowRoomByD
 export { ShowRoomByDocumentIdPresenter } from "./Presenters/Room/ShowRoomByDocumentIdPresenter.ts";
 export type { ShowRoomByDocumentIdPresentedData } from "./Presenters/Room/ShowRoomByDocumentIdPresenter.ts";
 
+export { ShowRoomAirQualityEndpoint } from "./Endpoints/Room/ShowRoomAirQualityEndpoint.ts";
+export { ShowRoomAirQualityController } from "./Controllers/Room/ShowRoomAirQualityController.ts";
+export type { ShowRoomAirQualityRequest } from "./Controllers/Room/ShowRoomAirQualityController.ts";
+export { ShowRoomAirQualityPresenter } from "./Presenters/Room/ShowRoomAirQualityPresenter.ts";
+export type { ShowRoomAirQualityPresentedData } from "./Presenters/Room/ShowRoomAirQualityPresenter.ts";
+
 export { CreateRoomEndpoint } from "./Endpoints/Room/CreateRoomEndpoint.ts";
 export { CreateRoomController } from "./Controllers/Room/CreateRoomController.ts";
 export type { CreateRoomRequest } from "./Controllers/Room/CreateRoomController.ts";
