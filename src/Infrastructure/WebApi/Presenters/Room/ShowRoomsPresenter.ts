@@ -10,7 +10,7 @@ export type ShowRoomsPresentedData = {
 	documentId: string;
 	name: string;
 	building: Building;
-	"room-type": RoomType;
+	roomType: RoomType;
 	devices: Device[];
 };
 
@@ -34,7 +34,7 @@ export class ShowRoomsPresenter implements OutputPort<ShowRoomsOutput[]> {
 			documentId: room.documentId,
 			name: room.name,
 			building: room.building,
-			"room-type": room["room-type"],
+			roomType: room.roomType,
 			devices: room.devices,
 		}));
 	}
