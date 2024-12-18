@@ -1,10 +1,4 @@
-import {
-	OutputPort,
-	RoomRepository,
-	UpdateRoomInput,
-	UpdateRoomOutput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { OutputPort, RoomRepository, UpdateRoomInput, UpdateRoomOutput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 
 export class UpdateRoom implements UseCase<UpdateRoomInput> {
 	private readonly _outputPort: OutputPort<UpdateRoomOutput>;

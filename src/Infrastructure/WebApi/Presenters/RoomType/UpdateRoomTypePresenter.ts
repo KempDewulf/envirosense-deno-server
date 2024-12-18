@@ -1,8 +1,5 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	OutputPort,
-	UpdateRoomTypeOutput,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { OutputPort, UpdateRoomTypeOutput } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface UpdateRoomTypePresentedData {
 	id: string;
@@ -11,8 +8,7 @@ export interface UpdateRoomTypePresentedData {
 	icon: string;
 }
 
-export class UpdateRoomTypePresenter
-	implements OutputPort<UpdateRoomTypeOutput> {
+export class UpdateRoomTypePresenter implements OutputPort<UpdateRoomTypeOutput> {
 	private readonly _device: RequestResponseDevice<
 		UpdateRoomTypePresentedData
 	>;

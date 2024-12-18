@@ -1,9 +1,4 @@
-import {
-	AddRoomToBuildingInput,
-	BuildingRepository,
-	RoomRepository,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { AddRoomToBuildingInput, BuildingRepository, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { RoomOperation } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
 export class AddRoomToBuilding implements UseCase<AddRoomToBuildingInput> {

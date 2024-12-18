@@ -1,9 +1,5 @@
 import { RouterContext } from "@oak/oak";
-import {
-	DeleteBuildingController,
-	DeleteBuildingRequest,
-	Endpoint,
-} from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import { DeleteBuildingController, DeleteBuildingRequest, Endpoint } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { ErrorsBag } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 import { BuildingStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";

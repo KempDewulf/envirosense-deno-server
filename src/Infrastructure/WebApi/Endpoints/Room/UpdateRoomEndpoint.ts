@@ -6,10 +6,7 @@ import {
 	UpdateRoomPresenter,
 	UpdateRoomRequest,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import {
-	ErrorsBag,
-	RequestResponse,
-} from "EnviroSense/Infrastructure/Shared/mod.ts";
+import { ErrorsBag, RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 import { RoomStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
@@ -54,9 +51,7 @@ export class UpdateRoomEndpoint implements Endpoint {
 		context: RouterContext<string>,
 	): Promise<UpdateRoomRequest> {
 		const roomDocumentId = context.params.roomDocumentId || "";
-		const body = context.request.hasBody
-			? await context.request.body.json()
-			: {};
+		const body = context.request.hasBody ? await context.request.body.json() : {};
 
 		return {
 			roomDocumentId,

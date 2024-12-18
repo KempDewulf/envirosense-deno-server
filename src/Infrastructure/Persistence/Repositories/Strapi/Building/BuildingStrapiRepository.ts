@@ -7,8 +7,7 @@ export enum RoomOperation {
 	REMOVE = "disconnect",
 }
 
-export class BuildingStrapiRepository extends StrapiQueryRepository
-	implements BuildingRepository {
+export class BuildingStrapiRepository extends StrapiQueryRepository implements BuildingRepository {
 	async find(buildingDocumentId: string): Promise<Optional<Building>> {
 		const endpoint = `buildings/${buildingDocumentId.toString()}`;
 		const params: Record<string, string> = {};

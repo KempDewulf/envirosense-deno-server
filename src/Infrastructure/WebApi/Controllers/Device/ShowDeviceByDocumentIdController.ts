@@ -1,15 +1,11 @@
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	ShowDeviceByDocumentIdInput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { ShowDeviceByDocumentIdInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface ShowDeviceByDocumentIdRequest {
 	deviceDocumentId: string;
 }
 
-export class ShowDeviceByDocumentIdController
-	implements Controller<ShowDeviceByDocumentIdRequest> {
+export class ShowDeviceByDocumentIdController implements Controller<ShowDeviceByDocumentIdRequest> {
 	private readonly _useCase: UseCase<ShowDeviceByDocumentIdInput>;
 
 	constructor(useCase: UseCase<ShowDeviceByDocumentIdInput>) {

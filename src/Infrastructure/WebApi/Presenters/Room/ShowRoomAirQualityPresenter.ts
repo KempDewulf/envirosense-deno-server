@@ -1,8 +1,5 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	OutputPort,
-	ShowRoomAirQualityOutput,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { OutputPort, ShowRoomAirQualityOutput } from "EnviroSense/Application/Contracts/mod.ts";
 import { AirData } from "EnviroSense/Domain/mod.ts";
 
 export type ShowRoomAirQualityPresentedData = {
@@ -11,8 +8,7 @@ export type ShowRoomAirQualityPresentedData = {
 	airQuality: AirData;
 };
 
-export class ShowRoomAirQualityPresenter
-	implements OutputPort<ShowRoomAirQualityOutput> {
+export class ShowRoomAirQualityPresenter implements OutputPort<ShowRoomAirQualityOutput> {
 	private readonly _device: RequestResponseDevice<
 		ShowRoomAirQualityPresentedData
 	>;

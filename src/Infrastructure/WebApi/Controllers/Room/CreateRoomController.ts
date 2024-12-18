@@ -1,7 +1,4 @@
-import {
-	CreateRoomInput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { CreateRoomInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export interface CreateRoomRequest {

@@ -1,8 +1,5 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	OutputPort,
-	ShowRoomTypesOutput,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { OutputPort, ShowRoomTypesOutput } from "EnviroSense/Application/Contracts/mod.ts";
 import { Room } from "EnviroSense/Domain/mod.ts";
 
 export type ShowRoomTypesPresentedData = {
@@ -13,8 +10,7 @@ export type ShowRoomTypesPresentedData = {
 	rooms: Room[];
 };
 
-export class ShowRoomTypesPresenter
-	implements OutputPort<ShowRoomTypesOutput[]> {
+export class ShowRoomTypesPresenter implements OutputPort<ShowRoomTypesOutput[]> {
 	private readonly _device: RequestResponseDevice<
 		ShowRoomTypesPresentedData[]
 	>;

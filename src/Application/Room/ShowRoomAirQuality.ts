@@ -29,9 +29,7 @@ export class ShowRoomAirQuality implements UseCase<ShowRoomAirQualityInput> {
 			input.roomDocumentId,
 		);
 
-		const roomDto = roomOptional.orElseThrow(() =>
-			new Error(`Room with ID ${input.roomDocumentId} not found.`)
-		);
+		const roomDto = roomOptional.orElseThrow(() => new Error(`Room with ID ${input.roomDocumentId} not found.`));
 
 		const roomEntity = Room.load(roomDto);
 

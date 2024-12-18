@@ -7,8 +7,7 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 
-export class ShowRoomTypeByDocumentId
-	implements UseCase<ShowRoomTypeByDocumentIdInput> {
+export class ShowRoomTypeByDocumentId implements UseCase<ShowRoomTypeByDocumentIdInput> {
 	private readonly _outputPort: OutputPort<ShowRoomTypeByDocumentIdOutput>;
 	private readonly _roomTypeRepository: RoomTypeQueryRepository;
 
@@ -25,9 +24,7 @@ export class ShowRoomTypeByDocumentId
 			input.roomTypeDocumentId,
 		);
 
-		const roomTypeDto = roomTypeOptional.orElseThrow(() =>
-			new Error(`RoomType with ID ${input.roomTypeDocumentId} not found.`)
-		);
+		const roomTypeDto = roomTypeOptional.orElseThrow(() => new Error(`RoomType with ID ${input.roomTypeDocumentId} not found.`));
 
 		const roomType = this.mapDtoToOutput(roomTypeDto);
 		this._outputPort.present(roomType);

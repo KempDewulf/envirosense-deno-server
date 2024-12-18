@@ -7,8 +7,7 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 
-export class ShowDeviceByDocumentId
-	implements UseCase<ShowDeviceByDocumentIdInput> {
+export class ShowDeviceByDocumentId implements UseCase<ShowDeviceByDocumentIdInput> {
 	private readonly _outputPort: OutputPort<ShowDeviceByDocumentIdOutput>;
 	private readonly _deviceRepository: DeviceQueryRepository;
 
@@ -25,9 +24,7 @@ export class ShowDeviceByDocumentId
 			input.deviceDocumentId,
 		);
 
-		const deviceDto = deviceOptional.orElseThrow(() =>
-			new Error(`Device with ID ${input.deviceDocumentId} not found.`)
-		);
+		const deviceDto = deviceOptional.orElseThrow(() => new Error(`Device with ID ${input.deviceDocumentId} not found.`));
 
 		const device = this.mapDtoToOutput(deviceDto);
 		this._outputPort.present(device);

@@ -1,15 +1,11 @@
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	ShowBuildingsInput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { ShowBuildingsInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface ShowBuildingsRequest {
 	name: string;
 }
 
-export class ShowBuildingsController
-	implements Controller<ShowBuildingsRequest> {
+export class ShowBuildingsController implements Controller<ShowBuildingsRequest> {
 	private readonly _useCase: UseCase<ShowBuildingsInput>;
 
 	constructor(useCase: UseCase<ShowBuildingsInput>) {

@@ -6,10 +6,7 @@ import {
 	UpdateDevicePresenter,
 	UpdateDeviceRequest,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
-import {
-	ErrorsBag,
-	RequestResponse,
-} from "EnviroSense/Infrastructure/Shared/mod.ts";
+import { ErrorsBag, RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 import { DeviceStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
@@ -51,9 +48,7 @@ export class UpdateDeviceEndpoint implements Endpoint {
 		context: RouterContext<string>,
 	): Promise<UpdateDeviceRequest> {
 		const deviceDocumentId = context.params.deviceDocumentId || "";
-		const body = context.request.hasBody
-			? await context.request.body.json()
-			: {};
+		const body = context.request.hasBody ? await context.request.body.json() : {};
 
 		return {
 			deviceDocumentId,

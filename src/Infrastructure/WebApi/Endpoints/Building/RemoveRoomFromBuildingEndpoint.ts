@@ -1,14 +1,7 @@
 import { RouterContext } from "@oak/oak";
-import {
-	Endpoint,
-	RemoveRoomFromBuildingController,
-	RemoveRoomFromBuildingRequest,
-} from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import { Endpoint, RemoveRoomFromBuildingController, RemoveRoomFromBuildingRequest } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { ErrorsBag } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	BuildingStrapiRepository,
-	RoomStrapiRepository,
-} from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { BuildingStrapiRepository, RoomStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { RemoveRoomFromBuilding } from "EnviroSense/Application/mod.ts";
 
 export class RemoveRoomFromBuildingEndpoint implements Endpoint {

@@ -1,15 +1,11 @@
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	ShowDeviceDataInput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { ShowDeviceDataInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface ShowDeviceDataRequest {
 	identifier: string;
 }
 
-export class ShowDeviceDataController
-	implements Controller<ShowDeviceDataRequest> {
+export class ShowDeviceDataController implements Controller<ShowDeviceDataRequest> {
 	private readonly _useCase: UseCase<ShowDeviceDataInput>;
 
 	constructor(useCase: UseCase<ShowDeviceDataInput>) {

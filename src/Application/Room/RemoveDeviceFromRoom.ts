@@ -1,13 +1,7 @@
-import {
-	DeviceRepository,
-	RemoveDeviceFromRoomInput,
-	RoomRepository,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { DeviceRepository, RemoveDeviceFromRoomInput, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Room/RoomStrapiRepository.ts";
 
-export class RemoveDeviceFromRoom
-	implements UseCase<RemoveDeviceFromRoomInput> {
+export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> {
 	private readonly _roomRepository: RoomRepository;
 	private readonly _deviceRepository: DeviceRepository;
 

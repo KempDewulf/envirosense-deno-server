@@ -1,7 +1,4 @@
-import {
-	UpdateDeviceInput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { UpdateDeviceInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export interface UpdateDeviceRequest {

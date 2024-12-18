@@ -1,14 +1,7 @@
 import { RouterContext } from "@oak/oak";
-import {
-	AddDeviceDataToDeviceController,
-	AddDeviceDataToDeviceRequest,
-	Endpoint,
-} from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import { AddDeviceDataToDeviceController, AddDeviceDataToDeviceRequest, Endpoint } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { ErrorsBag } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	DeviceDataStrapiRepository,
-	DeviceStrapiRepository,
-} from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceDataStrapiRepository, DeviceStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { AddDeviceDataToDevice } from "EnviroSense/Application/mod.ts";
 
 export class AddDeviceDataToDeviceEndpoint implements Endpoint {

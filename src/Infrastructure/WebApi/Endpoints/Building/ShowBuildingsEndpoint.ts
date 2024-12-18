@@ -36,9 +36,7 @@ export class ShowBuildingsEndpoint implements Endpoint {
 	}
 
 	private buildRequest(context: RouterContext<string>): ShowBuildingsRequest {
-		const name = context.request.url.searchParams.get("name")
-			? context.request.url.searchParams.get("name")
-			: "";
+		const name = context.request.url.searchParams.get("name") ? context.request.url.searchParams.get("name") : "";
 
 		return { name } as ShowBuildingsRequest;
 	}

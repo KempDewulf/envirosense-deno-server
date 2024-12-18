@@ -1,7 +1,4 @@
-import {
-	CreateBuildingInput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { CreateBuildingInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
 import { Room } from "EnviroSense/Domain/mod.ts";
 
@@ -11,8 +8,7 @@ export interface CreateBuildingRequest {
 	rooms: Room[];
 }
 
-export class CreateBuildingController
-	implements Controller<CreateBuildingRequest> {
+export class CreateBuildingController implements Controller<CreateBuildingRequest> {
 	private readonly _useCase: UseCase<CreateBuildingInput>;
 
 	constructor(useCase: UseCase<CreateBuildingInput>) {

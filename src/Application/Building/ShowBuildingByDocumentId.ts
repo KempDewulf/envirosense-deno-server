@@ -7,8 +7,7 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 
-export class ShowBuildingByDocumentId
-	implements UseCase<ShowBuildingByDocumentIdInput> {
+export class ShowBuildingByDocumentId implements UseCase<ShowBuildingByDocumentIdInput> {
 	private readonly _outputPort: OutputPort<ShowBuildingByDocumentIdOutput>;
 	private readonly _buildingRepository: BuildingQueryRepository;
 
@@ -25,9 +24,7 @@ export class ShowBuildingByDocumentId
 			input.buildingDocumentId,
 		);
 
-		const buildingDto = buildingOptional.orElseThrow(() =>
-			new Error(`Building with ID ${input.buildingDocumentId} not found.`)
-		);
+		const buildingDto = buildingOptional.orElseThrow(() => new Error(`Building with ID ${input.buildingDocumentId} not found.`));
 
 		const building = this.mapDtoToOutput(buildingDto);
 		this._outputPort.present(building);

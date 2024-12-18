@@ -1,16 +1,8 @@
 import { Module } from "EnviroSense/Infrastructure/Shared/Modules/Module.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/Messaging.ts";
-import {
-	DeviceDataRepository,
-	DeviceRepository,
-	ProcessDeviceDataInput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { DeviceDataRepository, DeviceRepository, ProcessDeviceDataInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { ProcessDeviceData } from "EnviroSense/Application/mod.ts";
-import {
-	DeviceDataStrapiRepository,
-	DeviceStrapiRepository,
-} from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceDataStrapiRepository, DeviceStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
 export class MessagingModule implements Module {
 	private messaging: Messaging;
@@ -18,8 +10,7 @@ export class MessagingModule implements Module {
 
 	constructor() {
 		const deviceRepository: DeviceRepository = new DeviceStrapiRepository();
-		const deviceDataRepository: DeviceDataRepository =
-			new DeviceDataStrapiRepository();
+		const deviceDataRepository: DeviceDataRepository = new DeviceDataStrapiRepository();
 
 		this.processDeviceDataUseCase = new ProcessDeviceData(
 			deviceRepository,

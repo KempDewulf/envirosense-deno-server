@@ -7,10 +7,7 @@ import {
 	ShowRoomAirQualityRequest,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	DeviceStrapiQueryRepository,
-	RoomStrapiQueryRepository,
-} from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceStrapiQueryRepository, RoomStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
 import { ShowRoomAirQuality } from "EnviroSense/Application/mod.ts";
 

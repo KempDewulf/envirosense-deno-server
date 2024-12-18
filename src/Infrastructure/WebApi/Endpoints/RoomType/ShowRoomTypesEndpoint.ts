@@ -36,9 +36,7 @@ export class ShowRoomTypesEndpoint implements Endpoint {
 	}
 
 	private buildRequest(context: RouterContext<string>): ShowRoomTypesRequest {
-		const name = context.request.url.searchParams.get("name")
-			? context.request.url.searchParams.get("name")
-			: "";
+		const name = context.request.url.searchParams.get("name") ? context.request.url.searchParams.get("name") : "";
 
 		return { name } as ShowRoomTypesRequest;
 	}

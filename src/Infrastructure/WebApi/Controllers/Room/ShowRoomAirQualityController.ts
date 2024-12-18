@@ -1,15 +1,11 @@
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	ShowRoomAirQualityInput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { ShowRoomAirQualityInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface ShowRoomAirQualityRequest {
 	roomDocumentId: string;
 }
 
-export class ShowRoomAirQualityController
-	implements Controller<ShowRoomAirQualityRequest> {
+export class ShowRoomAirQualityController implements Controller<ShowRoomAirQualityRequest> {
 	private readonly _useCase: UseCase<ShowRoomAirQualityInput>;
 
 	constructor(useCase: UseCase<ShowRoomAirQualityInput>) {

@@ -7,8 +7,7 @@ export enum DeviceDataOperation {
 	REMOVE = "disconnect",
 }
 
-export class DeviceStrapiRepository extends StrapiQueryRepository
-	implements DeviceRepository {
+export class DeviceStrapiRepository extends StrapiQueryRepository implements DeviceRepository {
 	async find(deviceDocumentId: string): Promise<Optional<Device>> {
 		const endpoint = `devices/${deviceDocumentId.toString()}`;
 		const params: Record<string, string> = {};

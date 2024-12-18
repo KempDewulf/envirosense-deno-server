@@ -1,9 +1,4 @@
-import {
-	DeviceDataRepository,
-	DeviceRepository,
-	ProcessDeviceDataInput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { DeviceDataRepository, DeviceRepository, ProcessDeviceDataInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceData } from "EnviroSense/Domain/mod.ts";
 
 export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {

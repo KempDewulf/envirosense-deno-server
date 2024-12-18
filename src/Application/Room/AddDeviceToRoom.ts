@@ -1,9 +1,4 @@
-import {
-	AddDeviceToRoomInput,
-	DeviceRepository,
-	RoomRepository,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { AddDeviceToRoomInput, DeviceRepository, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Room/RoomStrapiRepository.ts";
 
 export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {

@@ -1,16 +1,12 @@
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	AddDeviceToRoomInput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { AddDeviceToRoomInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface AddDeviceToRoomRequest {
 	roomDocumentId: string;
 	devices: string[];
 }
 
-export class AddDeviceToRoomController
-	implements Controller<AddDeviceToRoomRequest> {
+export class AddDeviceToRoomController implements Controller<AddDeviceToRoomRequest> {
 	private readonly _useCase: UseCase<AddDeviceToRoomInput>;
 
 	constructor(useCase: UseCase<AddDeviceToRoomInput>) {

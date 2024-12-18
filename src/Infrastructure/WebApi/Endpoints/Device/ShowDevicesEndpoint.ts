@@ -34,9 +34,7 @@ export class ShowDevicesEndpoint implements Endpoint {
 	}
 
 	private buildRequest(context: RouterContext<string>): ShowDevicesRequest {
-		const identifier = context.request.url.searchParams.get("identifier")
-			? context.request.url.searchParams.get("identifier")
-			: "";
+		const identifier = context.request.url.searchParams.get("identifier") ? context.request.url.searchParams.get("identifier") : "";
 
 		return { identifier } as ShowDevicesRequest;
 	}

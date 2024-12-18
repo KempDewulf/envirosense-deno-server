@@ -1,7 +1,4 @@
-import {
-	UpdateRoomInput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { UpdateRoomInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { Controller } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export interface UpdateRoomRequest {

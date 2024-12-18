@@ -1,8 +1,5 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	CreateDeviceOutput,
-	OutputPort,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { CreateDeviceOutput, OutputPort } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface CreateDevicePresentedData {
 	url: string;

@@ -46,9 +46,7 @@ export class Optional<T> {
 			return Optional.empty<U>();
 		}
 		const result = mapper(this._value);
-		return result === undefined || result === null
-			? Optional.empty<U>()
-			: Optional.of<U>(result as NonNullable<U>);
+		return result === undefined || result === null ? Optional.empty<U>() : Optional.of<U>(result as NonNullable<U>);
 	}
 
 	public flatMap<U>(
@@ -89,8 +87,6 @@ export class Optional<T> {
 	}
 
 	public toString(): string {
-		return this._value !== undefined
-			? `Optional(${this._value})`
-			: "Optional.empty";
+		return this._value !== undefined ? `Optional(${this._value})` : "Optional.empty";
 	}
 }

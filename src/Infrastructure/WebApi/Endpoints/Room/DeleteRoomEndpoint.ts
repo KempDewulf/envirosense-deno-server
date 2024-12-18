@@ -1,9 +1,5 @@
 import { RouterContext } from "@oak/oak";
-import {
-	DeleteRoomController,
-	DeleteRoomRequest,
-	Endpoint,
-} from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import { DeleteRoomController, DeleteRoomRequest, Endpoint } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { ErrorsBag } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 import { RoomStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";

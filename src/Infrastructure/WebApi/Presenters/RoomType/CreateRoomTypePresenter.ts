@@ -1,15 +1,11 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-	CreateRoomTypeOutput,
-	OutputPort,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { CreateRoomTypeOutput, OutputPort } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface CreateRoomTypePresentedData {
 	url: string;
 }
 
-export class CreateRoomTypePresenter
-	implements OutputPort<CreateRoomTypeOutput> {
+export class CreateRoomTypePresenter implements OutputPort<CreateRoomTypeOutput> {
 	private readonly _device: RequestResponseDevice<
 		CreateRoomTypePresentedData
 	>;

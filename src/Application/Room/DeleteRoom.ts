@@ -1,8 +1,4 @@
-import {
-	DeleteRoomInput,
-	RoomRepository,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { DeleteRoomInput, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 
 export class DeleteRoom implements UseCase<DeleteRoomInput> {
 	private readonly _roomRepository: RoomRepository;

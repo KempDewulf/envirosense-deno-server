@@ -34,9 +34,7 @@ export class ShowRoomsEndpoint implements Endpoint {
 	}
 
 	private buildRequest(context: RouterContext<string>): ShowRoomsRequest {
-		const name = context.request.url.searchParams.get("name")
-			? context.request.url.searchParams.get("name")
-			: "";
+		const name = context.request.url.searchParams.get("name") ? context.request.url.searchParams.get("name") : "";
 
 		return { name } as ShowRoomsRequest;
 	}
