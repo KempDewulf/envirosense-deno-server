@@ -92,3 +92,98 @@ Deno.test("DeviceData - load method with valid state", () => {
     assertEquals(deviceData.airData, state.airData);
 });
 
+Deno.test("DeviceData - create method with missing humidity throws error", () => {
+    // Arrange
+    const id = "7";
+    const building = Building.create("7", "Main Building", "123 Main St");
+    const roomType = RoomType.create("7", "Office", "office_icon.png");
+    const room = Room.create("7", "Office Room", building, roomType);
+    const device = Device.create("7", "Device007", room);
+    const timestamp = new Date();
+    const airData = { temperature: 25, humidity: null, ppm: 400 };
+
+    // Act & Assert
+    assertThrows(() => {
+        DeviceData.create(id, device, timestamp, airData as unknown as AirData);
+    }, Error, "Humidity is required in AirData");
+});
+
+Deno.test("DeviceData - create method with missing ppm throws error", () => {
+    // Arrange
+    const id = "8";
+    const building = Building.create("8", "Main Building", "123 Main St");
+    const roomType = RoomType.create("8", "Office", "office_icon.png");
+    const room = Room.create("8", "Office Room", building, roomType);
+    const device = Device.create("8", "Device008", room);
+    const timestamp = new Date();
+    const airData = { temperature: 25, humidity: 50, ppm: null };
+
+    // Act & Assert
+    assertThrows(() => {
+        DeviceData.create(id, device, timestamp, airData as unknown as AirData);
+    }, Error, "PPM is required in AirData");
+});
+
+Deno.test("DeviceData - load method with null device throws error", () => {
+    // Arrange
+    const state: DeviceDataState = {
+        id: "9",
+        device: null as unknown as Device,
+        timestamp: new Date(),
+        airData: { temperature: 25, humidity: 50, ppm: 400 }
+    };
+
+    // Act & Assert
+    assertThrows(() => {
+        DeviceData.load(state);
+    }, Error, "Device is required");
+});
+
+Deno.test("DeviceData - create method with negative humidity throws error", () => {
+    // Arrange
+    const id = "10";
+    const building = Building.create("10", "Main Building", "123 Main St");
+    const roomType = RoomType.create("10", "Office", "office_icon.png");
+    const room = Room.create("10", "Office Room", building, roomType);
+    const device = Device.create("10", "Device010", room);
+    const timestamp = new Date();
+    const airData = { temperature: 25, humidity: -1, ppm: 400 };
+
+    // Act & Assert
+    assertThrows(() => {
+        DeviceData.create(id, device, timestamp, airData);
+    }, Error, "Humidity must be between 0 and 100");
+});
+
+Deno.test("DeviceData - create method with negative ppm throws error", () => {
+    // Arrange
+    const id = "12";
+    const building = Building.create("12", "Main Building", "123 Main St");
+    const roomType = RoomType.create("12", "Office", "office_icon.png");
+    const room = Room.create("12", "Office Room", building, roomType);
+    const device = Device.create("12", "Device012", room);
+    const timestamp = new Date();
+    const airData = { temperature: 25, humidity: 50, ppm: -1 };
+
+    // Act & Assert
+    assertThrows(() => {
+        DeviceData.create(id, device, timestamp, airData);
+    }, Error, "PPM must be between 0 and 5000");
+});
+
+Deno.test("DeviceData - create method with ppm over 5000 throws error", () => {
+    // Arrange
+    const id = "13";
+    const building = Building.create("13", "Main Building", "123 Main St");
+    const roomType = RoomType.create("13", "Office", "office_icon.png");
+    const room = Room.create("13", "Office Room", building, roomType);
+    const device = Device.create("13", "Device013", room);
+    const timestamp = new Date();
+    const airData = { temperature: 25, humidity: 50, ppm: 5001 };
+
+    // Act & Assert
+    assertThrows(() => {
+        DeviceData.create(id, device, timestamp, airData);
+    }, Error, "PPM must be between 0 and 5000");
+});
+

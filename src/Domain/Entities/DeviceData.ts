@@ -56,12 +56,19 @@ export class DeviceData {
 
 	public validateState(): void {
 		this.ensureTimestampIsNotEmpty();
+		this.ensureDeviceIsNotEmpty();
 		this.ensureAirDataIsValid();
 	}
 
 	private ensureTimestampIsNotEmpty(): void {
 		if (!this._timestamp) {
 			throw new Error("Timestamp is required.");
+		}
+	}
+
+	private ensureDeviceIsNotEmpty(): void {
+		if (!this._device) {
+			throw new Error("Device is required.");
 		}
 	}
 
@@ -80,6 +87,13 @@ export class DeviceData {
 		}
 		if (ppm == null) {
 			throw new Error("PPM is required in AirData");
+		}
+
+		if (humidity < 0 || humidity > 100) {
+        	throw new Error("Humidity must be between 0 and 100");
+		}
+		if (ppm < 0 || ppm > 5000) {
+			throw new Error("PPM must be between 0 and 5000");
 		}
 	}
 
