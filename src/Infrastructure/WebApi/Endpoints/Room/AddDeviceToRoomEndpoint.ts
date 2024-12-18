@@ -51,7 +51,7 @@ export class AddDeviceToRoomEndpoint implements Endpoint {
 		this._errors.clear();
 
 		if (!request.roomDocumentId) {
-			this._errors.add("roomDocumentId is required");
+			this._errors.add("roomDocumentId is required.");
 		}
 
 		if (!request.devices || request.devices.length === 0) {

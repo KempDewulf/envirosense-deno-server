@@ -65,7 +65,7 @@ export class UpdateDeviceEndpoint implements Endpoint {
 		this._errorsBag.clear();
 
 		if (!request.deviceDocumentId) {
-			this._errorsBag.add("deviceDocumentId is required");
+			this._errorsBag.add("deviceDocumentId is required.");
 		}
 
 		if (request.identifier === undefined) {

@@ -54,7 +54,7 @@ export class AddDeviceDataToDeviceEndpoint implements Endpoint {
 		this._errors.clear();
 
 		if (!request.deviceDocumentId) {
-			this._errors.add("deviceDocumentId is required");
+			this._errors.add("deviceDocumentId is required.");
 		}
 
 		if (!request.device_data || request.device_data.length === 0) {

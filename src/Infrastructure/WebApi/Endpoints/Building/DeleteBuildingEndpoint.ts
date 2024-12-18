@@ -47,7 +47,7 @@ export class DeleteBuildingEndpoint implements Endpoint {
 		this._errorsBag.clear();
 
 		if (!request.buildingDocumentId) {
-			this._errorsBag.add("buildingDocumentId is required");
+			this._errorsBag.add("buildingDocumentId is required.");
 		}
 	}
 }

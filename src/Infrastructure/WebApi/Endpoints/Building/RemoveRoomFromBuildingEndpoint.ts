@@ -54,11 +54,11 @@ export class RemoveRoomFromBuildingEndpoint implements Endpoint {
 		this._errors.clear();
 
 		if (!request.buildingDocumentId) {
-			this._errors.add("buildingDocumentId is required");
+			this._errors.add("buildingDocumentId is required.");
 		}
 
 		if (!request.roomDocumentId) {
-			this._errors.add("roomDocumentId is required");
+			this._errors.add("roomDocumentId is required.");
 		}
 	}
 }

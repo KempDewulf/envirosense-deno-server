@@ -54,11 +54,11 @@ export class RemoveDeviceFromRoomEndpoint implements Endpoint {
 		this._errors.clear();
 
 		if (!request.roomDocumentId) {
-			this._errors.add("roomDocumentId is required");
+			this._errors.add("roomDocumentId is required.");
 		}
 
 		if (!request.deviceDocumentId) {
-			this._errors.add("deviceDocumentId is required");
+			this._errors.add("deviceDocumentId is required.");
 		}
 	}
 }

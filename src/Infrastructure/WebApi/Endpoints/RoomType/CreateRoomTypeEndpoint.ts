@@ -60,11 +60,11 @@ export class CreateRoomTypeEndpoint implements Endpoint {
 		this._errorsBag.clear();
 
 		if (!request.name) {
-			this._errorsBag.add("name is required");
+			this._errorsBag.add("name is required.");
 		}
 
 		if (!request.icon) {
-			this._errorsBag.add("icon is required");
+			this._errorsBag.add("icon is required.");
 		}
 	}
 }
