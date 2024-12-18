@@ -1,5 +1,4 @@
-import { Device } from "EnviroSense/Domain/mod.ts";
-import { AirData } from "EnviroSense/Domain/mod.ts";
+import { Device, AirData } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceDataState {
 	id: string;
