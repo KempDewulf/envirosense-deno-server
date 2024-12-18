@@ -141,13 +141,29 @@ Deno.test("DeviceData - load method with null device throws error", () => {
 
 Deno.test("DeviceData - create method with negative humidity throws error", () => {
     // Arrange
-    const id = "10";
-    const building = Building.create("10", "Main Building", "123 Main St");
-    const roomType = RoomType.create("10", "Office", "office_icon.png");
-    const room = Room.create("10", "Office Room", building, roomType);
-    const device = Device.create("10", "Device010", room);
+    const id = "13";
+    const building = Building.create("13", "Main Building", "123 Main St");
+    const roomType = RoomType.create("13", "Office", "office_icon.png");
+    const room = Room.create("13", "Office Room", building, roomType);
+    const device = Device.create("13", "Device013", room);
     const timestamp = new Date();
     const airData = { temperature: 25, humidity: -1, ppm: 400 };
+
+    // Act & Assert
+    assertThrows(() => {
+        DeviceData.create(id, device, timestamp, airData);
+    }, Error, "Humidity must be between 0 and 100");
+});
+
+Deno.test("DeviceData - create method with humidity above maximum throws error", () => {
+    // Arrange
+    const id = "14";
+    const building = Building.create("14", "Main Building", "123 Main St");
+    const roomType = RoomType.create("14", "Office", "office_icon.png");
+    const room = Room.create("14", "Office Room", building, roomType);
+    const device = Device.create("14", "Device014", room);
+    const timestamp = new Date();
+    const airData = { temperature: 25, humidity: 101, ppm: 400 };
 
     // Act & Assert
     assertThrows(() => {
@@ -186,4 +202,3 @@ Deno.test("DeviceData - create method with ppm over 5000 throws error", () => {
         DeviceData.create(id, device, timestamp, airData);
     }, Error, "PPM must be between 0 and 5000");
 });
-
