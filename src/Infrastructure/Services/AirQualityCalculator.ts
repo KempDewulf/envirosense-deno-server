@@ -2,109 +2,95 @@ import { DeviceQueryRepository } from "EnviroSense/Application/Contracts/mod.ts"
 import { Room, AirData } from "EnviroSense/Domain/mod.ts";
 
 export class AirQualityCalculator {
-	private readonly deviceRepository: DeviceQueryRepository;
+    private readonly deviceRepository: DeviceQueryRepository;
 
-	constructor(deviceRepository: DeviceQueryRepository) {
-		this.deviceRepository = deviceRepository;
-	}
+    constructor(deviceRepository: DeviceQueryRepository) {
+        this.deviceRepository = deviceRepository;
+    }
 
-	public async calculateAverageAirQuality(room: Room): Promise<AirData> {
-		const devices = room.devices;
-		const airData: AirData = { temperature: 0, humidity: 0, ppm: 0 };
+    public async calculateAverageAirQuality(room: Room): Promise<AirData> {
+        const devices = room.devices;
+        const airData: AirData = { temperature: 0, humidity: 0, ppm: 0 };
 
-		for (const device of devices) {
-			const deviceWithDeviceData = await this.deviceRepository.find(device.documentId);
-			const deviceDataArray = deviceWithDeviceData.value.device_data;
-			const lastDeviceData = deviceDataArray[deviceDataArray.length - 1];
-			const { temperature, humidity, gas_ppm } = lastDeviceData as any;
+        for (const device of devices) {
+            const lastDeviceData = await this.getLastDeviceData(device.documentId);
+            if (lastDeviceData) {
+                this.aggregateAirData(airData, lastDeviceData);
+            }
+        }
 
-			airData.temperature += temperature;
-			airData.humidity += humidity;
-			airData.ppm += gas_ppm;
-		}
+        return this.computeAverages(airData, devices.length);
+    }
 
-		if (devices.length > 0) {
-			airData.temperature = parseFloat((airData.temperature / devices.length).toFixed(2));
-			airData.humidity = parseFloat((airData.humidity / devices.length).toFixed(2));
-			airData.ppm = parseFloat((airData.ppm / devices.length).toFixed(2));
-		}
+    public async calculateEnviroScore(room: Room): Promise<number> {
+        const devices = room.devices;
 
-		return airData;
-	}
+        let totalEnviroScore = 0;
+        let processedDevices = 0;
 
-	public async calculateEnviroScore(room: Room): Promise<number> {
-		const devices = room.devices;
+        for (const device of devices) {
+            const lastDeviceData = await this.getLastDeviceData(device.documentId);
+            if (lastDeviceData) {
+                const enviroScore = this.computeEnviroScore(lastDeviceData);
+                totalEnviroScore += enviroScore;
+                processedDevices++;
+            }
+        }
 
-		let totalAirQuality = 0;
-		let dataDevicePointCount = 0;
+        return this.computeFinalEnviroScore(totalEnviroScore, processedDevices);
+    }
 
-		for (const device of devices) {
-			const deviceWithDeviceData = await this.deviceRepository.find(
-				device.documentId,
-			);
+    private async getLastDeviceData(documentId: string): Promise<any | null> {
+        const deviceWithDeviceData = await this.deviceRepository.find(documentId);
+        const deviceDataArray = deviceWithDeviceData?.value?.device_data || [];
+        return deviceDataArray.length > 0
+            ? deviceDataArray[deviceDataArray.length - 1]
+            : null;
+    }
 
-			const deviceDataArray = deviceWithDeviceData.value.device_data;
+    private aggregateAirData(airData: AirData, deviceData: any): void {
+        airData.temperature += deviceData.temperature;
+        airData.humidity += deviceData.humidity;
+        airData.ppm += deviceData.gas_ppm;
+    }
 
-			if (deviceDataArray.length > 0) {
-				const lastDeviceData =
-					deviceDataArray[deviceDataArray.length - 1];
-				const { temperature, humidity, gas_ppm } =
-					lastDeviceData as any;
+    private computeAverages(airData: AirData, deviceCount: number): AirData {
+        if (deviceCount > 0) {
+            airData.temperature = parseFloat((airData.temperature / deviceCount).toFixed(2));
+            airData.humidity = parseFloat((airData.humidity / deviceCount).toFixed(2));
+            airData.ppm = parseFloat((airData.ppm / deviceCount).toFixed(2));
+        }
+        return airData;
+    }
 
-				// CO₂ Subscore Calculation
-				let co2Subscore: number;
-				if (gas_ppm <= 600) {
-					co2Subscore = 100;
-				} else if (gas_ppm <= 1000) {
-					co2Subscore = 100 - ((gas_ppm - 600) / 400) * 50; // Linear decline from 100 to 50
-				} else {
-					co2Subscore = 50 - ((gas_ppm - 1000) / 500) * 50; // Linear decline from 50 to 0
-				}
-				co2Subscore = Math.max(0, Math.min(co2Subscore, 100));
+    private computeEnviroScore(deviceData: any): number {
+        const co2Subscore = this.calculateCO2Subscore(deviceData.gas_ppm);
+        const humiditySubscore = this.calculateHumiditySubscore(deviceData.humidity);
+        const temperatureSubscore = this.calculateTemperatureSubscore(deviceData.temperature);
 
-				// Humidity Subscore Calculation
-				let humiditySubscore: number;
-				if (humidity >= 40 && humidity <= 60) {
-					humiditySubscore = 100;
-				} else if (humidity < 40) {
-					humiditySubscore = 100 -
-						Math.pow((40 - humidity) / 10, 2) * 50;
-				} else {
-					humiditySubscore = 100 -
-						Math.pow((humidity - 60) / 10, 2) * 50;
-				}
-				humiditySubscore = Math.max(0, Math.min(humiditySubscore, 100));
+        // Combine scores with weights
+        return (0.5 * co2Subscore) + (0.3 * humiditySubscore) + (0.2 * temperatureSubscore);
+    }
 
-				// Temperature Subscore Calculation
-				let temperatureSubscore: number;
-				if (temperature >= 20 && temperature <= 25) {
-					temperatureSubscore = 100;
-				} else if (temperature < 20) {
-					temperatureSubscore = 100 -
-						Math.pow((20 - temperature) / 5, 2) * 50;
-				} else {
-					temperatureSubscore = 100 -
-						Math.pow((temperature - 25) / 5, 2) * 50;
-				}
-				temperatureSubscore = Math.max(
-					0,
-					Math.min(temperatureSubscore, 100),
-				);
+    private calculateCO2Subscore(ppm: number): number {
+        if (ppm <= 600) return 100;
+        if (ppm <= 1000) return 100 - ((ppm - 600) / 400) * 50; // Linear decline from 100 to 50
+        return Math.max(0, 50 - ((ppm - 1000) / 500) * 50); // Linear decline from 50 to 0
+    }
 
-				// Calculate AirQuality with adjusted weights
-				const enviroScore = (0.5 * co2Subscore) +
-					(0.3 * humiditySubscore) + (0.2 * temperatureSubscore);
+    private calculateHumiditySubscore(humidity: number): number {
+        if (humidity >= 40 && humidity <= 60) return 100;
+        if (humidity < 40) return Math.max(0, 100 - Math.pow((40 - humidity) / 10, 2) * 50);
+        return Math.max(0, 100 - Math.pow((humidity - 60) / 10, 2) * 50);
+    }
 
-				totalAirQuality += enviroScore;
-				dataDevicePointCount++;
-			} else {
-				return NaN;
-			}
-		}
+    private calculateTemperatureSubscore(temperature: number): number {
+        if (temperature >= 20 && temperature <= 25) return 100;
+        if (temperature < 20) return Math.max(0, 100 - Math.pow((20 - temperature) / 5, 2) * 50);
+        return Math.max(0, 100 - Math.pow((temperature - 25) / 5, 2) * 50);
+    }
 
-		// Average based on number of devices processed
-		return dataDevicePointCount > 0
-			? Math.round(totalAirQuality / dataDevicePointCount)
-			: 0;
-	}
+    private computeFinalEnviroScore(totalScore: number, deviceCount: number): number {
+        return deviceCount > 0 ? Math.round(totalScore / deviceCount) : 0;
+    }
 }
