@@ -2,7 +2,7 @@ import { DeviceRepository } from "EnviroSense/Application/Contracts/mod.ts";
 import { Room } from "EnviroSense/Domain/mod.ts";
 
 export class EnviroScoreCalculator {
-    private deviceRepository: DeviceRepository;
+    private readonly deviceRepository: DeviceRepository;
 
     constructor(deviceRepository: DeviceRepository) {
         this.deviceRepository = deviceRepository;
