@@ -12,7 +12,7 @@ export type { ShowRoomByDocumentIdInput } from "./Room/ShowRoomByDocumentIdInput
 export type { ShowRoomByDocumentIdOutput } from "./Room/ShowRoomByDocumentIdOutput.ts";
 
 export type { ShowRoomAirQualityInput } from "./Room/ShowRoomAirQualityInput.ts";
-export type { ShowRoomAirQualityOutput } from "./Room/ShowRoomAirQualityOutput.ts;
+export type { ShowRoomAirQualityOutput } from "./Room/ShowRoomAirQualityOutput.ts";
 
 export type { UpdateRoomInput } from "./Room/UpdateRoomInput.ts";
 export type { UpdateRoomOutput } from "./Room/UpdateRoomOutput.ts";
