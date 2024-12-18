@@ -81,7 +81,7 @@ export class DeviceStrapiRepository extends StrapiQueryRepository
 			id: data.documentId,
 			identifier: data.identifier,
 			room: data.room,
-			deviceData: data.deviceData,
+			deviceData: data.device_data,
 		});
 
 		return device;
