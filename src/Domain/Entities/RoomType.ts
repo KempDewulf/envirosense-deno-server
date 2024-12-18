@@ -37,14 +37,14 @@ export class RoomType {
 
 	public updateName(name: string): void {
 		if(!name) {
-			throw new DomainException("Name is required.");
+			throw new DomainException("Name is required..");
 		}
 		this._name = name;
 	}
 
 	public updateIcon(icon: string): void {
 		if(!icon) {
-			throw new DomainException("Icon is required.");
+			throw new DomainException("Icon is required..");
 		}
 		this._icon = icon;
 	}
@@ -56,14 +56,14 @@ export class RoomType {
 
 	private ensureNameIsNotEmpty(): void {
 		if (!this._name) {
-			throw new DomainException("Room type name is required.");
+			throw new DomainException("Room type name is required..");
 		}
 	}
 
 	private ensureIconIsNotEmpty(): void {
 		if (!this._icon) {
 			throw new DomainException(
-				"Room type icon is required. Enter the ID of the icon.",
+				"Room type icon is required.. Enter the ID of the icon.",
 			);
 		}
 	}

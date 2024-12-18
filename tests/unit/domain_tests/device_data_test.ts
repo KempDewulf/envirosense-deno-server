@@ -34,7 +34,7 @@ Deno.test("DeviceData - create method with null timestamp throws error", () => {
     // Act & Assert
     assertThrows(() => {
         DeviceData.create(id, device, timestamp as unknown as Date, airData);
-    }, Error, "Timestamp is required");
+    }, Error, "Timestamp is required.");
 });
 
 Deno.test("DeviceData - create method with null airData throws error", () => {
@@ -50,7 +50,7 @@ Deno.test("DeviceData - create method with null airData throws error", () => {
     // Act & Assert
     assertThrows(() => {
         DeviceData.create(id, device, timestamp, airData as unknown as AirData);
-    }, Error, "AirData is required");
+    }, Error, "AirData is required.");
 });
 
 Deno.test("DeviceData - create method with invalid airData throws error", () => {
@@ -66,7 +66,7 @@ Deno.test("DeviceData - create method with invalid airData throws error", () => 
     // Act & Assert
     assertThrows(() => {
         DeviceData.create(id, device, timestamp, airData as unknown as AirData);
-    }, Error, "Temperature is required in AirData");
+    }, Error, "Temperature is required. in AirData");
 });
 
 Deno.test("DeviceData - load method with valid state", () => {
@@ -105,7 +105,7 @@ Deno.test("DeviceData - create method with missing humidity throws error", () =>
     // Act & Assert
     assertThrows(() => {
         DeviceData.create(id, device, timestamp, airData as unknown as AirData);
-    }, Error, "Humidity is required in AirData");
+    }, Error, "Humidity is required. in AirData");
 });
 
 Deno.test("DeviceData - create method with missing ppm throws error", () => {
@@ -121,7 +121,7 @@ Deno.test("DeviceData - create method with missing ppm throws error", () => {
     // Act & Assert
     assertThrows(() => {
         DeviceData.create(id, device, timestamp, airData as unknown as AirData);
-    }, Error, "PPM is required in AirData");
+    }, Error, "PPM is required. in AirData");
 });
 
 Deno.test("DeviceData - load method with null device throws error", () => {
@@ -136,7 +136,7 @@ Deno.test("DeviceData - load method with null device throws error", () => {
     // Act & Assert
     assertThrows(() => {
         DeviceData.load(state);
-    }, Error, "Device is required");
+    }, Error, "Device is required.");
 });
 
 Deno.test("DeviceData - create method with negative humidity throws error", () => {

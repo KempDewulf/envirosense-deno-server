@@ -68,11 +68,11 @@ export class UpdateRoomEndpoint implements Endpoint {
 		this._errorsBag.clear();
 
 		if (!request.roomDocumentId) {
-			this._errorsBag.add("roomDocumentId is required");
+			this._errorsBag.add("roomDocumentId is required.");
 		}
 
 		if (request.name === undefined) {
-			this._errorsBag.add("name is required");
+			this._errorsBag.add("name is required.");
 		}
 	}
 }

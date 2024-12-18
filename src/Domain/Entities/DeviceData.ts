@@ -62,31 +62,31 @@ export class DeviceData {
 
 	private ensureTimestampIsNotEmpty(): void {
 		if (!this._timestamp) {
-			throw new Error("Timestamp is required.");
+			throw new Error("Timestamp is required..");
 		}
 	}
 
 	private ensureDeviceIsNotEmpty(): void {
 		if (!this._device) {
-			throw new Error("Device is required.");
+			throw new Error("Device is required..");
 		}
 	}
 
 	private ensureAirDataIsValid(): void {
 		if (!this._airData) {
-			throw new Error("AirData is required");
+			throw new Error("AirData is required.");
 		}
 
 		const { temperature, humidity, ppm } = this._airData;
 
 		if (temperature == null) {
-			throw new Error("Temperature is required in AirData");
+			throw new Error("Temperature is required. in AirData");
 		}
 		if (humidity == null) {
-			throw new Error("Humidity is required in AirData");
+			throw new Error("Humidity is required. in AirData");
 		}
 		if (ppm == null) {
-			throw new Error("PPM is required in AirData");
+			throw new Error("PPM is required. in AirData");
 		}
 
 		if (humidity < 0 || humidity > 100) {

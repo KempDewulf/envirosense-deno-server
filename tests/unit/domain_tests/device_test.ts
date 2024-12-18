@@ -29,7 +29,7 @@ Deno.test("Device - create method with empty identifier throws error", () => {
     // Act & Assert
     assertThrows(() => {
         Device.create(id, identifier, room);
-    }, DomainException, "Identifier is required");
+    }, DomainException, "Identifier is required.");
 });
 
 Deno.test("Device - load method with valid state", () => {
@@ -69,7 +69,7 @@ Deno.test("Device - load method with empty identifier in state throws error", ()
     // Act & Assert
     assertThrows(() => {
         Device.load(state);
-    }, DomainException, "Identifier is required");
+    }, DomainException, "Identifier is required.");
 });
 
 Deno.test("Device - removeRoom method removes the room from the device", () => {
@@ -143,7 +143,7 @@ Deno.test("Device - updateIdentifier method with empty identifier throws error",
     // Act & Assert
     assertThrows(() => {
         device.updateIdentifier(newIdentifier);
-    }, DomainException, "Identifier is required");
+    }, DomainException, "Identifier is required.");
 });
 
 Deno.test("Device - addRoom method with room not assigned to building throws error", () => {
@@ -183,7 +183,7 @@ Deno.test("Device - removeRoom method throws error when room is already null", (
     // Act & Assert
     assertThrows(() => {
         device.removeRoom();
-    }, DomainException, "Room is required");
+    }, DomainException, "Room is required.");
 });
 
 Deno.test("Device - deviceData getter returns empty array by default", () => {
@@ -227,7 +227,7 @@ Deno.test("Device - removeRoom method throws error when room is null", () => {
     // Act & Assert
     assertThrows(() => {
         device.removeRoom();
-    }, DomainException, "Room is required.");
+    }, DomainException, "Room is required..");
 });
 
 Deno.test("Device - addDeviceData method adds device data successfully", () => {
@@ -268,7 +268,7 @@ Deno.test("Device - updateIdentifier method throws error when identifier is empt
     // Act & Assert
     assertThrows(() => {
         device.updateIdentifier("");
-    }, DomainException, "Identifier is required");
+    }, DomainException, "Identifier is required.");
 });
 
 Deno.test("Device - validateState method throws error when identifier is empty", () => {
@@ -282,7 +282,7 @@ Deno.test("Device - validateState method throws error when identifier is empty",
     // Act & Assert
     assertThrows(() => {
         Device.create(id, identifier, room);
-    }, DomainException, "Identifier is required.");
+    }, DomainException, "Identifier is required..");
 });
 
 Deno.test("Device - addDeviceData adds first device data to empty array", () => {
@@ -316,5 +316,5 @@ Deno.test("Device - removeRoom method ensures room exists before removal", () =>
     assertThrows(() => {
         device.removeRoom();
         device.removeRoom(); // Try to remove again when room is already null
-    }, DomainException, "Room is required.");
+    }, DomainException, "Room is required..");
 });

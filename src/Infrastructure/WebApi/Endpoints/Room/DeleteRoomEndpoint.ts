@@ -45,7 +45,7 @@ export class DeleteRoomEndpoint implements Endpoint {
 		this._errorsBag.clear();
 
 		if (!request.roomDocumentId) {
-			this._errorsBag.add("roomDocumentId is required");
+			this._errorsBag.add("roomDocumentId is required.");
 		}
 	}
 }

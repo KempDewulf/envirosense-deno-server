@@ -60,11 +60,11 @@ export class CreateBuildingEndpoint implements Endpoint {
 		this._errorsBag.clear();
 
 		if (!request.name) {
-			this._errorsBag.add("name is required");
+			this._errorsBag.add("name is required.");
 		}
 
 		if (!request.address) {
-			this._errorsBag.add("address is required");
+			this._errorsBag.add("address is required.");
 		}
 	}
 }

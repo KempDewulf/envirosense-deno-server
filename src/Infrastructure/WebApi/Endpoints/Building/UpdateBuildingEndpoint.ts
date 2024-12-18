@@ -66,7 +66,7 @@ export class UpdateBuildingEndpoint implements Endpoint {
 		this._errorsBag.clear();
 
 		if (!request.buildingDocumentId) {
-			this._errorsBag.add("buildingDocumentId is required");
+			this._errorsBag.add("buildingDocumentId is required.");
 		}
 
 		if (request.name === undefined && request.address === undefined) {

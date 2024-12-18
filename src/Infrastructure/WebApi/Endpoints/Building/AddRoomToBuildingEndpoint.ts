@@ -54,12 +54,12 @@ export class AddRoomToBuildingEndpoint implements Endpoint {
 		this._errors.clear();
 
 		if (!request.buildingDocumentId) {
-			this._errors.add("buildingDocumentId is required");
+			this._errors.add("buildingDocumentId is required.");
 		}
 
 		if (!request.rooms || request.rooms.length === 0) {
 			this._errors.add(
-				"rooms is required. It must be an array of strings (the documentIds of the room)",
+				"rooms is required.. It must be an array of strings (the documentIds of the room)",
 			);
 		}
 	}

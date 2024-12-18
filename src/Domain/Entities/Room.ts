@@ -65,7 +65,7 @@ export class Room {
 
 	public updateName(name: string): void {
 		if (!name) {
-			throw new DomainException("Room name is required.");
+			throw new DomainException("Room name is required..");
 		}
 		this._name = name;
 	}
@@ -91,13 +91,13 @@ export class Room {
 
 	private ensureNameIsNotEmpty(): void {
 		if (!this._name) {
-			throw new DomainException("Room name is required.");
+			throw new DomainException("Room name is required..");
 		}
 	}
 
 	private ensureRoomTypeIsNotEmpty(): void {
 		if (!this._roomType) {
-			throw new DomainException("Room type is required.");
+			throw new DomainException("Room type is required..");
 		}
 	}
 
