@@ -62,13 +62,13 @@ export class DeviceData {
 
 	private ensureTimestampIsNotEmpty(): void {
 		if (!this._timestamp) {
-			throw new Error("Timestamp is required..");
+			throw new Error("Timestamp is required.");
 		}
 	}
 
 	private ensureDeviceIsNotEmpty(): void {
 		if (!this._device) {
-			throw new Error("Device is required..");
+			throw new Error("Device is required.");
 		}
 	}
 

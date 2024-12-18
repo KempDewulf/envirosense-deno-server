@@ -73,20 +73,20 @@ export class Device {
 		this._room = room;
 	}
 
-	public removeRoom(): void {
+		public removeRoom(): void {
 		this.ensureRoomIsNotEmpty();
 		this._room = null;
 	}
 
 	private ensureIdentifierIsNotEmpty(): void {
 		if (!this._identifier) {
-			throw new DomainException("Identifier is required..");
+			throw new DomainException("Identifier is required.");
 		}
 	}
 
 	private ensureRoomIsNotEmpty(): void {
 		if (!this._room) {
-			throw new DomainException("Room is required..");
+			throw new DomainException("Room is required.");
 		}
 	}
 

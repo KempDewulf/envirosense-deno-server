@@ -78,13 +78,13 @@ export class Building {
 
 	private ensureNameIsNotEmpty(): void {
 		if (!this._name) {
-			throw new DomainException("Name is required..");
+			throw new DomainException("Name is required.");
 		}
 	}
 
 	private ensureAddressIsNotEmpty(): void {
 		if (!this._address) {
-			throw new DomainException("Address is required..");
+			throw new DomainException("Address is required.");
 		}
 	}
 

@@ -25,7 +25,7 @@ Deno.test("RoomType - create method with empty name throws error", () => {
     // Act & Assert
     assertThrows(() => {
         RoomType.create(id, name, icon);
-    }, DomainException, "Room type name is required..");
+    }, DomainException, "Room type name is required.");
 });
 
 Deno.test("RoomType - create method with empty icon throws error", () => {
@@ -37,7 +37,7 @@ Deno.test("RoomType - create method with empty icon throws error", () => {
     // Act & Assert
     assertThrows(() => {
         RoomType.create(id, name, icon);
-    }, DomainException, "Room type icon is required..");
+    }, DomainException, "Room type icon is required.");
 });
 
 Deno.test("RoomType - load method with valid state", () => {
@@ -60,7 +60,7 @@ Deno.test("RoomType - load method with empty name in state throws error", () => 
     // Act & Assert
     assertThrows(() => {
         RoomType.load(state);
-    }, DomainException, "Room type name is required..");
+    }, DomainException, "Room type name is required.");
 });
 
 Deno.test("RoomType - load method with empty icon in state throws error", () => {
@@ -70,5 +70,5 @@ Deno.test("RoomType - load method with empty icon in state throws error", () => 
     // Act & Assert
     assertThrows(() => {
         RoomType.load(state);
-    }, DomainException, "Room type icon is required..");
+    }, DomainException, "Room type icon is required.");
 });

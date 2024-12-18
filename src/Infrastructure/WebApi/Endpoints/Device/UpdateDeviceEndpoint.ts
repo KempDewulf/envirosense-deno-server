@@ -70,7 +70,7 @@ export class UpdateDeviceEndpoint implements Endpoint {
 
 		if (request.identifier === undefined) {
 			this._errorsBag.add(
-				"identifier is required.. It must be a string.",
+				"identifier is required. It must be a string.",
 			);
 		}
 	}

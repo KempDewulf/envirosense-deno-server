@@ -56,7 +56,7 @@ export class AddDeviceToRoomEndpoint implements Endpoint {
 
 		if (!request.devices || request.devices.length === 0) {
 			this._errors.add(
-				"devices is required.. It must be an array of strings (the documentIds of the devices)",
+				"devices is required. It must be an array of strings (the documentIds of the devices)",
 			);
 		}
 	}

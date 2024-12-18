@@ -59,7 +59,7 @@ export class AddDeviceDataToDeviceEndpoint implements Endpoint {
 
 		if (!request.device_data || request.device_data.length === 0) {
 			this._errors.add(
-				"device_data is required.. It must be an array of strings (the documentIds of the device data)",
+				"device_data is required. It must be an array of strings (the documentIds of the device data)",
 			);
 		}
 	}

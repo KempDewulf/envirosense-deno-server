@@ -28,7 +28,7 @@ Deno.test("Room - create method with empty name throws error", () => {
     // Act & Assert
     assertThrows(() => {
         Room.create(id, name, building, roomType);
-    }, DomainException, "Room name is required..");
+    }, DomainException, "Room name is required.");
 });
 
 Deno.test("Room - create method with null roomType throws error", () => {
@@ -41,7 +41,7 @@ Deno.test("Room - create method with null roomType throws error", () => {
     // Act & Assert
     assertThrows(() => {
         Room.create(id, name, building, roomType as unknown as RoomType);
-    }, DomainException, "Room type is required..");
+    }, DomainException, "Room type is required.");
 });
 
 Deno.test("Room - load method with valid state", () => {
@@ -78,7 +78,7 @@ Deno.test("Room - load method with empty name in state throws error", () => {
     // Act & Assert
     assertThrows(() => {
         Room.load(state);
-    }, DomainException, "Room name is required..");
+    }, DomainException, "Room name is required.");
 });
 
 Deno.test("Room - load method with null roomType in state throws error", () => {
@@ -176,7 +176,7 @@ Deno.test("Room - updateName with empty name throws error", () => {
     // Act & Assert
     assertThrows(() => {
         room.updateName("");
-    }, DomainException, "Room name is required..");
+    }, DomainException, "Room name is required.");
     assertEquals(room.name, "Conference Room");
 });
 
@@ -229,9 +229,9 @@ Deno.test("Room - validateState checks both name and roomType", () => {
     // Act & Assert
     assertThrows(() => {
         Room.create('11', "", building, null as unknown as RoomType)
-    }, DomainException, "Room name is required..");
+    }, DomainException, "Room name is required.");
 
     assertThrows(() => {
         Room.create('11', "Conference Room", building, null as unknown as RoomType)
-    }, DomainException, "Room type is required..");
+    }, DomainException, "Room type is required.");
 });
