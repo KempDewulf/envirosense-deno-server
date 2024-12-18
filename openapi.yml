@@ -322,6 +322,23 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /rooms/{roomDocumentId}/air-quality:
+    get:
+      summary: Get air quality data for a room
+      parameters:
+        - name: roomDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Air quality data for the room
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AirQualityResponse'
+
   /rooms/{roomDocumentId}/devices:
     post:
       tags:
@@ -678,6 +695,36 @@ components:
           type: string
         roomTypeDocumentId:
           type: string
+
+    AirQualityResponse:
+      type: object
+      required:
+        - id
+        - enviroScore
+        - airQuality
+      properties:
+        id:
+          type: string
+          description: Room ID
+        enviroScore:
+          type: integer
+        airQuality:
+          type: object
+          required:
+            - temperature
+            - humidity
+            - ppm
+          properties:
+            temperature:
+              type: number
+              format: float
+            humidity:
+              type: number
+              format: float
+            ppm:
+              type: number
+              format: float
+          
 
     AddDeviceToRoomRequest:
       type: object
