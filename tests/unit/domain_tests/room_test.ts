@@ -203,7 +203,7 @@ Deno.test("Room - room-type getter returns correct type", () => {
     const room = Room.create("9", "Conference Room", building, roomType);
 
     // Act & Assert
-    assertEquals(room["room-type"], roomType);
+    assertEquals(room.roomType, roomType);
 });
 
 Deno.test("Room - load method initializes empty devices array when undefined", () => {

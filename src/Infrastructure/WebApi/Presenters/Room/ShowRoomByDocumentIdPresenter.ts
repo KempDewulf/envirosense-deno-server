@@ -39,7 +39,7 @@ export class ShowRoomByDocumentIdPresenter
 			documentId: data.documentId,
 			name: data.name,
 			building: data.building,
-			roomType: data["room-type"],
+			roomType: data.roomType,
 			devices: data.devices,
 		};
 	}

@@ -10,7 +10,7 @@ export interface RoomQueryDto {
 	documentId: string;
 	name: string;
 	building: Building;
-	"room-type": RoomType;
+	roomType: RoomType;
 	devices: Device[];
 }
 

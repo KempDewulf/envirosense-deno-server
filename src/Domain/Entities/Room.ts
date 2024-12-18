@@ -131,10 +131,6 @@ export class Room {
 		return this._roomType;
 	}
 
-	get ["room-type"](): RoomType {
-		return this._roomType;
-	}
-
 	get devices(): Device[] {
 		return this._devices;
 	}

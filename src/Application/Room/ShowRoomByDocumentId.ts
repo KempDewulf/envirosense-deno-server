@@ -41,7 +41,7 @@ export class ShowRoomByDocumentId
 			documentId: dto.documentId,
 			name: dto.name,
 			building: dto.building,
-			"room-type": dto["room-type"],
+			roomType: dto.roomType,
 			devices: dto.devices,
 		};
 	}
