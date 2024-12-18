@@ -761,8 +761,6 @@ components:
           type: string
         documentId:
           type: string
-        name:
-          type: string
         identifier:
           type: string
         room:
@@ -773,28 +771,23 @@ components:
             $ref: '#/components/schemas/DeviceData'
       required:
         - id
-        - name
         - identifier
 
     CreateDeviceRequest:
       type: object
       properties:
-        name:
-          type: string
         identifier:
           type: string
         roomDocumentId:
           type: string
       required:
-        - name
         - identifier
+        - roomDocumentId
 
     UpdateDeviceRequest:
       type: object
       properties:
-        name:
-          type: string
-        roomDocumentId:
+        identifier:
           type: string
 
     DeviceData:
