@@ -6,7 +6,7 @@ import {
 	ShowRoomAirQualityOutput,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { Room, AirData } from "EnviroSense/Domain/mod.ts";
+import { AirData, Room } from "EnviroSense/Domain/mod.ts";
 import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
 
 export class ShowRoomAirQuality implements UseCase<ShowRoomAirQualityInput> {
@@ -38,21 +38,26 @@ export class ShowRoomAirQuality implements UseCase<ShowRoomAirQualityInput> {
 		const enviroScore = await this._airQualityCalculator
 			.calculateEnviroScore(roomEntity);
 
-		const averagedAirQuality = await this._airQualityCalculator.calculateAverageAirQuality(roomEntity);
+		const averagedAirQuality = await this._airQualityCalculator
+			.calculateAverageAirQuality(roomEntity);
 
-		const airQuality = this.mapDataToOutput(roomDto, enviroScore, averagedAirQuality);
+		const airQuality = this.mapDataToOutput(
+			roomDto,
+			enviroScore,
+			averagedAirQuality,
+		);
 		this._outputPort.present(airQuality);
 	}
 
 	private mapDataToOutput(
 		dto: RoomQueryDto,
 		enviroScore: number,
-		averagedAirQuality: AirData
+		averagedAirQuality: AirData,
 	): ShowRoomAirQualityOutput {
 		return {
 			id: dto.documentId,
 			enviroScore: enviroScore,
-			airQuality: averagedAirQuality
+			airQuality: averagedAirQuality,
 		};
 	}
 }

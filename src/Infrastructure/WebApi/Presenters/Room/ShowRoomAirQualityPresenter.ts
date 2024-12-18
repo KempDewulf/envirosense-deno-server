@@ -7,8 +7,8 @@ import { AirData } from "EnviroSense/Domain/mod.ts";
 
 export type ShowRoomAirQualityPresentedData = {
 	id: string;
-    enviroScore: number;
-    airQuality: AirData;
+	enviroScore: number;
+	airQuality: AirData;
 };
 
 export class ShowRoomAirQualityPresenter
@@ -33,8 +33,8 @@ export class ShowRoomAirQualityPresenter
 	): ShowRoomAirQualityPresentedData {
 		return {
 			id: data.id,
-            enviroScore: data.enviroScore,
-            airQuality: data.airQuality,
+			enviroScore: data.enviroScore,
+			airQuality: data.airQuality,
 		};
 	}
 }
