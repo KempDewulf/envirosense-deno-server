@@ -40,7 +40,7 @@ export class DeviceStrapiRepository extends StrapiQueryRepository implements Dev
 		}
 	}
 
-	async save(device: Device): Promise<void> {
+	async save(device: Device): Promise<any> {
 		const endpoint = `devices`;
 		const body = this.mapFromDomain(device);
 

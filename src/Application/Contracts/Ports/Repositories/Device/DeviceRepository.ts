@@ -4,7 +4,7 @@ import { DeviceDataOperation } from "EnviroSense/Infrastructure/Persistence/Repo
 export interface DeviceRepository {
 	find(deviceDocumentId: string): Promise<Optional<Device>>;
 	findByIdentifier(identifier: string): Promise<Optional<Device>>;
-	save(device: Device): Promise<void>;
+	save(device: Device): Promise<any>;
 	update(device: Device): Promise<void>;
 	deleteEntity(device: Device): Promise<void>;
 	manageDeviceData(

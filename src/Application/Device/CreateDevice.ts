@@ -37,7 +37,7 @@ export class CreateDevice implements UseCase<CreateDeviceInput> {
 
 		const device = Device.create("", input.identifier, room);
 
-		await this._deviceRepository.save(device);
-		this._outputPort.present({ id: device.id.toString() });
+		const strapiResponse = await this._deviceRepository.save(device);
+		this._outputPort.present({ id: strapiResponse.data.documentId });
 	}
 }
