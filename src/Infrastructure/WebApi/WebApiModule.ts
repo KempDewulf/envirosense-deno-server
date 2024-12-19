@@ -25,7 +25,7 @@ export class WebApiModule implements Module {
 				optionsSuccessStatus: 200,
 				methods: ["*"],
 				allowedHeaders: ["*"],
-				exposedHeaders: ["Location", "Content-Type", "*"],
+				exposedHeaders: ["*"],
 			},
 		));
 
