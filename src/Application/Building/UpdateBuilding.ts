@@ -41,10 +41,8 @@ export class UpdateBuilding implements UseCase<UpdateBuildingInput> {
 
 		const output: UpdateBuildingOutput = {
 			id: building.id,
-			documentId: building.id,
 			name: building.name,
 			address: building.address,
-			rooms: building.rooms,
 		};
 
 		this._outputPort.present(output);

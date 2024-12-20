@@ -31,9 +31,9 @@ export class RemoveRoomFromBuildingEndpoint implements Endpoint {
 		context.response.status = 201;
 	}
 
-	private async buildRequest(
+	private buildRequest(
 		context: RouterContext<string>,
-	): Promise<RemoveRoomFromBuildingRequest> {
+	): RemoveRoomFromBuildingRequest {
 		const buildingDocumentId = context.params.buildingDocumentId;
 		const roomDocumentId = context.params.roomDocumentId;
 
