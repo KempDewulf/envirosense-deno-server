@@ -3,7 +3,6 @@ import { OutputPort, UpdateDeviceOutput } from "EnviroSense/Application/Contract
 
 export interface UpdateDevicePresentedData {
 	id: string;
-	documentId: string;
 	identifier: string;
 }
 
@@ -24,7 +23,6 @@ export class UpdateDevicePresenter implements OutputPort<UpdateDeviceOutput> {
 	): UpdateDevicePresentedData {
 		return {
 			id: data.id,
-			documentId: data.documentId,
 			identifier: data.identifier,
 		};
 	}

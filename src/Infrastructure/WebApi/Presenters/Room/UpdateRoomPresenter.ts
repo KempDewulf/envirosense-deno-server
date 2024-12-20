@@ -3,7 +3,6 @@ import { OutputPort, UpdateRoomOutput } from "EnviroSense/Application/Contracts/
 
 export interface UpdateRoomPresentedData {
 	id: string;
-	documentId: string;
 	name: string;
 }
 
@@ -24,7 +23,6 @@ export class UpdateRoomPresenter implements OutputPort<UpdateRoomOutput> {
 	): UpdateRoomPresentedData {
 		return {
 			id: data.id,
-			documentId: data.documentId,
 			name: data.name,
 		};
 	}
