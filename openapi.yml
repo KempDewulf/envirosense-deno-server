@@ -162,6 +162,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict - Room already assigned to building
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /buildings/{buildingDocumentId}/rooms/{roomDocumentId}:
     delete:
@@ -348,6 +354,12 @@ paths:
           description: Device added to room
         '400':
           description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict - Device already assigned to room
           content:
             application/json:
               schema:
