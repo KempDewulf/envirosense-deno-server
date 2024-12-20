@@ -49,7 +49,7 @@ export class ShowRoomAirQuality implements UseCase<ShowRoomAirQualityInput> {
 
 	private mapDataToOutput(
 		dto: RoomQueryDto,
-		enviroScore: number,
+		enviroScore: number | null,
 		averagedAirQuality: AirData,
 	): ShowRoomAirQualityOutput {
 		return {

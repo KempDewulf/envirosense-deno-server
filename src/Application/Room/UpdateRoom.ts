@@ -28,7 +28,6 @@ export class UpdateRoom implements UseCase<UpdateRoomInput> {
 
 		const output: UpdateRoomOutput = {
 			id: room.id,
-			documentId: room.id,
 			name: room.name,
 		};
 

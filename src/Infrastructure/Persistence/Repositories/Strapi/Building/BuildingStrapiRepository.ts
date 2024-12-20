@@ -32,6 +32,8 @@ export class BuildingStrapiRepository extends StrapiQueryRepository implements B
 		const endpoint = `buildings/${building.id}`;
 		const body = this.mapFromDomain(building);
 
+		console.log(body);
+
 		return await this.put(endpoint, { data: body });
 	}
 
@@ -70,7 +72,11 @@ export class BuildingStrapiRepository extends StrapiQueryRepository implements B
 		return {
 			name: building.name,
 			address: building.address,
-			rooms: building.rooms,
+			rooms: building.rooms && building.rooms.length > 0
+				? {
+					connect: building.rooms.map((room) => room.documentId), //ignore error, works
+				}
+				: [],
 		};
 	}
 }

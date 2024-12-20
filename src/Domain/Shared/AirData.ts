@@ -1,5 +1,5 @@
 export type AirData = {
-	temperature: number;
-	humidity: number;
-	ppm: number;
+	temperature: number | null;
+	humidity: number | null;
+	ppm: number | null;
 };

@@ -33,7 +33,7 @@ export class RemoveDeviceFromRoomEndpoint implements Endpoint {
 
 	private buildRequest(
 		context: RouterContext<string>,
-	): Promise<RemoveDeviceFromRoomRequest> {
+	): RemoveDeviceFromRoomRequest {
 		const roomDocumentId = context.params.roomDocumentId;
 		const deviceDocumentId = context.params.deviceDocumentId;
 
