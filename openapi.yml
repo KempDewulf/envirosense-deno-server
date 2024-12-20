@@ -101,7 +101,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Building'
+                $ref: '#/components/schemas/PutBuildingResponse'
         '400':
           description: Bad request
           content:
@@ -278,7 +278,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Room'
+                $ref: '#/components/schemas/PutRoomResponse'
         '400':
           description: Bad request
           content:
@@ -474,7 +474,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Device'
+                $ref: '#/components/schemas/PutDeviceResponse'
         '400':
           description: Bad request
           content:
@@ -1081,6 +1081,42 @@ components:
           - device
           - timestamp
           - airData
+
+    PutBuildingResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        address:
+          type: string
+      required:
+        - id
+        - name
+        - address
+
+    PutRoomResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required:
+        - id
+        - name
+
+    PutDeviceResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        identifier:
+          type: string
+      required:
+        - id
+        - identifier
 
     ErrorResponse:
       type: object
