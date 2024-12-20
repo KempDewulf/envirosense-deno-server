@@ -689,16 +689,15 @@ components:
       required:
         - name
         - roomTypeDocumentId
+        - buildingDocumentId
 
     UpdateRoomRequest:
       type: object
       properties:
         name:
           type: string
-        roomTypeDocumentId:
-          type: string
 
-    AirQualityResponse:
+    AirQuality:
       type: object
       required:
         - id
@@ -727,7 +726,6 @@ components:
               type: number
               format: float
 
-
     AddDeviceToRoomRequest:
       type: object
       properties:
@@ -746,13 +744,19 @@ components:
           type: string
         documentId:
           type: string
-        typeName:
+        name:
           type: string
-        description:
+        icon:
           type: string
+        rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Room'
+          description: Rooms with this room type
       required:
         - id
-        - typeName
+        - name
+        - icon
 
     Device:
       type: object
@@ -772,6 +776,7 @@ components:
       required:
         - id
         - identifier
+        - room
 
     CreateDeviceRequest:
       type: object
@@ -789,6 +794,8 @@ components:
       properties:
         identifier:
           type: string
+      required:
+        - identifier
 
     DeviceData:
       type: object
@@ -813,10 +820,13 @@ components:
     AddDeviceDataRequest:
       type: object
       properties:
-        airData:
-          $ref: '#/components/schemas/AirData'
+        device_data:
+          type: array
+          items:
+            type: string
+          description: Array of device data document IDs to add
       required:
-        - airData
+        - device_data
 
     AirData:
       type: object
