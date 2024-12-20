@@ -32,7 +32,6 @@ export class UpdateDevice implements UseCase<UpdateDeviceInput> {
 
 		const output: UpdateDeviceOutput = {
 			id: device.id,
-			documentId: device.id,
 			identifier: device.identifier,
 		};
 
