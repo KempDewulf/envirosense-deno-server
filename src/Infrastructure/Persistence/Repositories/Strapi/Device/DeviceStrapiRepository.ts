@@ -92,7 +92,7 @@ export class DeviceStrapiRepository extends StrapiQueryRepository implements Dev
 			identifier: device.identifier,
 			room: device.room
 				? {
-					connect: [device.room.id], //ignore error, works
+					connect: [device.room.id], //ignore error, works - put needs documentId but POST .id
 				}
 				: null,
 			device_data: device.deviceData && device.deviceData.length > 0
