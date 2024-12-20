@@ -97,7 +97,7 @@ export class DeviceStrapiRepository extends StrapiQueryRepository implements Dev
 				: null,
 			device_data: device.deviceData && device.deviceData.length > 0
 				? {
-					connect: device.deviceData.map((deviceData) => deviceData.documentId),
+					connect: device.deviceData.map((deviceData) => deviceData.documentId), //ignore error, works
 				}
 				: [],
 		};
