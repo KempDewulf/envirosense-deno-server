@@ -865,12 +865,12 @@ components:
                 name:
                   type: string
                   example: "Mock Room Name"
-      required:
-        - id
-        - documentId
-        - name
-        - address
-        - rooms
+        required:
+          - id
+          - documentId
+          - name
+          - address
+          - rooms
 
     GetRoomsResponse:
       type: array
@@ -945,7 +945,7 @@ components:
                 {
                   "id": 1,
                   "documentId": "mockDeviceDocId101",
-                  "identifier": "mockDeviceIdentifier",
+                  "identifier": "mockDeviceIdentifier"
                 }
               ]
         required:
@@ -1028,7 +1028,7 @@ components:
                   "timestamp": "2024-12-16T20:57:00Z",
                   "temperature": 25.5,
                   "humidity": 55.3,
-                  "gas_ppm": 500,
+                  "gas_ppm": 500
                 }
               ]
         required:
@@ -1101,6 +1101,7 @@ components:
           type: array
           items:
             type: string
+
   securitySchemes:
     bearerAuth:
       type: http
