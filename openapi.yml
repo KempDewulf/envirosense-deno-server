@@ -339,7 +339,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AirQualityResponse'
+                $ref: '#/components/schemas/AirQuality'
 
   /rooms/{roomDocumentId}/devices:
     post:
@@ -609,7 +609,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         documentId:
           type: string
         name:
@@ -622,6 +622,7 @@ components:
             $ref: '#/components/schemas/Room'
       required:
         - id
+        - documentId
         - name
         - address
 
@@ -659,7 +660,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         documentId:
           type: string
         name:
@@ -705,8 +706,7 @@ components:
         - airQuality
       properties:
         id:
-          type: string
-          description: Room ID
+          type: integer
         enviroScore:
           type: integer
         airQuality:
@@ -741,7 +741,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         documentId:
           type: string
         name:
@@ -762,7 +762,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         documentId:
           type: string
         identifier:
@@ -801,7 +801,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         documentId:
           type: string
         device:
