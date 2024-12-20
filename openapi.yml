@@ -31,9 +31,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Building'
+                $ref: '#/components/schemas/GetBuildingsResponse'
     post:
       tags:
         - Building
@@ -212,9 +210,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Room'
+                $ref: '#/components/schemas/GetRoomsResponse'
     post:
       tags:
         - Room
@@ -412,9 +408,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Device'
+                $ref: '#/components/schemas/GetDevicesResponse'
     post:
       tags:
         - Device
@@ -573,9 +567,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/DeviceData'
+                $ref: '#/components/schemas/GetDeviceDataResponse'
 
   /device-data/{deviceDataDocumentId}:
     get:
@@ -841,6 +833,266 @@ components:
           description: Array of device data document IDs to add
       required:
         - device_data
+
+    GetBuildingsResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            example: 1
+          documentId:
+            type: string
+            example: "mockDocumentId123"
+          name:
+            type: string
+            example: "Mock Building Name"
+          address:
+            type: string
+            example: "123 Mock Street, Mock City"
+          rooms:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 101
+                documentId:
+                  type: string
+                  example: "mockRoomDocId456"
+                name:
+                  type: string
+                  example: "Mock Room Name"
+      required:
+        - id
+        - documentId
+        - name
+        - address
+        - rooms
+
+    GetRoomsResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            example: 1
+          documentId:
+            type: string
+            example: "mockRoomDocId456"
+          name:
+            type: string
+            example: "Mock Room Name"
+          building:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 77
+              documentId:
+                type: string
+                example: "mockBuildingDocId123"
+              name:
+                type: string
+                example: "Mock Building Name"
+              address:
+                type: string
+                example: "123 Mock Street, Mock City"
+            required:
+              - id
+              - documentId
+              - name
+              - address
+          roomType:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 23
+              documentId:
+                type: string
+                example: "mockRoomTypeDocId789"
+              name:
+                type: string
+                example: "Mock Room Type"
+            required:
+              - id
+              - documentId
+              - name
+          devices:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 8
+                documentId:
+                  type: string
+                  example: "mockDeviceDocId101"
+                identifier:
+                  type: string
+                  example: "mockDeviceIdentifier"
+              required:
+                - id
+                - documentId
+                - identifier
+            example:
+              [
+                {
+                  "id": 1,
+                  "documentId": "mockDeviceDocId101",
+                  "identifier": "mockDeviceIdentifier",
+                }
+              ]
+        required:
+          - id
+          - documentId
+          - name
+          - building
+          - roomType
+          - devices
+
+    GetDevicesResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            example: 28
+          documentId:
+            type: string
+            example: "mockDeviceDocId789"
+          identifier:
+            type: string
+            example: "mockDeviceIdentifier123"
+          room:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 17
+              documentId:
+                type: string
+                example: "mockRoomDocId456"
+              name:
+                type: string
+                example: "Mock Room Name"
+            required:
+              - id
+              - documentId
+              - name
+          device_data:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 108
+                documentId:
+                  type: string
+                  example: "mockDeviceDataDocId101"
+                timestamp:
+                  type: string
+                  format: date-time
+                  example: "2024-12-16T20:57:00Z"
+                temperature:
+                  type: number
+                  format: float
+                  example: 25.5
+                humidity:
+                  type: number
+                  format: float
+                  example: 55.3
+                gas_ppm:
+                  type: number
+                  format: float
+                  example: 500
+              required:
+                - id
+                - documentId
+                - timestamp
+                - temperature
+                - humidity
+                - gas_ppm
+            example:
+              [
+                {
+                  "id": 108,
+                  "documentId": "mockDeviceDataDocId101",
+                  "timestamp": "2024-12-16T20:57:00Z",
+                  "temperature": 25.5,
+                  "humidity": 55.3,
+                  "gas_ppm": 500,
+                }
+              ]
+        required:
+          - id
+          - documentId
+          - identifier
+          - room
+          - device_data
+
+    GetDeviceDataResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            example: 94
+          documentId:
+            type: string
+            example: "teq4iyf0e92fk0rac6mprlgn"
+          device:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 8
+              documentId:
+                type: string
+                example: "o8kj26z868vopahzgxxgmvlm"
+              identifier:
+                type: string
+                example: "test1"
+            required:
+              - id
+              - documentId
+              - identifier
+          timestamp:
+            type: string
+            format: date-time
+            example: "2024-12-07T02:02:05.575Z"
+          airData:
+            type: object
+            properties:
+              temperature:
+                type: number
+                format: float
+                example: 26.2
+              humidity:
+                type: number
+                format: float
+                example: 57.4
+              ppm:
+                type: integer
+                example: 420
+            required:
+              - temperature
+              - humidity
+              - ppm
+        required:
+          - id
+          - documentId
+          - device
+          - timestamp
+          - airData
 
     ErrorResponse:
       type: object
