@@ -626,36 +626,6 @@ components:
         - name
         - address
 
-    CreateBuildingRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        address:
-          type: string
-      required:
-        - name
-        - address
-
-    UpdateBuildingRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        address:
-          type: string
-
-    AddRoomsToBuildingRequest:
-      type: object
-      properties:
-        rooms:
-          type: array
-          items:
-            type: string
-          description: Array of room document IDs to add
-      required:
-        - rooms
-
     Room:
       type: object
       properties:
@@ -677,26 +647,6 @@ components:
         - id
         - name
         - roomType
-
-    CreateRoomRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        roomTypeDocumentId:
-          type: string
-        buildingDocumentId:
-          type: string
-      required:
-        - name
-        - roomTypeDocumentId
-        - buildingDocumentId
-
-    UpdateRoomRequest:
-      type: object
-      properties:
-        name:
-          type: string
 
     AirQuality:
       type: object
@@ -725,17 +675,6 @@ components:
             ppm:
               type: number
               format: float
-
-    AddDeviceToRoomRequest:
-      type: object
-      properties:
-        devices:
-          type: array
-          items:
-            type: string
-          description: Array of device document IDs to add
-      required:
-        - devices
 
     RoomType:
       type: object
@@ -778,25 +717,6 @@ components:
         - identifier
         - room
 
-    CreateDeviceRequest:
-      type: object
-      properties:
-        identifier:
-          type: string
-        roomDocumentId:
-          type: string
-      required:
-        - identifier
-        - roomDocumentId
-
-    UpdateDeviceRequest:
-      type: object
-      properties:
-        identifier:
-          type: string
-      required:
-        - identifier
-
     DeviceData:
       type: object
       properties:
@@ -817,17 +737,6 @@ components:
         - timestamp
         - airData
 
-    AddDeviceDataRequest:
-      type: object
-      properties:
-        device_data:
-          type: array
-          items:
-            type: string
-          description: Array of device data document IDs to add
-      required:
-        - device_data
-
     AirData:
       type: object
       properties:
@@ -841,6 +750,97 @@ components:
         - temperature
         - humidity
         - ppm
+
+    CreateBuildingRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+      required:
+        - name
+        - address
+
+    UpdateBuildingRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+
+    AddRoomsToBuildingRequest:
+      type: object
+      properties:
+        rooms:
+          type: array
+          items:
+            type: string
+          description: Array of room document IDs to add
+      required:
+        - rooms
+
+    CreateRoomRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        roomTypeDocumentId:
+          type: string
+        buildingDocumentId:
+          type: string
+      required:
+        - name
+        - roomTypeDocumentId
+        - buildingDocumentId
+
+    UpdateRoomRequest:
+      type: object
+      properties:
+        name:
+          type: string
+
+    AddDeviceToRoomRequest:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            type: string
+          description: Array of device document IDs to add
+      required:
+        - devices
+
+    CreateDeviceRequest:
+      type: object
+      properties:
+        identifier:
+          type: string
+        roomDocumentId:
+          type: string
+      required:
+        - identifier
+        - roomDocumentId
+
+    UpdateDeviceRequest:
+      type: object
+      properties:
+        identifier:
+          type: string
+      required:
+        - identifier
+
+    AddDeviceDataRequest:
+      type: object
+      properties:
+        device_data:
+          type: array
+          items:
+            type: string
+          description: Array of device data document IDs to add
+      required:
+        - device_data
 
     ErrorResponse:
       type: object
