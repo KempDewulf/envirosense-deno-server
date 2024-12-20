@@ -1086,11 +1086,14 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          example: mockDocumentId123
         name:
           type: string
+          example: "Mock Building Name"
         address:
           type: string
+          example: "987 Mock Street, Mock City"
       required:
         - id
         - name
@@ -1100,9 +1103,11 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          example: mockRoomDocId987
         name:
           type: string
+          example: "Mock Room Name"
       required:
         - id
         - name
@@ -1111,9 +1116,11 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          example: mockDeviceDocId789
         identifier:
           type: string
+          example: "mockDeviceIdentifier987"
       required:
         - id
         - identifier
