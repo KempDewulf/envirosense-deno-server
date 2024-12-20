@@ -20,3 +20,5 @@ export { RoomType } from "EnviroSense/Domain/Entities/RoomType.ts";
 export type { RoomTypeState } from "EnviroSense/Domain/Entities/RoomType.ts";
 
 export type { AirData } from "EnviroSense/Domain/Shared/AirData.ts";
+
+export { sortDeviceDataDesc } from "EnviroSense/Domain/Shared/Helpers/sortDeviceDataDesc.ts";

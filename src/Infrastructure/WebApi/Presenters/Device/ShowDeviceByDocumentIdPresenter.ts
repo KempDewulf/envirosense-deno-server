@@ -1,6 +1,7 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
 import { OutputPort, ShowDeviceByDocumentIdOutput } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceData, Room } from "EnviroSense/Domain/mod.ts";
+import { sortDeviceDataDesc } from "EnviroSense/Domain/mod.ts";
 
 export type ShowDeviceByDocumentIdPresentedData = {
 	id: string;
@@ -34,7 +35,7 @@ export class ShowDeviceByDocumentIdPresenter implements OutputPort<ShowDeviceByD
 			documentId: data.documentId,
 			identifier: data.identifier,
 			room: data.room,
-			device_data: data.device_data,
+			device_data: sortDeviceDataDesc(data.device_data),
 		};
 	}
 }
