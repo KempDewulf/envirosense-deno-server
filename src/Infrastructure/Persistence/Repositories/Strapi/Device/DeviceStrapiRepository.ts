@@ -50,6 +50,7 @@ export class DeviceStrapiRepository extends StrapiQueryRepository implements Dev
 	async update(device: Device): Promise<void> {
 		const endpoint = `devices/${device.id}`;
 		const body = this.mapFromDomain(device);
+		console.log(body)
 
 		return await this.put(endpoint, { data: body });
 	}
@@ -91,10 +92,14 @@ export class DeviceStrapiRepository extends StrapiQueryRepository implements Dev
 			identifier: device.identifier,
 			room: device.room
 				? {
-					connect: [device.room.id],
+					connect: [device.room.documentId], //ignore error, works
 				}
 				: null,
-			device_data: device.deviceData,
+			device_data: device.deviceData && device.deviceData.length > 0
+				? {
+					connect: device.deviceData.map((deviceData) => deviceData.documentId),
+				}
+				: [],
 		};
 	}
 }
