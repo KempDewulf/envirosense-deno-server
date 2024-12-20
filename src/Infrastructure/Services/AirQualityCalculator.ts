@@ -10,11 +10,11 @@ export class AirQualityCalculator {
 
 	public async calculateAverageAirQuality(room: Room): Promise<AirData> {
 		const devices = room.devices;
-		const airData: AirData = { temperature: 0, humidity: 0, ppm: 0 };
+		const airData: AirData = { temperature: null, humidity: null, ppm: null };
 
 		for (const device of devices) {
 			const lastDeviceData = await this.getLastDeviceData(
-				device.documentId,
+				device.documentId, //ignore error, it works
 			);
 			if (lastDeviceData) {
 				this.aggregateAirData(airData, lastDeviceData);
@@ -24,15 +24,19 @@ export class AirQualityCalculator {
 		return this.computeAverages(airData, devices.length);
 	}
 
-	public async calculateEnviroScore(room: Room): Promise<number> {
+	public async calculateEnviroScore(room: Room): Promise<number | null> {
 		const devices = room.devices;
+
+		if (devices.length === 0) {
+            return null;
+        }
 
 		let totalEnviroScore = 0;
 		let processedDevices = 0;
 
 		for (const device of devices) {
 			const lastDeviceData = await this.getLastDeviceData(
-				device.documentId,
+				device.documentId, //ignore error, it works
 			);
 			if (lastDeviceData) {
 				const enviroScore = this.computeEnviroScore(lastDeviceData);
@@ -40,6 +44,10 @@ export class AirQualityCalculator {
 				processedDevices++;
 			}
 		}
+
+		if (processedDevices === 0) {
+            return null;
+        }
 
 		return this.computeFinalEnviroScore(totalEnviroScore, processedDevices);
 	}
@@ -53,20 +61,16 @@ export class AirQualityCalculator {
 	}
 
 	private aggregateAirData(airData: AirData, deviceData: any): void {
-		airData.temperature += deviceData.temperature;
-		airData.humidity += deviceData.humidity;
-		airData.ppm += deviceData.gas_ppm;
+		airData.temperature = (airData.temperature ?? 0) + deviceData.temperature;
+		airData.humidity = (airData.humidity ?? 0) + deviceData.humidity;
+		airData.ppm = (airData.ppm ?? 0) + deviceData.gas_ppm;
 	}
 
 	private computeAverages(airData: AirData, deviceCount: number): AirData {
 		if (deviceCount > 0) {
-			airData.temperature = parseFloat(
-				(airData.temperature / deviceCount).toFixed(2),
-			);
-			airData.humidity = parseFloat(
-				(airData.humidity / deviceCount).toFixed(2),
-			);
-			airData.ppm = parseFloat((airData.ppm / deviceCount).toFixed(2));
+			airData.temperature = airData.temperature !== null ? parseFloat((airData.temperature / deviceCount).toFixed(2)) : null;
+			airData.humidity = airData.humidity !== null ? parseFloat((airData.humidity / deviceCount).toFixed(2)) : null;
+			airData.ppm = airData.ppm !== null ? parseFloat((airData.ppm / deviceCount).toFixed(2)) : null;
 		}
 		return airData;
 	}
@@ -110,7 +114,7 @@ export class AirQualityCalculator {
 	private computeFinalEnviroScore(
 		totalScore: number,
 		deviceCount: number,
-	): number {
-		return deviceCount > 0 ? Math.round(totalScore / deviceCount) : 0;
+	): number | null {
+		return deviceCount > 0 ? Math.round(totalScore / deviceCount) : null;
 	}
 }
