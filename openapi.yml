@@ -46,10 +46,6 @@ paths:
       responses:
         '201':
           description: Building created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Building'
         '400':
           description: Bad request
           content:
@@ -160,10 +156,6 @@ paths:
       responses:
         '200':
           description: Rooms added to building
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Building'
         '400':
           description: Bad request
           content:
@@ -225,10 +217,6 @@ paths:
       responses:
         '201':
           description: Room created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Room'
         '400':
           description: Bad request
           content:
@@ -358,10 +346,6 @@ paths:
       responses:
         '200':
           description: Device added to room
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Room'
         '400':
           description: Bad request
           content:
@@ -423,10 +407,6 @@ paths:
       responses:
         '201':
           description: Device created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Device'
         '400':
           description: Bad request
           content:
@@ -537,10 +517,6 @@ paths:
       responses:
         '200':
           description: Device data added successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeviceData'
         '400':
           description: Bad request
           content:
