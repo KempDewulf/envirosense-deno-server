@@ -1,4 +1,9 @@
-import { DeleteAllDeviceDataFromDeviceInput, DeviceDataRepository, DeviceRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	DeleteAllDeviceDataFromDeviceInput,
+	DeviceDataRepository,
+	DeviceRepository,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export class DeleteAllDeviceDataFromDevice implements UseCase<DeleteAllDeviceDataFromDeviceInput> {
 	private readonly _deviceRepository: DeviceRepository;

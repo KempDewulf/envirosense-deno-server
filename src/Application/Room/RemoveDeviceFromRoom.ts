@@ -1,16 +1,19 @@
-import { DeviceRepository, RemoveDeviceFromRoomInput, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import { DeviceRepository, RemoveDeviceFromRoomInput, RoomRepository, DeviceDataRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Room/RoomStrapiRepository.ts";
 
 export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> {
 	private readonly _roomRepository: RoomRepository;
 	private readonly _deviceRepository: DeviceRepository;
+	private readonly _deviceDataRepository: DeviceDataRepository;
 
 	constructor(
 		roomRepository: RoomRepository,
 		deviceRepository: DeviceRepository,
+		deviceDataRepository: DeviceDataRepository,
 	) {
 		this._roomRepository = roomRepository;
 		this._deviceRepository = deviceRepository;
+		this._deviceDataRepository = deviceDataRepository;
 	}
 
 	async execute(input: RemoveDeviceFromRoomInput): Promise<void> {
@@ -44,6 +47,12 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 			DeviceOperation.REMOVE,
 		);
 
-		await this._deviceRepository.removeDeviceData(device.id);
+		const deviceData = device.deviceData;
+
+		deviceData.forEach(async (deviceData) => {
+			await this._deviceDataRepository.deleteEntity(deviceData);
+		});
+
+		device.deviceData = [];
 	}
 }
