@@ -45,6 +45,7 @@ export class AirQualityCalculator {
 		const totalEnviroScore = validScores.reduce((acc, score) => acc + score, 0);
 		const finalEnviroScore = processedDevices > 0 ? this.computeFinalEnviroScore(totalEnviroScore, processedDevices) : null;
 
+		console.log("Deno Server responded with the following data: ", averageAirData, finalEnviroScore);
 		return { airData: averageAirData, enviroScore: finalEnviroScore };
 	}
 
