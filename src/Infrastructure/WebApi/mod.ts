@@ -114,6 +114,11 @@ export { DeleteDeviceController } from "EnviroSense/Infrastructure/WebApi/Contro
 export type { DeleteDeviceRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/DeleteDeviceController.ts";
 export { DeleteDevicePresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/DeleteDevicePresenter.ts";
 
+export { DeleteAllDeviceDataFromDeviceEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/Device/DeleteAllDeviceDataFromDeviceEndpoint.ts";
+export { DeleteAllDeviceDataFromDeviceController } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/DeleteAllDeviceDataFromDeviceController.ts";
+export type { DeleteAllDeviceDataFromDeviceRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/DeleteAllDeviceDataFromDeviceController.ts";
+export { DeleteAllDeviceDataFromDevicePresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/DeleteAllDeviceDataFromDevicePresenter.ts";
+
 export { UpdateDeviceEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/Device/UpdateDeviceEndpoint.ts";
 export { UpdateDeviceController } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/UpdateDeviceController.ts";
 export type { UpdateDeviceRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/UpdateDeviceController.ts";

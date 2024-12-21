@@ -102,11 +102,23 @@ export class Device {
 		return this._identifier;
 	}
 
+	set identifier(identifier: string) {
+		this._identifier = identifier;
+	}
+
 	get room(): Room | null {
 		return this._room;
 	}
 
+	set room(room: Room | null) {
+		this._room = room;
+	}
+
 	get deviceData(): DeviceData[] {
 		return this._deviceData;
+	}
+
+	set deviceData(deviceData: DeviceData[]) {
+		this._deviceData = deviceData;
 	}
 }

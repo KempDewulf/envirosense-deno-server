@@ -16,6 +16,8 @@ tags:
     description: Endpoints related to buildings
   - name: Room
     description: Endpoints related to rooms
+  - name: Room Type
+    description: Endpoints related to room types
   - name: Device
     description: Endpoints related to devices
   - name: Device Data
@@ -395,6 +397,103 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /room-types:
+    get:
+      tags:
+          - Room Type
+      summary: Get all room types
+      responses:
+        '200':
+          description: A list of room types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoomType'
+    post:
+      tags:
+           - Room Type
+      summary: Create a new room type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoomTypeRequest'
+      responses:
+        '201':
+          description: Room type created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomType'
+        '400':
+          description: Invalid input
+
+  /room-types/{roomTypeDocumentId}:
+    get:
+      tags:
+          - Room Type
+      summary: Get a room type by ID
+      parameters:
+        - in: path
+          name: roomTypeDocumentId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A room type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomType'
+        '404':
+          description: Room type not found
+    put:
+      tags:
+          - Room Type
+      summary: Update a room type by ID
+      parameters:
+        - in: path
+          name: roomTypeDocumentId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRoomTypeRequest'
+      responses:
+        '200':
+          description: Room type updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomType'
+        '400':
+          description: Invalid input
+        '404':
+          description: Room type not found
+    delete:
+      tags:
+            - Room Type
+      summary: Delete a room type by ID
+      parameters:
+        - in: path
+          name: roomTypeDocumentId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Room type deleted successfully
+        '404':
+          description: Room type not found
+
   /devices:
     get:
       tags:
@@ -538,6 +637,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Device
+      summary: Remove all device data from a device
+      operationId: removeAllDeviceDataFromDevice
+      parameters:
+        - name: deviceDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Device data removed successfully
+        '404':
+          description: Device not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /device-data:
     get:
@@ -588,6 +707,21 @@ paths:
 
 components:
   schemas:
+    RoomType:
+        type: object
+        properties:
+          id:
+            type: string
+          documentId:
+            type: string
+          name:
+            type: string
+          icon:
+            type: string
+          rooms:
+            type: array
+            items:
+              $ref: '#/components/schemas/Room'
     Building:
       type: object
       properties:
@@ -659,27 +793,6 @@ components:
               type: number
               format: float
 
-    RoomType:
-      type: object
-      properties:
-        id:
-          type: integer
-        documentId:
-          type: string
-        name:
-          type: string
-        icon:
-          type: string
-        rooms:
-          type: array
-          items:
-            $ref: '#/components/schemas/Room'
-          description: Rooms with this room type
-      required:
-        - id
-        - name
-        - icon
-
     Device:
       type: object
       properties:
@@ -733,6 +846,21 @@ components:
         - temperature
         - humidity
         - ppm
+
+    CreateRoomTypeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        icon:
+          type: string
+    UpdateRoomTypeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        icon:
+          type: string
 
     CreateBuildingRequest:
       type: object
