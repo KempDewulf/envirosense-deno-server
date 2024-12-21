@@ -13,6 +13,8 @@ export class AirQualityCalculator {
 		const airData: AirData = { temperature: null, humidity: null, ppm: null };
 
 		for (const device of devices) {
+			console.log("device", device);
+
 			const lastDeviceData = await this.getLastDeviceData(
 				device.documentId, //ignore error, it works
 			);
@@ -38,6 +40,7 @@ export class AirQualityCalculator {
 			const lastDeviceData = await this.getLastDeviceData(
 				device.documentId, //ignore error, it works
 			);
+			console.log("lastDeviceData", lastDeviceData);
 			if (lastDeviceData) {
 				const enviroScore = this.computeEnviroScore(lastDeviceData);
 				totalEnviroScore += enviroScore;
