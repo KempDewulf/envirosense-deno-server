@@ -399,6 +399,8 @@ paths:
 
   /room-types:
     get:
+      tags:
+          - Room Type
       summary: Get all room types
       responses:
         '200':
@@ -410,6 +412,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/RoomType'
     post:
+      tags:
+           - Room Type
       summary: Create a new room type
       requestBody:
         required: true
@@ -429,6 +433,8 @@ paths:
 
   /room-types/{roomTypeDocumentId}:
     get:
+      tags:
+          - Room Type
       summary: Get a room type by ID
       parameters:
         - in: path
@@ -446,6 +452,8 @@ paths:
         '404':
           description: Room type not found
     put:
+      tags:
+          - Room Type
       summary: Update a room type by ID
       parameters:
         - in: path
@@ -471,6 +479,8 @@ paths:
         '404':
           description: Room type not found
     delete:
+      tags:
+            - Room Type
       summary: Delete a room type by ID
       parameters:
         - in: path
