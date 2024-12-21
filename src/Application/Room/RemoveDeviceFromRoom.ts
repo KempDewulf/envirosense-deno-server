@@ -37,13 +37,13 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 			);
 
 			room.removeDevice(device.id);
-			device.room = null;
 
 			await this._roomRepository.manageDevices(
 				room.id,
 				[input.deviceDocumentId],
 				DeviceOperation.REMOVE,
 			);
+
 			for (const data of device.deviceData) {
 				try {
 					await this._deviceDataRepository.deleteEntity(data);
@@ -51,9 +51,8 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 					throw new Error(`Failed to remove device data`);
 				}
 			}
-			device.deviceData = [];
 
-			await this._deviceRepository.update(device);
+			device.deviceData = [];
 		} catch (error) {
 			throw new Error(`Failed to remove device from room:`);
 		}
