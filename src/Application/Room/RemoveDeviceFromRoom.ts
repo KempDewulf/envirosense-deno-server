@@ -37,26 +37,23 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 			);
 
 			room.removeDevice(device.id);
+			device.room = null;
 
 			await this._roomRepository.manageDevices(
 				room.id,
 				[input.deviceDocumentId],
 				DeviceOperation.REMOVE,
 			);
-
-			console.log("succesfully disconnected the device from the room");
-
 			for (const data of device.deviceData) {
 				try {
-					console.log("deleting the device data: ", data);
-					const resp = await this._deviceDataRepository.deleteEntity(data);
-					console.log("the resp was ", resp);
+					await this._deviceDataRepository.deleteEntity(data);
 				} catch (error) {
 					throw new Error(`Failed to remove device data`);
 				}
 			}
-
 			device.deviceData = [];
+
+			await this._deviceRepository.update(device);
 		} catch (error) {
 			throw new Error(`Failed to remove device from room:`);
 		}
