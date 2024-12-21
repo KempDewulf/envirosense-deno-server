@@ -44,18 +44,15 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 				DeviceOperation.REMOVE,
 			);
 
-			// for (const data of device.deviceData) {
-			// 	try {
-			// 		await this._deviceDataRepository.deleteEntity(data);
-			// 	} catch (error) {
-			// 		throw new Error(`Failed to remove device data`);
-			// 	}
-			// }
+			for (const data of device.deviceData) {
+				try {
+					await this._deviceDataRepository.deleteEntity(data);
+				} catch (error) {
+					throw new Error(`Failed to remove device data`);
+				}
+			}
 
 			device.deviceData = [];
-			console.log("clearing device data with empty array ", device.deviceData);
-			await this._deviceRepository.update(device);
-			console.log("updated the device request with empty array ", device.identifier, device.deviceData);
 		} catch (error) {
 			throw new Error(`Failed to remove device from room:`);
 		}
