@@ -9,7 +9,7 @@ export class AirQualityCalculator {
 	}
 
 	private async fetchAllDeviceData(devices: Device[]): Promise<(any | null)[]> {
-		return Promise.all(
+		return await Promise.all(
 			devices.map(async (device) => {
 				return await this.getLastDeviceData(device.documentId);
 			}),

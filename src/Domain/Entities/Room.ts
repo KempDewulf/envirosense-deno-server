@@ -129,4 +129,8 @@ export class Room {
 	get devices(): Device[] {
 		return this._devices;
 	}
+
+	set devices(devices: Device[]) {
+		this._devices = devices;
+	}
 }
