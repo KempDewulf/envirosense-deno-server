@@ -8,39 +8,74 @@ export class AirQualityCalculator {
 		this.deviceRepository = deviceRepository;
 	}
 
-	public async calculateAverageAirQuality(room: Room): Promise<AirData> {
+	private async fetchAllDeviceData(devices: Device[]): Promise<(any | null)[]> {
+		return Promise.all(
+			devices.map(async (device) => {
+				return await this.getLastDeviceData(device.documentId);
+			}),
+		);
+	}
+
+	public async calculateMetrics(room: Room): Promise<{ airData: AirData; enviroScore: number | null }> {
 		const devices = room.devices;
+
+		if (devices.length === 0) {
+			return { airData: { temperature: null, humidity: null, ppm: null }, enviroScore: null };
+		}
+
+		const allDeviceData = await this.fetchAllDeviceData(devices);
+
 		const airData: AirData = { temperature: null, humidity: null, ppm: null };
+		allDeviceData.forEach((lastDeviceData) => {
+			if (lastDeviceData) {
+				this.aggregateAirData(airData, lastDeviceData);
+			}
+		});
+		const averageAirData = this.computeAverages(airData, devices.length);
 
-		const allDeviceData = await this.fetchAllLastDeviceData(devices);
+		const enviroScores = allDeviceData.map((lastDeviceData) => {
+			if (lastDeviceData) {
+				return this.computeEnviroScore(lastDeviceData);
+			}
+			return null;
+		});
 
+		const validScores = enviroScores.filter((score) => score !== null) as number[];
+		const processedDevices = validScores.length;
+		const totalEnviroScore = validScores.reduce((acc, score) => acc + score, 0);
+		const finalEnviroScore = processedDevices > 0 ? this.computeFinalEnviroScore(totalEnviroScore, processedDevices) : null;
+
+		return { airData: averageAirData, enviroScore: finalEnviroScore };
+	}
+
+	public async calculateAverageAirQuality(room: Room, allDeviceData?: (any | null)[]): Promise<AirData> {
+		if (!allDeviceData) {
+			allDeviceData = await this.fetchAllDeviceData(room.devices);
+		}
+
+		const airData: AirData = { temperature: null, humidity: null, ppm: null };
 		allDeviceData.forEach((lastDeviceData) => {
 			if (lastDeviceData) {
 				this.aggregateAirData(airData, lastDeviceData);
 			}
 		});
 
-		return this.computeAverages(airData, devices.length);
+		return this.computeAverages(airData, room.devices.length);
 	}
 
-	public async calculateEnviroScore(room: Room): Promise<number | null> {
-		const devices = room.devices;
-
-		if (devices.length === 0) {
-			return null;
+	public async calculateEnviroScore(room: Room, allDeviceData?: (any | null)[]): Promise<number | null> {
+		if (!allDeviceData) {
+			allDeviceData = await this.fetchAllDeviceData(room.devices);
 		}
 
-		const enviroScores = await Promise.all(
-			devices.map(async (device) => {
-				const lastDeviceData = await this.getLastDeviceData(device.documentId);
-				if (lastDeviceData) {
-					return this.computeEnviroScore(lastDeviceData);
-				}
-				return null;
-			}),
-		);
+		const enviroScores = allDeviceData.map((lastDeviceData) => {
+			if (lastDeviceData) {
+				return this.computeEnviroScore(lastDeviceData);
+			}
+			return null;
+		});
 
-		const validScores = enviroScores.filter((score) => score !== null);
+		const validScores = enviroScores.filter((score) => score !== null) as number[];
 		const processedDevices = validScores.length;
 		const totalEnviroScore = validScores.reduce((acc, score) => acc + score, 0);
 
@@ -49,14 +84,6 @@ export class AirQualityCalculator {
 		}
 
 		return this.computeFinalEnviroScore(totalEnviroScore, processedDevices);
-	}
-
-	private async fetchAllLastDeviceData(devices: Device[]): Promise<(any | null)[]> {
-		return Promise.all(
-			devices.map(async (device) => {
-				return await this.getLastDeviceData(device.documentId);
-			}),
-		);
 	}
 
 	private async getLastDeviceData(documentId: string): Promise<any | null> {

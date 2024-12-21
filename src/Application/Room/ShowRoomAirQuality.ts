@@ -33,11 +33,8 @@ export class ShowRoomAirQuality implements UseCase<ShowRoomAirQualityInput> {
 
 		const roomEntity = Room.load(roomDto);
 
-		const enviroScore = await this._airQualityCalculator
-			.calculateEnviroScore(roomEntity);
-
-		const averagedAirQuality = await this._airQualityCalculator
-			.calculateAverageAirQuality(roomEntity);
+		const { airData: averagedAirQuality, enviroScore } = await this._airQualityCalculator
+			.calculateMetrics(roomEntity);
 
 		const airQuality = this.mapDataToOutput(
 			roomDto,
