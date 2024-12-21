@@ -32,27 +32,26 @@ export class AirQualityCalculator {
 		const devices = room.devices;
 
 		if (devices.length === 0) {
-            return null;
-        }
-
-		let totalEnviroScore = 0;
-		let processedDevices = 0;
-
-		for (const device of devices) {
-			const lastDeviceData = await this.getLastDeviceData(
-				device.documentId, //ignore error, it works
-			);
-			
-			if (lastDeviceData) {
-				const enviroScore = this.computeEnviroScore(lastDeviceData);
-				totalEnviroScore += enviroScore;
-				processedDevices++;
-			}
+			return null;
 		}
 
+		const enviroScores = await Promise.all(
+			devices.map(async (device) => {
+				const lastDeviceData = await this.getLastDeviceData(device.documentId);
+				if (lastDeviceData) {
+					return this.computeEnviroScore(lastDeviceData);
+				}
+				return null;
+			}),
+		);
+
+		const validScores = enviroScores.filter((score) => score !== null);
+		const processedDevices = validScores.length;
+		const totalEnviroScore = validScores.reduce((acc, score) => acc + score, 0);
+
 		if (processedDevices === 0) {
-            return null;
-        }
+			return null;
+		}
 
 		return this.computeFinalEnviroScore(totalEnviroScore, processedDevices);
 	}
