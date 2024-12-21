@@ -115,7 +115,7 @@ export function endpoints(): Router {
 		"/devices/:deviceDocumentId",
 		use(new DeleteDeviceEndpoint()),
 	);
-	router.delete('/devices/:deviceDocumentId/device-data/', use(new DeleteAllDeviceDataFromDeviceEndpoint()));
+	router.delete('/devices/:deviceDocumentId/device-data', use(new DeleteAllDeviceDataFromDeviceEndpoint()));
 	router.put("/devices/:deviceDocumentId", use(new UpdateDeviceEndpoint()));
 
 	router.get("/device-data", use(new ShowDeviceDataEndpoint()));
