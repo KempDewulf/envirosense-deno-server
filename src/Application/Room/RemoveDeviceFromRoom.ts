@@ -43,5 +43,7 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 			[input.deviceDocumentId],
 			DeviceOperation.REMOVE,
 		);
+
+		await this._deviceRepository.removeDeviceData(device.id);
 	}
 }
