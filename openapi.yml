@@ -627,6 +627,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Device
+      summary: Remove all device data from a device
+      operationId: removeAllDeviceDataFromDevice
+      parameters:
+        - name: deviceDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Device data removed successfully
+        '404':
+          description: Device not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /device-data:
     get:
