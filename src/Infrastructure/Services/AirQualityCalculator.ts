@@ -92,8 +92,11 @@ export class AirQualityCalculator {
 			documentId,
 		);
 		console.log("deviceWithDeviceData", deviceWithDeviceData);
+
 		const deviceDataArray = deviceWithDeviceData?.value?.device_data || [];
-		return deviceDataArray.length > 0 ? deviceDataArray[deviceDataArray.length - 1] : null;
+		const lastDeviceData = deviceDataArray.length > 0 ? deviceDataArray[deviceDataArray.length - 1] : null;
+		console.log("Last Device Data:", lastDeviceData);
+		return lastDeviceData;
 	}
 
 	private aggregateAirData(airData: AirData, deviceData: any): void {
