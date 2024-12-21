@@ -12,8 +12,10 @@ export class AirQualityCalculator {
 		const devices = room.devices;
 		const airData: AirData = { temperature: null, humidity: null, ppm: null };
 
+		console.log("devices", devices);
+
 		for (const device of devices) {
-			console.log("device", device);
+			console.log("device", device.identifier);
 
 			const lastDeviceData = await this.getLastDeviceData(
 				device.documentId, //ignore error, it works
