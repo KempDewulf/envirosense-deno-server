@@ -42,7 +42,7 @@ export class AirQualityCalculator {
 			const lastDeviceData = await this.getLastDeviceData(
 				device.documentId, //ignore error, it works
 			);
-			console.log("lastDeviceData", lastDeviceData);
+			
 			if (lastDeviceData) {
 				const enviroScore = this.computeEnviroScore(lastDeviceData);
 				totalEnviroScore += enviroScore;
@@ -61,6 +61,7 @@ export class AirQualityCalculator {
 		const deviceWithDeviceData = await this.deviceRepository.find(
 			documentId,
 		);
+		console.log("deviceWithDeviceData", deviceWithDeviceData);
 		const deviceDataArray = deviceWithDeviceData?.value?.device_data || [];
 		return deviceDataArray.length > 0 ? deviceDataArray[deviceDataArray.length - 1] : null;
 	}
