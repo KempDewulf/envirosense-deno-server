@@ -1,5 +1,5 @@
 import { DeviceQueryRepository } from "EnviroSense/Application/Contracts/mod.ts";
-import { AirData, Room } from "EnviroSense/Domain/mod.ts";
+import { AirData, Device, Room } from "EnviroSense/Domain/mod.ts";
 
 export class AirQualityCalculator {
 	private readonly deviceRepository: DeviceQueryRepository;
@@ -12,18 +12,13 @@ export class AirQualityCalculator {
 		const devices = room.devices;
 		const airData: AirData = { temperature: null, humidity: null, ppm: null };
 
-		console.log("devices", devices);
+		const allDeviceData = await this.fetchAllLastDeviceData(devices);
 
-		for (const device of devices) {
-			console.log("device", device.identifier);
-
-			const lastDeviceData = await this.getLastDeviceData(
-				device.documentId, //ignore error, it works
-			);
+		allDeviceData.forEach((lastDeviceData) => {
 			if (lastDeviceData) {
 				this.aggregateAirData(airData, lastDeviceData);
 			}
-		}
+		});
 
 		return this.computeAverages(airData, devices.length);
 	}
@@ -54,6 +49,14 @@ export class AirQualityCalculator {
 		}
 
 		return this.computeFinalEnviroScore(totalEnviroScore, processedDevices);
+	}
+
+	private async fetchAllLastDeviceData(devices: Device[]): Promise<(any | null)[]> {
+		return Promise.all(
+			devices.map(async (device) => {
+				return await this.getLastDeviceData(device.documentId);
+			}),
+		);
 	}
 
 	private async getLastDeviceData(documentId: string): Promise<any | null> {
