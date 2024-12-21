@@ -36,15 +36,19 @@ export class AirQualityCalculator {
 		console.log("All Device Data:", allDeviceData);
 
 		const airData: AirData = { temperature: null, humidity: null, ppm: null };
+		let validDeviceCount = 0; // Initialize valid device count
+
 		allDeviceData.forEach((lastDeviceData, index) => {
 			console.log(`Aggregating data from device ${index + 1}:`, lastDeviceData);
 			if (lastDeviceData) {
 				this.aggregateAirData(airData, lastDeviceData);
+				validDeviceCount += 1; // Increment count for valid data
 			}
 		});
 		console.log("Aggregated Air Data:", airData);
+		console.log("Valid Device Count:", validDeviceCount);
 
-		const averageAirData = this.computeAverages(airData, devices.length);
+		const averageAirData = this.computeAverages(airData, validDeviceCount);
 		console.log("Average Air Data:", averageAirData);
 
 		const enviroScores = allDeviceData.map((lastDeviceData, index) => {
@@ -133,6 +137,11 @@ export class AirQualityCalculator {
 			airData.humidity = airData.humidity !== null ? parseFloat((airData.humidity / deviceCount).toFixed(2)) : null;
 			airData.ppm = airData.ppm !== null ? parseFloat((airData.ppm / deviceCount).toFixed(2)) : null;
 			console.log("Computed Averages:", airData);
+		} else {
+			console.log("No valid device data to compute averages.");
+			airData.temperature = null;
+			airData.humidity = null;
+			airData.ppm = null;
 		}
 		return airData;
 	}
