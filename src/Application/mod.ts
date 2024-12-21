@@ -21,6 +21,7 @@ export { RemoveRoomFromBuilding } from "./Building/RemoveRoomFromBuilding.ts";
 export { ShowDevices } from "./Device/ShowDevices.ts";
 export { CreateDevice } from "./Device/CreateDevice.ts";
 export { DeleteDevice } from "./Device/DeleteDevice.ts";
+export { DeleteAllDeviceDataFromDevice } from "./Device/DeleteAllDeviceDataFromDevice.ts";
 export { UpdateDevice } from "./Device/UpdateDevice.ts";
 export { ShowDeviceByDocumentId } from "./Device/ShowDeviceByDocumentId.ts";
 export { AddDeviceDataToDevice } from "./Device/AddDeviceDataToDevice.ts";
