@@ -1,4 +1,10 @@
-import { DeviceRepository, RemoveDeviceFromRoomInput, RoomRepository, DeviceDataRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	DeviceDataRepository,
+	DeviceRepository,
+	RemoveDeviceFromRoomInput,
+	RoomRepository,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Room/RoomStrapiRepository.ts";
 
 export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> {
@@ -17,42 +23,40 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 	}
 
 	async execute(input: RemoveDeviceFromRoomInput): Promise<void> {
-		const roomOptional = await this._roomRepository.find(
-			input.roomDocumentId,
-		);
+		try {
+			const roomOptional = await this._roomRepository.find(input.roomDocumentId);
 
-		const room = roomOptional.orElseThrow(
-			() =>
-				new Error(
-					`Room with ID ${input.roomDocumentId} not found.`,
-				),
-		);
+			const room = roomOptional.orElseThrow(
+				() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
+			);
 
-		const deviceOptional = await this._deviceRepository.find(
-			input.deviceDocumentId,
-		);
+			const deviceOptional = await this._deviceRepository.find(input.deviceDocumentId);
 
-		const device = deviceOptional.orElseThrow(
-			() =>
-				new Error(
-					`Device with documentId ${input.deviceDocumentId} not found.`,
-				),
-		);
+			const device = deviceOptional.orElseThrow(
+				() => new Error(`Device with documentId ${input.deviceDocumentId} not found.`),
+			);
 
-		room.removeDevice(device.id);
+			room.removeDevice(device.id);
 
-		await this._roomRepository.manageDevices(
-			room.id,
-			[input.deviceDocumentId],
-			DeviceOperation.REMOVE,
-		);
+			await this._roomRepository.manageDevices(
+				room.id,
+				[input.deviceDocumentId],
+				DeviceOperation.REMOVE,
+			);
 
-		const deviceData = device.deviceData;
+			const deviceData = device.deviceData;
 
-		deviceData.forEach(async (deviceData) => {
-			await this._deviceDataRepository.deleteEntity(deviceData);
-		});
+			for (const data of deviceData) {
+				try {
+					await this._deviceDataRepository.deleteEntity(data);
+				} catch (error) {
+					throw new Error(`Failed to remove device data: ${error.message}`);
+				}
+			}
 
-		device.deviceData = [];
+			device.deviceData = [];
+		} catch (error) {
+			throw new Error(`Failed to remove device from room: ${error.message}`);
+		}
 	}
 }
