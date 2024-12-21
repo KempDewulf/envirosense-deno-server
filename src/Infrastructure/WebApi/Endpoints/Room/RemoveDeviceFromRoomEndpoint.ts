@@ -1,7 +1,7 @@
 import { RouterContext } from "@oak/oak";
 import { Endpoint, RemoveDeviceFromRoomController, RemoveDeviceFromRoomRequest } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { ErrorsBag } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { DeviceStrapiRepository, RoomStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceDataStrapiRepository, DeviceStrapiRepository, RoomStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { RemoveDeviceFromRoom } from "EnviroSense/Application/mod.ts";
 
 export class RemoveDeviceFromRoomEndpoint implements Endpoint {
@@ -20,9 +20,11 @@ export class RemoveDeviceFromRoomEndpoint implements Endpoint {
 
 		const roomRepository = new RoomStrapiRepository();
 		const deviceRepository = new DeviceStrapiRepository();
+		const deviceDataRepository = new DeviceDataStrapiRepository();
 		const useCase = new RemoveDeviceFromRoom(
 			roomRepository,
 			deviceRepository,
+			deviceDataRepository,
 		);
 
 		const controller = new RemoveDeviceFromRoomController(useCase);
