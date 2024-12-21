@@ -65,6 +65,8 @@ export type { UpdateDeviceOutput } from "./Device/UpdateDeviceOutput.ts";
 
 export type { DeleteDeviceInput } from "./Device/DeleteDeviceInput.ts";
 
+export type { DeleteAllDeviceDataFromDeviceInput } from "./Device/DeleteAllDeviceDataFromDeviceInput.ts";
+
 export type { AddDeviceDataToDeviceInput } from "./Device/AddDeviceDataToDeviceInput.ts";
 
 export type { DeviceQueryDto, DeviceQueryRepository } from "./Ports/Repositories/Device/DeviceQueryRepository.ts";
