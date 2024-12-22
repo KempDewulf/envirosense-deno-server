@@ -10,7 +10,7 @@ export class AirQualityCalculator {
 
 	private async fetchAllDeviceData(devices: Device[]): Promise<(any | null)[]> {
 		const data = await Promise.all(
-			devices.map(async (device, index) => {
+			devices.map(async (device) => {
 				const deviceData = await this.getLastDeviceData(device.documentId);
 				return deviceData;
 			}),
@@ -28,18 +28,18 @@ export class AirQualityCalculator {
 		const allDeviceData = await this.fetchAllDeviceData(devices);
 
 		const airData: AirData = { temperature: null, humidity: null, ppm: null };
-		let validDeviceCount = 0; // Initialize valid device count
+		let validDeviceCount = 0;
 
-		allDeviceData.forEach((lastDeviceData, index) => {
+		allDeviceData.forEach((lastDeviceData) => {
 			if (lastDeviceData) {
 				this.aggregateAirData(airData, lastDeviceData);
-				validDeviceCount += 1; // Increment count for valid data
+				validDeviceCount += 1;
 			}
 		});
 
 		const averageAirData = this.computeAverages(airData, validDeviceCount);
 
-		const enviroScores = allDeviceData.map((lastDeviceData, index) => {
+		const enviroScores = allDeviceData.map((lastDeviceData) => {
 			if (lastDeviceData) {
 				const score = this.computeEnviroScore(lastDeviceData);
 				return score;
