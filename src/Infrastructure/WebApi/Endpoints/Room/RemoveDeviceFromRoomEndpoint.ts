@@ -25,7 +25,7 @@ export class RemoveDeviceFromRoomEndpoint implements Endpoint {
 		const useCase = new RemoveDeviceFromRoom(
 			roomRepository,
 			deviceRepository,
-			deviceDataRepository
+			deviceDataRepository,
 		);
 
 		const controller = new RemoveDeviceFromRoomController(useCase);

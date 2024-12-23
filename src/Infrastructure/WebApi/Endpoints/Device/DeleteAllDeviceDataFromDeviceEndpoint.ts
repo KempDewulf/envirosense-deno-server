@@ -1,5 +1,9 @@
 import { RouterContext } from "@oak/oak";
-import { DeleteAllDeviceDataFromDeviceController, DeleteAllDeviceDataFromDeviceRequest, Endpoint } from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import {
+	DeleteAllDeviceDataFromDeviceController,
+	DeleteAllDeviceDataFromDeviceRequest,
+	Endpoint,
+} from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { ErrorsBag } from "EnviroSense/Infrastructure/Shared/mod.ts";
 import { DeviceDataStrapiRepository, DeviceStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { DeleteAllDeviceDataFromDevice } from "EnviroSense/Application/mod.ts";

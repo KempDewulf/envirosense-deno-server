@@ -158,6 +158,6 @@ export class AirQualityCalculator {
 		totalScore: number,
 		deviceCount: number,
 	): number | null {
-		return deviceCount > 0 ? Math.round(totalScore / deviceCount) : null;
+		return deviceCount > 0 ? Number(parseFloat((totalScore / deviceCount).toFixed(1))) : null;
 	}
 }
