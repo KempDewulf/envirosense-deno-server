@@ -1020,6 +1020,9 @@ components:
     AirQualityBuildingResponse:
       type: object
       properties:
+        id:
+          type: string
+          example: 1
         enviroScore:
           type: number
           example: 78.4
@@ -1031,11 +1034,15 @@ components:
               documentId:
                 type: string
                 example: "mockRoomDocId456"
+              name:
+                type: string
+                example: "Mock Room Name"
               enviroScore:
                 type: number
                 example: 92.8
             required:
               - documentId
+              - name
               - enviroScore
 
     GetRoomsResponse:
