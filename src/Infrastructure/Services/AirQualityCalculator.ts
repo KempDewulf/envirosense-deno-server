@@ -32,7 +32,7 @@ export class AirQualityCalculator {
 			try {
 				const { enviroScore } = await this.calculateMetrics(roomEntity);
 				return {
-					documentId: room.id,
+					id: room.documentId,
 					name: room.name,
 					enviroScore: enviroScore,
 				};

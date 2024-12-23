@@ -1041,7 +1041,7 @@ components:
                 type: number
                 example: 92.8
             required:
-              - documentId
+              - id
               - name
               - enviroScore
 
