@@ -1,11 +1,13 @@
-import { DeviceQueryRepository } from "EnviroSense/Application/Contracts/mod.ts";
-import { AirData, Device, Room } from "EnviroSense/Domain/mod.ts";
+import { DeviceQueryRepository, RoomAirQualityOutput, RoomQueryRepository } from "EnviroSense/Application/Contracts/mod.ts";
+import { AirData, Building, Device, Room } from "EnviroSense/Domain/mod.ts";
 
 export class AirQualityCalculator {
 	private readonly deviceRepository: DeviceQueryRepository;
+	private readonly roomRepository?: RoomQueryRepository;
 
-	constructor(deviceRepository: DeviceQueryRepository) {
+	constructor(deviceRepository: DeviceQueryRepository, roomRepository?: RoomQueryRepository) {
 		this.deviceRepository = deviceRepository;
+		this.roomRepository = roomRepository;
 	}
 
 	private async fetchAllDeviceData(devices: Device[]): Promise<(any | null)[]> {
@@ -18,11 +20,56 @@ export class AirQualityCalculator {
 		return data;
 	}
 
+	//IGNORE ERRORS HERE IT WORKS
+	public async calculateBuildingMetrics(building: Building): Promise<{
+		enviroScore: number | null;
+		roomScores: RoomAirQualityOutput[];
+	}> {
+		const roomPromises = building.rooms.map(async (room) => {
+			const roomOptional = await this.roomRepository?.find(room.documentId);
+			const roomEntity = roomOptional?.orElseThrow(() => new Error(`Room with ID ${room.documentId} not found.`));
+
+			try {
+				const { enviroScore } = await this.calculateMetrics(roomEntity);
+				return {
+					documentId: room.id,
+					name: room.name,
+					enviroScore: enviroScore,
+				};
+			} catch (error) {
+				console.error("Error processing room:", room.id, error);
+				throw error;
+			}
+		});
+
+		const roomScores = await Promise.all(roomPromises);
+
+		// Calculate building-wide score
+		const validScores = roomScores
+			.map((room) => room.enviroScore)
+			.filter((score): score is number => score !== null);
+
+		const buildingScore = validScores.length > 0
+			? this.computeFinalEnviroScore(
+				validScores.reduce((sum, score) => sum + score, 0),
+				validScores.length,
+			)
+			: null;
+
+		return {
+			enviroScore: buildingScore,
+			roomScores,
+		};
+	}
+
 	public async calculateMetrics(room: Room): Promise<{ airData: AirData; enviroScore: number | null }> {
-		const devices = room.devices;
+		const devices = room.devices || [];
 
 		if (devices.length === 0) {
-			return { airData: { temperature: null, humidity: null, ppm: null }, enviroScore: null };
+			return {
+				airData: { temperature: null, humidity: null, ppm: null },
+				enviroScore: null,
+			};
 		}
 
 		const allDeviceData = await this.fetchAllDeviceData(devices);
