@@ -42,7 +42,14 @@ export class AirQualityCalculator {
 			}
 		});
 
-		const roomScores = await Promise.all(roomPromises);
+		const unsortedRoomScores = await Promise.all(roomPromises);
+
+		const roomScores = [...unsortedRoomScores].sort((a, b) => {
+			if (a.enviroScore === null && b.enviroScore === null) return 0;
+			if (a.enviroScore === null) return 1;
+			if (b.enviroScore === null) return -1;
+			return b.enviroScore - a.enviroScore;
+		});
 
 		// Calculate building-wide score
 		const validScores = roomScores
