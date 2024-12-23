@@ -17,6 +17,7 @@ import {
 	RemoveRoomFromBuildingEndpoint,
 	ShowBuildingByDocumentIdEndpoint,
 	ShowBuildingsEndpoint,
+	ShowBuildingAirQualityEndpoint,
 	ShowDeviceByDocumentIdEndpoint,
 	ShowDeviceDataByDocumentIdEndpoint,
 	ShowDeviceDataEndpoint,
@@ -59,6 +60,10 @@ export function endpoints(): Router {
 	router.delete(
 		"/buildings/:buildingDocumentId/rooms/:roomDocumentId",
 		use(new RemoveRoomFromBuildingEndpoint()),
+	);
+	router.get(
+		'/buildings/:buildingDocumentId/air-quality',
+		use(new ShowBuildingAirQualityEndpoint()),
 	);
 	router.put(
 		"/buildings/:buildingDocumentId",
