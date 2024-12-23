@@ -14,6 +14,8 @@ export type { ShowRoomByDocumentIdOutput } from "./Room/ShowRoomByDocumentIdOutp
 export type { ShowRoomAirQualityInput } from "./Room/ShowRoomAirQualityInput.ts";
 export type { ShowRoomAirQualityOutput } from "./Room/ShowRoomAirQualityOutput.ts";
 
+export type { RoomAirQualityOutput } from "./Room/RoomAirQualityOutput.ts";
+
 export type { UpdateRoomInput } from "./Room/UpdateRoomInput.ts";
 export type { UpdateRoomOutput } from "./Room/UpdateRoomOutput.ts";
 
@@ -30,6 +32,9 @@ export type { RoomRepository } from "./Ports/Repositories/Room/RoomRepository.ts
 //Buildings
 export type { ShowBuildingsInput } from "./Building/ShowBuildingsInput.ts";
 export type { ShowBuildingsOutput } from "./Building/ShowBuildingsOutput.ts";
+
+export type { ShowBuildingAirQualityInput } from "./Building/ShowBuildingAirQualityInput.ts";
+export type { ShowBuildingAirQualityOutput } from "./Building/ShowBuildingAirQualityOutput.ts";
 
 export type { CreateBuildingInput } from "./Building/CreateBuildingInput.ts";
 export type { CreateBuildingOutput } from "./Building/CreateBuildingOutput.ts";
