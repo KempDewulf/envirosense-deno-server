@@ -47,14 +47,14 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 			for (const data of device.deviceData) {
 				try {
 					await this._deviceDataRepository.deleteEntity(data);
-				} catch (error) {
+				} catch (_error) {
 					throw new Error(`Failed to remove device data`);
 				}
 			}
 
 			device.deviceData = [];
-		} catch (error) {
-			throw new Error(`Failed to remove device from room:`);
+		} catch (_error) {
+			throw new Error(`Failed to remove device from room`);
 		}
 	}
 }

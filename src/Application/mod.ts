@@ -16,6 +16,7 @@ export { UpdateBuilding } from "./Building/UpdateBuilding.ts";
 export { ShowBuildingByDocumentId } from "./Building/ShowBuildingByDocumentId.ts";
 export { AddRoomToBuilding } from "./Building/AddRoomToBuilding.ts";
 export { RemoveRoomFromBuilding } from "./Building/RemoveRoomFromBuilding.ts";
+export { ShowBuildingAirQuality } from "./Building/ShowBuildingAirQuality.ts";
 
 // Device
 export { ShowDevices } from "./Device/ShowDevices.ts";

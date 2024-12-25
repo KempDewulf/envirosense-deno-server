@@ -140,6 +140,32 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /buildings/{buildingDocumentId}/air-quality:
+    get:
+      tags:
+        - Building
+      summary: Get air quality from a building
+      operationId: getAirQualityFromBuilding
+      parameters:
+        - name: buildingDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Air quality from a building with all rooms with their air quality
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AirQualityBuildingResponse'
+        '404':
+          description: Building not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /buildings/{buildingDocumentId}/rooms:
     post:
       tags:
@@ -990,6 +1016,34 @@ components:
           - name
           - address
           - rooms
+
+    AirQualityBuildingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 1
+        enviroScore:
+          type: number
+          example: 78.4
+        rooms:
+          type: array
+          items:
+            type: object
+            properties:
+              documentId:
+                type: string
+                example: "mockRoomDocId456"
+              name:
+                type: string
+                example: "Mock Room Name"
+              enviroScore:
+                type: number
+                example: 92.8
+            required:
+              - id
+              - name
+              - enviroScore
 
     GetRoomsResponse:
       type: array

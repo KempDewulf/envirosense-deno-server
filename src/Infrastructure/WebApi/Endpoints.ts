@@ -7,9 +7,9 @@ import {
 	CreateDeviceEndpoint,
 	CreateRoomEndpoint,
 	CreateRoomTypeEndpoint,
+	DeleteAllDeviceDataFromDeviceEndpoint,
 	DeleteBuildingEndpoint,
 	DeleteDeviceEndpoint,
-	DeleteAllDeviceDataFromDeviceEndpoint,
 	DeleteRoomEndpoint,
 	DeleteRoomTypeEndpoint,
 	Endpoint,
@@ -17,6 +17,7 @@ import {
 	RemoveRoomFromBuildingEndpoint,
 	ShowBuildingByDocumentIdEndpoint,
 	ShowBuildingsEndpoint,
+	ShowBuildingAirQualityEndpoint,
 	ShowDeviceByDocumentIdEndpoint,
 	ShowDeviceDataByDocumentIdEndpoint,
 	ShowDeviceDataEndpoint,
@@ -59,6 +60,10 @@ export function endpoints(): Router {
 	router.delete(
 		"/buildings/:buildingDocumentId/rooms/:roomDocumentId",
 		use(new RemoveRoomFromBuildingEndpoint()),
+	);
+	router.get(
+		'/buildings/:buildingDocumentId/air-quality',
+		use(new ShowBuildingAirQualityEndpoint()),
 	);
 	router.put(
 		"/buildings/:buildingDocumentId",
@@ -115,7 +120,7 @@ export function endpoints(): Router {
 		"/devices/:deviceDocumentId",
 		use(new DeleteDeviceEndpoint()),
 	);
-	router.delete('/devices/:deviceDocumentId/device-data', use(new DeleteAllDeviceDataFromDeviceEndpoint()));
+	router.delete("/devices/:deviceDocumentId/device-data", use(new DeleteAllDeviceDataFromDeviceEndpoint()));
 	router.put("/devices/:deviceDocumentId", use(new UpdateDeviceEndpoint()));
 
 	router.get("/device-data", use(new ShowDeviceDataEndpoint()));

@@ -66,6 +66,12 @@ export type { ShowBuildingByDocumentIdRequest } from "./Controllers/Building/Sho
 export { ShowBuildingByDocumentIdPresenter } from "./Presenters/Building/ShowBuildingByDocumentIdPresenter.ts";
 export type { ShowBuildingByDocumentIdPresentedData } from "./Presenters/Building/ShowBuildingByDocumentIdPresenter.ts";
 
+export { ShowBuildingAirQualityEndpoint } from "./Endpoints/Building/ShowBuildingAirQualityEndpoint.ts";
+export { ShowBuildingAirQualityController } from "./Controllers/Building/ShowBuildingAirQualityController.ts";
+export type { ShowBuildingAirQualityRequest } from "./Controllers/Building/ShowBuildingAirQualityController.ts";
+export { ShowBuildingAirQualityPresenter } from "./Presenters/Building/ShowBuildingAirQualityPresenter.ts";
+export type { ShowBuildingAirQualityPresentedData } from "./Presenters/Building/ShowBuildingAirQualityPresenter.ts";
+
 export { CreateBuildingEndpoint } from "./Endpoints/Building/CreateBuildingEndpoint.ts";
 export { CreateBuildingController } from "./Controllers/Building/CreateBuildingController.ts";
 export type { CreateBuildingRequest } from "./Controllers/Building/CreateBuildingController.ts";
