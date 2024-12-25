@@ -1,5 +1,5 @@
 import { Module } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { authMiddleware, endpoints, errorHandlingMiddleware } from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import { authMiddleware, endpoints, errorHandlingMiddleware, cleanResponseMiddleware } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { Application, send } from "@oak/oak";
 import { oakCors } from "@tajpouria/cors";
 
@@ -17,8 +17,6 @@ export class WebApiModule implements Module {
 		const app = new Application();
 
 		app.use(errorHandlingMiddleware);
-		app.use(authMiddleware);
-
 		app.use(oakCors(
 			{
 				origin: "*",
@@ -28,6 +26,8 @@ export class WebApiModule implements Module {
 				exposedHeaders: ["Location", "Content-Type", "*"],
 			},
 		));
+		app.use(authMiddleware);
+		app.use(cleanResponseMiddleware);
 
 		// Static file serving middleware
 		app.use(async (context, next) => {

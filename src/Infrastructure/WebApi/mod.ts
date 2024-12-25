@@ -3,6 +3,7 @@ export { WebApiModule } from "EnviroSense/Infrastructure/WebApi/WebApiModule.ts"
 export { endpoints } from "EnviroSense/Infrastructure/WebApi/Endpoints.ts";
 export { errorHandlingMiddleware } from "EnviroSense/Infrastructure/WebApi/Middleware/ErrorHandlingMiddleware.ts";
 export { authMiddleware } from "EnviroSense/Infrastructure/WebApi/Middleware/AuthMiddleware.ts";
+export { cleanResponseMiddleware } from "EnviroSense/Infrastructure/WebApi/Middleware/CleanResponseMiddleware.ts";
 export type { Endpoint } from "EnviroSense/Infrastructure/WebApi/Shared/Endpoint.ts";
 
 //OpenAPI
