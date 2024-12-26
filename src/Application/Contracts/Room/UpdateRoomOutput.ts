@@ -1,4 +1,4 @@
 export interface UpdateRoomOutput {
-	id: string;
-	name: string;
+    documentId: string;
+    name: string;
 }

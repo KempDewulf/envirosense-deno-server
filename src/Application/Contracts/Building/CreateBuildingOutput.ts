@@ -1,3 +1,3 @@
 export interface CreateBuildingOutput {
-	id: string;
+    documentId: string;
 }
