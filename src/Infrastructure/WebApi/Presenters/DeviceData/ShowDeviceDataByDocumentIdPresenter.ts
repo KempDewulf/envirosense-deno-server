@@ -4,7 +4,6 @@ import { AirData, Device } from "EnviroSense/Domain/mod.ts";
 
 export type ShowDeviceDataByDocumentIdPresentedData = {
 	documentId: string;
-	documentId: string;
 	device: Device;
 	timestamp: Date;
 	airData: AirData;
@@ -28,7 +27,6 @@ export class ShowDeviceDataByDocumentIdPresenter implements OutputPort<ShowDevic
 		data: ShowDeviceDataByDocumentIdOutput,
 	): ShowDeviceDataByDocumentIdPresentedData {
 		return {
-			documentId: data.documentId,
 			documentId: data.documentId,
 			device: data.device,
 			timestamp: data.timestamp,

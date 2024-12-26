@@ -35,7 +35,6 @@ export class ShowRoomByDocumentId implements UseCase<ShowRoomByDocumentIdInput> 
 	private mapDtoToOutput(dto: RoomQueryDto): ShowRoomByDocumentIdOutput {
 		return {
 			documentId: dto.documentId,
-			documentId: dto.documentId,
 			name: dto.name,
 			building: dto.building,
 			roomType: dto.roomType,

@@ -5,7 +5,6 @@ import { sortDeviceDataDesc } from "EnviroSense/Domain/mod.ts";
 
 export type ShowDeviceByDocumentIdPresentedData = {
 	documentId: string;
-	documentId: string;
 	identifier: string;
 	room: Room;
 	device_data: DeviceData[];
@@ -29,7 +28,6 @@ export class ShowDeviceByDocumentIdPresenter implements OutputPort<ShowDeviceByD
 		data: ShowDeviceByDocumentIdOutput,
 	): ShowDeviceByDocumentIdPresentedData {
 		return {
-			documentId: data.documentId,
 			documentId: data.documentId,
 			identifier: data.identifier,
 			room: data.room,

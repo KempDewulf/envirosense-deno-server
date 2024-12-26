@@ -4,7 +4,6 @@ import { Building, Device, RoomType } from "EnviroSense/Domain/mod.ts";
 
 export type ShowRoomsPresentedData = {
 	documentId: string;
-	documentId: string;
 	name: string;
 	building: Building;
 	roomType: RoomType;
@@ -27,7 +26,6 @@ export class ShowRoomsPresenter implements OutputPort<ShowRoomsOutput[]> {
 		data: ShowRoomsOutput[],
 	): ShowRoomsPresentedData[] {
 		return data.map((room: ShowRoomsOutput) => ({
-			documentId: room.documentId,
 			documentId: room.documentId,
 			name: room.name,
 			building: room.building,
