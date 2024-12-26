@@ -35,7 +35,6 @@ export class ShowDeviceByDocumentId implements UseCase<ShowDeviceByDocumentIdInp
 	private mapDtoToOutput(dto: DeviceQueryDto): ShowDeviceByDocumentIdOutput {
 		return {
 			documentId: dto.documentId,
-			documentId: dto.documentId,
 			identifier: dto.identifier,
 			room: dto.room,
 			device_data: dto.device_data,

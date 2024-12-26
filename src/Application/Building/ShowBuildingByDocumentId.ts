@@ -40,7 +40,6 @@ export class ShowBuildingByDocumentId implements UseCase<ShowBuildingByDocumentI
 	): ShowBuildingByDocumentIdOutput {
 		return {
 			documentId: dto.documentId,
-			documentId: dto.documentId,
 			name: dto.name,
 			address: dto.address,
 			rooms: dto.rooms,

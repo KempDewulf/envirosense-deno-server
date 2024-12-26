@@ -40,7 +40,6 @@ export class ShowRoomTypeByDocumentId implements UseCase<ShowRoomTypeByDocumentI
 	): ShowRoomTypeByDocumentIdOutput {
 		return {
 			documentId: dto.documentId,
-			documentId: dto.documentId,
 			name: dto.name,
 			icon: dto.icon,
 			rooms: dto.rooms,

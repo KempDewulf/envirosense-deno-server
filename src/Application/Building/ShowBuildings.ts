@@ -30,7 +30,6 @@ export class ShowBuildings implements UseCase<ShowBuildingsInput> {
 	private mapDtoToOutput(dto: BuildingQueryDto[]): ShowBuildingsOutput[] {
 		return dto.map((item) => ({
 			documentId: item.documentId,
-			documentId: item.documentId,
 			name: item.name,
 			address: item.address,
 			rooms: item.rooms,

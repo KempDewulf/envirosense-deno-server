@@ -42,7 +42,6 @@ export class ShowDeviceDataByDocumentId implements UseCase<ShowDeviceDataByDocum
 	): ShowDeviceDataByDocumentIdOutput {
 		return {
 			documentId: dto.documentId,
-			documentId: dto.documentId,
 			device: dto.device,
 			timestamp: dto.timestamp,
 			airData: dto.airData,
