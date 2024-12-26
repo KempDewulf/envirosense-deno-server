@@ -48,7 +48,7 @@ export class DeviceStrapiRepository extends StrapiQueryRepository implements Dev
 	}
 
 	async update(device: Device): Promise<void> {
-		const endpoint = `devices/${device.id}`;
+		const endpoint = `devices/${device.documentId}`;
 		const body = this.mapFromDomain(device);
 		console.log(body);
 
@@ -63,7 +63,7 @@ export class DeviceStrapiRepository extends StrapiQueryRepository implements Dev
 		const endpoint = `devices/${deviceDocumentId}`;
 
 		const body = {
-			"device_data": {
+			device_data: {
 				[operation]: deviceDataDocumentIds,
 			},
 		};
@@ -71,14 +71,14 @@ export class DeviceStrapiRepository extends StrapiQueryRepository implements Dev
 	}
 
 	async deleteEntity(device: Device): Promise<void> {
-		const endpoint = `devices/${device.id}`;
+		const endpoint = `devices/${device.documentId}`;
 
 		return await this.delete(endpoint);
 	}
 
 	private mapToDomain(data: any): Device {
 		const device = Device.load({
-			id: data.documentId,
+			documentId: data.documentId,
 			identifier: data.identifier,
 			room: data.room,
 			deviceData: data.device_data,
@@ -92,12 +92,14 @@ export class DeviceStrapiRepository extends StrapiQueryRepository implements Dev
 			identifier: device.identifier,
 			room: device.room
 				? {
-					connect: [device.room.id], //ignore error, works - PUT needs .documentId but POST .id
+					connect: [device.room.documentId], //ignore error, works - PUT needs .documentId but POST .documentId
 				}
 				: null,
 			device_data: device.deviceData && device.deviceData.length > 0
 				? {
-					connect: device.deviceData.map((deviceData) => deviceData.documentId), //ignore error, works
+					connect: device.deviceData.map(
+						(deviceData) => deviceData.documentId,
+					), //ignore error, works
 				}
 				: [],
 		};

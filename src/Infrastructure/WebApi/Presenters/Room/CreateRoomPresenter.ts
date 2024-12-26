@@ -21,7 +21,7 @@ export class CreateRoomPresenter implements OutputPort<CreateRoomOutput> {
 		data: CreateRoomOutput,
 	): CreateRoomPresentedData {
 		return {
-			url: `/rooms/${data.id}`,
+			url: `/rooms/${data.documentId}`,
 		};
 	}
 }

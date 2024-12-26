@@ -40,7 +40,7 @@ export class UpdateBuilding implements UseCase<UpdateBuildingInput> {
 		await this._buildingRepository.update(building);
 
 		const output: UpdateBuildingOutput = {
-			id: building.id,
+			documentId: building.documentId,
 			name: building.name,
 			address: building.address,
 		};

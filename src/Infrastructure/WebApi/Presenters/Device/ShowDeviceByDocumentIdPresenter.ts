@@ -4,7 +4,6 @@ import { DeviceData, Room } from "EnviroSense/Domain/mod.ts";
 import { sortDeviceDataDesc } from "EnviroSense/Domain/mod.ts";
 
 export type ShowDeviceByDocumentIdPresentedData = {
-	id: string;
 	documentId: string;
 	identifier: string;
 	room: Room;
@@ -12,9 +11,7 @@ export type ShowDeviceByDocumentIdPresentedData = {
 };
 
 export class ShowDeviceByDocumentIdPresenter implements OutputPort<ShowDeviceByDocumentIdOutput> {
-	private readonly _device: RequestResponseDevice<
-		ShowDeviceByDocumentIdPresentedData
-	>;
+	private readonly _device: RequestResponseDevice<ShowDeviceByDocumentIdPresentedData>;
 
 	constructor(
 		device: RequestResponseDevice<ShowDeviceByDocumentIdPresentedData>,
@@ -31,7 +28,6 @@ export class ShowDeviceByDocumentIdPresenter implements OutputPort<ShowDeviceByD
 		data: ShowDeviceByDocumentIdOutput,
 	): ShowDeviceByDocumentIdPresentedData {
 		return {
-			id: data.id,
 			documentId: data.documentId,
 			identifier: data.identifier,
 			room: data.room,

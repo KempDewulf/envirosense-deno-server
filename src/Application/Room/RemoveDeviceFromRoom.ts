@@ -24,22 +24,29 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 
 	async execute(input: RemoveDeviceFromRoomInput): Promise<void> {
 		try {
-			const roomOptional = await this._roomRepository.find(input.roomDocumentId);
+			const roomOptional = await this._roomRepository.find(
+				input.roomDocumentId,
+			);
 
 			const room = roomOptional.orElseThrow(
 				() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
 			);
 
-			const deviceOptional = await this._deviceRepository.find(input.deviceDocumentId);
-
-			const device = deviceOptional.orElseThrow(
-				() => new Error(`Device with documentId ${input.deviceDocumentId} not found.`),
+			const deviceOptional = await this._deviceRepository.find(
+				input.deviceDocumentId,
 			);
 
-			room.removeDevice(device.id);
+			const device = deviceOptional.orElseThrow(
+				() =>
+					new Error(
+						`Device with documentId ${input.deviceDocumentId} not found.`,
+					),
+			);
+
+			room.removeDevice(device.documentId);
 
 			await this._roomRepository.manageDevices(
-				room.id,
+				room.documentId,
 				[input.deviceDocumentId],
 				DeviceOperation.REMOVE,
 			);

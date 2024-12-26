@@ -6,9 +6,7 @@ export interface CreateBuildingPresentedData {
 }
 
 export class CreateBuildingPresenter implements OutputPort<CreateBuildingOutput> {
-	private readonly _device: RequestResponseDevice<
-		CreateBuildingPresentedData
-	>;
+	private readonly _device: RequestResponseDevice<CreateBuildingPresentedData>;
 
 	constructor(device: RequestResponseDevice<CreateBuildingPresentedData>) {
 		this._device = device;
@@ -23,7 +21,7 @@ export class CreateBuildingPresenter implements OutputPort<CreateBuildingOutput>
 		data: CreateBuildingOutput,
 	): CreateBuildingPresentedData {
 		return {
-			url: `/buildings/${data.id}`,
+			url: `/buildings/${data.documentId}`,
 		};
 	}
 }

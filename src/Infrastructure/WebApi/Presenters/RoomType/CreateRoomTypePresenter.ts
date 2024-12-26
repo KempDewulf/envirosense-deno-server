@@ -6,9 +6,7 @@ export interface CreateRoomTypePresentedData {
 }
 
 export class CreateRoomTypePresenter implements OutputPort<CreateRoomTypeOutput> {
-	private readonly _device: RequestResponseDevice<
-		CreateRoomTypePresentedData
-	>;
+	private readonly _device: RequestResponseDevice<CreateRoomTypePresentedData>;
 
 	constructor(device: RequestResponseDevice<CreateRoomTypePresentedData>) {
 		this._device = device;
@@ -23,7 +21,7 @@ export class CreateRoomTypePresenter implements OutputPort<CreateRoomTypeOutput>
 		data: CreateRoomTypeOutput,
 	): CreateRoomTypePresentedData {
 		return {
-			url: `/room-types/${data.id}`,
+			url: `/room-types/${data.documentId}`,
 		};
 	}
 }

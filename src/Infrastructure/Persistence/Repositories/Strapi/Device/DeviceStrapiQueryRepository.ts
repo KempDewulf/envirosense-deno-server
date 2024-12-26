@@ -12,9 +12,7 @@ export class DeviceStrapiQueryRepository extends StrapiQueryRepository implement
 		return devices;
 	}
 
-	async find(
-		deviceDocumentId: string,
-	): Promise<Optional<DeviceQueryDto>> {
+	async find(deviceDocumentId: string): Promise<Optional<DeviceQueryDto>> {
 		const endpoint = `devices/${deviceDocumentId.toString()}`;
 		const params: Record<string, string> = {};
 
@@ -27,7 +25,6 @@ export class DeviceStrapiQueryRepository extends StrapiQueryRepository implement
 
 	private mapToDto(item: any): DeviceQueryDto {
 		return {
-			id: item.id,
 			documentId: item.documentId,
 			identifier: item.identifier,
 			room: item.room,

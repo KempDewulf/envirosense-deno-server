@@ -29,15 +29,14 @@ export class CreateDevice implements UseCase<CreateDeviceInput> {
 		);
 
 		const room = roomOptional.orElseThrow(
-			() =>
-				new Error(
-					`Room with ID ${input.roomDocumentId} not found.`,
-				),
+			() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
 		);
 
 		const device = Device.create("", input.identifier, room);
 
 		const strapiResponse = await this._deviceRepository.save(device);
-		this._outputPort.present({ id: strapiResponse.data.documentId });
+		this._outputPort.present({
+			documentId: strapiResponse.data.documentId,
+		});
 	}
 }

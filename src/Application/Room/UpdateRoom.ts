@@ -27,7 +27,7 @@ export class UpdateRoom implements UseCase<UpdateRoomInput> {
 		await this._roomRepository.update(room);
 
 		const output: UpdateRoomOutput = {
-			id: room.id,
+			documentId: room.documentId,
 			name: room.name,
 		};
 

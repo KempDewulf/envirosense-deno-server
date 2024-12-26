@@ -7,6 +7,8 @@ info:
 servers:
   - url: http://94.130.75.173:8101
     description: Deployed API Server
+  - url: http://localhost:8101
+    description: Local API Server (Only usable when running locally)
 
 security:
   - bearerAuth: []
@@ -736,8 +738,6 @@ components:
     RoomType:
         type: object
         properties:
-          id:
-            type: string
           documentId:
             type: string
           name:
@@ -751,8 +751,6 @@ components:
     Building:
       type: object
       properties:
-        id:
-          type: integer
         documentId:
           type: string
         name:
@@ -764,7 +762,6 @@ components:
           items:
             $ref: '#/components/schemas/Room'
       required:
-        - id
         - documentId
         - name
         - address
@@ -772,8 +769,6 @@ components:
     Room:
       type: object
       properties:
-        id:
-          type: integer
         documentId:
           type: string
         name:
@@ -787,19 +782,17 @@ components:
           items:
             $ref: '#/components/schemas/Device'
       required:
-        - id
         - name
         - roomType
 
     AirQuality:
       type: object
       required:
-        - id
         - enviroScore
         - airQuality
       properties:
-        id:
-          type: integer
+        documentId:
+          type: string
         enviroScore:
           type: integer
         airQuality:
@@ -822,8 +815,6 @@ components:
     Device:
       type: object
       properties:
-        id:
-          type: integer
         documentId:
           type: string
         identifier:
@@ -835,15 +826,12 @@ components:
           items:
             $ref: '#/components/schemas/DeviceData'
       required:
-        - id
         - identifier
         - room
 
     DeviceData:
       type: object
       properties:
-        id:
-          type: integer
         documentId:
           type: string
         device:
@@ -854,7 +842,6 @@ components:
         airData:
           $ref: '#/components/schemas/AirData'
       required:
-        - id
         - device
         - timestamp
         - airData
@@ -984,9 +971,6 @@ components:
       items:
         type: object
         properties:
-          id:
-            type: integer
-            example: 1
           documentId:
             type: string
             example: "mockDocumentId123"
@@ -1001,9 +985,6 @@ components:
             items:
               type: object
               properties:
-                id:
-                  type: integer
-                  example: 101
                 documentId:
                   type: string
                   example: "mockRoomDocId456"
@@ -1011,7 +992,6 @@ components:
                   type: string
                   example: "Mock Room Name"
         required:
-          - id
           - documentId
           - name
           - address
@@ -1020,7 +1000,7 @@ components:
     AirQualityBuildingResponse:
       type: object
       properties:
-        id:
+        documentId:
           type: string
           example: 1
         enviroScore:
@@ -1041,7 +1021,6 @@ components:
                 type: number
                 example: 92.8
             required:
-              - id
               - name
               - enviroScore
 
@@ -1050,9 +1029,6 @@ components:
       items:
         type: object
         properties:
-          id:
-            type: integer
-            example: 1
           documentId:
             type: string
             example: "mockRoomDocId456"
@@ -1062,9 +1038,6 @@ components:
           building:
             type: object
             properties:
-              id:
-                type: integer
-                example: 77
               documentId:
                 type: string
                 example: "mockBuildingDocId123"
@@ -1075,16 +1048,12 @@ components:
                 type: string
                 example: "123 Mock Street, Mock City"
             required:
-              - id
               - documentId
               - name
               - address
           roomType:
             type: object
             properties:
-              id:
-                type: integer
-                example: 23
               documentId:
                 type: string
                 example: "mockRoomTypeDocId789"
@@ -1092,7 +1061,6 @@ components:
                 type: string
                 example: "Mock Room Type"
             required:
-              - id
               - documentId
               - name
           devices:
@@ -1100,9 +1068,6 @@ components:
             items:
               type: object
               properties:
-                id:
-                  type: integer
-                  example: 8
                 documentId:
                   type: string
                   example: "mockDeviceDocId101"
@@ -1110,19 +1075,16 @@ components:
                   type: string
                   example: "mockDeviceIdentifier"
               required:
-                - id
                 - documentId
                 - identifier
             example:
               [
                 {
-                  "id": 1,
                   "documentId": "mockDeviceDocId101",
                   "identifier": "mockDeviceIdentifier"
                 }
               ]
         required:
-          - id
           - documentId
           - name
           - building
@@ -1134,9 +1096,6 @@ components:
       items:
         type: object
         properties:
-          id:
-            type: integer
-            example: 28
           documentId:
             type: string
             example: "mockDeviceDocId789"
@@ -1146,9 +1105,6 @@ components:
           room:
             type: object
             properties:
-              id:
-                type: integer
-                example: 17
               documentId:
                 type: string
                 example: "mockRoomDocId456"
@@ -1156,7 +1112,6 @@ components:
                 type: string
                 example: "Mock Room Name"
             required:
-              - id
               - documentId
               - name
           device_data:
@@ -1164,9 +1119,6 @@ components:
             items:
               type: object
               properties:
-                id:
-                  type: integer
-                  example: 108
                 documentId:
                   type: string
                   example: "mockDeviceDataDocId101"
@@ -1187,7 +1139,6 @@ components:
                   format: float
                   example: 500
               required:
-                - id
                 - documentId
                 - timestamp
                 - temperature
@@ -1196,7 +1147,6 @@ components:
             example:
               [
                 {
-                  "id": 108,
                   "documentId": "mockDeviceDataDocId101",
                   "timestamp": "2024-12-16T20:57:00Z",
                   "temperature": 25.5,
@@ -1205,7 +1155,6 @@ components:
                 }
               ]
         required:
-          - id
           - documentId
           - identifier
           - room
@@ -1216,18 +1165,12 @@ components:
       items:
         type: object
         properties:
-          id:
-            type: integer
-            example: 94
           documentId:
             type: string
             example: "teq4iyf0e92fk0rac6mprlgn"
           device:
             type: object
             properties:
-              id:
-                type: integer
-                example: 8
               documentId:
                 type: string
                 example: "o8kj26z868vopahzgxxgmvlm"
@@ -1235,7 +1178,6 @@ components:
                 type: string
                 example: "test1"
             required:
-              - id
               - documentId
               - identifier
           timestamp:
@@ -1261,7 +1203,6 @@ components:
               - humidity
               - ppm
         required:
-          - id
           - documentId
           - device
           - timestamp
@@ -1270,7 +1211,7 @@ components:
     PutBuildingResponse:
       type: object
       properties:
-        id:
+        documentId:
           type: string
           example: mockDocumentId123
         name:
@@ -1280,34 +1221,32 @@ components:
           type: string
           example: "987 Mock Street, Mock City"
       required:
-        - id
+
         - name
         - address
 
     PutRoomResponse:
       type: object
       properties:
-        id:
+        documentId:
           type: string
           example: mockRoomDocId987
         name:
           type: string
           example: "Mock Room Name"
       required:
-        - id
         - name
 
     PutDeviceResponse:
       type: object
       properties:
-        id:
+        documentId:
           type: string
           example: mockDeviceDocId789
         identifier:
           type: string
           example: "mockDeviceIdentifier987"
       required:
-        - id
         - identifier
 
     ErrorResponse:

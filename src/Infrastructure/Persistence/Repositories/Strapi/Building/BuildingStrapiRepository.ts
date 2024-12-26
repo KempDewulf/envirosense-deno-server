@@ -29,7 +29,7 @@ export class BuildingStrapiRepository extends StrapiQueryRepository implements B
 	}
 
 	async update(building: Building): Promise<void> {
-		const endpoint = `buildings/${building.id}`;
+		const endpoint = `buildings/${building.documentId}`;
 		const body = this.mapFromDomain(building);
 
 		console.log(body);
@@ -52,14 +52,14 @@ export class BuildingStrapiRepository extends StrapiQueryRepository implements B
 	}
 
 	async deleteEntity(building: Building): Promise<void> {
-		const endpoint = `buildings/${building.id}`;
+		const endpoint = `buildings/${building.documentId}`;
 
 		return await this.delete(endpoint);
 	}
 
 	private mapToDomain(data: any): Building {
 		const building = Building.load({
-			id: data.documentId,
+			documentId: data.documentId,
 			name: data.name,
 			address: data.address,
 			rooms: data.rooms || [],
@@ -74,7 +74,9 @@ export class BuildingStrapiRepository extends StrapiQueryRepository implements B
 			address: building.address,
 			rooms: building.rooms && building.rooms.length > 0
 				? {
-					connect: building.rooms.map((room) => room.documentId), //ignore error, works
+					connect: building.rooms.map(
+						(room) => room.documentId,
+					), //ignore error, works
 				}
 				: [],
 		};

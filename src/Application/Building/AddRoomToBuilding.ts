@@ -40,11 +40,11 @@ export class AddRoomToBuilding implements UseCase<AddRoomToBuildingInput> {
 
 			building.addRoom(room);
 
-			roomDocumentIdsToConnect.push(room.id);
+			roomDocumentIdsToConnect.push(room.documentId);
 		}
 
 		await this._buildingRepository.manageRooms(
-			building.id,
+			building.documentId,
 			roomDocumentIdsToConnect,
 			RoomOperation.ADD,
 		);

@@ -5,15 +5,22 @@ export class AirQualityCalculator {
 	private readonly deviceRepository: DeviceQueryRepository;
 	private readonly roomRepository?: RoomQueryRepository;
 
-	constructor(deviceRepository: DeviceQueryRepository, roomRepository?: RoomQueryRepository) {
+	constructor(
+		deviceRepository: DeviceQueryRepository,
+		roomRepository?: RoomQueryRepository,
+	) {
 		this.deviceRepository = deviceRepository;
 		this.roomRepository = roomRepository;
 	}
 
-	private async fetchAllDeviceData(devices: Device[]): Promise<(any | null)[]> {
+	private async fetchAllDeviceData(
+		devices: Device[],
+	): Promise<(any | null)[]> {
 		const data = await Promise.all(
 			devices.map(async (device) => {
-				const deviceData = await this.getLastDeviceData(device.documentId);
+				const deviceData = await this.getLastDeviceData(
+					device.documentId,
+				);
 				return deviceData;
 			}),
 		);
@@ -26,18 +33,22 @@ export class AirQualityCalculator {
 		roomScores: RoomAirQualityOutput[];
 	}> {
 		const roomPromises = building.rooms.map(async (room) => {
-			const roomOptional = await this.roomRepository?.find(room.documentId);
-			const roomEntity = roomOptional?.orElseThrow(() => new Error(`Room with ID ${room.documentId} not found.`));
+			const roomOptional = await this.roomRepository?.find(
+				room.documentId,
+			);
+			const roomEntity = roomOptional?.orElseThrow(
+				() => new Error(`Room with ID ${room.documentId} not found.`),
+			);
 
 			try {
 				const { enviroScore } = await this.calculateMetrics(roomEntity);
 				return {
-					id: room.documentId,
+					documentId: room.documentId,
 					name: room.name,
 					enviroScore: enviroScore,
 				};
 			} catch (error) {
-				console.error("Error processing room:", room.id, error);
+				console.error("Error processing room:", room.documentId, error);
 				throw error;
 			}
 		});
@@ -69,7 +80,9 @@ export class AirQualityCalculator {
 		};
 	}
 
-	public async calculateMetrics(room: Room): Promise<{ airData: AirData; enviroScore: number | null }> {
+	public async calculateMetrics(
+		room: Room,
+	): Promise<{ airData: AirData; enviroScore: number | null }> {
 		const devices = room.devices || [];
 
 		if (devices.length === 0) {
@@ -81,7 +94,11 @@ export class AirQualityCalculator {
 
 		const allDeviceData = await this.fetchAllDeviceData(devices);
 
-		const airData: AirData = { temperature: null, humidity: null, ppm: null };
+		const airData: AirData = {
+			temperature: null,
+			humidity: null,
+			ppm: null,
+		};
 		let validDeviceCount = 0;
 
 		allDeviceData.forEach((lastDeviceData) => {
@@ -101,21 +118,42 @@ export class AirQualityCalculator {
 			return null;
 		});
 
-		const validScores = enviroScores.filter((score) => score !== null) as number[];
+		const validScores = enviroScores.filter(
+			(score) => score !== null,
+		);
 		const processedDevices = validScores.length;
-		const totalEnviroScore = validScores.reduce((acc, score) => acc + score, 0);
-		const finalEnviroScore = processedDevices > 0 ? this.computeFinalEnviroScore(totalEnviroScore, processedDevices) : null;
+		const totalEnviroScore = validScores.reduce(
+			(acc, score) => acc + score,
+			0,
+		);
+		const finalEnviroScore = processedDevices > 0
+			? this.computeFinalEnviroScore(
+				totalEnviroScore,
+				processedDevices,
+			)
+			: null;
 
-		console.log("Deno Server responded with:", averageAirData, finalEnviroScore);
+		console.log(
+			"Deno Server responded with:",
+			averageAirData,
+			finalEnviroScore,
+		);
 		return { airData: averageAirData, enviroScore: finalEnviroScore };
 	}
 
-	public async calculateAverageAirQuality(room: Room, allDeviceData?: (any | null)[]): Promise<AirData> {
+	public async calculateAverageAirQuality(
+		room: Room,
+		allDeviceData?: (any | null)[],
+	): Promise<AirData> {
 		if (!allDeviceData) {
 			allDeviceData = await this.fetchAllDeviceData(room.devices);
 		}
 
-		const airData: AirData = { temperature: null, humidity: null, ppm: null };
+		const airData: AirData = {
+			temperature: null,
+			humidity: null,
+			ppm: null,
+		};
 		allDeviceData.forEach((lastDeviceData) => {
 			if (lastDeviceData) {
 				this.aggregateAirData(airData, lastDeviceData);
@@ -125,7 +163,10 @@ export class AirQualityCalculator {
 		return this.computeAverages(airData, room.devices.length);
 	}
 
-	public async calculateEnviroScore(room: Room, allDeviceData?: (any | null)[]): Promise<number | null> {
+	public async calculateEnviroScore(
+		room: Room,
+		allDeviceData?: (any | null)[],
+	): Promise<number | null> {
 		if (!allDeviceData) {
 			allDeviceData = await this.fetchAllDeviceData(room.devices);
 		}
@@ -137,9 +178,14 @@ export class AirQualityCalculator {
 			return null;
 		});
 
-		const validScores = enviroScores.filter((score) => score !== null) as number[];
+		const validScores = enviroScores.filter(
+			(score) => score !== null,
+		);
 		const processedDevices = validScores.length;
-		const totalEnviroScore = validScores.reduce((acc, score) => acc + score, 0);
+		const totalEnviroScore = validScores.reduce(
+			(acc, score) => acc + score,
+			0,
+		);
 
 		if (processedDevices === 0) {
 			return null;
@@ -179,10 +225,16 @@ export class AirQualityCalculator {
 
 	private computeEnviroScore(deviceData: any): number {
 		const co2Subscore = this.calculateCO2Subscore(deviceData.gas_ppm);
-		const humiditySubscore = this.calculateHumiditySubscore(deviceData.humidity);
-		const temperatureSubscore = this.calculateTemperatureSubscore(deviceData.temperature);
+		const humiditySubscore = this.calculateHumiditySubscore(
+			deviceData.humidity,
+		);
+		const temperatureSubscore = this.calculateTemperatureSubscore(
+			deviceData.temperature,
+		);
 
-		const enviroScore = (0.5 * co2Subscore) + (0.3 * humiditySubscore) + (0.2 * temperatureSubscore);
+		const enviroScore = 0.5 * co2Subscore +
+			0.3 * humiditySubscore +
+			0.2 * temperatureSubscore;
 		return enviroScore;
 	}
 

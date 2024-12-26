@@ -24,21 +24,21 @@ export class RoomTypeStrapiRepository extends StrapiQueryRepository implements R
 	}
 
 	async update(roomType: RoomType): Promise<void> {
-		const endpoint = `room-types/${roomType.id}`;
+		const endpoint = `room-types/${roomType.documentId}`;
 		const body = this.mapFromDomain(roomType);
 
 		return await this.put(endpoint, { data: body });
 	}
 
 	async deleteEntity(roomType: RoomType): Promise<void> {
-		const endpoint = `room-types/${roomType.id}`;
+		const endpoint = `room-types/${roomType.documentId}`;
 
 		return await this.delete(endpoint);
 	}
 
 	private mapToDomain(data: any): RoomType {
 		const roomType = RoomType.load({
-			id: data.documentId.toString(),
+			documentId: data.documentId.toString(),
 			name: data.name,
 			icon: data.icon || "default-icon.png",
 		});
@@ -53,13 +53,15 @@ export class RoomTypeStrapiRepository extends StrapiQueryRepository implements R
 		};
 	}
 
-	private getIconId(icon: string | { id: string } | null): string | null {
+	private getIconId(
+		icon: string | { documentId: string } | null,
+	): string | null {
 		if (!icon) {
 			return null;
 		}
 
-		if (typeof icon === "object" && "id" in icon) {
-			return icon.id;
+		if (typeof icon === "object" && "documentId" in icon) {
+			return icon.documentId;
 		}
 
 		return icon;

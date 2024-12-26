@@ -2,15 +2,13 @@ import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts"
 import { OutputPort, UpdateBuildingOutput } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface UpdateBuildingPresentedData {
-	id: string;
+	documentId: string;
 	name: string;
 	address: string;
 }
 
 export class UpdateBuildingPresenter implements OutputPort<UpdateBuildingOutput> {
-	private readonly _device: RequestResponseDevice<
-		UpdateBuildingPresentedData
-	>;
+	private readonly _device: RequestResponseDevice<UpdateBuildingPresentedData>;
 
 	constructor(device: RequestResponseDevice<UpdateBuildingPresentedData>) {
 		this._device = device;
@@ -25,7 +23,7 @@ export class UpdateBuildingPresenter implements OutputPort<UpdateBuildingOutput>
 		data: UpdateBuildingOutput,
 	): UpdateBuildingPresentedData {
 		return {
-			id: data.id,
+			documentId: data.documentId,
 			name: data.name,
 			address: data.address,
 		};

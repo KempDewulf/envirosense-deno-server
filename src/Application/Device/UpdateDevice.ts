@@ -18,10 +18,7 @@ export class UpdateDevice implements UseCase<UpdateDeviceInput> {
 		);
 
 		const device = deviceOptional.orElseThrow(
-			() =>
-				new Error(
-					`Device with ID ${input.deviceDocumentId} not found.`,
-				),
+			() => new Error(`Device with ID ${input.deviceDocumentId} not found.`),
 		);
 
 		if (input.identifier !== undefined) {
@@ -31,7 +28,7 @@ export class UpdateDevice implements UseCase<UpdateDeviceInput> {
 		await this._deviceRepository.update(device);
 
 		const output: UpdateDeviceOutput = {
-			id: device.id,
+			documentId: device.documentId,
 			identifier: device.identifier,
 		};
 

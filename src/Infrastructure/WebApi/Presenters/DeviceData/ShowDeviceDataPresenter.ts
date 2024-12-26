@@ -3,7 +3,6 @@ import { OutputPort, ShowDeviceDataOutput } from "EnviroSense/Application/Contra
 import { AirData, Device } from "EnviroSense/Domain/mod.ts";
 
 export type ShowDeviceDataPresentedData = {
-	id: string;
 	documentId: string;
 	device: Device;
 	timestamp: Date;
@@ -28,7 +27,6 @@ export class ShowDeviceDataPresenter implements OutputPort<ShowDeviceDataOutput[
 		data: ShowDeviceDataOutput[],
 	): ShowDeviceDataPresentedData[] {
 		return data.map((deviceData: ShowDeviceDataOutput) => ({
-			id: deviceData.id,
 			documentId: deviceData.documentId,
 			device: deviceData.device,
 			timestamp: deviceData.timestamp,

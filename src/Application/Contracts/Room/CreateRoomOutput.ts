@@ -1,3 +1,3 @@
 export interface CreateRoomOutput {
-	id: string;
+	documentId: string;
 }

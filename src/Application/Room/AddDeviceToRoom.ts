@@ -29,10 +29,7 @@ export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
 			);
 
 			const room = roomOptional.orElseThrow(
-				() =>
-					new Error(
-						`Room with ID ${input.roomDocumentId} not found.`,
-					),
+				() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
 			);
 
 			const deviceDocumentIdsToConnect: string[] = [];
@@ -51,7 +48,7 @@ export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
 
 				room.addDevice(device);
 
-				deviceDocumentIdsToConnect.push(device.id);
+				deviceDocumentIdsToConnect.push(device.documentId);
 
 				for (const data of device.deviceData) {
 					try {
@@ -63,7 +60,7 @@ export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
 			}
 
 			await this._roomRepository.manageDevices(
-				room.id,
+				room.documentId,
 				deviceDocumentIdsToConnect,
 				DeviceOperation.ADD,
 			);

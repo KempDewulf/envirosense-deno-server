@@ -20,13 +20,11 @@ export class CreateRoomType implements UseCase<CreateRoomTypeInput> {
 	}
 
 	public async execute(input: CreateRoomTypeInput): Promise<void> {
-		const roomType = RoomType.create(
-			"",
-			input.name,
-			input.icon,
-		);
+		const roomType = RoomType.create("", input.name, input.icon);
 
 		await this._roomTypeRepository.save(roomType);
-		this._outputPort.present({ id: roomType.id.toString() });
+		this._outputPort.present({
+			documentId: roomType.documentId.toString(),
+		});
 	}
 }

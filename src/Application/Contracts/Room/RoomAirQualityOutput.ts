@@ -1,5 +1,5 @@
 export interface RoomAirQualityOutput {
-	id: string;
+	documentId: string;
 	name: string;
 	enviroScore: number | null;
 }

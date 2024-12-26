@@ -12,9 +12,7 @@ export class RoomStrapiQueryRepository extends StrapiQueryRepository implements 
 		return rooms;
 	}
 
-	async find(
-		roomDocumentId: string,
-	): Promise<Optional<RoomQueryDto>> {
+	async find(roomDocumentId: string): Promise<Optional<RoomQueryDto>> {
 		const endpoint = `rooms/${roomDocumentId.toString()}`;
 		const params: Record<string, string> = {};
 
@@ -27,7 +25,6 @@ export class RoomStrapiQueryRepository extends StrapiQueryRepository implements 
 
 	private mapToDto(item: any): RoomQueryDto {
 		return {
-			id: item.id,
 			documentId: item.documentId,
 			name: item.name,
 			building: item.building,

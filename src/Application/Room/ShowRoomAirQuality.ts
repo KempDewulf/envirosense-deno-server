@@ -29,12 +29,13 @@ export class ShowRoomAirQuality implements UseCase<ShowRoomAirQualityInput> {
 			input.roomDocumentId,
 		);
 
-		const roomDto = roomOptional.orElseThrow(() => new Error(`Room with ID ${input.roomDocumentId} not found.`));
+		const roomDto = roomOptional.orElseThrow(
+			() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
+		);
 
 		const roomEntity = Room.load(roomDto);
 
-		const { airData: averagedAirQuality, enviroScore } = await this._airQualityCalculator
-			.calculateMetrics(roomEntity);
+		const { airData: averagedAirQuality, enviroScore } = await this._airQualityCalculator.calculateMetrics(roomEntity);
 
 		const airQuality = this.mapDataToOutput(
 			roomDto,
@@ -50,7 +51,7 @@ export class ShowRoomAirQuality implements UseCase<ShowRoomAirQualityInput> {
 		averagedAirQuality: AirData,
 	): ShowRoomAirQualityOutput {
 		return {
-			id: dto.documentId,
+			documentId: dto.documentId,
 			enviroScore: enviroScore,
 			airQuality: averagedAirQuality,
 		};

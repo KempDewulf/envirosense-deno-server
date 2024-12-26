@@ -26,10 +26,11 @@ export class ShowDeviceDataByDocumentId implements UseCase<ShowDeviceDataByDocum
 			input.deviceDataDocumentId,
 		);
 
-		const deviceDataDto = deviceDataOptional.orElseThrow(() =>
-			new Error(
-				`DeviceData with ID ${input.deviceDataDocumentId} not found.`,
-			)
+		const deviceDataDto = deviceDataOptional.orElseThrow(
+			() =>
+				new Error(
+					`DeviceData with ID ${input.deviceDataDocumentId} not found.`,
+				),
 		);
 
 		const deviceData = this.mapDtoToOutput(deviceDataDto);
@@ -40,7 +41,6 @@ export class ShowDeviceDataByDocumentId implements UseCase<ShowDeviceDataByDocum
 		dto: DeviceDataQueryDto,
 	): ShowDeviceDataByDocumentIdOutput {
 		return {
-			id: dto.id,
 			documentId: dto.documentId,
 			device: dto.device,
 			timestamp: dto.timestamp,

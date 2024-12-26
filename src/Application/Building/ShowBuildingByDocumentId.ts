@@ -24,7 +24,12 @@ export class ShowBuildingByDocumentId implements UseCase<ShowBuildingByDocumentI
 			input.buildingDocumentId,
 		);
 
-		const buildingDto = buildingOptional.orElseThrow(() => new Error(`Building with ID ${input.buildingDocumentId} not found.`));
+		const buildingDto = buildingOptional.orElseThrow(
+			() =>
+				new Error(
+					`Building with ID ${input.buildingDocumentId} not found.`,
+				),
+		);
 
 		const building = this.mapDtoToOutput(buildingDto);
 		this._outputPort.present(building);
@@ -34,7 +39,6 @@ export class ShowBuildingByDocumentId implements UseCase<ShowBuildingByDocumentI
 		dto: BuildingQueryDto,
 	): ShowBuildingByDocumentIdOutput {
 		return {
-			id: dto.id,
 			documentId: dto.documentId,
 			name: dto.name,
 			address: dto.address,

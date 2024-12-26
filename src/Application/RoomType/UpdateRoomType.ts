@@ -22,7 +22,12 @@ export class UpdateRoomType implements UseCase<UpdateRoomTypeInput> {
 		const roomTypeOptional = await this._roomTypeRepository.find(
 			input.roomTypeDocumentId,
 		);
-		const roomType = roomTypeOptional.orElseThrow(() => new Error(`RoomType with ID ${input.roomTypeDocumentId} not found.`));
+		const roomType = roomTypeOptional.orElseThrow(
+			() =>
+				new Error(
+					`RoomType with ID ${input.roomTypeDocumentId} not found.`,
+				),
+		);
 
 		if (input.name !== undefined) {
 			roomType.updateName(input.name);
@@ -35,7 +40,7 @@ export class UpdateRoomType implements UseCase<UpdateRoomTypeInput> {
 		await this._roomTypeRepository.update(roomType);
 
 		const output: UpdateRoomTypeOutput = {
-			id: roomType.id,
+			documentId: roomType.documentId,
 			name: roomType.name,
 			icon: roomType.icon,
 		};

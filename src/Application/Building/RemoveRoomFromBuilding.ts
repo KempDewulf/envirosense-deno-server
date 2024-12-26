@@ -35,10 +35,10 @@ export class RemoveRoomFromBuilding implements UseCase<RemoveRoomFromBuildingInp
 				),
 		);
 
-		building.removeRoom(room.id);
+		building.removeRoom(room.documentId);
 
 		await this._buildingRepository.manageRooms(
-			building.id,
+			building.documentId,
 			[input.roomDocumentId],
 			RoomOperation.REMOVE,
 		);

@@ -24,7 +24,12 @@ export class ShowRoomTypeByDocumentId implements UseCase<ShowRoomTypeByDocumentI
 			input.roomTypeDocumentId,
 		);
 
-		const roomTypeDto = roomTypeOptional.orElseThrow(() => new Error(`RoomType with ID ${input.roomTypeDocumentId} not found.`));
+		const roomTypeDto = roomTypeOptional.orElseThrow(
+			() =>
+				new Error(
+					`RoomType with ID ${input.roomTypeDocumentId} not found.`,
+				),
+		);
 
 		const roomType = this.mapDtoToOutput(roomTypeDto);
 		this._outputPort.present(roomType);
@@ -34,7 +39,6 @@ export class ShowRoomTypeByDocumentId implements UseCase<ShowRoomTypeByDocumentI
 		dto: RoomTypeQueryDto,
 	): ShowRoomTypeByDocumentIdOutput {
 		return {
-			id: dto.id,
 			documentId: dto.documentId,
 			name: dto.name,
 			icon: dto.icon,

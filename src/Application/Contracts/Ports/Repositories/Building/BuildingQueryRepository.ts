@@ -1,7 +1,7 @@
 import { Optional, Room } from "EnviroSense/Domain/mod.ts";
 
 export interface BuildingQueryDto {
-	id: string;
+	documentId: string;
 	documentId: string;
 	name: string;
 	address: string;

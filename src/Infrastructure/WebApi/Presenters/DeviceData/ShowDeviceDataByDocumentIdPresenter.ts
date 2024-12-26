@@ -3,7 +3,6 @@ import { OutputPort, ShowDeviceDataByDocumentIdOutput } from "EnviroSense/Applic
 import { AirData, Device } from "EnviroSense/Domain/mod.ts";
 
 export type ShowDeviceDataByDocumentIdPresentedData = {
-	id: string;
 	documentId: string;
 	device: Device;
 	timestamp: Date;
@@ -11,9 +10,7 @@ export type ShowDeviceDataByDocumentIdPresentedData = {
 };
 
 export class ShowDeviceDataByDocumentIdPresenter implements OutputPort<ShowDeviceDataByDocumentIdOutput> {
-	private readonly _device: RequestResponseDevice<
-		ShowDeviceDataByDocumentIdPresentedData
-	>;
+	private readonly _device: RequestResponseDevice<ShowDeviceDataByDocumentIdPresentedData>;
 
 	constructor(
 		device: RequestResponseDevice<ShowDeviceDataByDocumentIdPresentedData>,
@@ -30,7 +27,6 @@ export class ShowDeviceDataByDocumentIdPresenter implements OutputPort<ShowDevic
 		data: ShowDeviceDataByDocumentIdOutput,
 	): ShowDeviceDataByDocumentIdPresentedData {
 		return {
-			id: data.id,
 			documentId: data.documentId,
 			device: data.device,
 			timestamp: data.timestamp,

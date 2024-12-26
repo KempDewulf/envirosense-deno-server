@@ -30,11 +30,18 @@ export class ShowBuildingAirQuality implements UseCase<ShowBuildingAirQualityInp
 			input.buildingDocumentId,
 		);
 
-		const buildingDto = buildingOptional.orElseThrow(() => new Error(`Building with ID ${input.buildingDocumentId} not found.`));
+		const buildingDto = buildingOptional.orElseThrow(
+			() =>
+				new Error(
+					`Building with ID ${input.buildingDocumentId} not found.`,
+				),
+		);
 
 		const buildingEntity = Building.load(buildingDto);
 
-		const { enviroScore, roomScores } = await this._airQualityCalculator.calculateBuildingMetrics(buildingEntity);
+		const { enviroScore, roomScores } = await this._airQualityCalculator.calculateBuildingMetrics(
+			buildingEntity,
+		);
 
 		const airQuality = this.mapDataToOutput(
 			buildingDto,
@@ -51,7 +58,7 @@ export class ShowBuildingAirQuality implements UseCase<ShowBuildingAirQualityInp
 		roomScores: RoomAirQualityOutput[],
 	): ShowBuildingAirQualityOutput {
 		return {
-			id: dto.documentId,
+			documentId: dto.documentId,
 			enviroScore: enviroScore,
 			rooms: roomScores,
 		};

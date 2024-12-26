@@ -1,7 +1,7 @@
 import { RoomAirQualityOutput } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface ShowBuildingAirQualityOutput {
-	id: string;
+	documentId: string;
 	enviroScore: number | null;
 	rooms: RoomAirQualityOutput[];
 }

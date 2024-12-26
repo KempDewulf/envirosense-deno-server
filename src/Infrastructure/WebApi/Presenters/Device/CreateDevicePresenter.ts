@@ -21,7 +21,7 @@ export class CreateDevicePresenter implements OutputPort<CreateDeviceOutput> {
 		data: CreateDeviceOutput,
 	): CreateDevicePresentedData {
 		return {
-			url: `/devices/${data.id}`,
+			url: `/devices/${data.documentId}`,
 		};
 	}
 }

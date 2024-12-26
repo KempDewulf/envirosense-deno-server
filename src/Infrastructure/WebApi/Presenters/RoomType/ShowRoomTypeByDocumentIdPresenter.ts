@@ -3,7 +3,6 @@ import { OutputPort, ShowRoomTypeByDocumentIdOutput } from "EnviroSense/Applicat
 import { Room } from "EnviroSense/Domain/mod.ts";
 
 export type ShowRoomTypeByDocumentIdPresentedData = {
-	id: string;
 	documentId: string;
 	name: string;
 	icon: string;
@@ -11,9 +10,7 @@ export type ShowRoomTypeByDocumentIdPresentedData = {
 };
 
 export class ShowRoomTypeByDocumentIdPresenter implements OutputPort<ShowRoomTypeByDocumentIdOutput> {
-	private readonly _device: RequestResponseDevice<
-		ShowRoomTypeByDocumentIdPresentedData
-	>;
+	private readonly _device: RequestResponseDevice<ShowRoomTypeByDocumentIdPresentedData>;
 
 	constructor(
 		device: RequestResponseDevice<ShowRoomTypeByDocumentIdPresentedData>,
@@ -30,7 +27,6 @@ export class ShowRoomTypeByDocumentIdPresenter implements OutputPort<ShowRoomTyp
 		data: ShowRoomTypeByDocumentIdOutput,
 	): ShowRoomTypeByDocumentIdPresentedData {
 		return {
-			id: data.id,
 			documentId: data.documentId,
 			name: data.name,
 			icon: data.icon,

@@ -18,10 +18,7 @@ export class AddDeviceDataToDevice implements UseCase<AddDeviceDataToDeviceInput
 			input.deviceDocumentId,
 		);
 		const device = deviceOptional.orElseThrow(
-			() =>
-				new Error(
-					`Device with ID ${input.deviceDocumentId} not found.`,
-				),
+			() => new Error(`Device with ID ${input.deviceDocumentId} not found.`),
 		);
 
 		const deviceDataDocumentIdsToConnect: string[] = [];
@@ -40,11 +37,11 @@ export class AddDeviceDataToDevice implements UseCase<AddDeviceDataToDeviceInput
 
 			device.addDeviceData(deviceData);
 
-			deviceDataDocumentIdsToConnect.push(deviceData.id);
+			deviceDataDocumentIdsToConnect.push(deviceData.documentId);
 		}
 
 		await this._deviceRepository.manageDeviceData(
-			device.id,
+			device.documentId,
 			deviceDataDocumentIdsToConnect,
 			DeviceDataOperation.ADD,
 		);

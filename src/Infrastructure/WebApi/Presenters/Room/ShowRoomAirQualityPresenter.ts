@@ -3,15 +3,13 @@ import { OutputPort, ShowRoomAirQualityOutput } from "EnviroSense/Application/Co
 import { AirData } from "EnviroSense/Domain/mod.ts";
 
 export type ShowRoomAirQualityPresentedData = {
-	id: string;
+	documentId: string;
 	enviroScore: number;
 	airQuality: AirData;
 };
 
 export class ShowRoomAirQualityPresenter implements OutputPort<ShowRoomAirQualityOutput> {
-	private readonly _device: RequestResponseDevice<
-		ShowRoomAirQualityPresentedData
-	>;
+	private readonly _device: RequestResponseDevice<ShowRoomAirQualityPresentedData>;
 
 	constructor(
 		device: RequestResponseDevice<ShowRoomAirQualityPresentedData>,
@@ -28,7 +26,7 @@ export class ShowRoomAirQualityPresenter implements OutputPort<ShowRoomAirQualit
 		data: ShowRoomAirQualityOutput,
 	): ShowRoomAirQualityPresentedData {
 		return {
-			id: data.id,
+			documentId: data.documentId,
 			enviroScore: data.enviroScore,
 			airQuality: data.airQuality,
 		};

@@ -34,7 +34,7 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
 	}
 
 	async update(room: Room): Promise<void> {
-		const endpoint = `rooms/${room.id}`;
+		const endpoint = `rooms/${room.documentId}`;
 		const body = this.mapFromDomain(room);
 
 		return await this.put(endpoint, { data: body });
@@ -55,7 +55,7 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
 	}
 
 	async deleteEntity(room: Room): Promise<void> {
-		const endpoint = `rooms/${room.id}`;
+		const endpoint = `rooms/${room.documentId}`;
 
 		return await this.delete(endpoint);
 	}
@@ -67,27 +67,27 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
 
 		const building = buildingData
 			? Building.load({
-				id: buildingData.documentId,
+				documentId: buildingData.documentId,
 				name: buildingData.name,
 				address: buildingData.address,
 			})
 			: null;
 
 		const roomType = RoomType.load({
-			id: roomTypeData.documentId,
+			documentId: roomTypeData.documentId,
 			name: roomTypeData.name,
 			icon: roomTypeData.icon,
 		});
 
 		const devices = devicesData.map((device: any) => {
 			return Device.load({
-				id: device.documentId,
+				documentId: device.documentId,
 				identifier: device.identifier,
 			});
 		});
 
 		const room = Room.load({
-			id: data.documentId,
+			documentId: data.documentId,
 			name: data.name,
 			building: building,
 			roomType: roomType,
@@ -102,17 +102,19 @@ export class RoomStrapiRepository extends StrapiQueryRepository implements RoomR
 			name: room.name,
 			building: room.building
 				? {
-					connect: [room.building.id],
+					connect: [room.building.documentId],
 				}
 				: null,
 			room_type: room.roomType
 				? {
-					connect: [room.roomType.id],
+					connect: [room.roomType.documentId],
 				}
 				: null,
 			devices: room.devices && room.devices.length > 0
 				? {
-					connect: room.devices.map((device) => device.id),
+					connect: room.devices.map(
+						(device) => device.documentId,
+					),
 				}
 				: [],
 		};

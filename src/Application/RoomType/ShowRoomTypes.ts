@@ -29,7 +29,6 @@ export class ShowRoomTypes implements UseCase<ShowRoomTypesInput> {
 
 	private mapDtoToOutput(dto: RoomTypeQueryDto[]): ShowRoomTypesOutput[] {
 		return dto.map((item) => ({
-			id: item.id,
 			documentId: item.documentId,
 			name: item.name,
 			icon: item.icon,

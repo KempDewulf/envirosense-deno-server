@@ -27,7 +27,6 @@ export class BuildingStrapiQueryRepository extends StrapiQueryRepository impleme
 
 	private mapToDto(item: any): BuildingQueryDto {
 		return {
-			id: item.id,
 			documentId: item.documentId,
 			name: item.name,
 			address: item.address,

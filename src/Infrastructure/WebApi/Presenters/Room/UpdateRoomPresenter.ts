@@ -2,7 +2,7 @@ import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts"
 import { OutputPort, UpdateRoomOutput } from "EnviroSense/Application/Contracts/mod.ts";
 
 export interface UpdateRoomPresentedData {
-	id: string;
+	documentId: string;
 	name: string;
 }
 
@@ -22,7 +22,7 @@ export class UpdateRoomPresenter implements OutputPort<UpdateRoomOutput> {
 		data: UpdateRoomOutput,
 	): UpdateRoomPresentedData {
 		return {
-			id: data.id,
+			documentId: data.documentId,
 			name: data.name,
 		};
 	}

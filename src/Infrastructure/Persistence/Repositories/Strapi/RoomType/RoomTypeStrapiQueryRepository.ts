@@ -27,7 +27,6 @@ export class RoomTypeStrapiQueryRepository extends StrapiQueryRepository impleme
 
 	private mapToDto(item: any): RoomTypeQueryDto {
 		return {
-			id: item.id,
 			documentId: item.documentId,
 			name: item.name,
 			icon: item.icon,

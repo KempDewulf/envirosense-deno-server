@@ -1,7 +1,7 @@
 import { Room } from "EnviroSense/Domain/mod.ts";
 
 export interface ShowRoomTypesOutput {
-	id: string;
+	documentId: string;
 	documentId: string;
 	name: string;
 	icon: string;

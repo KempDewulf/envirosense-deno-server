@@ -1,7 +1,7 @@
 import { AirData, Device, Optional } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceDataQueryDto {
-	id: string;
+	documentId: string;
 	documentId: string;
 	device: Device;
 	timestamp: Date;

@@ -31,7 +31,6 @@ export class ShowDeviceData implements UseCase<ShowDeviceDataInput> {
 
 	private mapDtoToOutput(dto: DeviceDataQueryDto[]): ShowDeviceDataOutput[] {
 		return dto.map((item) => ({
-			id: item.id,
 			documentId: item.documentId,
 			device: item.device,
 			timestamp: item.timestamp,

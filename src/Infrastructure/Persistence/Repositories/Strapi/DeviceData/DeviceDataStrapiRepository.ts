@@ -24,7 +24,7 @@ export class DeviceDataStrapiRepository extends StrapiQueryRepository implements
 	}
 
 	async update(deviceData: DeviceData): Promise<void> {
-		const endpoint = `device-datas/${deviceData.id}`;
+		const endpoint = `device-datas/${deviceData.documentId}`;
 		const body = this.mapFromDomain(deviceData);
 
 		return await this.put(endpoint, { data: body });
@@ -46,7 +46,7 @@ export class DeviceDataStrapiRepository extends StrapiQueryRepository implements
 		};
 
 		const deviceData = DeviceData.load({
-			id: data.id,
+			documentId: data.documentId,
 			device: data.device,
 			timestamp: data.timestamp,
 			airData: airData,
@@ -57,7 +57,7 @@ export class DeviceDataStrapiRepository extends StrapiQueryRepository implements
 
 	private mapFromDomain(deviceData: DeviceData): any {
 		return {
-			device: deviceData.device ? { connect: [deviceData.device.id] } : null,
+			device: deviceData.device ? { connect: [deviceData.device.documentId] } : null,
 			timestamp: deviceData.timestamp,
 			temperature: deviceData.airData.temperature,
 			humidity: deviceData.airData.humidity,

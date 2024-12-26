@@ -8,7 +8,7 @@ export class DeviceDataStrapiQueryRepository extends StrapiQueryRepository imple
 		const params = identifier
 			? {
 				"filters[device][identifier][$contains]": identifier,
-				"populate": "*",
+				populate: "*",
 			}
 			: undefined;
 		const response = await this.get<any>(endpoint, params);
@@ -32,7 +32,6 @@ export class DeviceDataStrapiQueryRepository extends StrapiQueryRepository imple
 
 	private mapToDto(item: any): DeviceDataQueryDto {
 		return {
-			id: item.id,
 			documentId: item.documentId,
 			device: item.device,
 			timestamp: item.timestamp,

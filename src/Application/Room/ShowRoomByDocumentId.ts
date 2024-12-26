@@ -24,17 +24,16 @@ export class ShowRoomByDocumentId implements UseCase<ShowRoomByDocumentIdInput> 
 			input.roomDocumentId,
 		);
 
-		const roomDto = roomOptional.orElseThrow(() => new Error(`Room with ID ${input.roomDocumentId} not found.`));
+		const roomDto = roomOptional.orElseThrow(
+			() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
+		);
 
 		const room = this.mapDtoToOutput(roomDto);
 		this._outputPort.present(room);
 	}
 
-	private mapDtoToOutput(
-		dto: RoomQueryDto,
-	): ShowRoomByDocumentIdOutput {
+	private mapDtoToOutput(dto: RoomQueryDto): ShowRoomByDocumentIdOutput {
 		return {
-			id: dto.id,
 			documentId: dto.documentId,
 			name: dto.name,
 			building: dto.building,
