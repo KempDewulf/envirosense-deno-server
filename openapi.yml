@@ -7,6 +7,8 @@ info:
 servers:
   - url: http://94.130.75.173:8101
     description: Deployed API Server
+  - url: http://localhost:8101
+    description: Local API Server (Only usable when running locally)
 
 security:
   - bearerAuth: []
