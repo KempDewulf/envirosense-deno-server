@@ -42,7 +42,7 @@ export class RemoveRoomFromBuilding
                 )
         );
 
-        building.removeRoom(room.id);
+        building.removeRoom(room.documentId);
 
         await this._buildingRepository.manageRooms(
             building.documentId,

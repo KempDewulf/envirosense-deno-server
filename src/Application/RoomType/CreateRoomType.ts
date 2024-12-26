@@ -23,6 +23,8 @@ export class CreateRoomType implements UseCase<CreateRoomTypeInput> {
         const roomType = RoomType.create("", input.name, input.icon);
 
         await this._roomTypeRepository.save(roomType);
-        this._outputPort.present({ documentId: roomType.id.toString() });
+        this._outputPort.present({
+            documentId: roomType.documentId.toString(),
+        });
     }
 }

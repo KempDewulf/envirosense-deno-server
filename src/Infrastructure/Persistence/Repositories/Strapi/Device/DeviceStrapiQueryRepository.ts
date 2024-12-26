@@ -34,7 +34,6 @@ export class DeviceStrapiQueryRepository
     private mapToDto(item: any): DeviceQueryDto {
         return {
             documentId: item.documentId,
-            documentId: item.documentId,
             identifier: item.identifier,
             room: item.room,
             device_data: item.device_data,

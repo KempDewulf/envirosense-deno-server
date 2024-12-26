@@ -51,6 +51,6 @@ export class CreateRoom implements UseCase<CreateRoomInput> {
         const room = Room.create("", input.name, building, roomType);
 
         await this._roomRepository.save(room);
-        this._outputPort.present({ documentId: room.id.toString() });
+        this._outputPort.present({ documentId: room.documentId.toString() });
     }
 }

@@ -32,7 +32,7 @@ export class BuildingStrapiRepository
     }
 
     async update(building: Building): Promise<void> {
-        const endpoint = `buildings/${building.id}`;
+        const endpoint = `buildings/${building.documentId}`;
         const body = this.mapFromDomain(building);
 
         console.log(body);
@@ -55,7 +55,7 @@ export class BuildingStrapiRepository
     }
 
     async deleteEntity(building: Building): Promise<void> {
-        const endpoint = `buildings/${building.id}`;
+        const endpoint = `buildings/${building.documentId}`;
 
         return await this.delete(endpoint);
     }

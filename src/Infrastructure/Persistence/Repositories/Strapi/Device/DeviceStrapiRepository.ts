@@ -51,7 +51,7 @@ export class DeviceStrapiRepository
     }
 
     async update(device: Device): Promise<void> {
-        const endpoint = `devices/${device.id}`;
+        const endpoint = `devices/${device.documentId}`;
         const body = this.mapFromDomain(device);
         console.log(body);
 
@@ -74,7 +74,7 @@ export class DeviceStrapiRepository
     }
 
     async deleteEntity(device: Device): Promise<void> {
-        const endpoint = `devices/${device.id}`;
+        const endpoint = `devices/${device.documentId}`;
 
         return await this.delete(endpoint);
     }
@@ -95,7 +95,7 @@ export class DeviceStrapiRepository
             identifier: device.identifier,
             room: device.room
                 ? {
-                      connect: [device.room.id], //ignore error, works - PUT needs .documentId but POST .id
+                      connect: [device.room.documentId], //ignore error, works - PUT needs .documentId but POST .documentId
                   }
                 : null,
             device_data:

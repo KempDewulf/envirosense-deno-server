@@ -10,16 +10,16 @@ import {
 
 Deno.test("Room - create method with valid parameters", () => {
     // Arrange
-    const id = "1";
+    const documentId = "1";
     const name = "Conference Room";
     const building = Building.create("1", "Main Building", "123 Main St");
     const roomType = RoomType.create("1", "Meeting Room", "icon.png");
 
     // Act
-    const room = Room.create(id, name, building, roomType);
+    const room = Room.create(documentId, name, building, roomType);
 
     // Assert
-    assertEquals(room.documentId, id);
+    assertEquals(room.documentId, documentId);
     assertEquals(room.name, name);
     assertEquals(room.building, building);
     assertEquals(room.roomType, roomType);
@@ -27,7 +27,7 @@ Deno.test("Room - create method with valid parameters", () => {
 
 Deno.test("Room - create method with empty name throws error", () => {
     // Arrange
-    const id = "1";
+    const documentId = "1";
     const name = "";
     const building = Building.create("1", "Main Building", "123 Main St");
     const roomType = RoomType.create("1", "Meeting Room", "icon.png");
@@ -35,7 +35,7 @@ Deno.test("Room - create method with empty name throws error", () => {
     // Act & Assert
     assertThrows(
         () => {
-            Room.create(id, name, building, roomType);
+            Room.create(documentId, name, building, roomType);
         },
         DomainException,
         "Room name is required."
@@ -44,7 +44,7 @@ Deno.test("Room - create method with empty name throws error", () => {
 
 Deno.test("Room - create method with null roomType throws error", () => {
     // Arrange
-    const id = "1";
+    const documentId = "1";
     const name = "Conference Room";
     const building = Building.create("1", "Main Building", "123 Main St");
     const roomType = null;
@@ -52,7 +52,12 @@ Deno.test("Room - create method with null roomType throws error", () => {
     // Act & Assert
     assertThrows(
         () => {
-            Room.create(id, name, building, roomType as unknown as RoomType);
+            Room.create(
+                documentId,
+                name,
+                building,
+                roomType as unknown as RoomType
+            );
         },
         DomainException,
         "Room type is required."
@@ -73,7 +78,7 @@ Deno.test("Room - load method with valid state", () => {
     const room = Room.load(state);
 
     // Assert
-    assertEquals(room.documentId, state.id);
+    assertEquals(room.documentId, state.documentId);
     assertEquals(room.name, state.name);
     assertEquals(room.building, state.building);
     assertEquals(room.roomType, state.roomType);
@@ -162,7 +167,7 @@ Deno.test("Room - removeDevice removes device successfully", () => {
     room.addDevice(device);
 
     // Act
-    room.removeDevice(device.id);
+    room.removeDevice(device.documentId);
 
     // Assert
     assertEquals(room.devices.length, 0);
@@ -177,7 +182,7 @@ Deno.test("Room - removeDevice with non-existent device throws error", () => {
     // Act & Assert
     assertThrows(
         () => {
-            room.removeDevice("non-existent-id");
+            room.removeDevice("non-existent-documentId");
         },
         DomainException,
         "Device does not exist in this room."

@@ -12,13 +12,13 @@ export class RoomType {
     private _icon: string;
 
     private constructor(documentId: string, name: string, icon: string) {
-        this._id = id;
+        this._id = documentId;
         this._name = name;
         this._icon = icon;
     }
 
     static create(documentId: string, name: string, icon: string): RoomType {
-        const roomType = new RoomType(id, name, icon);
+        const roomType = new RoomType(documentId, name, icon);
         roomType.validateState();
 
         return roomType;
@@ -64,7 +64,7 @@ export class RoomType {
         }
     }
 
-    get id(): string {
+    get documentId(): string {
         return this._id;
     }
 

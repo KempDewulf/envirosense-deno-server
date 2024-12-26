@@ -23,6 +23,8 @@ export class CreateBuilding implements UseCase<CreateBuildingInput> {
         const building = Building.create("", input.name, input.address);
 
         await this._buildingRepository.save(building);
-        this._outputPort.present({ documentId: building.id.toString() });
+        this._outputPort.present({
+            documentId: building.documentId.toString(),
+        });
     }
 }

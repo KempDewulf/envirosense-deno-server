@@ -20,14 +20,14 @@ export class Building {
         address: string,
         rooms?: Room[]
     ) {
-        this._id = id;
+        this.documentId = documentId;
         this._name = name;
         this._address = address;
         this._rooms = rooms ?? [];
     }
 
     static create(documentId: string, name: string, address: string): Building {
-        const building = new Building(id, name, address);
+        const building = new Building(documentId, name, address);
         building.validateState();
 
         return building;
@@ -73,7 +73,9 @@ export class Building {
     public removeRoom(roomDocumentId: string): void {
         this.ensureRoomExists(roomDocumentId);
 
-        this._rooms = this._rooms.filter((room) => room.id !== roomDocumentId);
+        this._rooms = this._rooms.filter(
+            (room) => room.documentId !== roomDocumentId
+        );
     }
 
     private ensureNameIsNotEmpty(): void {
@@ -90,19 +92,19 @@ export class Building {
 
     //TODO(@layton): check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
     private ensureRoomDoesNotExist(room: Room): void {
-        if (this._rooms.some((r) => r.id === room.id)) {
-            throw new DomainException(`Room ${room.id} already exists`);
+        if (this._rooms.some((r) => r.documentId === room.documentId)) {
+            throw new DomainException(`Room ${room.documentId} already exists`);
         }
     }
 
     //TODO(@layton): check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
     public ensureRoomExists(roomDocumentId: string): void {
-        if (!this._rooms.some((room) => room.id === roomDocumentId)) {
+        if (!this._rooms.some((room) => room.documentId === roomDocumentId)) {
             throw new DomainException(`Room does not exist`);
         }
     }
 
-    get id(): string {
+    get documentId(): string {
         return this._id;
     }
 

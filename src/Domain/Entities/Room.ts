@@ -26,7 +26,7 @@ export class Room {
         building: Building | null,
         roomType: RoomType
     ) {
-        this._id = id;
+        this._id = documentId;
         this._name = name;
         this._building = building;
         this._roomType = roomType;
@@ -39,7 +39,7 @@ export class Room {
         building: Building,
         roomType: RoomType
     ): Room {
-        const room = new Room(id, name, building, roomType);
+        const room = new Room(documentId, name, building, roomType);
         room.validateState();
 
         return room;
@@ -85,7 +85,7 @@ export class Room {
         this.ensureDeviceExists(deviceDocumentId);
 
         this._devices = this._devices.filter(
-            (device) => device.id !== deviceDocumentId
+            (device) => device.documentId !== deviceDocumentId
         );
     }
 
@@ -103,19 +103,19 @@ export class Room {
 
     //TODO(@layton): check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
     private ensureDeviceDoesNotExist(device: Device): void {
-        if (this._devices.some((d) => d.id === device.id)) {
+        if (this._devices.some((d) => d.documentId === device.documentId)) {
             throw new DomainException("Device already exists in this room.");
         }
     }
 
     //TODO(@layton): check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
     private ensureDeviceExists(deviceDocumentId: string): void {
-        if (!this._devices.some((d) => d.id === deviceDocumentId)) {
+        if (!this._devices.some((d) => d.documentId === deviceDocumentId)) {
             throw new DomainException("Device does not exist in this room.");
         }
     }
 
-    get id(): string {
+    get documentId(): string {
         return this._id;
     }
 

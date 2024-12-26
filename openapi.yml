@@ -1078,7 +1078,6 @@ components:
             example:
               [
                 {
-                  "id": 1,
                   "documentId": "mockDeviceDocId101",
                   "identifier": "mockDeviceIdentifier"
                 }
@@ -1146,7 +1145,6 @@ components:
             example:
               [
                 {
-                  "id": 108,
                   "documentId": "mockDeviceDataDocId101",
                   "timestamp": "2024-12-16T20:57:00Z",
                   "temperature": 25.5,

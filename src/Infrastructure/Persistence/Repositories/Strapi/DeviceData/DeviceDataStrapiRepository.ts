@@ -27,7 +27,7 @@ export class DeviceDataStrapiRepository
     }
 
     async update(deviceData: DeviceData): Promise<void> {
-        const endpoint = `device-datas/${deviceData.id}`;
+        const endpoint = `device-datas/${deviceData.documentId}`;
         const body = this.mapFromDomain(deviceData);
 
         return await this.put(endpoint, { data: body });
@@ -61,7 +61,7 @@ export class DeviceDataStrapiRepository
     private mapFromDomain(deviceData: DeviceData): any {
         return {
             device: deviceData.device
-                ? { connect: [deviceData.device.id] }
+                ? { connect: [deviceData.device.documentId] }
                 : null,
             timestamp: deviceData.timestamp,
             temperature: deviceData.airData.temperature,

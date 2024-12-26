@@ -11,7 +11,7 @@ import {
 
 Deno.test("DeviceData - create method with valid parameters", () => {
     // Arrange
-    const id = "1";
+    const documentId = "1";
     const building = Building.create("1", "Main Building", "123 Main St");
     const roomType = RoomType.create("1", "Office", "office_icon.png");
     const room = Room.create("1", "Office Room", building, roomType);
@@ -20,10 +20,15 @@ Deno.test("DeviceData - create method with valid parameters", () => {
     const airData: AirData = { temperature: 25, humidity: 50, ppm: 400 };
 
     // Act
-    const deviceData = DeviceData.create(id, device, timestamp, airData);
+    const deviceData = DeviceData.create(
+        documentId,
+        device,
+        timestamp,
+        airData
+    );
 
     // Assert
-    assertEquals(deviceData.documentId, id);
+    assertEquals(deviceData.documentId, documentId);
     assertEquals(deviceData.device, device);
     assertEquals(deviceData.timestamp, timestamp);
     assertEquals(deviceData.airData, airData);
@@ -31,7 +36,7 @@ Deno.test("DeviceData - create method with valid parameters", () => {
 
 Deno.test("DeviceData - create method with null timestamp throws error", () => {
     // Arrange
-    const id = "3";
+    const documentId = "3";
     const building = Building.create("3", "Main Building", "123 Main St");
     const roomType = RoomType.create("3", "Office", "office_icon.png");
     const room = Room.create("3", "Office Room", building, roomType);
@@ -43,7 +48,7 @@ Deno.test("DeviceData - create method with null timestamp throws error", () => {
     assertThrows(
         () => {
             DeviceData.create(
-                id,
+                documentId,
                 device,
                 timestamp as unknown as Date,
                 airData
@@ -56,7 +61,7 @@ Deno.test("DeviceData - create method with null timestamp throws error", () => {
 
 Deno.test("DeviceData - create method with null airData throws error", () => {
     // Arrange
-    const id = "4";
+    const documentId = "4";
     const building = Building.create("4", "Main Building", "123 Main St");
     const roomType = RoomType.create("4", "Office", "office_icon.png");
     const room = Room.create("4", "Office Room", building, roomType);
@@ -68,7 +73,7 @@ Deno.test("DeviceData - create method with null airData throws error", () => {
     assertThrows(
         () => {
             DeviceData.create(
-                id,
+                documentId,
                 device,
                 timestamp,
                 airData as unknown as AirData
@@ -83,7 +88,7 @@ Deno.test(
     "DeviceData - create method with invalid airData throws error",
     () => {
         // Arrange
-        const id = "5";
+        const documentId = "5";
         const building = Building.create("5", "Main Building", "123 Main St");
         const roomType = RoomType.create("5", "Office", "office_icon.png");
         const room = Room.create("5", "Office Room", building, roomType);
@@ -95,7 +100,7 @@ Deno.test(
         assertThrows(
             () => {
                 DeviceData.create(
-                    id,
+                    documentId,
                     device,
                     timestamp,
                     airData as unknown as AirData
@@ -124,7 +129,7 @@ Deno.test("DeviceData - load method with valid state", () => {
     const deviceData = DeviceData.load(state);
 
     // Assert
-    assertEquals(deviceData.documentId, state.id);
+    assertEquals(deviceData.documentId, state.documentId);
     assertEquals(deviceData.device, state.device);
     assertEquals(deviceData.timestamp, state.timestamp);
     assertEquals(deviceData.airData, state.airData);
@@ -134,7 +139,7 @@ Deno.test(
     "DeviceData - create method with missing humidity throws error",
     () => {
         // Arrange
-        const id = "7";
+        const documentId = "7";
         const building = Building.create("7", "Main Building", "123 Main St");
         const roomType = RoomType.create("7", "Office", "office_icon.png");
         const room = Room.create("7", "Office Room", building, roomType);
@@ -146,7 +151,7 @@ Deno.test(
         assertThrows(
             () => {
                 DeviceData.create(
-                    id,
+                    documentId,
                     device,
                     timestamp,
                     airData as unknown as AirData
@@ -160,7 +165,7 @@ Deno.test(
 
 Deno.test("DeviceData - create method with missing ppm throws error", () => {
     // Arrange
-    const id = "8";
+    const documentId = "8";
     const building = Building.create("8", "Main Building", "123 Main St");
     const roomType = RoomType.create("8", "Office", "office_icon.png");
     const room = Room.create("8", "Office Room", building, roomType);
@@ -172,7 +177,7 @@ Deno.test("DeviceData - create method with missing ppm throws error", () => {
     assertThrows(
         () => {
             DeviceData.create(
-                id,
+                documentId,
                 device,
                 timestamp,
                 airData as unknown as AirData
@@ -206,7 +211,7 @@ Deno.test(
     "DeviceData - create method with negative humidity throws error",
     () => {
         // Arrange
-        const id = "13";
+        const documentId = "13";
         const building = Building.create("13", "Main Building", "123 Main St");
         const roomType = RoomType.create("13", "Office", "office_icon.png");
         const room = Room.create("13", "Office Room", building, roomType);
@@ -217,7 +222,7 @@ Deno.test(
         // Act & Assert
         assertThrows(
             () => {
-                DeviceData.create(id, device, timestamp, airData);
+                DeviceData.create(documentId, device, timestamp, airData);
             },
             Error,
             "Humidity must be between 0 and 100"
@@ -229,7 +234,7 @@ Deno.test(
     "DeviceData - create method with humidity above maximum throws error",
     () => {
         // Arrange
-        const id = "14";
+        const documentId = "14";
         const building = Building.create("14", "Main Building", "123 Main St");
         const roomType = RoomType.create("14", "Office", "office_icon.png");
         const room = Room.create("14", "Office Room", building, roomType);
@@ -240,7 +245,7 @@ Deno.test(
         // Act & Assert
         assertThrows(
             () => {
-                DeviceData.create(id, device, timestamp, airData);
+                DeviceData.create(documentId, device, timestamp, airData);
             },
             Error,
             "Humidity must be between 0 and 100"
@@ -250,7 +255,7 @@ Deno.test(
 
 Deno.test("DeviceData - create method with negative ppm throws error", () => {
     // Arrange
-    const id = "12";
+    const documentId = "12";
     const building = Building.create("12", "Main Building", "123 Main St");
     const roomType = RoomType.create("12", "Office", "office_icon.png");
     const room = Room.create("12", "Office Room", building, roomType);
@@ -261,7 +266,7 @@ Deno.test("DeviceData - create method with negative ppm throws error", () => {
     // Act & Assert
     assertThrows(
         () => {
-            DeviceData.create(id, device, timestamp, airData);
+            DeviceData.create(documentId, device, timestamp, airData);
         },
         Error,
         "PPM must be between 0 and 5000"
@@ -270,7 +275,7 @@ Deno.test("DeviceData - create method with negative ppm throws error", () => {
 
 Deno.test("DeviceData - create method with ppm over 5000 throws error", () => {
     // Arrange
-    const id = "13";
+    const documentId = "13";
     const building = Building.create("13", "Main Building", "123 Main St");
     const roomType = RoomType.create("13", "Office", "office_icon.png");
     const room = Room.create("13", "Office Room", building, roomType);
@@ -281,7 +286,7 @@ Deno.test("DeviceData - create method with ppm over 5000 throws error", () => {
     // Act & Assert
     assertThrows(
         () => {
-            DeviceData.create(id, device, timestamp, airData);
+            DeviceData.create(documentId, device, timestamp, airData);
         },
         Error,
         "PPM must be between 0 and 5000"

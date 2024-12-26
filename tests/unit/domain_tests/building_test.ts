@@ -8,29 +8,29 @@ import {
 
 Deno.test("Building - create method with valid parameters", () => {
     // Arrange
-    const id = "1";
+    const documentId = "1";
     const name = "Main Building";
     const address = "123 Main St";
 
     // Act
-    const building = Building.create(id, name, address);
+    const building = Building.create(documentId, name, address);
 
     // Assert
-    assertEquals(building.documentId, id);
+    assertEquals(building.documentId, documentId);
     assertEquals(building.name, name);
     assertEquals(building.address, address);
 });
 
 Deno.test("Building - create method with empty name throws error", () => {
     // Arrange
-    const id = "2";
+    const documentId = "2";
     const name = "";
     const address = "123 Main St";
 
     // Act & Assert
     assertThrows(
         () => {
-            Building.create(id, name, address);
+            Building.create(documentId, name, address);
         },
         DomainException,
         "Name is required."
@@ -39,14 +39,14 @@ Deno.test("Building - create method with empty name throws error", () => {
 
 Deno.test("Building - create method with empty address throws error", () => {
     // Arrange
-    const id = "3";
+    const documentId = "3";
     const name = "Main Building";
     const address = "";
 
     // Act & Assert
     assertThrows(
         () => {
-            Building.create(id, name, address);
+            Building.create(documentId, name, address);
         },
         DomainException,
         "Address is required."
@@ -66,7 +66,7 @@ Deno.test("Building - load method with valid state", () => {
     const building = Building.load(state);
 
     // Assert
-    assertEquals(building.documentId, state.id);
+    assertEquals(building.documentId, state.documentId);
     assertEquals(building.name, state.name);
     assertEquals(building.address, state.address);
 });
@@ -132,7 +132,7 @@ Deno.test("Building - removeRoom method removes room from the building", () => {
     building.addRoom(room);
 
     // Act
-    building.removeRoom(room.id);
+    building.removeRoom(room.documentId);
 
     // Assert
     assertEquals(building.rooms.length, 0);
@@ -169,7 +169,7 @@ Deno.test(
         building.addRoom(room);
 
         // Act & Assert
-        building.ensureRoomExists(room.id);
+        building.ensureRoomExists(room.documentId);
     }
 );
 

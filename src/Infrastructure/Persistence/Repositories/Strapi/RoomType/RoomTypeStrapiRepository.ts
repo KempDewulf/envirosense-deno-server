@@ -27,14 +27,14 @@ export class RoomTypeStrapiRepository
     }
 
     async update(roomType: RoomType): Promise<void> {
-        const endpoint = `room-types/${roomType.id}`;
+        const endpoint = `room-types/${roomType.documentId}`;
         const body = this.mapFromDomain(roomType);
 
         return await this.put(endpoint, { data: body });
     }
 
     async deleteEntity(roomType: RoomType): Promise<void> {
-        const endpoint = `room-types/${roomType.id}`;
+        const endpoint = `room-types/${roomType.documentId}`;
 
         return await this.delete(endpoint);
     }
@@ -63,8 +63,8 @@ export class RoomTypeStrapiRepository
             return null;
         }
 
-        if (typeof icon === "object" && "id" in icon) {
-            return icon.id;
+        if (typeof icon === "object" && "documentId" in icon) {
+            return icon.documentId;
         }
 
         return icon;

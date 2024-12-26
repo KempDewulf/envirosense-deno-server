@@ -45,7 +45,7 @@ export class AddDeviceDataToDevice
 
             device.addDeviceData(deviceData);
 
-            deviceDataDocumentIdsToConnect.push(deviceData.id);
+            deviceDataDocumentIdsToConnect.push(deviceData.documentId);
         }
 
         await this._deviceRepository.manageDeviceData(

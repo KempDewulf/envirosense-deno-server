@@ -11,24 +11,24 @@ import {
 
 Deno.test("Device - create method with valid parameters", () => {
     // Arrange
-    const id = "1";
+    const documentId = "1";
     const identifier = "Device001";
     const building = Building.create("1", "Main Building", "123 Main St");
     const roomType = RoomType.create("1", "Office", "office_icon.png");
     const room = Room.create("1", "Office Room", building, roomType);
 
     // Act
-    const device = Device.create(id, identifier, room);
+    const device = Device.create(documentId, identifier, room);
 
     // Assert
-    assertEquals(device.documentId, id);
+    assertEquals(device.documentId, documentId);
     assertEquals(device.identifier, identifier);
     assertEquals(device.room, room);
 });
 
 Deno.test("Device - create method with empty identifier throws error", () => {
     // Arrange
-    const id = "2";
+    const documentId = "2";
     const identifier = "";
     const building = Building.create("2", "Main Building", "123 Main St");
     const roomType = RoomType.create("2", "Office", "office_icon.png");
@@ -37,7 +37,7 @@ Deno.test("Device - create method with empty identifier throws error", () => {
     // Act & Assert
     assertThrows(
         () => {
-            Device.create(id, identifier, room);
+            Device.create(documentId, identifier, room);
         },
         DomainException,
         "Identifier is required."
@@ -60,7 +60,7 @@ Deno.test("Device - load method with valid state", () => {
     const device = Device.load(state);
 
     // Assert
-    assertEquals(device.documentId, state.id);
+    assertEquals(device.documentId, state.documentId);
     assertEquals(device.identifier, state.identifier);
     assertEquals(device.room, room);
     assertEquals(device.deviceData, []);
@@ -93,12 +93,12 @@ Deno.test(
 
 Deno.test("Device - removeRoom method removes the room from the device", () => {
     // Arrange
-    const id = "5";
+    const documentId = "5";
     const identifier = "Device005";
     const building = Building.create("5", "Main Building", "123 Main St");
     const roomType = RoomType.create("5", "Office", "office_icon.png");
     const room = Room.create("5", "Office Room", building, roomType);
-    const device = Device.create(id, identifier, room);
+    const device = Device.create(documentId, identifier, room);
 
     // Act
     device.removeRoom();
@@ -111,7 +111,7 @@ Deno.test(
     "Device - addRoom method adds a new room after removing the current room",
     () => {
         // Arrange
-        const id = "6";
+        const documentId = "6";
         const identifier = "Device006";
 
         const building = Building.create("6", "Main Building", "123 Main St");
@@ -128,7 +128,7 @@ Deno.test(
         const room2 = Room.create("7", "Conference Room", building, roomType2);
         building.addRoom(room2); // Add room2 to the building
 
-        const device = Device.create(id, identifier, room1);
+        const device = Device.create(documentId, identifier, room1);
 
         // Act
         device.removeRoom();
@@ -141,13 +141,13 @@ Deno.test(
 
 Deno.test("Device - updateIdentifier method with valid identifier", () => {
     // Arrange
-    const id = "7";
+    const documentId = "7";
     const oldIdentifier = "Device007";
     const newIdentifier = "Device007-Updated";
     const building = Building.create("7", "Main Building", "123 Main St");
     const roomType = RoomType.create("7", "Office", "office_icon.png");
     const room = Room.create("7", "Office Room", building, roomType);
-    const device = Device.create(id, oldIdentifier, room);
+    const device = Device.create(documentId, oldIdentifier, room);
 
     // Act
     device.updateIdentifier(newIdentifier);
@@ -160,13 +160,13 @@ Deno.test(
     "Device - updateIdentifier method with empty identifier throws error",
     () => {
         // Arrange
-        const id = "8";
+        const documentId = "8";
         const oldIdentifier = "Device008";
         const newIdentifier = "";
         const building = Building.create("8", "Main Building", "123 Main St");
         const roomType = RoomType.create("8", "Office", "office_icon.png");
         const room = Room.create("8", "Office Room", building, roomType);
-        const device = Device.create(id, oldIdentifier, room);
+        const device = Device.create(documentId, oldIdentifier, room);
 
         // Act & Assert
         assertThrows(
@@ -183,7 +183,7 @@ Deno.test(
     "Device - addRoom method with room not assigned to building throws error",
     () => {
         // Arrange
-        const id = "9";
+        const documentId = "9";
         const identifier = "Device009";
         const building = Building.create("9", "Main Building", "123 Main St");
         const roomType = RoomType.create("9", "Office", "office_icon.png");
@@ -191,7 +191,7 @@ Deno.test(
         // Create initial room and device
         const room1 = Room.create("9", "Office Room", building, roomType);
         building.addRoom(room1);
-        const device = Device.create(id, identifier, room1);
+        const device = Device.create(documentId, identifier, room1);
 
         // Create room without building
         const roomType2 = RoomType.create(
@@ -221,12 +221,12 @@ Deno.test(
     "Device - removeRoom method throws error when room is already null",
     () => {
         // Arrange
-        const id = "10";
+        const documentId = "10";
         const identifier = "Device010";
         const building = Building.create("10", "Main Building", "123 Main St");
         const roomType = RoomType.create("10", "Office", "office_icon.png");
         const room = Room.create("10", "Office Room", building, roomType);
-        const device = Device.create(id, identifier, room);
+        const device = Device.create(documentId, identifier, room);
 
         // First removal
         device.removeRoom();
@@ -244,14 +244,14 @@ Deno.test(
 
 Deno.test("Device - deviceData getter returns empty array by default", () => {
     // Arrange
-    const id = "11";
+    const documentId = "11";
     const identifier = "Device011";
     const building = Building.create("11", "Main Building", "123 Main St");
     const roomType = RoomType.create("11", "Office", "office_icon.png");
     const room = Room.create("11", "Office Room", building, roomType);
 
     // Act
-    const device = Device.create(id, identifier, room);
+    const device = Device.create(documentId, identifier, room);
 
     // Assert
     assertEquals(device.deviceData, []);
@@ -259,13 +259,13 @@ Deno.test("Device - deviceData getter returns empty array by default", () => {
 
 Deno.test("Device - removeRoom method removes room successfully", () => {
     // Arrange
-    const id = "10";
+    const documentId = "10";
     const identifier = "Device010";
     const building = Building.create("10", "Main Building", "123 Main St");
     const roomType = RoomType.create("10", "Office", "office_icon.png");
     const room = Room.create("10", "Office Room", building, roomType);
     building.addRoom(room);
-    const device = Device.create(id, identifier, room);
+    const device = Device.create(documentId, identifier, room);
 
     // Act
     device.removeRoom();
@@ -276,9 +276,13 @@ Deno.test("Device - removeRoom method removes room successfully", () => {
 
 Deno.test("Device - removeRoom method throws error when room is null", () => {
     // Arrange
-    const id = "11";
+    const documentId = "11";
     const identifier = "Device011";
-    const device = Device.create(id, identifier, null as unknown as Room);
+    const device = Device.create(
+        documentId,
+        identifier,
+        null as unknown as Room
+    );
 
     // Act & Assert
     assertThrows(
@@ -292,9 +296,13 @@ Deno.test("Device - removeRoom method throws error when room is null", () => {
 
 Deno.test("Device - addDeviceData method adds device data successfully", () => {
     // Arrange
-    const id = "12";
+    const documentId = "12";
     const identifier = "Device012";
-    const device = Device.create(id, identifier, null as unknown as Room);
+    const device = Device.create(
+        documentId,
+        identifier,
+        null as unknown as Room
+    );
     const deviceData = DeviceData.create("1", device, new Date(), {
         temperature: 25,
         humidity: 50,
@@ -313,9 +321,13 @@ Deno.test(
     "Device - updateIdentifier method updates identifier successfully",
     () => {
         // Arrange
-        const id = "13";
+        const documentId = "13";
         const identifier = "Device013";
-        const device = Device.create(id, identifier, null as unknown as Room);
+        const device = Device.create(
+            documentId,
+            identifier,
+            null as unknown as Room
+        );
         const newIdentifier = "Device013Updated";
 
         // Act
@@ -330,9 +342,13 @@ Deno.test(
     "Device - updateIdentifier method throws error when identifier is empty",
     () => {
         // Arrange
-        const id = "14";
+        const documentId = "14";
         const identifier = "Device014";
-        const device = Device.create(id, identifier, null as unknown as Room);
+        const device = Device.create(
+            documentId,
+            identifier,
+            null as unknown as Room
+        );
 
         // Act & Assert
         assertThrows(
@@ -349,7 +365,7 @@ Deno.test(
     "Device - validateState method throws error when identifier is empty",
     () => {
         // Arrange
-        const id = "15";
+        const documentId = "15";
         const identifier = "";
         const building = Building.create("15", "Main Building", "123 Main St");
         const roomType = RoomType.create("15", "Office", "office_icon.png");
@@ -358,7 +374,7 @@ Deno.test(
         // Act & Assert
         assertThrows(
             () => {
-                Device.create(id, identifier, room);
+                Device.create(documentId, identifier, room);
             },
             DomainException,
             "Identifier is required."
@@ -370,12 +386,12 @@ Deno.test(
     "Device - addDeviceData adds first device data to empty array",
     () => {
         // Arrange
-        const id = "16";
+        const documentId = "16";
         const identifier = "Device016";
         const building = Building.create("16", "Main Building", "123 Main St");
         const roomType = RoomType.create("16", "Office", "office_icon.png");
         const room = Room.create("16", "Office Room", building, roomType);
-        const device = Device.create(id, identifier, room);
+        const device = Device.create(documentId, identifier, room);
         const deviceData = DeviceData.create("1", device, new Date(), {
             temperature: 25,
             humidity: 50,
@@ -395,12 +411,12 @@ Deno.test(
     "Device - removeRoom method ensures room exists before removal",
     () => {
         // Arrange
-        const id = "17";
+        const documentId = "17";
         const identifier = "Device017";
         const building = Building.create("17", "Main Building", "123 Main St");
         const roomType = RoomType.create("17", "Office", "office_icon.png");
         const room = Room.create("17", "Office Room", building, roomType);
-        const device = Device.create(id, identifier, room);
+        const device = Device.create(documentId, identifier, room);
 
         // Act & Assert
         assertThrows(
@@ -418,12 +434,12 @@ Deno.test(
     "Device - addDeviceData method with null deviceData throws error",
     () => {
         // Arrange
-        const id = "24";
+        const documentId = "24";
         const identifier = "Device024";
         const building = Building.create("24", "Main Building", "123 Main St");
         const roomType = RoomType.create("24", "Office", "office_icon.png");
         const room = Room.create("24", "Office Room", building, roomType);
-        const device = Device.create(id, identifier, room);
+        const device = Device.create(documentId, identifier, room);
 
         // Act & Assert
         assertThrows(
@@ -438,7 +454,7 @@ Deno.test(
 
 Deno.test("Device - create method with null identifier throws error", () => {
     // Arrange
-    const id = "25";
+    const documentId = "25";
     const identifier = null;
     const building = Building.create("25", "Main Building", "123 Main St");
     const roomType = RoomType.create("25", "Office", "office_icon.png");
@@ -447,7 +463,7 @@ Deno.test("Device - create method with null identifier throws error", () => {
     // Act & Assert
     assertThrows(
         () => {
-            Device.create(id, identifier as unknown as string, room);
+            Device.create(documentId, identifier as unknown as string, room);
         },
         DomainException,
         "Identifier is required."

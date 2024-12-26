@@ -43,7 +43,7 @@ export class RoomStrapiRepository
     }
 
     async update(room: Room): Promise<void> {
-        const endpoint = `rooms/${room.id}`;
+        const endpoint = `rooms/${room.documentId}`;
         const body = this.mapFromDomain(room);
 
         return await this.put(endpoint, { data: body });
@@ -64,7 +64,7 @@ export class RoomStrapiRepository
     }
 
     async deleteEntity(room: Room): Promise<void> {
-        const endpoint = `rooms/${room.id}`;
+        const endpoint = `rooms/${room.documentId}`;
 
         return await this.delete(endpoint);
     }
@@ -111,18 +111,20 @@ export class RoomStrapiRepository
             name: room.name,
             building: room.building
                 ? {
-                      connect: [room.building.id],
+                      connect: [room.building.documentId],
                   }
                 : null,
             room_type: room.roomType
                 ? {
-                      connect: [room.roomType.id],
+                      connect: [room.roomType.documentId],
                   }
                 : null,
             devices:
                 room.devices && room.devices.length > 0
                     ? {
-                          connect: room.devices.map((device) => device.id),
+                          connect: room.devices.map(
+                              (device) => device.documentId
+                          ),
                       }
                     : [],
         };

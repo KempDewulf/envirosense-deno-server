@@ -46,7 +46,7 @@ export class RemoveDeviceFromRoom
                     )
             );
 
-            room.removeDevice(device.id);
+            room.removeDevice(device.documentId);
 
             await this._roomRepository.manageDevices(
                 room.documentId,

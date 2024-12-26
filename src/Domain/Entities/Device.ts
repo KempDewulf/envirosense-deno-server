@@ -18,14 +18,14 @@ export class Device {
         identifier: string,
         room: Room | null
     ) {
-        this._id = id;
+        this._id = documentId;
         this._identifier = identifier;
         this._room = room;
         this._deviceData = [];
     }
 
     static create(documentId: string, identifier: string, room: Room): Device {
-        const device = new Device(id, identifier, room);
+        const device = new Device(documentId, identifier, room);
         device.validateState();
 
         return device;
@@ -69,7 +69,7 @@ export class Device {
             throw new DomainException("Room must be assigned to a building");
         }
 
-        room.building.ensureRoomExists(room.id);
+        room.building.ensureRoomExists(room.documentId);
         this._room = room;
     }
 
@@ -90,7 +90,7 @@ export class Device {
         }
     }
 
-    get id(): string {
+    get documentId(): string {
         return this._id;
     }
 

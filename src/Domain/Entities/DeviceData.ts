@@ -19,7 +19,7 @@ export class DeviceData {
         timestamp: Date,
         airData: AirData
     ) {
-        this._id = id;
+        this._id = documentId;
         this._device = device;
         this._timestamp = timestamp;
         this._airData = airData;
@@ -31,7 +31,12 @@ export class DeviceData {
         timestamp: Date,
         airData: AirData
     ): DeviceData {
-        const deviceData = new DeviceData(id, device, timestamp, airData);
+        const deviceData = new DeviceData(
+            documentId,
+            device,
+            timestamp,
+            airData
+        );
         deviceData.validateState();
 
         return deviceData;
@@ -92,7 +97,7 @@ export class DeviceData {
         }
     }
 
-    get id(): string {
+    get documentId(): string {
         return this._id;
     }
 

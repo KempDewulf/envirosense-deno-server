@@ -49,7 +49,7 @@ export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
 
                 room.addDevice(device);
 
-                deviceDocumentIdsToConnect.push(device.id);
+                deviceDocumentIdsToConnect.push(device.documentId);
 
                 for (const data of device.deviceData) {
                     try {
