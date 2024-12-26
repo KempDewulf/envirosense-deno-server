@@ -20,7 +20,7 @@ export class Building {
         address: string,
         rooms?: Room[]
     ) {
-        this.documentId = documentId;
+        this._documentId = documentId;
         this._name = name;
         this._address = address;
         this._rooms = rooms ?? [];
@@ -90,14 +90,12 @@ export class Building {
         }
     }
 
-    //TODO(@layton): check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
     private ensureRoomDoesNotExist(room: Room): void {
         if (this._rooms.some((r) => r.documentId === room.documentId)) {
             throw new DomainException(`Room ${room.documentId} already exists`);
         }
     }
 
-    //TODO(@layton): check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
     public ensureRoomExists(roomDocumentId: string): void {
         if (!this._rooms.some((room) => room.documentId === roomDocumentId)) {
             throw new DomainException(`Room does not exist`);
