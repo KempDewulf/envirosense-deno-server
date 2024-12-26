@@ -1,43 +1,38 @@
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import {
-    OutputPort,
-    ShowBuildingsOutput,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { OutputPort, ShowBuildingsOutput } from "EnviroSense/Application/Contracts/mod.ts";
 import { Room } from "EnviroSense/Domain/mod.ts";
 
 export type ShowBuildingsPresentedData = {
-    documentId: string;
-    documentId: string;
-    name: string;
-    address: string;
-    rooms: Room[];
+	documentId: string;
+	documentId: string;
+	name: string;
+	address: string;
+	rooms: Room[];
 };
 
-export class ShowBuildingsPresenter
-    implements OutputPort<ShowBuildingsOutput[]>
-{
-    private readonly _device: RequestResponseDevice<
-        ShowBuildingsPresentedData[]
-    >;
+export class ShowBuildingsPresenter implements OutputPort<ShowBuildingsOutput[]> {
+	private readonly _device: RequestResponseDevice<
+		ShowBuildingsPresentedData[]
+	>;
 
-    constructor(device: RequestResponseDevice<ShowBuildingsPresentedData[]>) {
-        this._device = device;
-    }
+	constructor(device: RequestResponseDevice<ShowBuildingsPresentedData[]>) {
+		this._device = device;
+	}
 
-    present(data: ShowBuildingsOutput[]): void {
-        const presentedData = this.mapToPresentedData(data);
-        this._device.update(presentedData);
-    }
+	present(data: ShowBuildingsOutput[]): void {
+		const presentedData = this.mapToPresentedData(data);
+		this._device.update(presentedData);
+	}
 
-    protected mapToPresentedData(
-        data: ShowBuildingsOutput[]
-    ): ShowBuildingsPresentedData[] {
-        return data.map((building: ShowBuildingsOutput) => ({
-            documentId: building.documentId,
-            documentId: building.documentId,
-            name: building.name,
-            address: building.address,
-            rooms: building.rooms,
-        }));
-    }
+	protected mapToPresentedData(
+		data: ShowBuildingsOutput[],
+	): ShowBuildingsPresentedData[] {
+		return data.map((building: ShowBuildingsOutput) => ({
+			documentId: building.documentId,
+			documentId: building.documentId,
+			name: building.name,
+			address: building.address,
+			rooms: building.rooms,
+		}));
+	}
 }

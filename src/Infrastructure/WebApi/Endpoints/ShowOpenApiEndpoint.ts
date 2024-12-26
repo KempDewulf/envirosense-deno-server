@@ -2,8 +2,8 @@ import { Endpoint } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { RouterContext } from "@oak/oak";
 
 export class ShowOpenApiEndpoint implements Endpoint {
-    handle(context: RouterContext<string>): Promise<void> {
-        const html = `
+	handle(context: RouterContext<string>): Promise<void> {
+		const html = `
             <!DOCTYPE html>
             <html>
             <head>
@@ -28,13 +28,13 @@ export class ShowOpenApiEndpoint implements Endpoint {
             </body>
             </html>
         `;
-        context.response.body = html;
-        context.response.headers.set("Content-Type", "text/html");
+		context.response.body = html;
+		context.response.headers.set("Content-Type", "text/html");
 
-        return Promise.resolve();
-    }
+		return Promise.resolve();
+	}
 
-    static create(): Endpoint {
-        return new ShowOpenApiEndpoint();
-    }
+	static create(): Endpoint {
+		return new ShowOpenApiEndpoint();
+	}
 }

@@ -1,3 +1,3 @@
 export interface CreateDeviceOutput {
-    documentId: string;
+	documentId: string;
 }

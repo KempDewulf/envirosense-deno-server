@@ -1,5 +1,5 @@
 export interface UpdateRoomTypeOutput {
-    documentId: string;
-    name: string;
-    icon: string;
+	documentId: string;
+	name: string;
+	icon: string;
 }

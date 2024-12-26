@@ -1,60 +1,59 @@
 import {
-    OutputPort,
-    RoomQueryDto,
-    RoomQueryRepository,
-    ShowRoomAirQualityInput,
-    ShowRoomAirQualityOutput,
-    UseCase,
+	OutputPort,
+	RoomQueryDto,
+	RoomQueryRepository,
+	ShowRoomAirQualityInput,
+	ShowRoomAirQualityOutput,
+	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { AirData, Room } from "EnviroSense/Domain/mod.ts";
 import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
 
 export class ShowRoomAirQuality implements UseCase<ShowRoomAirQualityInput> {
-    private readonly _outputPort: OutputPort<ShowRoomAirQualityOutput>;
-    private readonly _roomRepository: RoomQueryRepository;
-    private readonly _airQualityCalculator: AirQualityCalculator;
+	private readonly _outputPort: OutputPort<ShowRoomAirQualityOutput>;
+	private readonly _roomRepository: RoomQueryRepository;
+	private readonly _airQualityCalculator: AirQualityCalculator;
 
-    constructor(
-        outputPort: OutputPort<ShowRoomAirQualityOutput>,
-        roomRepository: RoomQueryRepository,
-        _airQualityCalculator: AirQualityCalculator
-    ) {
-        this._outputPort = outputPort;
-        this._roomRepository = roomRepository;
-        this._airQualityCalculator = _airQualityCalculator;
-    }
+	constructor(
+		outputPort: OutputPort<ShowRoomAirQualityOutput>,
+		roomRepository: RoomQueryRepository,
+		_airQualityCalculator: AirQualityCalculator,
+	) {
+		this._outputPort = outputPort;
+		this._roomRepository = roomRepository;
+		this._airQualityCalculator = _airQualityCalculator;
+	}
 
-    public async execute(input: ShowRoomAirQualityInput): Promise<void> {
-        const roomOptional = await this._roomRepository.find(
-            input.roomDocumentId
-        );
+	public async execute(input: ShowRoomAirQualityInput): Promise<void> {
+		const roomOptional = await this._roomRepository.find(
+			input.roomDocumentId,
+		);
 
-        const roomDto = roomOptional.orElseThrow(
-            () => new Error(`Room with ID ${input.roomDocumentId} not found.`)
-        );
+		const roomDto = roomOptional.orElseThrow(
+			() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
+		);
 
-        const roomEntity = Room.load(roomDto);
+		const roomEntity = Room.load(roomDto);
 
-        const { airData: averagedAirQuality, enviroScore } =
-            await this._airQualityCalculator.calculateMetrics(roomEntity);
+		const { airData: averagedAirQuality, enviroScore } = await this._airQualityCalculator.calculateMetrics(roomEntity);
 
-        const airQuality = this.mapDataToOutput(
-            roomDto,
-            enviroScore,
-            averagedAirQuality
-        );
-        this._outputPort.present(airQuality);
-    }
+		const airQuality = this.mapDataToOutput(
+			roomDto,
+			enviroScore,
+			averagedAirQuality,
+		);
+		this._outputPort.present(airQuality);
+	}
 
-    private mapDataToOutput(
-        dto: RoomQueryDto,
-        enviroScore: number | null,
-        averagedAirQuality: AirData
-    ): ShowRoomAirQualityOutput {
-        return {
-            documentId: dto.documentId,
-            enviroScore: enviroScore,
-            airQuality: averagedAirQuality,
-        };
-    }
+	private mapDataToOutput(
+		dto: RoomQueryDto,
+		enviroScore: number | null,
+		averagedAirQuality: AirData,
+	): ShowRoomAirQualityOutput {
+		return {
+			documentId: dto.documentId,
+			enviroScore: enviroScore,
+			airQuality: averagedAirQuality,
+		};
+	}
 }

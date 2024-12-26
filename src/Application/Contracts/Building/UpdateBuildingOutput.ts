@@ -1,5 +1,5 @@
 export interface UpdateBuildingOutput {
-    documentId: string;
-    name: string;
-    address: string;
+	documentId: string;
+	name: string;
+	address: string;
 }
