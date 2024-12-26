@@ -7,7 +7,11 @@ import {
 	ShowBuildingAirQualityRequest,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { DeviceStrapiQueryRepository, BuildingStrapiQueryRepository, RoomStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import {
+	BuildingStrapiQueryRepository,
+	DeviceStrapiQueryRepository,
+	RoomStrapiQueryRepository,
+} from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
 import { ShowBuildingAirQuality } from "EnviroSense/Application/mod.ts";
 
@@ -21,10 +25,10 @@ export class ShowBuildingAirQualityEndpoint implements Endpoint {
 		const repository = new BuildingStrapiQueryRepository();
 		const deviceRepository = new DeviceStrapiQueryRepository();
 		const roomRepository = new RoomStrapiQueryRepository();
-		
+
 		const enviroScoreCalculator = new AirQualityCalculator(
 			deviceRepository,
-			roomRepository
+			roomRepository,
 		);
 
 		const useCase = new ShowBuildingAirQuality(

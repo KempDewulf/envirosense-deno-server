@@ -1,5 +1,5 @@
 import { Module } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { authMiddleware, endpoints, errorHandlingMiddleware, cleanResponseMiddleware } from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import { authMiddleware, cleanResponseMiddleware, endpoints, errorHandlingMiddleware } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { Application, send } from "@oak/oak";
 import { oakCors } from "@tajpouria/cors";
 

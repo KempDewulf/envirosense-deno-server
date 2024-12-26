@@ -29,7 +29,7 @@ export class ShowBuildingAirQualityPresenter implements OutputPort<ShowBuildingA
 		return {
 			id: data.id,
 			enviroScore: data.enviroScore,
-            rooms: data.rooms,
+			rooms: data.rooms,
 		};
 	}
 }
