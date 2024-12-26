@@ -120,7 +120,7 @@ export class AirQualityCalculator {
 
 		const validScores = enviroScores.filter(
 			(score) => score !== null,
-		) as number[];
+		);
 		const processedDevices = validScores.length;
 		const totalEnviroScore = validScores.reduce(
 			(acc, score) => acc + score,
@@ -180,7 +180,7 @@ export class AirQualityCalculator {
 
 		const validScores = enviroScores.filter(
 			(score) => score !== null,
-		) as number[];
+		);
 		const processedDevices = validScores.length;
 		const totalEnviroScore = validScores.reduce(
 			(acc, score) => acc + score,
