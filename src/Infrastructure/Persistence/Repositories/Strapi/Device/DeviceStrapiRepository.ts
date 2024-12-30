@@ -10,7 +10,7 @@ export enum DeviceDataOperation {
 export class DeviceStrapiRepository extends StrapiQueryRepository implements DeviceRepository {
 	async find(deviceDocumentId: string): Promise<Optional<Device>> {
 		const endpoint = `devices/${deviceDocumentId.toString()}`;
-		const params: Record<string, string> = {};
+		const params: Record<string, string> = { "populate": "room" };
 
 		try {
 			const response = await this.get<any>(endpoint, params);

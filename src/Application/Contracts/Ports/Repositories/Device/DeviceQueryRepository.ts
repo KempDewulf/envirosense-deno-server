@@ -1,10 +1,9 @@
-import { DeviceData, Optional, Room } from "EnviroSense/Domain/mod.ts";
+import { Optional, Room } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceQueryDto {
 	documentId: string;
 	identifier: string;
 	room: Room;
-	device_data: DeviceData[];
 }
 
 export interface DeviceQueryRepository {
