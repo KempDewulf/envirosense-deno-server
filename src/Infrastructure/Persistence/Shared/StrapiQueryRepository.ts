@@ -81,7 +81,10 @@ export class StrapiQueryRepository {
 	): Promise<T> {
 		if (method.toUpperCase() === "GET") {
 			if (!params || Object.keys(params).length === 0) {
-				params = { populate: "*" };
+				// Skip populate=* for device/:id endpoint (not the best solution but easy for now)
+				if (!endpoint.match(/devices\/[^\/]+$/)) {
+					params = { populate: "*" };
+				}
 			}
 		}
 
