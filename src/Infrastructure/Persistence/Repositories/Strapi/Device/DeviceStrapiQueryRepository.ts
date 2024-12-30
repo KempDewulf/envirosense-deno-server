@@ -14,7 +14,7 @@ export class DeviceStrapiQueryRepository extends StrapiQueryRepository implement
 
 	async find(deviceDocumentId: string): Promise<Optional<DeviceQueryDto>> {
 		const endpoint = `devices/${deviceDocumentId.toString()}`;
-		const params: Record<string, string> = {};
+		const params: Record<string, string> = { "populate": "room" };
 
 		const response = await this.get<any>(endpoint, params);
 
