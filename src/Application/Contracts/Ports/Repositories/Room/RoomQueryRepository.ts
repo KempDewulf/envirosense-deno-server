@@ -2,7 +2,6 @@ import { Building, Device, Optional, RoomType } from "EnviroSense/Domain/mod.ts"
 
 export interface RoomQueryDto {
 	documentId: string;
-	documentId: string;
 	name: string;
 	building: Building;
 	roomType: RoomType;

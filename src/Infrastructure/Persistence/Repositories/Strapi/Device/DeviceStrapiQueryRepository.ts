@@ -27,8 +27,7 @@ export class DeviceStrapiQueryRepository extends StrapiQueryRepository implement
 		return {
 			documentId: item.documentId,
 			identifier: item.identifier,
-			room: item.room,
-			device_data: item.device_data,
+			room: item.room
 		};
 	}
 }
