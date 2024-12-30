@@ -22,6 +22,7 @@ export class ShowDeviceData implements UseCase<ShowDeviceDataInput> {
 	public async execute(input: ShowDeviceDataInput): Promise<void> {
 		const deviceDataDto = await this._deviceDataQueryRepository.all(
 			input.identifier,
+			input.since,
 		);
 
 		const deviceData = this.mapDtoToOutput(deviceDataDto);

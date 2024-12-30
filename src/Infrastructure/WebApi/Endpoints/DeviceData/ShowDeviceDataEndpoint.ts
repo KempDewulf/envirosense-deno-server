@@ -39,7 +39,13 @@ export class ShowDeviceDataEndpoint implements Endpoint {
 		context: RouterContext<string>,
 	): ShowDeviceDataRequest {
 		const identifier = context.request.url.searchParams.get("identifier") ? context.request.url.searchParams.get("identifier") : "";
+		const sinceParam = context.request.url.searchParams.get("since");
+		let since: Date | undefined;
 
-		return { identifier } as ShowDeviceDataRequest;
+		if (sinceParam) {
+			since = new Date(sinceParam);
+		}
+
+		return { identifier, since } as ShowDeviceDataRequest;
 	}
 }

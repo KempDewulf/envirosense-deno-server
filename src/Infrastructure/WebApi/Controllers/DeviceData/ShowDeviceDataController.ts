@@ -3,6 +3,7 @@ import { ShowDeviceDataInput, UseCase } from "EnviroSense/Application/Contracts/
 
 export interface ShowDeviceDataRequest {
 	identifier: string;
+	since?: Date;
 }
 
 export class ShowDeviceDataController implements Controller<ShowDeviceDataRequest> {
@@ -20,6 +21,6 @@ export class ShowDeviceDataController implements Controller<ShowDeviceDataReques
 	protected mapToUseCaseInput(
 		request: ShowDeviceDataRequest,
 	): ShowDeviceDataInput {
-		return { identifier: request.identifier };
+		return { identifier: request.identifier, since: request.since };
 	}
 }
