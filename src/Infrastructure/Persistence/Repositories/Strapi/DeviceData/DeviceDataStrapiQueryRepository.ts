@@ -3,14 +3,20 @@ import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts"
 import { Optional } from "EnviroSense/Domain/mod.ts";
 
 export class DeviceDataStrapiQueryRepository extends StrapiQueryRepository implements DeviceDataQueryRepository {
-	async all(identifier: string): Promise<DeviceDataQueryDto[]> {
+	async all(identifier: string, since?: Date): Promise<DeviceDataQueryDto[]> {
 		const endpoint = "device-datas";
-		const params = identifier
-			? {
-				"filters[device][identifier][$contains]": identifier,
-				populate: "*",
-			}
-			: undefined;
+		const params: Record<string, string> = {
+			populate: "*",
+		};
+	
+		if (identifier) {
+			params["filters[device][identifier][$contains]"] = identifier;
+		}
+	
+		if (since) {
+			params["filters[timestamp][$gte]"] = since.toISOString();
+		}
+
 		const response = await this.get<any>(endpoint, params);
 		const deviceData = response.data.map((item: any) => this.mapToDto(item));
 
