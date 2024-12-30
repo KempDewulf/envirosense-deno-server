@@ -8,11 +8,11 @@ export class DeviceDataStrapiQueryRepository extends StrapiQueryRepository imple
 		const params: Record<string, string> = {
 			populate: "*",
 		};
-	
+
 		if (identifier) {
 			params["filters[device][identifier][$contains]"] = identifier;
 		}
-	
+
 		if (since) {
 			params["filters[timestamp][$gte]"] = since.toISOString();
 		}

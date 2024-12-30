@@ -8,6 +8,6 @@ export interface DeviceDataQueryDto {
 }
 
 export interface DeviceDataQueryRepository {
-	all(identifier: string, since?: Date ): Promise<DeviceDataQueryDto[]>;
+	all(identifier: string, since?: Date): Promise<DeviceDataQueryDto[]>;
 	find(deviceDataDocumentId: string): Promise<Optional<DeviceDataQueryDto>>;
 }
