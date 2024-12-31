@@ -207,9 +207,9 @@ export class AirQualityCalculator {
 	}
 
 	private aggregateAirData(airData: AirData, deviceData: any): void {
-		airData.temperature = (airData.temperature ?? 0) + deviceData.temperature;
-		airData.humidity = (airData.humidity ?? 0) + deviceData.humidity;
-		airData.ppm = (airData.ppm ?? 0) + deviceData.gas_ppm;
+		airData.temperature = (airData.temperature ?? 0) + deviceData.airData.temperature;
+		airData.humidity = (airData.humidity ?? 0) + deviceData.airData.humidity;
+		airData.ppm = (airData.ppm ?? 0) + deviceData.airData.ppm;
 	}
 
 	private computeAverages(airData: AirData, deviceCount: number): AirData {
