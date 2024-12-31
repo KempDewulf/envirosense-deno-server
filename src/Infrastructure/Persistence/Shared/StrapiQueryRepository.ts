@@ -3,7 +3,7 @@ export class StrapiQueryRepository {
 	private readonly apiToken: string;
 
 	constructor() {
-		this.baseUrl = Deno.env.get("PRODUCTION_STRAPI_URL") || "";
+		this.baseUrl = Deno.env.get("LOCAL_STRAPI_URL") || "";
 		this.apiToken = Deno.env.get("STRAPI_API_TOKEN") || "";
 
 		if (!this.apiToken) {
@@ -67,8 +67,39 @@ export class StrapiQueryRepository {
 		method: string,
 	): Promise<T> {
 		if (method.toUpperCase() !== "DELETE") {
-			const data = await response.json();
-			return data as T;
+			const responseData = await response.json();
+
+			// Handle GET requests with pagination
+			if (method.toUpperCase() === "GET" && responseData.meta?.pagination) {
+				const { pageCount } = responseData.meta.pagination;
+				const pageSize = 25;
+				const baseUrl = new URL(response.url);
+
+				const remainingPages = Array.from({ length: pageCount - 1 }, (_, i) => i + 2);
+
+				const allPagesData = await Promise.all(
+					remainingPages.map(async (page) => {
+						baseUrl.searchParams.set("pagination[page]", page.toString());
+						baseUrl.searchParams.set("pagination[pageSize]", pageSize.toString());
+						const pageResponse = await fetch(baseUrl.toString(), {
+							headers: {
+								"Authorization": `Bearer ${this.apiToken}`,
+							},
+						});
+						const pageData = await pageResponse.json();
+						console.log(pageData);
+						return pageData.data;
+					}),
+				);
+
+				// Combine first page with remaining pages
+				responseData.data = [
+					...responseData.data,
+					...allPagesData.flat(),
+				];
+			}
+
+			return responseData as T;
 		}
 		return undefined as unknown as T;
 	}
