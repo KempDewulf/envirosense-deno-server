@@ -14,7 +14,7 @@ export class DeviceDataStrapiQueryRepository extends StrapiQueryRepository imple
 		}
 
 		if (since) {
-			params["filters[timestamp][$gte]"] = since.toISOString();
+			params["filters[timestamp][$gt]"] = since.toISOString();
 		}
 
 		const response = await this.get<any>(endpoint, params);
