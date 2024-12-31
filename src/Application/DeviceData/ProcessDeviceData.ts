@@ -25,11 +25,14 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 		}
 
 		const device = optionalDevice.value;
+		const date = new Date();
 
 		const deviceData = DeviceData.create(
 			"",
 			device,
-			new Date(),
+			new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(),
+                date.getUTCDate(), date.getUTCHours(),
+                date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds())),
 			input.airData,
 		);
 
