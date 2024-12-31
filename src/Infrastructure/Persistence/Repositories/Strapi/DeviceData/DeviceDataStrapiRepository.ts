@@ -42,7 +42,7 @@ export class DeviceDataStrapiRepository extends StrapiQueryRepository implements
 		const airData: AirData = {
 			temperature: data.temperature,
 			humidity: data.humidity,
-			ppm: data.gas_ppm,
+			ppm: data.ppm,
 		};
 
 		const deviceData = DeviceData.load({
@@ -61,7 +61,7 @@ export class DeviceDataStrapiRepository extends StrapiQueryRepository implements
 			timestamp: deviceData.timestamp,
 			temperature: deviceData.airData.temperature,
 			humidity: deviceData.airData.humidity,
-			gas_ppm: deviceData.airData.ppm,
+			ppm: deviceData.airData.ppm,
 		};
 	}
 }

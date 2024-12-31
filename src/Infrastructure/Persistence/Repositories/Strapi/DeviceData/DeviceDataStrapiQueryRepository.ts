@@ -44,7 +44,7 @@ export class DeviceDataStrapiQueryRepository extends StrapiQueryRepository imple
 			airData: {
 				temperature: item.temperature,
 				humidity: item.humidity,
-				ppm: item.gas_ppm,
+				ppm: item.ppm,
 			},
 		};
 	}
