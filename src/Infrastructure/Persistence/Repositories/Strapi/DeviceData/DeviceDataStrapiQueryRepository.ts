@@ -1,6 +1,7 @@
 import { DeviceDataQueryDto, DeviceDataQueryRepository } from "EnviroSense/Application/Contracts/mod.ts";
 import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 import { Optional } from "EnviroSense/Domain/mod.ts";
+import { sortDeviceDataDesc } from "EnviroSense/Domain/Shared/Helpers/sortDeviceDataDesc.ts";
 
 export class DeviceDataStrapiQueryRepository extends StrapiQueryRepository implements DeviceDataQueryRepository {
 	async all(identifier: string, since?: Date): Promise<DeviceDataQueryDto[]> {
@@ -20,7 +21,9 @@ export class DeviceDataStrapiQueryRepository extends StrapiQueryRepository imple
 		const response = await this.get<any>(endpoint, params);
 		const deviceData = response.data.map((item: any) => this.mapToDto(item));
 
-		return deviceData;
+		const sortedDeviceData = sortDeviceDataDesc(deviceData);
+
+		return sortedDeviceData;
 	}
 
 	async find(
