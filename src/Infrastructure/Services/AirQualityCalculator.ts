@@ -1,15 +1,18 @@
-import { DeviceQueryRepository, RoomAirQualityOutput, RoomQueryRepository } from "EnviroSense/Application/Contracts/mod.ts";
+import { DeviceDataQueryRepository, DeviceQueryRepository, RoomAirQualityOutput, RoomQueryRepository } from "EnviroSense/Application/Contracts/mod.ts";
 import { AirData, Building, Device, Room } from "EnviroSense/Domain/mod.ts";
 
 export class AirQualityCalculator {
 	private readonly deviceRepository: DeviceQueryRepository;
+	private readonly deviceDataRepository: DeviceDataQueryRepository;
 	private readonly roomRepository?: RoomQueryRepository;
 
 	constructor(
 		deviceRepository: DeviceQueryRepository,
+		deviceDataRepository: DeviceDataQueryRepository,
 		roomRepository?: RoomQueryRepository,
 	) {
 		this.deviceRepository = deviceRepository;
+		this.deviceDataRepository = deviceDataRepository;
 		this.roomRepository = roomRepository;
 	}
 
@@ -195,11 +198,11 @@ export class AirQualityCalculator {
 	}
 
 	private async getLastDeviceData(documentId: string): Promise<any | null> {
-		const deviceWithDeviceData = await this.deviceRepository.find(
+		const device = await this.deviceRepository.find(
 			documentId,
 		);
 
-		const deviceDataArray = deviceWithDeviceData?.value?.device_data || [];
+		const deviceDataArray = await this.deviceDataRepository.all(device?.value?.identifier) || [];
 		const lastDeviceData = deviceDataArray.length > 0 ? deviceDataArray[deviceDataArray.length - 1] : null;
 		return lastDeviceData;
 	}

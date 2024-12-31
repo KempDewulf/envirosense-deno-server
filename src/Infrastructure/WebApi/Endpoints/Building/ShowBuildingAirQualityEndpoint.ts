@@ -9,6 +9,7 @@ import {
 import { RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
 import {
 	BuildingStrapiQueryRepository,
+	DeviceDataStrapiQueryRepository,
 	DeviceStrapiQueryRepository,
 	RoomStrapiQueryRepository,
 } from "EnviroSense/Infrastructure/Persistence/mod.ts";
@@ -24,10 +25,12 @@ export class ShowBuildingAirQualityEndpoint implements Endpoint {
 
 		const repository = new BuildingStrapiQueryRepository();
 		const deviceRepository = new DeviceStrapiQueryRepository();
+		const deviceDataRepository = new DeviceDataStrapiQueryRepository();
 		const roomRepository = new RoomStrapiQueryRepository();
 
 		const enviroScoreCalculator = new AirQualityCalculator(
 			deviceRepository,
+			deviceDataRepository,
 			roomRepository,
 		);
 
