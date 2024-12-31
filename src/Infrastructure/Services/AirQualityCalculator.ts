@@ -207,9 +207,9 @@ export class AirQualityCalculator {
 	}
 
 	private aggregateAirData(airData: AirData, deviceData: any): void {
-		airData.temperature = (airData.temperature ?? 0) + deviceData.temperature;
-		airData.humidity = (airData.humidity ?? 0) + deviceData.humidity;
-		airData.ppm = (airData.ppm ?? 0) + deviceData.gas_ppm;
+		airData.temperature = (airData.temperature ?? 0) + deviceData.airData.temperature;
+		airData.humidity = (airData.humidity ?? 0) + deviceData.airData.humidity;
+		airData.ppm = (airData.ppm ?? 0) + deviceData.airData.ppm;
 	}
 
 	private computeAverages(airData: AirData, deviceCount: number): AirData {
@@ -226,21 +226,21 @@ export class AirQualityCalculator {
 	}
 
 	private computeEnviroScore(deviceData: any): number {
-		const co2Subscore = this.calculateCO2Subscore(deviceData.gas_ppm);
+		const ppmSubscore = this.calculatePpmSubscore(deviceData.airData.ppm);
 		const humiditySubscore = this.calculateHumiditySubscore(
-			deviceData.humidity,
+			deviceData.airData.humidity,
 		);
 		const temperatureSubscore = this.calculateTemperatureSubscore(
-			deviceData.temperature,
+			deviceData.airData.temperature,
 		);
 
-		const enviroScore = 0.5 * co2Subscore +
+		const enviroScore = 0.5 * ppmSubscore +
 			0.3 * humiditySubscore +
 			0.2 * temperatureSubscore;
 		return enviroScore;
 	}
 
-	private calculateCO2Subscore(ppm: number): number {
+	private calculatePpmSubscore(ppm: number): number {
 		if (ppm <= 600) return 100;
 		if (ppm <= 1000) return 100 - ((ppm - 600) / 400) * 50; // Linear decline from 100 to 50
 		return Math.max(0, 50 - ((ppm - 1000) / 500) * 50); // Linear decline from 50 to 0
