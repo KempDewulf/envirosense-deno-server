@@ -3,7 +3,7 @@ export class StrapiQueryRepository {
 	private readonly apiToken: string;
 
 	constructor() {
-		this.baseUrl = Deno.env.get("LOCAL_STRAPI_URL") || "";
+		this.baseUrl = Deno.env.get("PRODUCTION_STRAPI_URL") || "";
 		this.apiToken = Deno.env.get("STRAPI_API_TOKEN") || "";
 
 		if (!this.apiToken) {
