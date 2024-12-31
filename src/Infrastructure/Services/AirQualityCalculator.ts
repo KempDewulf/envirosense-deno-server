@@ -226,12 +226,12 @@ export class AirQualityCalculator {
 	}
 
 	private computeEnviroScore(deviceData: any): number {
-		const co2Subscore = this.calculateCO2Subscore(deviceData.gas_ppm);
+		const co2Subscore = this.calculateCO2Subscore(deviceData.airData.ppm);
 		const humiditySubscore = this.calculateHumiditySubscore(
-			deviceData.humidity,
+			deviceData.airData.humidity,
 		);
 		const temperatureSubscore = this.calculateTemperatureSubscore(
-			deviceData.temperature,
+			deviceData.airData.temperature,
 		);
 
 		const enviroScore = 0.5 * co2Subscore +
