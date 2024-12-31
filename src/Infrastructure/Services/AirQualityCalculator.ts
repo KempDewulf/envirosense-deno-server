@@ -30,7 +30,6 @@ export class AirQualityCalculator {
 		return data;
 	}
 
-	//IGNORE ERRORS HERE IT WORKS
 	public async calculateBuildingMetrics(building: Building): Promise<{
 		enviroScore: number | null;
 		roomScores: RoomAirQualityOutput[];

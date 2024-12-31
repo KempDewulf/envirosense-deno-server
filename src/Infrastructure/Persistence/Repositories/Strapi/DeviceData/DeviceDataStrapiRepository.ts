@@ -32,7 +32,7 @@ export class DeviceDataStrapiRepository extends StrapiQueryRepository implements
 
 	async deleteEntity(deviceData: DeviceData): Promise<void> {
 		console.log("getting devicedata inside the repo", deviceData);
-		const endpoint = `device-datas/${deviceData.documentId}`; //ignore error works!
+		const endpoint = `device-datas/${deviceData.documentId}`;
 		console.log("endpoint", endpoint);
 
 		return await this.delete(endpoint);

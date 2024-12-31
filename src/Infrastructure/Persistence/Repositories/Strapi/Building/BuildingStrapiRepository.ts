@@ -76,7 +76,7 @@ export class BuildingStrapiRepository extends StrapiQueryRepository implements B
 				? {
 					connect: building.rooms.map(
 						(room) => room.documentId,
-					), //ignore error, works
+					),
 				}
 				: [],
 		};
