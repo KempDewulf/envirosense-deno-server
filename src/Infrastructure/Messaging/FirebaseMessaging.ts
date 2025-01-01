@@ -1,5 +1,6 @@
 import { cert, initializeApp } from "npm:firebase-admin/app";
 import { getMessaging } from "npm:firebase-admin/messaging";
+import { setPriority } from "os";
 
 export class FirebaseMessaging {
 	private messaging;
@@ -20,7 +21,7 @@ export class FirebaseMessaging {
 			android: {
                 notification: {
                     color: '#FF9900',
-					priority: 'high' as const,
+					setPriority: 'high',
                 }
             },
             topic: topic,
