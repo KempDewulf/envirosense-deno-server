@@ -1,5 +1,5 @@
 import { DeviceDataRepository, DeviceRepository, ProcessDeviceDataInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
-import { DeviceData, Room } from "EnviroSense/Domain/mod.ts";
+import { DeviceData } from "EnviroSense/Domain/mod.ts";
 import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/FirebaseMessaging.ts";
 
 export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
