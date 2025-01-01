@@ -45,6 +45,7 @@
         "@std/cli": "jsr:@std/cli@^1.0.4",
         "@std/dotenv": "jsr:@std/dotenv@^0.225.2",
         "@tajpouria/cors": "jsr:@tajpouria/cors@^1.2.1",
+        "firebase-admin": "npm:firebase-admin",
         "EnviroSense/": "./src/"
     }
 }
