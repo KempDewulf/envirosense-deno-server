@@ -17,7 +17,13 @@ export class FirebaseMessaging {
 				title,
 				body,
 			},
-			topic: topic,
+			android: {
+                notification: {
+                    icon: './assets/ic_launcher.webp',
+                    color: '#FF9900',
+                }
+            },
+            topic: topic,
 		};
 
 		try {
