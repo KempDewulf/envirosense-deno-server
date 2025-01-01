@@ -33,34 +33,39 @@ export class NotificationService {
         const currentTimeInMinutes = Math.floor(Date.now() / (1000 * 60)); // Current time in minutes
         const lastNotification = this.lastNotificationTime.get(roomId) || 0;
 
+        console.log(
+            `Room ${roomName} - Last notification: ${lastNotification}, Current time: ${currentTimeInMinutes}`
+        );
+
         const { title, body, cooldown } = this.getNotificationContent(
             roomName,
             enviroScore,
             input
         );
 
-        console.log(title, body, cooldown);
-
-        console.log("Last notification time", lastNotification);
-        console.log("Current time", currentTimeInMinutes
+        const timeSinceLastNotification =
+            currentTimeInMinutes - lastNotification;
+        console.log(
+            `Time since last notification: ${timeSinceLastNotification} minutes`
         );
-        
 
-        if (lastNotification) {
-			const timeSinceLastNotification = currentTimeInMinutes - lastNotification;
-			if (timeSinceLastNotification < cooldown) {
-				return;
-			}
-		}
+        if (lastNotification > 0 && timeSinceLastNotification < cooldown) {
+            console.log(
+                `Skipping notification - Cooldown active for ${
+                    cooldown - timeSinceLastNotification
+                } more minutes`
+            );
+            return;
+        }
 
-		if (title && body) {
-			await this.firebaseMessaging.sendToTopic(
-				"buildings-" + buildingDocumentId,
-				title,
-				body,
-			);
-			this.lastNotificationTime.set(roomId, currentTimeInMinutes);
-		}
+        if (title && body) {
+            await this.firebaseMessaging.sendToTopic(
+                "buildings-" + buildingDocumentId,
+                title,
+                body
+            );
+            this.lastNotificationTime.set(roomId, currentTimeInMinutes);
+        }
     }
 
     private getNotificationContent(
