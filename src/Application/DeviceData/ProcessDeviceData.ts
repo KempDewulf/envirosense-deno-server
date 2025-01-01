@@ -44,9 +44,9 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 
 		//TODO: make it not hardcoded: device!.room!.building!.documentId
 		await this._firebaseMessaging.sendToTopic(
-            "gox5y6bsrg640qb11ak44dh0",
-            "New Sensor Reading",
-            `Temperature: ${input.airData.temperature}°C`
+            "testbuildingid",
+            "Building Alert",
+            `New reading from ${device.identifier}: Temperature: ${input.airData.temperature}°C, Humidity: ${input.airData.humidity}%`
         );
 	}
 }
