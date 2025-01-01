@@ -56,17 +56,15 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 
 		await this._deviceDataRepository.save(deviceData);
 
-		//TODO: make it not hardcoded: device!.room!.building!.documentId
 		const enviroScore: number = await this._airQualityCalculator.computeEnviroScore(deviceData);
 		if (enviroScore < 50) this.sendNotification(device, input, enviroScore);
 	}
 
 	private async sendNotification(device: Device, input: ProcessDeviceDataInput, enviroScore: number): Promise<void> {
-		const buildingDocumentId = await this._roomRepository.find(device.room?.documentId!);
-		console.log(buildingDocumentId);
+		const buildingDocumentId = (await this._roomRepository.find(device.room?.documentId!)).value.building?.documentId;
 
 		await this._firebaseMessaging.sendToTopic(
-			"building-" + buildingDocumentId,
+			"buildings-" + buildingDocumentId,
 			"Building Alert",
 			`New reading from ${device.identifier}: Temperature: ${input.airData.temperature}°C, Humidity: ${input.airData.humidity}%, Air Quality: ${enviroScore}%`,
 		);
