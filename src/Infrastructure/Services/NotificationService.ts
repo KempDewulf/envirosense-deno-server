@@ -39,6 +39,13 @@ export class NotificationService {
             input
         );
 
+        console.log(title, body, cooldown);
+
+        console.log("Last notification time", lastNotification);
+        console.log("Current time", currentTimeInMinutes
+        );
+        
+
         if (lastNotification) {
 			const timeSinceLastNotification = currentTimeInMinutes - lastNotification;
 			if (timeSinceLastNotification < cooldown) {

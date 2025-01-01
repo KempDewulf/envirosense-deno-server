@@ -61,7 +61,7 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 
 		await this._deviceDataRepository.save(deviceData);
 
-		const enviroScore = await this._airQualityCalculator.computeEnviroScore(device);
+		const enviroScore = await this._airQualityCalculator.computeEnviroScore(deviceData);
 		if(enviroScore < 70) this._notificationService.sendAirQualityNotification(device, input, enviroScore);
 	}
 }
