@@ -1,11 +1,13 @@
 import { DeviceDataRepository, DeviceRepository, ProcessDeviceDataInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
-import { DeviceData } from "EnviroSense/Domain/mod.ts";
+import { Device, DeviceData } from "EnviroSense/Domain/mod.ts";
 import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/FirebaseMessaging.ts";
+import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
 
 export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 	private readonly _deviceRepository: DeviceRepository;
 	private readonly _deviceDataRepository: DeviceDataRepository;
 	private readonly _firebaseMessaging: FirebaseMessaging;
+	private readonly _airQualityCalculator: AirQualityCalculator;
 
 	constructor(
 		deviceRepository: DeviceRepository,
@@ -15,6 +17,7 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 		this._deviceRepository = deviceRepository;
 		this._deviceDataRepository = deviceDataRepository;
 		this._firebaseMessaging = firebaseMessaging;
+		this._airQualityCalculator = new AirQualityCalculator(this._deviceRepository, this._deviceDataRepository);
 	}
 
 	public async execute(input: ProcessDeviceDataInput): Promise<void> {
@@ -34,19 +37,32 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 		const deviceData = DeviceData.create(
 			"",
 			device,
-			new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(),
-                date.getUTCDate(), date.getUTCHours(),
-                date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds())),
+			new Date(
+				Date.UTC(
+					date.getUTCFullYear(),
+					date.getUTCMonth(),
+					date.getUTCDate(),
+					date.getUTCHours(),
+					date.getUTCMinutes(),
+					date.getUTCSeconds(),
+					date.getUTCMilliseconds(),
+				),
+			),
 			input.airData,
 		);
 
 		await this._deviceDataRepository.save(deviceData);
 
 		//TODO: make it not hardcoded: device!.room!.building!.documentId
+		const enviroScore: number = await this._airQualityCalculator.computeEnviroScore(deviceData);
+		if (enviroScore < 50) this.sendNotification(device, input, enviroScore);
+	}
+
+	private async sendNotification(device: Device, input: ProcessDeviceDataInput, enviroScore: number): Promise<void> {
 		await this._firebaseMessaging.sendToTopic(
-            "buildings-gox5y6bsrg640qb11ak44dh0",
-            "Building Alert",
-            `New reading from ${device.identifier}: Temperature: ${input.airData.temperature}°C, Humidity: ${input.airData.humidity}%`
-        );
+			"buildings-gox5y6bsrg640qb11ak44dh0",
+			"Building Alert",
+			`New reading from ${device.identifier}: Temperature: ${input.airData.temperature}°C, Humidity: ${input.airData.humidity}%, Air Quality: ${enviroScore}%`,
+		);
 	}
 }
