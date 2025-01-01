@@ -3,7 +3,7 @@ import {
     ProcessDeviceDataInput,
     RoomRepository,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/FirebaseMessaging.ts";
+import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
 const NOTIFICATION_COOLDOWNS_IN_MINUTES = {
     EXTREME: 15,
