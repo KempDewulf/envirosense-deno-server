@@ -1,16 +1,20 @@
 import { DeviceDataRepository, DeviceRepository, ProcessDeviceDataInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceData } from "EnviroSense/Domain/mod.ts";
+import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/FirebaseMessaging.ts";
 
 export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 	private readonly _deviceRepository: DeviceRepository;
 	private readonly _deviceDataRepository: DeviceDataRepository;
+	private readonly _firebaseMessaging: FirebaseMessaging;
 
 	constructor(
 		deviceRepository: DeviceRepository,
 		deviceDataRepository: DeviceDataRepository,
+		firebaseMessaging: FirebaseMessaging,
 	) {
 		this._deviceRepository = deviceRepository;
 		this._deviceDataRepository = deviceDataRepository;
+		this._firebaseMessaging = firebaseMessaging;
 	}
 
 	public async execute(input: ProcessDeviceDataInput): Promise<void> {
@@ -37,5 +41,11 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 		);
 
 		await this._deviceDataRepository.save(deviceData);
+
+		await this._firebaseMessaging.sendToTopic( //TODO: make it not hardcoded: device!.room!.building!.documentId
+            "gox5y6bsrg640qb11ak44dh0",
+            "New Sensor Reading",
+            `Temperature: ${input.airData.temperature}°C`
+        );
 	}
 }
