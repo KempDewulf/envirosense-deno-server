@@ -1,8 +1,8 @@
-import { cert, initializeApp } from "npm:firebase-admin/app";
-import { getMessaging } from "npm:firebase-admin/messaging";
+import { cert, initializeApp } from "firebase-admin/app";
+import { getMessaging } from "firebase-admin/messaging";
 
 export class FirebaseMessaging {
-	private messaging;
+	private readonly messaging;
 
 	constructor() {
 		const app = initializeApp({
