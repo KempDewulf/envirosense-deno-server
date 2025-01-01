@@ -76,7 +76,9 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 
 		if (enviroScore < 50) {
 			title = `⚠️ Poor Air Quality in ${roomName}`;
-			body = `Action Required: Air quality is at ${enviroScore}%\n` +
+			body = `Action Required:\n` +
+				`EnviroScore is at ${enviroScore}\n` +
+				`CO₂: ${input.airData.ppm} ppm\n` +
 				`Temperature: ${input.airData.temperature}°C\n` +
 				`Humidity: ${input.airData.humidity}%\n\n` +
 				`Please improve ventilation and check room conditions.`;
