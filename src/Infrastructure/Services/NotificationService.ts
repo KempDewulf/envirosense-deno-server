@@ -4,6 +4,10 @@ import { RoomRepository } from "EnviroSense/Application/Contracts/mod.ts";
 import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/FirebaseMessaging.ts";
 
 export class NotificationService {
+	private readonly REGULAR_COOLDOWN: number = 2 * 60 * 60 * 1000; // 2 hours in ms
+	private readonly EMERGENCY_COOLDOWN: number = 15 * 60 * 1000; // 15 minutes in ms
+	private lastNotificationTime: Map<string, number> = new Map();
+
 	constructor(
 		private readonly firebaseMessaging: FirebaseMessaging,
 		private readonly roomRepository: RoomRepository,
