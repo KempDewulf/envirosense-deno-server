@@ -87,7 +87,6 @@ export class StrapiQueryRepository {
 							},
 						});
 						const pageData = await pageResponse.json();
-						console.log(pageData);
 						return pageData.data;
 					}),
 				);

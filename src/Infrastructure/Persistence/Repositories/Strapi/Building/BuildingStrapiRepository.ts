@@ -32,8 +32,6 @@ export class BuildingStrapiRepository extends StrapiQueryRepository implements B
 		const endpoint = `buildings/${building.documentId}`;
 		const body = this.mapFromDomain(building);
 
-		console.log(body);
-
 		return await this.put(endpoint, { data: body });
 	}
 

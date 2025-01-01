@@ -226,7 +226,6 @@ export class AirQualityCalculator {
 	}
 
 	public computeEnviroScore(deviceData: any): number {
-		console.log(deviceData);
 		const ppmSubscore = this.calculatePpmSubscore(deviceData.airData.ppm);
 		const humiditySubscore = this.calculateHumiditySubscore(
 			deviceData.airData.humidity,
