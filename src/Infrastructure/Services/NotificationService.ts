@@ -30,7 +30,6 @@ export class NotificationService {
         const roomId = room.documentId;
         const buildingDocumentId = room.building?.documentId;
         const roomName = room.name;
-        const currentTime = Date.now();
         const currentTimeInMinutes = Math.floor(Date.now() / (1000 * 60)); // Current time in minutes
         const lastNotification = this.lastNotificationTime.get(roomId) || 0;
 
