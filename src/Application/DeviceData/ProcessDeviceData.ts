@@ -80,12 +80,6 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 				`Temperature: ${input.airData.temperature}°C\n` +
 				`Humidity: ${input.airData.humidity}%\n\n` +
 				`Please improve ventilation and check room conditions.`;
-		} else {
-			title = `Air Quality Update - ${roomName}`;
-			body = `Current conditions:\n` +
-				`Air Quality: ${enviroScore}%\n` +
-				`Temperature: ${input.airData.temperature}°C\n` +
-				`Humidity: ${input.airData.humidity}%`;
 		}
 
 		await this._firebaseMessaging.sendToTopic(
