@@ -1,4 +1,10 @@
-import { DeviceDataRepository, DeviceRepository, ProcessDeviceDataInput, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	DeviceDataRepository,
+	DeviceRepository,
+	ProcessDeviceDataInput,
+	RoomRepository,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { Device, DeviceData } from "EnviroSense/Domain/mod.ts";
 import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/FirebaseMessaging.ts";
 import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
@@ -61,12 +67,31 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 	}
 
 	private async sendNotification(device: Device, input: ProcessDeviceDataInput, enviroScore: number): Promise<void> {
-		const buildingDocumentId = (await this._roomRepository.find(device.room?.documentId!)).value.building?.documentId;
+		const room = (await this._roomRepository.find(device.room?.documentId!)).orElseThrow(() => Error("Room not found"));
+		const buildingDocumentId = room.building?.documentId;
+		const roomName = room.name;
+
+		let title = "";
+		let body = "";
+
+		if (enviroScore < 50) {
+			title = `⚠️ Poor Air Quality in ${roomName}`;
+			body = `Action Required: Air quality is at ${enviroScore}%\n` +
+				`Temperature: ${input.airData.temperature}°C\n` +
+				`Humidity: ${input.airData.humidity}%\n\n` +
+				`Please improve ventilation and check room conditions.`;
+		} else {
+			title = `Air Quality Update - ${roomName}`;
+			body = `Current conditions:\n` +
+				`Air Quality: ${enviroScore}%\n` +
+				`Temperature: ${input.airData.temperature}°C\n` +
+				`Humidity: ${input.airData.humidity}%`;
+		}
 
 		await this._firebaseMessaging.sendToTopic(
 			"buildings-" + buildingDocumentId,
-			"Building Alert",
-			`New reading from ${device.identifier}: Temperature: ${input.airData.temperature}°C, Humidity: ${input.airData.humidity}%, Air Quality: ${enviroScore}%`,
+			title,
+			body,
 		);
 	}
 }
