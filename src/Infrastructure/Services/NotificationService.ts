@@ -12,7 +12,7 @@ export class NotificationService {
 	async sendAirQualityNotification(
 		device: Device,
 		input: ProcessDeviceDataInput,
-        enviroScore: number,
+		enviroScore: number,
 	): Promise<void> {
 		const room = (await this.roomRepository.find(device.room?.documentId!))
 			.orElseThrow(() => Error("Room not found"));
@@ -36,6 +36,18 @@ export class NotificationService {
 		let body = "";
 
 		switch (true) {
+			case enviroScore <= 10:
+				title = `🆘 EXTREME DANGER - EVACUATE ${roomName}`;
+				body = `EMERGENCY: EnviroScore at ${enviroScore}%\n` +
+					`CO₂: ${input.airData.ppm} ppm\n` +
+					`Temperature: ${input.airData.temperature}°C\n` +
+					`Humidity: ${input.airData.humidity}%\n\n` +
+					`⚠️ IMMEDIATE ACTION REQUIRED:\n` +
+					`• EVACUATE AREA IMMEDIATELY\n` +
+					`• Do not re-enter until cleared\n` +
+					`• Life-threatening conditions present`;
+				break;
+
 			case enviroScore <= 30:
 				title = `🚨 CRITICAL Air Quality in ${roomName}`;
 				body = `URGENT: EnviroScore at ${enviroScore}%\n` +
