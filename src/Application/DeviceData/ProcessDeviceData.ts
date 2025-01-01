@@ -63,7 +63,13 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 		await this._deviceDataRepository.save(deviceData);
 
 		const enviroScore: number = await this._airQualityCalculator.computeEnviroScore(deviceData);
-		if (enviroScore < 50) this.sendNotification(device, input, enviroScore);
+		if (enviroScore < 70) this.sendNotification(device, input, enviroScore);
+	}
+
+	public async execute(input: ProcessDeviceDataInput): Promise<void> {
+		// ...existing code...
+		const enviroScore: number = await this._airQualityCalculator.computeEnviroScore(deviceData);
+		if (enviroScore < 70) this.sendNotification(device, input, enviroScore);
 	}
 
 	private async sendNotification(device: Device, input: ProcessDeviceDataInput, enviroScore: number): Promise<void> {
@@ -74,19 +80,49 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 		let title = "";
 		let body = "";
 
-		if (enviroScore < 50) {
-			title = `⚠️ Poor Air Quality in ${roomName}`;
-			body = `EnviroScore is at ${enviroScore}%\n` +
-				`CO₂: ${input.airData.ppm} ppm\n` +
-				`Temperature: ${input.airData.temperature}°C\n` +
-				`Humidity: ${input.airData.humidity}%\n\n` +
-				`Please improve air quality and check room conditions.`;
+		switch (true) {
+			case enviroScore <= 30:
+				title = `🚨 CRITICAL Air Quality in ${roomName}`;
+				body = `URGENT: EnviroScore at ${enviroScore}%\n` +
+					`CO₂: ${input.airData.ppm} ppm (Very High)\n` +
+					`Temperature: ${input.airData.temperature}°C\n` +
+					`Humidity: ${input.airData.humidity}%\n\n` +
+					`⚠️ Health Risk: Immediate ventilation required.\n` +
+					`• Open windows/doors immediately\n` +
+					`• Evacuate if symptoms develop\n` +
+					`• Contact facility management`;
+				break;
+
+			case enviroScore <= 49:
+				title = `⚠️ Poor Air Quality in ${roomName}`;
+				body = `Warning: EnviroScore at ${enviroScore}%\n` +
+					`CO₂: ${input.airData.ppm} ppm (High)\n` +
+					`Temperature: ${input.airData.temperature}°C\n` +
+					`Humidity: ${input.airData.humidity}%\n\n` +
+					`Recommended Actions:\n` +
+					`• Increase ventilation\n` +
+					`• Consider reducing room occupancy\n` +
+					`• Monitor for changes`;
+				break;
+
+			case enviroScore <= 69:
+				title = `ℹ️ Moderate Air Quality in ${roomName}`;
+				body = `Advisory: EnviroScore at ${enviroScore}%\n` +
+					`CO₂: ${input.airData.ppm} ppm\n` +
+					`Temperature: ${input.airData.temperature}°C\n` +
+					`Humidity: ${input.airData.humidity}%\n\n` +
+					`Suggestions:\n` +
+					`• Consider fresh air intake\n` +
+					`• Monitor air quality trends`;
+				break;
 		}
 
-		await this._firebaseMessaging.sendToTopic(
-			"buildings-" + buildingDocumentId,
-			title,
-			body,
-		);
+		if (title && body) {
+			await this._firebaseMessaging.sendToTopic(
+				"buildings-" + buildingDocumentId,
+				title,
+				body,
+			);
+		}
 	}
 }
