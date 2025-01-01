@@ -19,7 +19,6 @@ export class FirebaseMessaging {
 			},
 			android: {
                 notification: {
-                    icon: './assets/ic_launcher.webp',
                     color: '#FF9900',
                 }
             },
