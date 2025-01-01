@@ -1,5 +1,5 @@
 import { DeviceDataRepository, DeviceRepository, ProcessDeviceDataInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
-import { DeviceData } from "EnviroSense/Domain/mod.ts";
+import { DeviceData, Room } from "EnviroSense/Domain/mod.ts";
 import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/FirebaseMessaging.ts";
 
 export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
@@ -44,7 +44,7 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 
 		//TODO: make it not hardcoded: device!.room!.building!.documentId
 		await this._firebaseMessaging.sendToTopic(
-            "testbuildingid",
+            "buildings/gox5y6bsrg640qb11ak44dh0",
             "Building Alert",
             `New reading from ${device.identifier}: Temperature: ${input.airData.temperature}°C, Humidity: ${input.airData.humidity}%`
         );
