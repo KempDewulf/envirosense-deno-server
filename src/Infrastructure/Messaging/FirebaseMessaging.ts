@@ -1,33 +1,32 @@
-import { initializeApp } from "npm:firebase-admin/app";
+import { cert, initializeApp } from "npm:firebase-admin/app";
 import { getMessaging } from "npm:firebase-admin/messaging";
-import { applicationDefault } from "npm:firebase-admin/app";
 
 export class FirebaseMessaging {
-    private messaging;
+	private messaging;
 
-    constructor() {
-        const app = initializeApp({
-            credential: applicationDefault()
-        });
-        this.messaging = getMessaging(app);
-    }
+	constructor() {
+		const app = initializeApp({
+			credential: cert("./firebase_credentials.json"),
+		});
+		this.messaging = getMessaging(app);
+	}
 
-    async sendToTopic(topic: string, title: string, body: string) {
-        const message = {
-            notification: {
-                title,
-                body,
-            },
-            topic,
-        };
+	async sendToTopic(topic: string, title: string, body: string): Promise<string> {
+		const message = {
+			notification: {
+				title,
+				body,
+			},
+			topic: topic,
+		};
 
-        try {
-            const response = await this.messaging.send(message);
-            console.log('Successfully sent message:', response);
-            return response;
-        } catch (error) {
-            console.error('Error sending message:', error);
-            throw error;
-        }
-    }
+		try {
+			const response = await this.messaging.send(message);
+			console.log("Successfully sent message:", response);
+			return response;
+		} catch (error) {
+			console.error("Error sending message:", error);
+			throw error;
+		}
+	}
 }
