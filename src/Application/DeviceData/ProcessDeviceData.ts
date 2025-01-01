@@ -66,12 +66,6 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 		if (enviroScore < 70) this.sendNotification(device, input, enviroScore);
 	}
 
-	public async execute(input: ProcessDeviceDataInput): Promise<void> {
-		// ...existing code...
-		const enviroScore: number = await this._airQualityCalculator.computeEnviroScore(deviceData);
-		if (enviroScore < 70) this.sendNotification(device, input, enviroScore);
-	}
-
 	private async sendNotification(device: Device, input: ProcessDeviceDataInput, enviroScore: number): Promise<void> {
 		const room = (await this._roomRepository.find(device.room?.documentId!)).orElseThrow(() => Error("Room not found"));
 		const buildingDocumentId = room.building?.documentId;
