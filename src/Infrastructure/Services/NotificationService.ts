@@ -21,8 +21,16 @@ export class NotificationService {
 		const room = (await this.roomRepository.find(device.room?.documentId!))
 			.orElseThrow(() => Error("Room not found"));
 
+		const roomId = room.documentId;
 		const buildingDocumentId = room.building?.documentId;
 		const roomName = room.name;
+		const currentTime = Date.now();
+		const lastNotification = this.lastNotificationTime.get(roomId) || 0;
+		const cooldownPeriod = enviroScore <= 10 ? this.EMERGENCY_COOLDOWN : this.REGULAR_COOLDOWN;
+
+		if (currentTime - lastNotification < cooldownPeriod) {
+			return; // Still in cooldown period
+		}
 
 		const { title, body } = this.getNotificationContent(roomName, enviroScore, input);
 
@@ -32,6 +40,7 @@ export class NotificationService {
 				title,
 				body,
 			);
+            this.lastNotificationTime.set(roomId, currentTime);
 		}
 	}
 
