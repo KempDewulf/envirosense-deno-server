@@ -20,6 +20,7 @@ export class FirebaseMessaging {
 			android: {
                 notification: {
                     color: '#FF9900',
+					priority: 'high' as const,
                 }
             },
             topic: topic,
