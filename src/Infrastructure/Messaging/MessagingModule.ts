@@ -30,6 +30,6 @@ export class MessagingModule implements Module {
 		console.log("Messaging module started");
 
 		await this.messaging.connect();
-		await this.messaging.subscribe("devices/#");
+		await this.messaging.subscribe("devices/+/data");
 	}
 }
