@@ -6,13 +6,17 @@ export class Messaging {
 	private client: Client;
 	private messageHandlerFactory: MessageHandlerFactory;
 
-	constructor(useCaseRegistry: MessagingUseCaseRegistry) {
+	constructor(registry: MessagingUseCaseRegistry) {
 		this.client = new Client({
 			url: Deno.env.get("MQTT_BROKER"),
 			username: Deno.env.get("MQTT_USERNAME"),
 			password: Deno.env.get("MQTT_PASSWORD"),
 		});
-		this.messageHandlerFactory = new MessageHandlerFactory(useCaseRegistry);
+		this.messageHandlerFactory = new MessageHandlerFactory(registry);
+	}
+
+	public initialize(registry: MessagingUseCaseRegistry): void {
+		this.messageHandlerFactory = new MessageHandlerFactory(registry);
 	}
 
 	public async connect(): Promise<void> {
