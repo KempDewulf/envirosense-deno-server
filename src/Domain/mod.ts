@@ -10,6 +10,12 @@ export type { BuildingState } from "EnviroSense/Domain/Entities/Building.ts";
 export { Device } from "EnviroSense/Domain/Entities/Device.ts";
 export type { DeviceState } from "EnviroSense/Domain/Entities/Device.ts";
 
+export {
+    DeviceLimitType,
+    TemperatureLimit,
+} from "./ValueObjects/DeviceLimit.ts";
+export type { DeviceLimit } from "./ValueObjects/DeviceLimit.ts";
+
 export { DeviceData } from "EnviroSense/Domain/Entities/DeviceData.ts";
 export type { DeviceDataState } from "EnviroSense/Domain/Entities/DeviceData.ts";
 

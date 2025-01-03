@@ -26,6 +26,8 @@ export { DeleteAllDeviceDataFromDevice } from "./Device/DeleteAllDeviceDataFromD
 export { UpdateDevice } from "./Device/UpdateDevice.ts";
 export { ShowDeviceByDocumentId } from "./Device/ShowDeviceByDocumentId.ts";
 export { AddDeviceDataToDevice } from "./Device/AddDeviceDataToDevice.ts";
+export { UpdateDeviceLimit } from "./Device/UpdateDeviceLimit.ts";
+
 
 // Room Type
 export { ShowRoomTypes } from "./RoomType/ShowRoomTypes.ts";
