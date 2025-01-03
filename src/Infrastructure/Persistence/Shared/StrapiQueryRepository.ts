@@ -141,6 +141,10 @@ export class StrapiQueryRepository {
 		return await this.request<T>("PUT", endpoint, body);
 	}
 
+	protected async patch(endpoint: string, body: any): Promise<void> {
+		await this.request("PATCH", endpoint, body);
+	}
+
 	protected async delete(endpoint: string): Promise<void> {
 		await await this.request("DELETE", endpoint);
 	}
