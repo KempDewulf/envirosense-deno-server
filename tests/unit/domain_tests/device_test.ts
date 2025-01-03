@@ -54,6 +54,7 @@ Deno.test("Device - load method with valid state", () => {
         identifier: "Device003",
         room: room,
         deviceData: [],
+        limits: new Map(),
     };
 
     // Act
@@ -78,6 +79,7 @@ Deno.test(
             identifier: "",
             room: room,
             deviceData: [],
+            limits: new Map(),
         };
 
         // Act & Assert
