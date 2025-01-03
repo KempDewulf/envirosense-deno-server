@@ -33,9 +33,7 @@ export class UpdateDeviceLimit implements UseCase<UpdateDeviceLimitInput> {
 	}
 
 	public async execute(input: UpdateDeviceLimitInput): Promise<void> {
-		const deviceOptional = await this._deviceRepository.find(
-			input.deviceDocumentId,
-		);
+		const deviceOptional = await this._deviceRepository.find(input.deviceDocumentId);
 		const device = deviceOptional.orElseThrow(
 			() => new Error(`Device with ID ${input.deviceDocumentId} not found.`),
 		);
@@ -53,7 +51,7 @@ export class UpdateDeviceLimit implements UseCase<UpdateDeviceLimitInput> {
 		await this._messaging.publish(topic, message);
 		const output: UpdateDeviceLimitOutput = {
 			documentId: device.documentId,
-            limitType: limit.type,
+			limitType: limit.type,
 			value: limit.value,
 		};
 
