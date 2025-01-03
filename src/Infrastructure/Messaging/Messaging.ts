@@ -21,15 +21,16 @@ export class Messaging {
 
 	public async connect(): Promise<void> {
 		await this.client.connect();
-	}
 
-	public async subscribe(topic: string): Promise<void> {
-		await this.client.subscribe(topic);
 		this.client.on("message", async (topic: string, payload: Uint8Array) => {
 			const msg = new TextDecoder().decode(payload);
 			const handler = this.messageHandlerFactory.getHandler(topic);
 			await handler.handleMessage(topic, msg);
 		});
+	}
+
+	public async subscribe(topic: string): Promise<void> {
+		await this.client.subscribe(topic);
 	}
 
 	public async publish(topic: string, message: string): Promise<void> {
