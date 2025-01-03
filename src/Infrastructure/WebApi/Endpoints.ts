@@ -126,7 +126,7 @@ export function endpoints(): Router {
         use(new DeleteAllDeviceDataFromDeviceEndpoint())
     );
     router.put("/devices/:deviceDocumentId", use(new UpdateDeviceEndpoint()));
-    router.put(
+    router.patch(
         "/devices/:deviceDocumentId/limits/:limitType",
         use(new UpdateDeviceLimitEndpoint())
     );
