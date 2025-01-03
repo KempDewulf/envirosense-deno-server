@@ -1,10 +1,11 @@
-import { DeviceData, DomainException, Room } from "EnviroSense/Domain/mod.ts";
+import { DeviceData, DomainException, Room, DeviceLimitType, DeviceLimit } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceState {
 	documentId: string;
 	identifier: string;
 	room?: Room | null;
 	deviceData?: DeviceData[];
+	limits: Map<DeviceLimitType, DeviceLimit>;
 }
 
 export class Device {
@@ -12,6 +13,7 @@ export class Device {
 	private _identifier: string;
 	private _room: Room | null;
 	private _deviceData: DeviceData[];
+	private _limits: Map<DeviceLimitType, DeviceLimit>;
 
 	private constructor(
 		documentId: string,
@@ -22,6 +24,7 @@ export class Device {
 		this._identifier = identifier;
 		this._room = room;
 		this._deviceData = [];
+		this._limits = new Map<DeviceLimitType, DeviceLimit>();
 	}
 
 	static create(documentId: string, identifier: string, room: Room): Device {
@@ -39,6 +42,7 @@ export class Device {
 		);
 
 		device._deviceData = state.deviceData ?? [];
+		device._limits = state.limits ?? new Map<DeviceLimitType, DeviceLimit>();
 
 		device.validateState();
 
@@ -77,6 +81,15 @@ export class Device {
 		this.ensureRoomIsNotEmpty();
 		this._room = null;
 	}
+
+	public updateLimit(limit: DeviceLimit): void {
+        limit.validate();
+        this._limits.set(limit.type, limit);
+    }
+
+    public getLimit(type: DeviceLimitType): DeviceLimit | undefined {
+        return this._limits.get(type);
+    }
 
 	private ensureIdentifierIsNotEmpty(): void {
 		if (!this._identifier) {
@@ -117,4 +130,8 @@ export class Device {
 	set deviceData(deviceData: DeviceData[]) {
 		this._deviceData = deviceData;
 	}
+
+	get limits(): Map<DeviceLimitType, DeviceLimit> {
+        return new Map(this._limits);
+    }
 }
