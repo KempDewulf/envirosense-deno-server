@@ -1,6 +1,6 @@
 import { Client } from "https://deno.land/x/mqtt@0.1.2/deno/mod.ts";
 import "jsr:@std/dotenv/load";
-import { MessageHandlerFactory, MessagingUseCaseRegistry } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+import { DeviceLimitMessageHandler, MessageHandlerFactory, MessagingUseCaseRegistry } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
 export class Messaging {
 	private client: Client;
@@ -34,6 +34,10 @@ export class Messaging {
 	}
 
 	public async publish(topic: string, message: string): Promise<void> {
+		const handler = this.messageHandlerFactory.getHandler(topic);
+		if (handler instanceof DeviceLimitMessageHandler) {
+			handler.setLastPublished(topic, message);
+		}
 		await this.client.publish(topic, message);
 	}
 }
