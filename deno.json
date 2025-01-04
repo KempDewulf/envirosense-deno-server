@@ -44,8 +44,8 @@
         "@std/assert": "jsr:@std/assert@^1.0.3",
         "@std/cli": "jsr:@std/cli@^1.0.4",
         "@std/dotenv": "jsr:@std/dotenv@^0.225.3",
-        "mqtt": "https://deno.land/x/mqtt@0.1.2/deno/mod.ts",
         "@tajpouria/cors": "jsr:@tajpouria/cors@^1.2.1",
+        "mqtt": "https://deno.land/x/mqtt@0.1.2/deno/mod.ts",
         "firebase-admin": "npm:firebase-admin",
         "EnviroSense/": "./src/"
     }
