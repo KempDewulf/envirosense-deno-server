@@ -1,17 +1,17 @@
 import { RouterContext } from "@oak/oak";
 import {
 	Endpoint,
-	UpdateDeviceLimitController,
-	UpdateDeviceLimitPresentedData,
-	UpdateDeviceLimitPresenter,
-	UpdateDeviceLimitRequest,
+	UpdateDeviceConfigController,
+	UpdateDeviceConfigPresentedData,
+	UpdateDeviceConfigPresenter,
+	UpdateDeviceConfigRequest,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { ErrorsBag, RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
 import { DeviceStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
-import { UpdateDeviceLimit } from "EnviroSense/Application/mod.ts";
+import { UpdateDeviceConfig } from "EnviroSense/Application/mod.ts";
 import { MessagingBuilder } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
-export class UpdateDeviceLimitEndpoint implements Endpoint {
+export class UpdateDeviceConfigEndpoint implements Endpoint {
 	private readonly _errorsBag = new ErrorsBag();
 
 	async handle(context: RouterContext<string>): Promise<void> {
@@ -25,12 +25,12 @@ export class UpdateDeviceLimitEndpoint implements Endpoint {
 			return;
 		}
 
-		const outputDevice = new RequestResponse<UpdateDeviceLimitPresentedData>();
-		const presenter = new UpdateDeviceLimitPresenter(outputDevice);
+		const outputDevice = new RequestResponse<UpdateDeviceConfigPresentedData>();
+		const presenter = new UpdateDeviceConfigPresenter(outputDevice);
 		const repository = new DeviceStrapiRepository();
 		const messaging = MessagingBuilder.getInstance();
-		const useCase = new UpdateDeviceLimit(presenter, repository, messaging);
-		const controller = new UpdateDeviceLimitController(useCase);
+		const useCase = new UpdateDeviceConfig(presenter, repository, messaging);
+		const controller = new UpdateDeviceConfigController(useCase);
 
 		await controller.handle(request);
 
@@ -38,35 +38,35 @@ export class UpdateDeviceLimitEndpoint implements Endpoint {
 		context.response.body = outputDevice.response;
 	}
 
-	private async buildRequest(context: RouterContext<string>): Promise<UpdateDeviceLimitRequest> {
+	private async buildRequest(context: RouterContext<string>): Promise<UpdateDeviceConfigRequest> {
 		const deviceDocumentId = context.params.deviceDocumentId || "";
-		const limitType = context.params.limitType || "";
+		const configType = context.params.configType || "";
 		const body = await context.request.body.json();
 
 		return {
 			deviceDocumentId,
-			limitType,
+			configType,
 			value: body.value,
 		};
 	}
 
-	private validateRequest(request: UpdateDeviceLimitRequest): void {
+	private validateRequest(request: UpdateDeviceConfigRequest): void {
 		this._errorsBag.clear();
 
 		if (!request.deviceDocumentId) {
 			this._errorsBag.add("deviceDocumentId is required");
 		}
 
-		if(!request.limitType) {
-			this._errorsBag.add("limitType is required");
-		}
+        if (!request.configType) {
+            this._errorsBag.add("configType is required");
+        }
 
 		if (request.value === undefined) {
 			this._errorsBag.add("value is required");
 		}
 
-		if (typeof request.value !== "number") {
-			this._errorsBag.add("value must be a number");
+		if (typeof request.value !== "number" || typeof request.value !== "string") {
+			this._errorsBag.add("value must be a number or a string");
 		}
 	}
 }
