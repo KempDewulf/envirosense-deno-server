@@ -1,15 +1,9 @@
 import { DomainException } from "EnviroSense/Domain/Shared/Exceptions/DomainException.ts";
+import { DeviceUiModeType } from "EnviroSense/Domain/mod.ts";
 
 export enum DeviceConfigType {
     UI_MODE = "ui-mode",
     BRIGHTNESS = "brightness"
-}
-
-export enum DeviceUiModeType {
-    NORMAL = "normal",
-    PPM = "ppm",
-    TEMPERATURE = "temperature",
-    HUMIDITY = "humidity"
 }
 
 export interface DeviceConfigValue {
