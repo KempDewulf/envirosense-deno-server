@@ -1,0 +1,1590 @@
+{
+    "version": "2.0.0",
+    "runtimeConfiguration": {
+        "environment": "default",
+        "laxTestingModeEnabled": false,
+        "apiConnectivityCheck": true,
+        "logLevel": "error",
+        "logDestination": "stdout+platform",
+        "logMaxFileSize": 2147483648,
+        "requestHeaderNameRequestId": "x-scan-request-id",
+        "requestHeaderNameScenarioId": "x-scan-scenario-id",
+        "requestHeaderNameRequestType": "x-scan-request-type",
+        "requestFlowrate": 100,
+        "requestTimeout": 30,
+        "requestTlsInsecureSkipVerify": true,
+        "responseFollowRedirection": false,
+        "responseMaxBodySizeScan": 10485760,
+        "happyPathOnly": false,
+        "maxRequestRetryAttempts": 5,
+        "maxScanDuration": 1800,
+        "memoryLimit": 2147483648,
+        "memoryTimeSpan": 10,
+        "reportMaxRequestSizeHappyPath": 8092,
+        "reportMaxRequestSizeTest": 8092,
+        "reportIncludeRequestBody": true,
+        "reportIncludeResponseBody": true,
+        "reportMaxHttpResponseSizeHappyPath": 8092,
+        "reportMaxBodySizeHappyPath": 8092,
+        "reportMaxHttpResponseSizeTest": 8092,
+        "reportMaxBodySizeTest": 8092,
+        "reportIssuesOnly": false,
+        "reportMaxIssues": 1000,
+        "reportMaxSize": 20971520,
+        "reportGenerateCurlCommand": true
+    },
+    "customizations": {
+        "happyPaths": {
+            "retry": 1,
+            "responsePolicy": {
+                "httpStatusExpected": true,
+                "mustBeConformant": true
+            },
+            "httpStatusExpected": [
+                "2XX",
+                "404"
+            ]
+        },
+        "tests": {
+            "responsePolicy": {
+                "httpStatusExpected": true,
+                "mustBeConformant": true
+            }
+        },
+        "requests": {}
+    },
+    "authenticationDetails": [
+        {
+            "bearerAuth": {
+                "type": "bearer",
+                "default": "bearerAuth",
+                "credentials": {
+                    "bearerAuth": {
+                        "description": "bearerAuth security",
+                        "credential": "{{bearerAuth}}"
+                    }
+                }
+            }
+        }
+    ],
+    "operations": {
+        "/room-types/{roomTypeDocumentId}:delete": {
+            "operationId": "/room-types/{roomTypeDocumentId}:delete",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/~1room-types~1{roomTypeDocumentId}:delete/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "/room-types/{roomTypeDocumentId}:delete",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/room-types/{roomTypeDocumentId}",
+                        "method": "DELETE",
+                        "paths": [
+                            {
+                                "key": "roomTypeDocumentId",
+                                "value": "peoagxxuaburywggpxhcwlghaqphcgzu"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "204",
+                "responses": {
+                    "204": {
+                        "expectations": {
+                            "httpStatus": 204
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "/room-types/{roomTypeDocumentId}:get": {
+            "operationId": "/room-types/{roomTypeDocumentId}:get",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/~1room-types~1{roomTypeDocumentId}:get/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "/room-types/{roomTypeDocumentId}:get",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/room-types/{roomTypeDocumentId}",
+                        "method": "GET",
+                        "paths": [
+                            {
+                                "key": "roomTypeDocumentId",
+                                "value": "abptogzigdjyxlubzxesntsxdwsoghrw"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "/room-types/{roomTypeDocumentId}:put": {
+            "operationId": "/room-types/{roomTypeDocumentId}:put",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/~1room-types~1{roomTypeDocumentId}:put/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "/room-types/{roomTypeDocumentId}:put",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/room-types/{roomTypeDocumentId}",
+                        "method": "PUT",
+                        "paths": [
+                            {
+                                "key": "roomTypeDocumentId",
+                                "value": "aoegemzprcgaiftslzdgglhgrneinxrg"
+                            }
+                        ],
+                        "headers": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "requestBody": {
+                            "mode": "json",
+                            "json": {}
+                        }
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "400": {
+                        "expectations": {
+                            "httpStatus": 400
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "/room-types:get": {
+            "operationId": "/room-types:get",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/~1room-types:get/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "/room-types:get",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/room-types",
+                        "method": "GET"
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    }
+                }
+            }
+        },
+        "/room-types:post": {
+            "operationId": "/room-types:post",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/~1room-types:post/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "/room-types:post",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/room-types",
+                        "method": "POST",
+                        "headers": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "requestBody": {
+                            "mode": "json",
+                            "json": {}
+                        }
+                    }
+                },
+                "defaultResponse": "201",
+                "responses": {
+                    "201": {
+                        "expectations": {
+                            "httpStatus": 201
+                        }
+                    },
+                    "400": {
+                        "expectations": {
+                            "httpStatus": 400
+                        }
+                    }
+                }
+            }
+        },
+        "/rooms/{roomDocumentId}/air-quality:get": {
+            "operationId": "/rooms/{roomDocumentId}/air-quality:get",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/~1rooms~1{roomDocumentId}~1air-quality:get/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "/rooms/{roomDocumentId}/air-quality:get",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/rooms/{roomDocumentId}/air-quality",
+                        "method": "GET",
+                        "paths": [
+                            {
+                                "key": "roomDocumentId",
+                                "value": "cqqhagjxtyuevxjjiaqgylbkvdupebop"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    }
+                }
+            }
+        },
+        "addDeviceData": {
+            "operationId": "addDeviceData",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/addDeviceData/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "addDeviceData",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/devices/{deviceDocumentId}/device-data",
+                        "method": "POST",
+                        "paths": [
+                            {
+                                "key": "deviceDocumentId",
+                                "value": "xjfyexntlhnojcbfjcubyirgtryjickc"
+                            }
+                        ],
+                        "headers": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "requestBody": {
+                            "mode": "json",
+                            "json": {
+                                "device_data": [
+                                    "qhonjqvrrkgszuwnhazyvqkpncmpylre",
+                                    "mzoehjixymgggoqcmuceeyabjvbuuefg"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "400": {
+                        "expectations": {
+                            "httpStatus": 400
+                        }
+                    }
+                }
+            }
+        },
+        "addDeviceToRoom": {
+            "operationId": "addDeviceToRoom",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/addDeviceToRoom/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "addDeviceToRoom",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/rooms/{roomDocumentId}/devices",
+                        "method": "POST",
+                        "paths": [
+                            {
+                                "key": "roomDocumentId",
+                                "value": "ptufwbalwivurqdpmqcwhbycuqjsfqtm"
+                            }
+                        ],
+                        "headers": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "requestBody": {
+                            "mode": "json",
+                            "json": {
+                                "devices": [
+                                    "euzhqexlgwkqqyytuvngahtnimsnxkvf",
+                                    "bhcfnnxbatlopwmfeuokxmvhegczdyik",
+                                    "mhlcxqsnkxgrapxquwkrzqckasfvqedr"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "400": {
+                        "expectations": {
+                            "httpStatus": 400
+                        }
+                    },
+                    "409": {
+                        "expectations": {
+                            "httpStatus": 409
+                        }
+                    }
+                }
+            }
+        },
+        "addRoomsToBuilding": {
+            "operationId": "addRoomsToBuilding",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/addRoomsToBuilding/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "addRoomsToBuilding",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/buildings/{buildingDocumentId}/rooms",
+                        "method": "POST",
+                        "paths": [
+                            {
+                                "key": "buildingDocumentId",
+                                "value": "gtwwuopsfksljzppaooicbtvvihgncqe"
+                            }
+                        ],
+                        "headers": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "requestBody": {
+                            "mode": "json",
+                            "json": {
+                                "rooms": [
+                                    "bmjusdrbjfxemnlkclfjmmbzeolevrlg"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "400": {
+                        "expectations": {
+                            "httpStatus": 400
+                        }
+                    },
+                    "409": {
+                        "expectations": {
+                            "httpStatus": 409
+                        }
+                    }
+                }
+            }
+        },
+        "createBuilding": {
+            "operationId": "createBuilding",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/createBuilding/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "createBuilding",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/buildings",
+                        "method": "POST",
+                        "headers": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "requestBody": {
+                            "mode": "json",
+                            "json": {
+                                "address": "zutypgidsjwakfyzdukqhluzmievojkv",
+                                "name": "qdhcdpbuzzmqceqagskcxmdepxoeskvs"
+                            }
+                        }
+                    }
+                },
+                "defaultResponse": "201",
+                "responses": {
+                    "201": {
+                        "expectations": {
+                            "httpStatus": 201
+                        }
+                    },
+                    "400": {
+                        "expectations": {
+                            "httpStatus": 400
+                        }
+                    }
+                }
+            }
+        },
+        "createDevice": {
+            "operationId": "createDevice",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/createDevice/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "createDevice",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/devices",
+                        "method": "POST",
+                        "headers": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "requestBody": {
+                            "mode": "json",
+                            "json": {
+                                "identifier": "mwyfhxgrjqnsdnngmlmdkyfjooadguou",
+                                "roomDocumentId": "lhwuwuoufizbtwtteycmdezcljnjppkg"
+                            }
+                        }
+                    }
+                },
+                "defaultResponse": "201",
+                "responses": {
+                    "201": {
+                        "expectations": {
+                            "httpStatus": 201
+                        }
+                    },
+                    "400": {
+                        "expectations": {
+                            "httpStatus": 400
+                        }
+                    }
+                }
+            }
+        },
+        "createRoom": {
+            "operationId": "createRoom",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/createRoom/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "createRoom",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/rooms",
+                        "method": "POST",
+                        "headers": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "requestBody": {
+                            "mode": "json",
+                            "json": {
+                                "buildingDocumentId": "nuuxcsmiycdkcszwtexyexqlvsenkmrr",
+                                "name": "tfmgwhoetnfhsyducnxoljnmwxmqhkvf",
+                                "roomTypeDocumentId": "npeeonaemaujfosbpwjibhusudxnqiha"
+                            }
+                        }
+                    }
+                },
+                "defaultResponse": "201",
+                "responses": {
+                    "201": {
+                        "expectations": {
+                            "httpStatus": 201
+                        }
+                    },
+                    "400": {
+                        "expectations": {
+                            "httpStatus": 400
+                        }
+                    }
+                }
+            }
+        },
+        "deleteBuilding": {
+            "operationId": "deleteBuilding",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/deleteBuilding/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "deleteBuilding",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/buildings/{buildingDocumentId}",
+                        "method": "DELETE",
+                        "paths": [
+                            {
+                                "key": "buildingDocumentId",
+                                "value": "dvoodosnnqrmnpbhheysnnqhqimkoauv"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "204",
+                "responses": {
+                    "204": {
+                        "expectations": {
+                            "httpStatus": 204
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "deleteDevice": {
+            "operationId": "deleteDevice",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/deleteDevice/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "deleteDevice",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/devices/{deviceDocumentId}",
+                        "method": "DELETE",
+                        "paths": [
+                            {
+                                "key": "deviceDocumentId",
+                                "value": "mgqdjzzzviqprjqsgzzgvosazyxnvlic"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "204",
+                "responses": {
+                    "204": {
+                        "expectations": {
+                            "httpStatus": 204
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "deleteRoom": {
+            "operationId": "deleteRoom",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/deleteRoom/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "deleteRoom",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/rooms/{roomDocumentId}",
+                        "method": "DELETE",
+                        "paths": [
+                            {
+                                "key": "roomDocumentId",
+                                "value": "byzkxiphueydpigtsnohkzewnzpopjvg"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "204",
+                "responses": {
+                    "204": {
+                        "expectations": {
+                            "httpStatus": 204
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "getAirQualityFromBuilding": {
+            "operationId": "getAirQualityFromBuilding",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/getAirQualityFromBuilding/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "getAirQualityFromBuilding",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/buildings/{buildingDocumentId}/air-quality",
+                        "method": "GET",
+                        "paths": [
+                            {
+                                "key": "buildingDocumentId",
+                                "value": "ujfzlbnlwzntcrqwzympekhvircymvsw"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "getBuildingById": {
+            "operationId": "getBuildingById",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/getBuildingById/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "getBuildingById",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/buildings/{buildingDocumentId}",
+                        "method": "GET",
+                        "paths": [
+                            {
+                                "key": "buildingDocumentId",
+                                "value": "unpioxanqgmyqfcfshtrrudvehswnqjx"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "getBuildings": {
+            "operationId": "getBuildings",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/getBuildings/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "getBuildings",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/buildings",
+                        "method": "GET"
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    }
+                }
+            }
+        },
+        "getDeviceById": {
+            "operationId": "getDeviceById",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/getDeviceById/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "getDeviceById",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/devices/{deviceDocumentId}",
+                        "method": "GET",
+                        "paths": [
+                            {
+                                "key": "deviceDocumentId",
+                                "value": "rtpmhoceduqsfrjhwfzuwqpnxywwvbvf"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "getDeviceData": {
+            "operationId": "getDeviceData",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/getDeviceData/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "getDeviceData",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/device-data",
+                        "method": "GET"
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    }
+                }
+            }
+        },
+        "getDeviceDataById": {
+            "operationId": "getDeviceDataById",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/getDeviceDataById/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "getDeviceDataById",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/device-data/{deviceDataDocumentId}",
+                        "method": "GET",
+                        "paths": [
+                            {
+                                "key": "deviceDataDocumentId",
+                                "value": "hgadskblyvtnndjhrxvtxpclfvaqvahg"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "getDevices": {
+            "operationId": "getDevices",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/getDevices/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "getDevices",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/devices",
+                        "method": "GET"
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    }
+                }
+            }
+        },
+        "getRoomById": {
+            "operationId": "getRoomById",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/getRoomById/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "getRoomById",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/rooms/{roomDocumentId}",
+                        "method": "GET",
+                        "paths": [
+                            {
+                                "key": "roomDocumentId",
+                                "value": "myileikcsvbujgpvhtchksnldlmwyoht"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "getRooms": {
+            "operationId": "getRooms",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/getRooms/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "getRooms",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/rooms",
+                        "method": "GET"
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    }
+                }
+            }
+        },
+        "removeAllDeviceDataFromDevice": {
+            "operationId": "removeAllDeviceDataFromDevice",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/removeAllDeviceDataFromDevice/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "removeAllDeviceDataFromDevice",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/devices/{deviceDocumentId}/device-data",
+                        "method": "DELETE",
+                        "paths": [
+                            {
+                                "key": "deviceDocumentId",
+                                "value": "ynnsplxbfmvyobrdsjptdpeasiapleef"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "204",
+                "responses": {
+                    "204": {
+                        "expectations": {
+                            "httpStatus": 204
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "removeDeviceFromRoom": {
+            "operationId": "removeDeviceFromRoom",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/removeDeviceFromRoom/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "removeDeviceFromRoom",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/rooms/{roomDocumentId}/devices/{deviceDocumentId}",
+                        "method": "DELETE",
+                        "paths": [
+                            {
+                                "key": "roomDocumentId",
+                                "value": "hnqdysrkfyaymyxylksvmolwywqonxsy"
+                            },
+                            {
+                                "key": "deviceDocumentId",
+                                "value": "kkanlfszyziaxqbheridubrfjkrrhprw"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "204",
+                "responses": {
+                    "204": {
+                        "expectations": {
+                            "httpStatus": 204
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "removeRoomFromBuilding": {
+            "operationId": "removeRoomFromBuilding",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/removeRoomFromBuilding/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "removeRoomFromBuilding",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/buildings/{buildingDocumentId}/rooms/{roomDocumentId}",
+                        "method": "DELETE",
+                        "paths": [
+                            {
+                                "key": "buildingDocumentId",
+                                "value": "zppxhtxinyvqguaktvhtbekczsfzovbf"
+                            },
+                            {
+                                "key": "roomDocumentId",
+                                "value": "warosykhysckhoskbpyilfkgqzicyurs"
+                            }
+                        ]
+                    }
+                },
+                "defaultResponse": "204",
+                "responses": {
+                    "204": {
+                        "expectations": {
+                            "httpStatus": 204
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "updateBuilding": {
+            "operationId": "updateBuilding",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/updateBuilding/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "updateBuilding",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/buildings/{buildingDocumentId}",
+                        "method": "PUT",
+                        "paths": [
+                            {
+                                "key": "buildingDocumentId",
+                                "value": "chcdoapboahctvcwouuhyzsysxlbxlyk"
+                            }
+                        ],
+                        "headers": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "requestBody": {
+                            "mode": "json",
+                            "json": {}
+                        }
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "400": {
+                        "expectations": {
+                            "httpStatus": 400
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "updateDevice": {
+            "operationId": "updateDevice",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/updateDevice/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "updateDevice",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/devices/{deviceDocumentId}",
+                        "method": "PUT",
+                        "paths": [
+                            {
+                                "key": "deviceDocumentId",
+                                "value": "vugtvimrwnjccjgxaeytkabqazqtwwmt"
+                            }
+                        ],
+                        "headers": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "requestBody": {
+                            "mode": "json",
+                            "json": {
+                                "identifier": "jylmtrpqfdukhbeuqechgosyvpvwciqf"
+                            }
+                        }
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "400": {
+                        "expectations": {
+                            "httpStatus": 400
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        },
+        "updateRoom": {
+            "operationId": "updateRoom",
+            "scenarios": [
+                {
+                    "key": "happy.path",
+                    "fuzzing": true,
+                    "requests": [
+                        {
+                            "$ref": "#/operations/updateRoom/request",
+                            "fuzzing": true
+                        }
+                    ]
+                }
+            ],
+            "request": {
+                "operationId": "updateRoom",
+                "auth": [
+                    "bearerAuth"
+                ],
+                "request": {
+                    "type": "42c",
+                    "details": {
+                        "url": "{{host}}/rooms/{roomDocumentId}",
+                        "method": "PUT",
+                        "paths": [
+                            {
+                                "key": "roomDocumentId",
+                                "value": "cxjuhogujbbgdcsvemmujloeifiwfalm"
+                            }
+                        ],
+                        "headers": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "requestBody": {
+                            "mode": "json",
+                            "json": {}
+                        }
+                    }
+                },
+                "defaultResponse": "200",
+                "responses": {
+                    "200": {
+                        "expectations": {
+                            "httpStatus": 200
+                        }
+                    },
+                    "400": {
+                        "expectations": {
+                            "httpStatus": 400
+                        }
+                    },
+                    "404": {
+                        "expectations": {
+                            "httpStatus": 404
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "environments": {
+        "default": {
+            "variables": {
+                "bearerAuth": {
+                    "from": "environment",
+                    "name": "SCAN42C_SECURITY_BEARERAUTH",
+                    "required": true
+                },
+                "host": {
+                    "from": "environment",
+                    "name": "SCAN42C_HOST",
+                    "required": false,
+                    "default": "http://94.130.75.173:8101"
+                }
+            }
+        }
+    }
+}

@@ -16,7 +16,7 @@ export class ShowOpenApiEndpoint implements Endpoint {
                 <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
                 <script>
                     const ui = SwaggerUIBundle({
-                        url: '../../../../openapi.yml',
+                        url: '/openapi.yml',
                         dom_id: '#swagger-ui',
                         presets: [
                             SwaggerUIBundle.presets.apis,
@@ -28,8 +28,8 @@ export class ShowOpenApiEndpoint implements Endpoint {
             </body>
             </html>
         `;
-		context.response.body = html;
 		context.response.headers.set("Content-Type", "text/html");
+		context.response.body = html;
 
 		return Promise.resolve();
 	}
