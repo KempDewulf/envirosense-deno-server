@@ -49,9 +49,13 @@ export class UpdateDeviceBrightnessEndpoint implements Endpoint {
             this._errorsBag.add("deviceDocumentId is required");
         }
 
-        if (!request.value) {
+        if (!request.value === undefined) {
             this._errorsBag.add("value is required");
         }
+
+        if (typeof request.value !== "number") {
+			this._errorsBag.add("value must be a number");
+		}
 
         if (request.value <= 0 || request.value >= 100) {
             this._errorsBag.add("value must be between 0 and 100");
