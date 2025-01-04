@@ -1,10 +1,12 @@
 import { Client } from "mqtt";
 import "@std/dotenv";
 import { DeviceLimitMessageHandler, MessageHandlerFactory, MessagingUseCaseRegistry } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+import { DeviceUiModeMessageHandler } from "EnviroSense/Infrastructure/Messaging/Handlers/DeviceUiModeMessageHandler.ts";
 
 export class Messaging {
 	private client: Client;
 	private messageHandlerFactory: MessageHandlerFactory;
+	private readonly trackableHandlers = [DeviceLimitMessageHandler, DeviceUiModeMessageHandler];
 
 	constructor(registry: MessagingUseCaseRegistry) {
 		this.client = new Client({
@@ -34,10 +36,10 @@ export class Messaging {
 	}
 
 	public async publish(topic: string, message: string): Promise<void> {
-		const handler = this.messageHandlerFactory.getHandler(topic);
-		if (handler instanceof DeviceLimitMessageHandler) {
-			handler.setLastPublished(topic, message);
-		}
-		await this.client.publish(topic, message);
-	}
+        const handler = this.messageHandlerFactory.getHandler(topic);
+        if (this.trackableHandlers.some(handlerType => handler instanceof handlerType)) {
+            handler.setLastPublished(topic, message);
+        }
+        await this.client.publish(topic, message);
+    }
 }
