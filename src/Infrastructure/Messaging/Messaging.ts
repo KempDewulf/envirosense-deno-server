@@ -1,7 +1,6 @@
 import { Client } from "mqtt";
 import "@std/dotenv";
-import { DeviceLimitMessageHandler, MessageHandlerFactory, MessagingUseCaseRegistry } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { DeviceUiModeMessageHandler } from "EnviroSense/Infrastructure/Messaging/Handlers/DeviceUiModeMessageHandler.ts";
+import { DeviceLimitMessageHandler, DeviceUiModeMessageHandler, MessageHandlerFactory, MessagingUseCaseRegistry } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
 export class Messaging {
 	private client: Client;
