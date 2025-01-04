@@ -58,7 +58,7 @@ export class UpdateDeviceBrightnessEndpoint implements Endpoint {
 		}
 
         if (request.value < 20 || request.value > 100) {
-            this._errorsBag.add("value must be between 0 and 100");
+            this._errorsBag.add("value must be between 20 and 100");
         }
     }
 }
