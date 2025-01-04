@@ -15,6 +15,7 @@ export class MessagingModule implements Module {
 		const emptyRegistry: MessagingUseCaseRegistry = {
 			processDeviceDataUseCase: undefined,
 			updateDeviceLimitUseCase: undefined,
+			updateDeviceUiModeUseCase: undefined,
 		};
 
 		// Create messaging with empty registry
@@ -30,6 +31,7 @@ export class MessagingModule implements Module {
 		const registry: MessagingUseCaseRegistry = {
 			processDeviceDataUseCase: this.useCaseFactory.createProcessDeviceDataUseCase(),
 			updateDeviceLimitUseCase: this.useCaseFactory.updateDeviceLimitUseCase(),
+			updateDeviceUiModeUseCase: this.useCaseFactory.updateDeviceUiModeUseCase(),
 		};
 
 		// Re-initialize messaging with complete registry
@@ -41,5 +43,6 @@ export class MessagingModule implements Module {
 		await this.messaging.connect();
 		await this.messaging.subscribe("devices/+/data");
 		await this.messaging.subscribe("devices/+/limits/+");
+		await this.messaging.subscribe("devices/+/config/ui-mode");
 	}
 }
