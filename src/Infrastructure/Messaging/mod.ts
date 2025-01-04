@@ -8,3 +8,5 @@ export { MessagingBuilder } from "./MessagingBuilder.ts";
 export type { MessageHandler } from "EnviroSense/Infrastructure/Messaging/Handlers/MessageHandler.ts";
 export { DeviceDataMessageHandler } from "EnviroSense/Infrastructure/Messaging/Handlers/DeviceDataMessageHandler.ts";
 export { DeviceLimitMessageHandler } from "EnviroSense/Infrastructure/Messaging/Handlers/DeviceLimitMessageHandler.ts";
+export { DeviceUiModeMessageHandler } from "EnviroSense/Infrastructure/Messaging/Handlers/DeviceUiModeMessageHandler.ts";
+export { DeviceBrightnessMessageHandler } from "EnviroSense/Infrastructure/Messaging/Handlers/DeviceBrightnessMessageHandler.ts";

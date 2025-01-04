@@ -4,6 +4,9 @@ import { MessageHandler } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
 export class DeviceDataMessageHandler implements MessageHandler {
     constructor(private processDeviceDataUseCase: UseCase<ProcessDeviceDataInput>) {}
+	setLastPublished(_topic: string, _message: string): void {
+		throw new Error("Method not needed.");
+	}
 
     async handleMessage(topic: string, payload: string): Promise<void> {
         const deviceIdentifier = this.getDeviceId(topic);

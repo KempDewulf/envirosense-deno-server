@@ -7,6 +7,7 @@ export interface DeviceState {
 	deviceData?: DeviceData[];
 	limits: Map<DeviceLimitType, DeviceLimit>;
 	uiMode?: DeviceUiMode;
+	brightness?: number;
 }
 
 export class Device {
@@ -16,6 +17,7 @@ export class Device {
 	private _deviceData: DeviceData[];
 	private _limits: Map<DeviceLimitType, DeviceLimit>;
 	private _uiMode: DeviceUiMode;
+	private _brightness: number;
 
 	private constructor(
 		documentId: string,
@@ -28,6 +30,7 @@ export class Device {
 		this._deviceData = [];
 		this._limits = new Map<DeviceLimitType, DeviceLimit>();
 		this._uiMode = new UiMode(DeviceUiModeType.NORMAL);
+		this._brightness = 80;
 	}
 
 	static create(documentId: string, identifier: string, room: Room): Device {
@@ -47,6 +50,7 @@ export class Device {
 		device._deviceData = state.deviceData ?? [];
 		device._limits = state.limits ?? new Map<DeviceLimitType, DeviceLimit>();
 		device._uiMode = state.uiMode ?? new UiMode(DeviceUiModeType.NORMAL);
+		device._brightness = state.brightness ?? 80;
 
 		device.validateState();
 
@@ -104,6 +108,15 @@ export class Device {
 		return this._uiMode
 	}
 
+	public updateBrightness(brightness: number): void {
+		this.ensureBrightnessIsInRange(brightness);
+		this._brightness = brightness;
+	}
+
+	public getBrightness(): number {
+		return this._brightness;
+	}
+
 	private ensureIdentifierIsNotEmpty(): void {
 		if (!this._identifier) {
 			throw new DomainException("Identifier is required.");
@@ -113,6 +126,12 @@ export class Device {
 	private ensureRoomIsNotEmpty(): void {
 		if (!this._room) {
 			throw new DomainException("Room is required.");
+		}
+	}
+
+	private ensureBrightnessIsInRange(brightness: number): void {
+		if (brightness < 20 || brightness > 100) {
+			throw new DomainException("Brightness must be between 20 and 100.");
 		}
 	}
 

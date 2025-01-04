@@ -74,6 +74,9 @@ export type { UpdateDeviceLimitOutput } from "./Device/UpdateDeviceLimitOutput.t
 export type { UpdateDeviceUiModeInput } from "./Device/UpdateDeviceUiModeInput.ts";
 export type { UpdateDeviceUiModeOutput } from "./Device/UpdateDeviceUiModeOutput.ts";
 
+export type { UpdateDeviceBrightnessInput } from "./Device/UpdateDeviceBrightnessInput.ts";
+export type { UpdateDeviceBrightnessOutput } from "./Device/UpdateDeviceBrightnessOutput.ts";
+
 export type { DeleteDeviceInput } from "./Device/DeleteDeviceInput.ts";
 
 export type { DeleteAllDeviceDataFromDeviceInput } from "./Device/DeleteAllDeviceDataFromDeviceInput.ts";

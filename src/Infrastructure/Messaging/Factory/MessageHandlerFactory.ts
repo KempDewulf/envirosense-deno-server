@@ -1,4 +1,4 @@
-import { DeviceDataMessageHandler, DeviceLimitMessageHandler, MessageHandler, MessagingUseCaseRegistry } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+import { DeviceDataMessageHandler, DeviceLimitMessageHandler, DeviceBrightnessMessageHandler, MessageHandler, MessagingUseCaseRegistry } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 import { DeviceUiModeMessageHandler } from "EnviroSense/Infrastructure/Messaging/Handlers/DeviceUiModeMessageHandler.ts";
 
 export class MessageHandlerFactory {
@@ -9,6 +9,7 @@ export class MessageHandlerFactory {
             new DeviceDataMessageHandler(useCaseRegistry.processDeviceDataUseCase!),
             new DeviceLimitMessageHandler(useCaseRegistry.updateDeviceLimitUseCase!),
             new DeviceUiModeMessageHandler(useCaseRegistry.updateDeviceUiModeUseCase!),
+            new DeviceBrightnessMessageHandler(useCaseRegistry.updateDeviceBrightnessUseCase!),
         ];
     }
 

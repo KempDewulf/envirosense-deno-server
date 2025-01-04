@@ -2,14 +2,15 @@ import {
 	DeviceDataRepository,
 	DeviceRepository,
 	ProcessDeviceDataInput,
+	UpdateDeviceBrightnessInput,
 	UpdateDeviceLimitInput,
 	UpdateDeviceUiModeInput,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { ProcessDeviceData, UpdateDeviceLimit, UpdateDeviceUiMode } from "EnviroSense/Application/mod.ts";
+import { ProcessDeviceData, UpdateDeviceLimit, UpdateDeviceUiMode, UpdateDeviceBrightness } from "EnviroSense/Application/mod.ts";
 import { DeviceDataStrapiRepository, DeviceStrapiRepository, RoomStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { FirebaseMessaging, MessagingBuilder } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { UpdateDeviceLimitPresenter, UpdateDeviceUiModePresentedData, UpdateDeviceUiModePresenter } from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import { UpdateDeviceLimitPresenter, UpdateDeviceUiModePresentedData, UpdateDeviceUiModePresenter, UpdateDeviceBrightnessPresenter, UpdateDeviceBrightnessPresentedData } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
 import { UpdateDeviceLimitPresentedData } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 
@@ -51,6 +52,17 @@ export class MessagingUseCaseFactory {
 			new RequestResponse<UpdateDeviceUiModePresentedData>(),
 		);
 		return new UpdateDeviceUiMode(
+			presenter,
+			this.deviceRepository,
+			MessagingBuilder.getInstance(),
+		);
+	}
+
+	updateDeviceBrightnessUseCase(): UseCase<UpdateDeviceBrightnessInput> {
+		const presenter = new UpdateDeviceBrightnessPresenter(
+			new RequestResponse<UpdateDeviceBrightnessPresentedData>(),
+		);
+		return new UpdateDeviceBrightness(
 			presenter,
 			this.deviceRepository,
 			MessagingBuilder.getInstance(),

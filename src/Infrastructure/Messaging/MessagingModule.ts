@@ -16,12 +16,10 @@ export class MessagingModule implements Module {
 			processDeviceDataUseCase: undefined,
 			updateDeviceLimitUseCase: undefined,
 			updateDeviceUiModeUseCase: undefined,
+			updateDeviceBrightnessUseCase: undefined,
 		};
 
-		// Create messaging with empty registry
 		this.messaging = new Messaging(emptyRegistry);
-
-		// Initialize builder with instance
 		MessagingBuilder.createInstance(this.messaging);
 
 		// Create factory with dependencies
@@ -32,6 +30,7 @@ export class MessagingModule implements Module {
 			processDeviceDataUseCase: this.useCaseFactory.createProcessDeviceDataUseCase(),
 			updateDeviceLimitUseCase: this.useCaseFactory.updateDeviceLimitUseCase(),
 			updateDeviceUiModeUseCase: this.useCaseFactory.updateDeviceUiModeUseCase(),
+			updateDeviceBrightnessUseCase: this.useCaseFactory.updateDeviceBrightnessUseCase(),
 		};
 
 		// Re-initialize messaging with complete registry
@@ -44,5 +43,6 @@ export class MessagingModule implements Module {
 		await this.messaging.subscribe("devices/+/data");
 		await this.messaging.subscribe("devices/+/limits/+");
 		await this.messaging.subscribe("devices/+/config/ui-mode");
+		await this.messaging.subscribe("devices/+/config/brightness");
 	}
 }
