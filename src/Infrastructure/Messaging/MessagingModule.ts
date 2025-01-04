@@ -16,6 +16,7 @@ export class MessagingModule implements Module {
 			processDeviceDataUseCase: undefined,
 			updateDeviceLimitUseCase: undefined,
 			updateDeviceUiModeUseCase: undefined,
+			updateDeviceBrightnessUseCase: undefined,
 		};
 
 		// Create messaging with empty registry
