@@ -138,6 +138,12 @@ export type { UpdateDeviceLimitRequest } from "EnviroSense/Infrastructure/WebApi
 export { UpdateDeviceLimitPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/UpdateDeviceLimitPresenter.ts";
 export type { UpdateDeviceLimitPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/UpdateDeviceLimitPresenter.ts";
 
+export { UpdateDeviceUiModeEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/Device/UpdateDeviceUiModeEndpoint.ts";
+export { UpdateDeviceUiModeController } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/UpdateDeviceUiModeController.ts";
+export type { UpdateDeviceUiModeRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/UpdateDeviceUiModeController.ts";
+export { UpdateDeviceUiModePresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/UpdateDeviceUiModePresenter.ts";
+export type { UpdateDeviceUiModePresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/UpdateDeviceUiModePresenter.ts";
+
 export { AddDeviceDataToDeviceEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/Device/AddDeviceDataToDeviceEndpoint.ts";
 export { AddDeviceDataToDeviceController } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/AddDeviceDataToDeviceController.ts";
 export type { AddDeviceDataToDeviceRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/AddDeviceDataToDeviceController.ts";
