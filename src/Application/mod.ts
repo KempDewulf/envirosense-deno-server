@@ -27,9 +27,7 @@ export { UpdateDevice } from "./Device/UpdateDevice.ts";
 export { ShowDeviceByDocumentId } from "./Device/ShowDeviceByDocumentId.ts";
 export { AddDeviceDataToDevice } from "./Device/AddDeviceDataToDevice.ts";
 export { UpdateDeviceLimit } from "./Device/UpdateDeviceLimit.ts";
-export { UpdateDeviceUiMode } from "./Device/UpdateDeviceUiMode.ts";
-export { UpdateDeviceBrightness } from "./Device/UpdateDeviceBrightness.ts";
-
+export { UpdateDeviceConfig } from "./Device/UpdateDeviceConfig.ts";
 
 // Room Type
 export { ShowRoomTypes } from "./RoomType/ShowRoomTypes.ts";
