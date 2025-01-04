@@ -96,14 +96,12 @@ export class Room {
 		}
 	}
 
-	//TODO(@layton): check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
 	private ensureDeviceDoesNotExist(device: Device): void {
 		if (this._devices.some((d) => d.documentId === device.documentId)) {
 			throw new DomainException("Device already exists in this room.");
 		}
 	}
 
-	//TODO(@layton): check this later when all room endpoints are made, if we can change this to documentId if needed, if not, great!
 	private ensureDeviceExists(deviceDocumentId: string): void {
 		if (!this._devices.some((d) => d.documentId === deviceDocumentId)) {
 			throw new DomainException("Device does not exist in this room.");

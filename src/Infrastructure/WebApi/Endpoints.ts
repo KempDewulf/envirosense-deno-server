@@ -128,11 +128,11 @@ export function endpoints(): Router {
 	);
 	router.put("/devices/:deviceDocumentId", use(new UpdateDeviceEndpoint()));
 	router.patch(
-		"/devices/:deviceDocumentId/limits/:limitType", //TODO: add in openapi.yml
+		"/devices/:deviceDocumentId/limits/:limitType",
 		use(new UpdateDeviceLimitEndpoint()),
 	);
 	router.patch(
-		"/devices/:deviceDocumentId/config/ui-mode", //TODO: add in openapi.yml
+		"/devices/:deviceDocumentId/config/ui-mode",
 		use(new UpdateDeviceUiModeEndpoint()),
 	);
 
