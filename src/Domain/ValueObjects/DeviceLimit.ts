@@ -3,7 +3,7 @@ import { DomainException } from "EnviroSense/Domain/Shared/Exceptions/DomainExce
 export enum DeviceLimitType {
     TEMPERATURE = "temperature",
     HUMIDITY = "humidity",
-    CO2 = "co2",
+    PPM = "ppm",
     LIGHT = "light",
 }
 
