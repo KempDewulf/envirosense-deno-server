@@ -29,6 +29,7 @@ import {
 	ShowRoomTypeByDocumentIdEndpoint,
 	ShowRoomTypesEndpoint,
 	UpdateBuildingEndpoint,
+	UpdateDeviceBrightnessEndpoint,
 	UpdateDeviceEndpoint,
 	UpdateDeviceLimitEndpoint,
 	UpdateDeviceUiModeEndpoint,
@@ -135,6 +136,10 @@ export function endpoints(): Router {
 		"/devices/:deviceDocumentId/config/ui-mode",
 		use(new UpdateDeviceUiModeEndpoint()),
 	);
+	router.patch(
+		"/devices/:deviceDocumentId/config/brightness",
+		use(new UpdateDeviceBrightnessEndpoint()),
+	)
 
 	router.get("/device-data", use(new ShowDeviceDataEndpoint()));
 	router.get(
