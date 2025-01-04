@@ -130,7 +130,7 @@ export class Device {
 	}
 
 	private ensureBrightnessIsInRange(brightness: number): void {
-		if (brightness <= 0 || brightness >= 100) {
+		if (brightness < 20 || brightness > 100) {
 			throw new DomainException("Brightness must be between 0 and 100.");
 		}
 	}

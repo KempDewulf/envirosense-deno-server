@@ -11,7 +11,7 @@ export class Brightness implements DeviceBrightness {
     }
 
     validate(): void {
-        if (this.value <= 0 || this.value >= 100) {
+        if (this.value < 20 || this.value > 100) {
             throw new DomainException(`Invalid brightness value: ${this.value}`);
         }
     }
