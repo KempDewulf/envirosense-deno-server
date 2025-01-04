@@ -13,11 +13,8 @@ export type { DeviceState } from "EnviroSense/Domain/Entities/Device.ts";
 export { DeviceLimitType, TemperatureLimit } from "EnviroSense/Domain/ValueObjects/DeviceLimit.ts";
 export type { DeviceLimit } from "EnviroSense/Domain/ValueObjects/DeviceLimit.ts";
 
-export { DeviceUiModeType, UiMode } from "EnviroSense/Domain/ValueObjects/DeviceUiMode.ts";
-export type { DeviceUiMode } from "EnviroSense/Domain/ValueObjects/DeviceUiMode.ts";
-
-export { Brightness } from "EnviroSense/Domain/ValueObjects/DeviceBrightness.ts";
-export type { DeviceBrightness } from "EnviroSense/Domain/ValueObjects/DeviceBrightness.ts";
+export { DeviceConfigType, DeviceUiModeType, ConfigValue } from "EnviroSense/Domain/ValueObjects/DeviceConfig.ts";
+export type { DeviceConfigValue } from "EnviroSense/Domain/ValueObjects/DeviceConfig.ts";
 
 export { DeviceData } from "EnviroSense/Domain/Entities/DeviceData.ts";
 export type { DeviceDataState } from "EnviroSense/Domain/Entities/DeviceData.ts";
