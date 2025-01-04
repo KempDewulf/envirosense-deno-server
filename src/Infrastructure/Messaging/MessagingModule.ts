@@ -19,10 +19,7 @@ export class MessagingModule implements Module {
 			updateDeviceBrightnessUseCase: undefined,
 		};
 
-		// Create messaging with empty registry
 		this.messaging = new Messaging(emptyRegistry);
-
-		// Initialize builder with instance
 		MessagingBuilder.createInstance(this.messaging);
 
 		// Create factory with dependencies
