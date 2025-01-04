@@ -3,7 +3,7 @@ import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts"
 
 export interface UpdateDeviceBrightnessPresentedData {
 	documentId: string;
-	value: string;
+	value: number;
 }
 
 export class UpdateDeviceBrightnessPresenter implements OutputPort<UpdateDeviceBrightnessOutput> {
