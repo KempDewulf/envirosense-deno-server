@@ -89,10 +89,10 @@ export class DeviceData {
 			throw new Error("PPM is required. in AirData");
 		}
 
-		if (humidity < 0 || humidity > 100) {
+		if (humidity <= 0 || humidity >= 100) {
 			throw new Error("Humidity must be between 0 and 100");
 		}
-		if (ppm < 0 || ppm > 5000) {
+		if (ppm <= 0 || ppm >= 5000) {
 			throw new Error("PPM must be between 0 and 5000");
 		}
 	}
