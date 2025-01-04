@@ -686,6 +686,127 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /devices/{deviceDocumentId}/config/ui-mode:
+    patch:
+        tags:
+          - Device
+        summary: Update device UI mode
+        operationId: updateDeviceUIMode
+        parameters:
+          - name: deviceDocumentId
+            in: path
+            required: true
+            schema:
+              type: string
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uiMode:
+                    type: string
+                    enum:
+                      - normal
+                      - ppm
+                      - temperature
+                      - humidity
+                    example: "normal"
+        responses:
+          '200':
+            description: Device UI mode updated successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    uiMode:
+                      type: string
+                      enum:
+                        - normal
+                        - ppm
+                        - temperature
+                        - humidity
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          '404':
+            description: Device not found
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+
+  /devices/{deviceDocumentId}/limits/{limitType}:
+    patch:
+      tags:
+        - Device
+      summary: Update device limit
+      operationId: updateDeviceLimit
+      parameters:
+        - name: deviceDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: limitType
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - temperature
+              - humidity
+              - co2
+              - light
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: number
+                  example: 25
+              required:
+                - value
+      responses:
+        '200':
+          description: Device limit updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  documentId:
+                    type: string
+                  limitType:
+                    type: string
+                    enum:
+                      - temperature
+                      - humidity
+                      - co2
+                      - light
+                  value:
+                    type: number
+        '400':
+          description: Bad request - Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Device not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /device-data:
     get:
       tags:
