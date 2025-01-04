@@ -1,5 +1,5 @@
-import { Client } from "https://deno.land/x/mqtt@0.1.2/deno/mod.ts";
-import "jsr:@std/dotenv/load";
+import { Client } from "mqtt";
+import "@std/dotenv";
 import { DeviceLimitMessageHandler, MessageHandlerFactory, MessagingUseCaseRegistry } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
 export class Messaging {
