@@ -32,6 +32,7 @@ export class MessagingModule implements Module {
 			processDeviceDataUseCase: this.useCaseFactory.createProcessDeviceDataUseCase(),
 			updateDeviceLimitUseCase: this.useCaseFactory.updateDeviceLimitUseCase(),
 			updateDeviceUiModeUseCase: this.useCaseFactory.updateDeviceUiModeUseCase(),
+			updateDeviceBrightnessUseCase: this.useCaseFactory.updateDeviceBrightnessUseCase(),
 		};
 
 		// Re-initialize messaging with complete registry
