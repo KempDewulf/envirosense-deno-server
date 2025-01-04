@@ -3,16 +3,13 @@ info:
   title: EnviroSense API
   version: '1.1.0'
   description: API documentation for EnviroSense.
-
 servers:
   - url: http://94.130.75.173:8101
     description: Deployed API Server
   - url: http://localhost:8101
     description: Local API Server (Only usable when running locally)
-
 security:
   - bearerAuth: []
-
 tags:
   - name: Building
     description: Endpoints related to buildings
@@ -24,7 +21,6 @@ tags:
     description: Endpoints related to devices
   - name: Device Data
     description: Endpoints related to device data
-
 paths:
   /buildings:
     get:
@@ -853,7 +849,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-
 components:
   schemas:
     RoomType:
