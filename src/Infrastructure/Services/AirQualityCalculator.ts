@@ -1,4 +1,9 @@
-import { DeviceDataQueryRepository, DeviceQueryRepository, RoomAirQualityOutput, RoomQueryRepository } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	DeviceDataQueryRepository,
+	DeviceQueryRepository,
+	RoomAirQualityOutput,
+	RoomQueryRepository,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { AirData, Building, Device, Room } from "EnviroSense/Domain/mod.ts";
 
 export class AirQualityCalculator {

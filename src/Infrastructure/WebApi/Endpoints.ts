@@ -134,7 +134,7 @@ export function endpoints(): Router {
 	router.patch(
 		"/devices/:deviceDocumentId/config/:configType",
 		use(new UpdateDeviceConfigEndpoint()),
-	)
+	);
 
 	router.get("/device-data", use(new ShowDeviceDataEndpoint()));
 	router.get(

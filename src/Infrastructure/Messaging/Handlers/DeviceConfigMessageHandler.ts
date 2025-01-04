@@ -28,9 +28,9 @@ export class DeviceConfigMessageHandler implements MessageHandler {
 	}
 
 	setLastPublished(topic: string, message: string): void {
-        this.lastPublishedTopic = topic;
-        this.lastPublishedMessage = message;
-    }
+		this.lastPublishedTopic = topic;
+		this.lastPublishedMessage = message;
+	}
 
 	canHandle(topic: string): boolean {
 		return topic.match(/devices\/.*\/config\/.*/) !== null;

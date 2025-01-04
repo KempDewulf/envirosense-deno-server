@@ -57,9 +57,9 @@ export class UpdateDeviceConfigEndpoint implements Endpoint {
 			this._errorsBag.add("deviceDocumentId is required");
 		}
 
-        if (!request.configType) {
-            this._errorsBag.add("configType is required");
-        }
+		if (!request.configType) {
+			this._errorsBag.add("configType is required");
+		}
 
 		if (request.value === undefined) {
 			this._errorsBag.add("value is required");

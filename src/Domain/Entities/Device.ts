@@ -1,4 +1,13 @@
-import { DeviceData, DomainException, Room, DeviceLimitType, DeviceLimit, DeviceUiMode, DeviceUiModeType, UiMode } from "EnviroSense/Domain/mod.ts";
+import {
+	DeviceData,
+	DeviceLimit,
+	DeviceLimitType,
+	DeviceUiMode,
+	DeviceUiModeType,
+	DomainException,
+	Room,
+	UiMode,
+} from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceState {
 	documentId: string;
@@ -91,13 +100,13 @@ export class Device {
 	}
 
 	public updateLimit(limit: DeviceLimit): void {
-        limit.validate();
-        this._limits.set(limit.type, limit);
-    }
+		limit.validate();
+		this._limits.set(limit.type, limit);
+	}
 
-    public getLimit(type: DeviceLimitType): DeviceLimit | undefined {
-        return this._limits.get(type);
-    }
+	public getLimit(type: DeviceLimitType): DeviceLimit | undefined {
+		return this._limits.get(type);
+	}
 
 	public updateUiMode(uiMode: DeviceUiMode): void {
 		uiMode.validate();
@@ -105,7 +114,7 @@ export class Device {
 	}
 
 	public getUiMode(): DeviceUiMode {
-		return this._uiMode
+		return this._uiMode;
 	}
 
 	public updateBrightness(brightness: number): void {
@@ -164,6 +173,6 @@ export class Device {
 	}
 
 	get limits(): Map<DeviceLimitType, DeviceLimit> {
-        return new Map(this._limits);
-    }
+		return new Map(this._limits);
+	}
 }

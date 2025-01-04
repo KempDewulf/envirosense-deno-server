@@ -1,5 +1,5 @@
 export interface UpdateDeviceLimitInput {
-    deviceDocumentId: string;
-    limitType: string;
-    value: number;
+	deviceDocumentId: string;
+	limitType: string;
+	value: number;
 }

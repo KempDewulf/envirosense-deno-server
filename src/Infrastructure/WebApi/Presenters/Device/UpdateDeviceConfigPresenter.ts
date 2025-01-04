@@ -2,30 +2,30 @@ import { OutputPort, UpdateDeviceConfigOutput } from "EnviroSense/Application/Co
 import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export interface UpdateDeviceConfigPresentedData {
-    documentId: string;
-    configType: string;
-    value: string | number;
+	documentId: string;
+	configType: string;
+	value: string | number;
 }
 
 export class UpdateDeviceConfigPresenter implements OutputPort<UpdateDeviceConfigOutput> {
-    private readonly _device: RequestResponseDevice<UpdateDeviceConfigPresentedData>;
+	private readonly _device: RequestResponseDevice<UpdateDeviceConfigPresentedData>;
 
-    constructor(device: RequestResponseDevice<UpdateDeviceConfigPresentedData>) {
-        this._device = device;
-    }
+	constructor(device: RequestResponseDevice<UpdateDeviceConfigPresentedData>) {
+		this._device = device;
+	}
 
-    present(data: UpdateDeviceConfigOutput): void {
-        const presentedData = this.mapToPresentedData(data);
-        this._device.update(presentedData);
-    }
+	present(data: UpdateDeviceConfigOutput): void {
+		const presentedData = this.mapToPresentedData(data);
+		this._device.update(presentedData);
+	}
 
-    protected mapToPresentedData(
-        data: UpdateDeviceConfigOutput,
-    ): UpdateDeviceConfigPresentedData {
-        return {
-            documentId: data.documentId,
-            configType: data.configType,
-            value: data.value,
-        };
-    }
+	protected mapToPresentedData(
+		data: UpdateDeviceConfigOutput,
+	): UpdateDeviceConfigPresentedData {
+		return {
+			documentId: data.documentId,
+			configType: data.configType,
+			value: data.value,
+		};
+	}
 }

@@ -57,7 +57,7 @@ export class UpdateDeviceLimitEndpoint implements Endpoint {
 			this._errorsBag.add("deviceDocumentId is required");
 		}
 
-		if(!request.limitType) {
+		if (!request.limitType) {
 			this._errorsBag.add("limitType is required");
 		}
 

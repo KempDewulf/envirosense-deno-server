@@ -28,7 +28,7 @@ export class ShowOpenApiEndpoint implements Endpoint {
             </body>
             </html>
         `;
-        
+
 		context.response.headers.set("Content-Type", "text/html");
 		context.response.body = html;
 
