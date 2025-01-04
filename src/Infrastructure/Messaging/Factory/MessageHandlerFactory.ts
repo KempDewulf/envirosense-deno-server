@@ -9,6 +9,7 @@ export class MessageHandlerFactory {
             new DeviceDataMessageHandler(useCaseRegistry.processDeviceDataUseCase!),
             new DeviceLimitMessageHandler(useCaseRegistry.updateDeviceLimitUseCase!),
             new DeviceUiModeMessageHandler(useCaseRegistry.updateDeviceUiModeUseCase!),
+            new DeviceBrightnessMessageHandler(useCaseRegistry.updateDeviceBrightnessUseCase!),
         ];
     }
 
