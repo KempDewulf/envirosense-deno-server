@@ -144,6 +144,12 @@ export type { UpdateDeviceUiModeRequest } from "EnviroSense/Infrastructure/WebAp
 export { UpdateDeviceUiModePresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/UpdateDeviceUiModePresenter.ts";
 export type { UpdateDeviceUiModePresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/UpdateDeviceUiModePresenter.ts";
 
+export { UpdateDeviceBrightnessEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/Device/UpdateDeviceBrightnessEndpoint.ts";
+export { UpdateDeviceBrightnessController } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/UpdateDeviceBrightnessController.ts";
+export type { UpdateDeviceBrightnessRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/UpdateDeviceBrightnessController.ts";
+export { UpdateDeviceBrightnessPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/UpdateDeviceBrightnessPresenter.ts";
+export type { UpdateDeviceBrightnessPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/UpdateDeviceBrightnessPresenter.ts";
+
 export { AddDeviceDataToDeviceEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/Device/AddDeviceDataToDeviceEndpoint.ts";
 export { AddDeviceDataToDeviceController } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/AddDeviceDataToDeviceController.ts";
 export type { AddDeviceDataToDeviceRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/AddDeviceDataToDeviceController.ts";
