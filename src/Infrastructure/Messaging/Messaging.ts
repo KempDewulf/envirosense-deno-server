@@ -1,11 +1,11 @@
 import { Client } from "mqtt";
 import "@std/dotenv";
-import { DeviceBrightnessMessageHandler, DeviceLimitMessageHandler, DeviceUiModeMessageHandler, MessageHandlerFactory, MessagingUseCaseRegistry } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+import { DeviceConfigMessageHandler, DeviceLimitMessageHandler, MessageHandlerFactory, MessagingUseCaseRegistry } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
 export class Messaging {
 	private client: Client;
 	private messageHandlerFactory: MessageHandlerFactory;
-	private readonly trackableHandlers = [DeviceLimitMessageHandler, DeviceUiModeMessageHandler, DeviceBrightnessMessageHandler];
+	private readonly trackableHandlers = [DeviceLimitMessageHandler, DeviceConfigMessageHandler];
 
 	constructor(registry: MessagingUseCaseRegistry) {
 		this.client = new Client({
