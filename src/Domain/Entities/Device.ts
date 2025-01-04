@@ -1,4 +1,4 @@
-import { DeviceData, DomainException, Room, DeviceLimitType, DeviceLimit } from "EnviroSense/Domain/mod.ts";
+import { DeviceData, DomainException, Room, DeviceLimitType, DeviceLimit, DeviceUiMode, DeviceUiModeType, UiMode } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceState {
 	documentId: string;
@@ -6,6 +6,7 @@ export interface DeviceState {
 	room?: Room | null;
 	deviceData?: DeviceData[];
 	limits: Map<DeviceLimitType, DeviceLimit>;
+	uiMode?: DeviceUiMode;
 }
 
 export class Device {
@@ -14,6 +15,7 @@ export class Device {
 	private _room: Room | null;
 	private _deviceData: DeviceData[];
 	private _limits: Map<DeviceLimitType, DeviceLimit>;
+	private _uiMode: DeviceUiMode;
 
 	private constructor(
 		documentId: string,
@@ -25,6 +27,7 @@ export class Device {
 		this._room = room;
 		this._deviceData = [];
 		this._limits = new Map<DeviceLimitType, DeviceLimit>();
+		this._uiMode = new UiMode(DeviceUiModeType.NORMAL);
 	}
 
 	static create(documentId: string, identifier: string, room: Room): Device {
@@ -43,6 +46,7 @@ export class Device {
 
 		device._deviceData = state.deviceData ?? [];
 		device._limits = state.limits ?? new Map<DeviceLimitType, DeviceLimit>();
+		device._uiMode = state.uiMode ?? new UiMode(DeviceUiModeType.NORMAL);
 
 		device.validateState();
 
@@ -90,6 +94,15 @@ export class Device {
     public getLimit(type: DeviceLimitType): DeviceLimit | undefined {
         return this._limits.get(type);
     }
+
+	public updateUiMode(uiMode: DeviceUiMode): void {
+		uiMode.validate();
+		this._uiMode = uiMode;
+	}
+
+	public getUiMode(): DeviceUiMode {
+		return this._uiMode
+	}
 
 	private ensureIdentifierIsNotEmpty(): void {
 		if (!this._identifier) {
