@@ -29,10 +29,9 @@ import {
 	ShowRoomTypeByDocumentIdEndpoint,
 	ShowRoomTypesEndpoint,
 	UpdateBuildingEndpoint,
-	UpdateDeviceBrightnessEndpoint,
+	UpdateDeviceConfigEndpoint,
 	UpdateDeviceEndpoint,
 	UpdateDeviceLimitEndpoint,
-	UpdateDeviceUiModeEndpoint,
 	UpdateRoomEndpoint,
 	UpdateRoomTypeEndpoint,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
@@ -133,12 +132,8 @@ export function endpoints(): Router {
 		use(new UpdateDeviceLimitEndpoint()),
 	);
 	router.patch(
-		"/devices/:deviceDocumentId/config/ui-mode",
-		use(new UpdateDeviceUiModeEndpoint()),
-	);
-	router.patch(
-		"/devices/:deviceDocumentId/config/brightness",
-		use(new UpdateDeviceBrightnessEndpoint()),
+		"/devices/:deviceDocumentId/config/:configType",
+		use(new UpdateDeviceConfigEndpoint()),
 	)
 
 	router.get("/device-data", use(new ShowDeviceDataEndpoint()));
