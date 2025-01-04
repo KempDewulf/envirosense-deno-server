@@ -35,10 +35,6 @@ export class DeviceUiModeMessageHandler implements MessageHandler {
 	}
 
 	private getDeviceId(topic: string): string {
-		const match = topic.match(/^devices\/([^/]+)\/config\/ui-mode$/);
-		if (!match) {
-			throw new Error(`Invalid topic format: ${topic}`);
-		}
-		return match[1] ?? "";
+		return topic.split("/")[1] ?? "";
 	}
 }
