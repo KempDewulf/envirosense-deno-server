@@ -44,5 +44,6 @@ export class MessagingModule implements Module {
 		await this.messaging.subscribe("devices/+/data");
 		await this.messaging.subscribe("devices/+/limits/+");
 		await this.messaging.subscribe("devices/+/config/ui-mode");
+		await this.messaging.subscribe("devices/+/config/brightness");
 	}
 }
