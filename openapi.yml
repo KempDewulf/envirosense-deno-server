@@ -1,26 +1,26 @@
-openapi: '3.0.0'
+openapi: 3.0.0
 info:
   title: EnviroSense API
-  version: '1.1.0'
+  version: 1.0.0
   description: API documentation for EnviroSense.
+
 servers:
   - url: http://94.130.75.173:8101
     description: Deployed API Server
-  - url: http://localhost:8101
-    description: Local API Server (Only usable when running locally)
+
 security:
   - bearerAuth: []
+
 tags:
   - name: Building
     description: Endpoints related to buildings
   - name: Room
     description: Endpoints related to rooms
-  - name: Room Type
-    description: Endpoints related to room types
   - name: Device
     description: Endpoints related to devices
   - name: Device Data
     description: Endpoints related to device data
+
 paths:
   /buildings:
     get:
@@ -131,32 +131,6 @@ paths:
       responses:
         '204':
           description: Building deleted successfully
-        '404':
-          description: Building not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
-  /buildings/{buildingDocumentId}/air-quality:
-    get:
-      tags:
-        - Building
-      summary: Get air quality from a building
-      operationId: getAirQualityFromBuilding
-      parameters:
-        - name: buildingDocumentId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Air quality from a building with all rooms with their air quality
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AirQualityBuildingResponse'
         '404':
           description: Building not found
           content:
@@ -421,103 +395,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  /room-types:
-    get:
-      tags:
-          - Room Type
-      summary: Get all room types
-      responses:
-        '200':
-          description: A list of room types
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RoomType'
-    post:
-      tags:
-           - Room Type
-      summary: Create a new room type
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateRoomTypeRequest'
-      responses:
-        '201':
-          description: Room type created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RoomType'
-        '400':
-          description: Invalid input
-
-  /room-types/{roomTypeDocumentId}:
-    get:
-      tags:
-          - Room Type
-      summary: Get a room type by ID
-      parameters:
-        - in: path
-          name: roomTypeDocumentId
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: A room type
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RoomType'
-        '404':
-          description: Room type not found
-    put:
-      tags:
-          - Room Type
-      summary: Update a room type by ID
-      parameters:
-        - in: path
-          name: roomTypeDocumentId
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateRoomTypeRequest'
-      responses:
-        '200':
-          description: Room type updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RoomType'
-        '400':
-          description: Invalid input
-        '404':
-          description: Room type not found
-    delete:
-      tags:
-            - Room Type
-      summary: Delete a room type by ID
-      parameters:
-        - in: path
-          name: roomTypeDocumentId
-          required: true
-          schema:
-            type: string
-      responses:
-        '204':
-          description: Room type deleted successfully
-        '404':
-          description: Room type not found
-
   /devices:
     get:
       tags:
@@ -661,192 +538,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-    delete:
-      tags:
-        - Device
-      summary: Remove all device data from a device
-      operationId: removeAllDeviceDataFromDevice
-      parameters:
-        - name: deviceDocumentId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '204':
-          description: Device data removed successfully
-        '404':
-          description: Device not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
-  /devices/{deviceDocumentId}/config/ui-mode:
-    patch:
-        tags:
-          - Device
-        summary: Update device UI mode
-        operationId: updateDeviceUIMode
-        parameters:
-          - name: deviceDocumentId
-            in: path
-            required: true
-            schema:
-              type: string
-        requestBody:
-          required: true
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  uiMode:
-                    type: string
-                    enum:
-                      - normal
-                      - ppm
-                      - temperature
-                      - humidity
-                    example: "normal"
-        responses:
-          '200':
-            description: Device UI mode updated successfully
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    uiMode:
-                      type: string
-                      enum:
-                        - normal
-                        - ppm
-                        - temperature
-                        - humidity
-          '400':
-            description: Bad request
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
-          '404':
-            description: Device not found
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
-
-  /devices/{deviceDocumentId}/config/brightness:
-    patch:
-        tags:
-          - Device
-        summary: Update device brightness
-        operationId: updateDeviceBrightness
-        parameters:
-          - name: deviceDocumentId
-            in: path
-            required: true
-            schema:
-              type: string
-        requestBody:
-          required: true
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  brightness:
-                    type: number
-                    example: 40
-        responses:
-          '200':
-            description: Device brightness updated successfully
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    brightness:
-                      type: number
-          '400':
-            description: Bad request
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
-          '404':
-            description: Device not found
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
-
-  /devices/{deviceDocumentId}/limits/{limitType}:
-    patch:
-      tags:
-        - Device
-      summary: Update device limit
-      operationId: updateDeviceLimit
-      parameters:
-        - name: deviceDocumentId
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: limitType
-          in: path
-          required: true
-          schema:
-            type: string
-            enum:
-              - temperature
-              - humidity
-              - co2
-              - light
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                value:
-                  type: number
-                  example: 25
-              required:
-                - value
-      responses:
-        '200':
-          description: Device limit updated successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  documentId:
-                    type: string
-                  limitType:
-                    type: string
-                    enum:
-                      - temperature
-                      - humidity
-                      - co2
-                      - light
-                  value:
-                    type: number
-        '400':
-          description: Bad request - Invalid input
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '404':
-          description: Device not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
 
   /device-data:
     get:
@@ -894,24 +585,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
 components:
   schemas:
-    RoomType:
-        type: object
-        properties:
-          documentId:
-            type: string
-          name:
-            type: string
-          icon:
-            type: string
-          rooms:
-            type: array
-            items:
-              $ref: '#/components/schemas/Room'
     Building:
       type: object
       properties:
+        id:
+          type: integer
         documentId:
           type: string
         name:
@@ -923,6 +604,7 @@ components:
           items:
             $ref: '#/components/schemas/Room'
       required:
+        - id
         - documentId
         - name
         - address
@@ -930,6 +612,8 @@ components:
     Room:
       type: object
       properties:
+        id:
+          type: integer
         documentId:
           type: string
         name:
@@ -943,17 +627,19 @@ components:
           items:
             $ref: '#/components/schemas/Device'
       required:
+        - id
         - name
         - roomType
 
     AirQuality:
       type: object
       required:
+        - id
         - enviroScore
         - airQuality
       properties:
-        documentId:
-          type: string
+        id:
+          type: integer
         enviroScore:
           type: integer
         airQuality:
@@ -973,9 +659,32 @@ components:
               type: number
               format: float
 
+    RoomType:
+      type: object
+      properties:
+        id:
+          type: integer
+        documentId:
+          type: string
+        name:
+          type: string
+        icon:
+          type: string
+        rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Room'
+          description: Rooms with this room type
+      required:
+        - id
+        - name
+        - icon
+
     Device:
       type: object
       properties:
+        id:
+          type: integer
         documentId:
           type: string
         identifier:
@@ -987,12 +696,15 @@ components:
           items:
             $ref: '#/components/schemas/DeviceData'
       required:
+        - id
         - identifier
         - room
 
     DeviceData:
       type: object
       properties:
+        id:
+          type: integer
         documentId:
           type: string
         device:
@@ -1003,6 +715,7 @@ components:
         airData:
           $ref: '#/components/schemas/AirData'
       required:
+        - id
         - device
         - timestamp
         - airData
@@ -1020,21 +733,6 @@ components:
         - temperature
         - humidity
         - ppm
-
-    CreateRoomTypeRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        icon:
-          type: string
-    UpdateRoomTypeRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        icon:
-          type: string
 
     CreateBuildingRequest:
       type: object
@@ -1132,6 +830,9 @@ components:
       items:
         type: object
         properties:
+          id:
+            type: integer
+            example: 1
           documentId:
             type: string
             example: "mockDocumentId123"
@@ -1146,6 +847,9 @@ components:
             items:
               type: object
               properties:
+                id:
+                  type: integer
+                  example: 101
                 documentId:
                   type: string
                   example: "mockRoomDocId456"
@@ -1153,43 +857,20 @@ components:
                   type: string
                   example: "Mock Room Name"
         required:
+          - id
           - documentId
           - name
           - address
           - rooms
-
-    AirQualityBuildingResponse:
-      type: object
-      properties:
-        documentId:
-          type: string
-          example: 1
-        enviroScore:
-          type: number
-          example: 78.4
-        rooms:
-          type: array
-          items:
-            type: object
-            properties:
-              documentId:
-                type: string
-                example: "mockRoomDocId456"
-              name:
-                type: string
-                example: "Mock Room Name"
-              enviroScore:
-                type: number
-                example: 92.8
-            required:
-              - name
-              - enviroScore
 
     GetRoomsResponse:
       type: array
       items:
         type: object
         properties:
+          id:
+            type: integer
+            example: 1
           documentId:
             type: string
             example: "mockRoomDocId456"
@@ -1199,6 +880,9 @@ components:
           building:
             type: object
             properties:
+              id:
+                type: integer
+                example: 77
               documentId:
                 type: string
                 example: "mockBuildingDocId123"
@@ -1209,12 +893,16 @@ components:
                 type: string
                 example: "123 Mock Street, Mock City"
             required:
+              - id
               - documentId
               - name
               - address
           roomType:
             type: object
             properties:
+              id:
+                type: integer
+                example: 23
               documentId:
                 type: string
                 example: "mockRoomTypeDocId789"
@@ -1222,6 +910,7 @@ components:
                 type: string
                 example: "Mock Room Type"
             required:
+              - id
               - documentId
               - name
           devices:
@@ -1229,6 +918,9 @@ components:
             items:
               type: object
               properties:
+                id:
+                  type: integer
+                  example: 8
                 documentId:
                   type: string
                   example: "mockDeviceDocId101"
@@ -1236,16 +928,19 @@ components:
                   type: string
                   example: "mockDeviceIdentifier"
               required:
+                - id
                 - documentId
                 - identifier
             example:
               [
                 {
+                  "id": 1,
                   "documentId": "mockDeviceDocId101",
                   "identifier": "mockDeviceIdentifier"
                 }
               ]
         required:
+          - id
           - documentId
           - name
           - building
@@ -1257,6 +952,9 @@ components:
       items:
         type: object
         properties:
+          id:
+            type: integer
+            example: 28
           documentId:
             type: string
             example: "mockDeviceDocId789"
@@ -1266,6 +964,9 @@ components:
           room:
             type: object
             properties:
+              id:
+                type: integer
+                example: 17
               documentId:
                 type: string
                 example: "mockRoomDocId456"
@@ -1273,6 +974,7 @@ components:
                 type: string
                 example: "Mock Room Name"
             required:
+              - id
               - documentId
               - name
           device_data:
@@ -1280,6 +982,9 @@ components:
             items:
               type: object
               properties:
+                id:
+                  type: integer
+                  example: 108
                 documentId:
                   type: string
                   example: "mockDeviceDataDocId101"
@@ -1295,27 +1000,30 @@ components:
                   type: number
                   format: float
                   example: 55.3
-                ppm:
+                gas_ppm:
                   type: number
                   format: float
                   example: 500
               required:
+                - id
                 - documentId
                 - timestamp
                 - temperature
                 - humidity
-                - ppm
+                - gas_ppm
             example:
               [
                 {
+                  "id": 108,
                   "documentId": "mockDeviceDataDocId101",
                   "timestamp": "2024-12-16T20:57:00Z",
                   "temperature": 25.5,
                   "humidity": 55.3,
-                  "ppm": 500
+                  "gas_ppm": 500
                 }
               ]
         required:
+          - id
           - documentId
           - identifier
           - room
@@ -1326,12 +1034,18 @@ components:
       items:
         type: object
         properties:
+          id:
+            type: integer
+            example: 94
           documentId:
             type: string
             example: "teq4iyf0e92fk0rac6mprlgn"
           device:
             type: object
             properties:
+              id:
+                type: integer
+                example: 8
               documentId:
                 type: string
                 example: "o8kj26z868vopahzgxxgmvlm"
@@ -1339,6 +1053,7 @@ components:
                 type: string
                 example: "test1"
             required:
+              - id
               - documentId
               - identifier
           timestamp:
@@ -1364,6 +1079,7 @@ components:
               - humidity
               - ppm
         required:
+          - id
           - documentId
           - device
           - timestamp
@@ -1372,7 +1088,7 @@ components:
     PutBuildingResponse:
       type: object
       properties:
-        documentId:
+        id:
           type: string
           example: mockDocumentId123
         name:
@@ -1382,32 +1098,34 @@ components:
           type: string
           example: "987 Mock Street, Mock City"
       required:
-
+        - id
         - name
         - address
 
     PutRoomResponse:
       type: object
       properties:
-        documentId:
+        id:
           type: string
           example: mockRoomDocId987
         name:
           type: string
           example: "Mock Room Name"
       required:
+        - id
         - name
 
     PutDeviceResponse:
       type: object
       properties:
-        documentId:
+        id:
           type: string
           example: mockDeviceDocId789
         identifier:
           type: string
           example: "mockDeviceIdentifier987"
       required:
+        - id
         - identifier
 
     ErrorResponse:
