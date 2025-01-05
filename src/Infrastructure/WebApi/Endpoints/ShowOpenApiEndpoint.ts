@@ -18,26 +18,30 @@ export class ShowOpenApiEndpoint implements Endpoint {
                         font-family: Arial, sans-serif;
                     }
                     .envirosense__wrapper {
-                        display: flex;
-                        height: 100vh;
-                    }
-                    .envirosense__sidebar {
-                        width: 250px;
-                        background-color: #1a202c;
-                        padding: 20px;
-                        position: fixed;
-                        top: 0;
-                        bottom: 0;
-                        overflow-y: auto;
-                    }
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
 
-                    .envirosense__content {
-                        margin-left: 250px;
-                        flex: 1;
-                        padding: 20px;
-                        height: 100vh;
-                        overflow-y: auto;
-                    }
+.envirosense__sidebar {
+    width: 250px;
+    min-width: 250px;
+    background-color: #1a202c;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.envirosense__content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    width: calc(100% - 250px);
+}
+
+
                    .envirosense__sidebar-item {
                         color: white;
                         padding: 10px;
@@ -48,23 +52,26 @@ export class ShowOpenApiEndpoint implements Endpoint {
                         background-color: #4a5568;
                     }
                     .envirosense__doc-container {
-                        height: 100%;
-                    }
+    height: 100%;
+    width: 100%;
+}
                     @media screen and (max-width: 768px) {
                         .envirosense__wrapper {
-                            flex-direction: column;
-                        }
-                        .envirosense__sidebar {
-                            position: relative;
-                            width: 100%;
-                            display: flex;
-                            padding: 10px;
-                            justify-content: center;
-                        }
-                        .envirosense__content {
-                            margin-left: 0;
-                            height: calc(100vh - 60px);
-                        }
+        flex-direction: column;
+    }
+    .envirosense__sidebar {
+        position: relative;
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        display: flex;
+        padding: 10px;
+        justify-content: center;
+    }
+    .envirosense__content {
+        width: 100%;
+        height: calc(100vh - 60px);
+    }
                         .envirosense__sidebar-item {
                             margin: 0 10px;
                         }
