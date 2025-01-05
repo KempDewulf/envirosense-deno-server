@@ -62,6 +62,9 @@ export class ShowOpenApiEndpoint implements Endpoint {
                     .envirosense__hidden {
                         display: none;
                     }
+                    .envirosense__active {
+                        background-color: #4a5568;
+                    }
                 </style>
             </head>
             <body>
