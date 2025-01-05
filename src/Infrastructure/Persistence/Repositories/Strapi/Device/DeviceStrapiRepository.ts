@@ -50,7 +50,7 @@ export class DeviceStrapiRepository extends StrapiQueryRepository implements Dev
 	async update(device: Device): Promise<void> {
 		const endpoint = `devices/${device.documentId}`;
 		const body = this.mapFromDomain(device);
-		
+
 		return await this.put(endpoint, { data: body });
 	}
 

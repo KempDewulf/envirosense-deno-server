@@ -1,23 +1,27 @@
-import { DeviceDataMessageHandler, DeviceLimitMessageHandler, DeviceBrightnessMessageHandler, MessageHandler, MessagingUseCaseRegistry } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { DeviceUiModeMessageHandler } from "EnviroSense/Infrastructure/Messaging/Handlers/DeviceUiModeMessageHandler.ts";
+import {
+	DeviceConfigMessageHandler,
+	DeviceDataMessageHandler,
+	DeviceLimitMessageHandler,
+	MessageHandler,
+	MessagingUseCaseRegistry,
+} from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
 export class MessageHandlerFactory {
-    private handlers: MessageHandler[] = [];
+	private handlers: MessageHandler[] = [];
 
-    constructor(useCaseRegistry: MessagingUseCaseRegistry) {
-        this.handlers = [
-            new DeviceDataMessageHandler(useCaseRegistry.processDeviceDataUseCase!),
-            new DeviceLimitMessageHandler(useCaseRegistry.updateDeviceLimitUseCase!),
-            new DeviceUiModeMessageHandler(useCaseRegistry.updateDeviceUiModeUseCase!),
-            new DeviceBrightnessMessageHandler(useCaseRegistry.updateDeviceBrightnessUseCase!),
-        ];
-    }
+	constructor(useCaseRegistry: MessagingUseCaseRegistry) {
+		this.handlers = [
+			new DeviceDataMessageHandler(useCaseRegistry.processDeviceDataUseCase!),
+			new DeviceLimitMessageHandler(useCaseRegistry.updateDeviceLimitUseCase!),
+			new DeviceConfigMessageHandler(useCaseRegistry.updateDeviceConfigUseCase!),
+		];
+	}
 
-    getHandler(topic: string): MessageHandler {
-        const handler = this.handlers.find(h => h.canHandle(topic));
-        if (!handler) {
-            throw new Error(`No handler found for topic: ${topic}`);
-        }
-        return handler;
-    }
+	getHandler(topic: string): MessageHandler {
+		const handler = this.handlers.find((h) => h.canHandle(topic));
+		if (!handler) {
+			throw new Error(`No handler found for topic: ${topic}`);
+		}
+		return handler;
+	}
 }

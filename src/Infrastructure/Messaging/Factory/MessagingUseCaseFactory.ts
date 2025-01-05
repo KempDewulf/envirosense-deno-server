@@ -2,15 +2,18 @@ import {
 	DeviceDataRepository,
 	DeviceRepository,
 	ProcessDeviceDataInput,
-	UpdateDeviceBrightnessInput,
+	UpdateDeviceConfigInput,
 	UpdateDeviceLimitInput,
-	UpdateDeviceUiModeInput,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { ProcessDeviceData, UpdateDeviceLimit, UpdateDeviceUiMode, UpdateDeviceBrightness } from "EnviroSense/Application/mod.ts";
+import { ProcessDeviceData, UpdateDeviceConfig, UpdateDeviceLimit } from "EnviroSense/Application/mod.ts";
 import { DeviceDataStrapiRepository, DeviceStrapiRepository, RoomStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { FirebaseMessaging, MessagingBuilder } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { UpdateDeviceLimitPresenter, UpdateDeviceUiModePresentedData, UpdateDeviceUiModePresenter, UpdateDeviceBrightnessPresenter, UpdateDeviceBrightnessPresentedData } from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import {
+	UpdateDeviceConfigPresentedData,
+	UpdateDeviceConfigPresenter,
+	UpdateDeviceLimitPresenter,
+} from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
 import { UpdateDeviceLimitPresentedData } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 
@@ -47,22 +50,11 @@ export class MessagingUseCaseFactory {
 		);
 	}
 
-	updateDeviceUiModeUseCase(): UseCase<UpdateDeviceUiModeInput> {
-		const presenter = new UpdateDeviceUiModePresenter(
-			new RequestResponse<UpdateDeviceUiModePresentedData>(),
+	updateDeviceConfigUseCase(): UseCase<UpdateDeviceConfigInput> {
+		const presenter = new UpdateDeviceConfigPresenter(
+			new RequestResponse<UpdateDeviceConfigPresentedData>(),
 		);
-		return new UpdateDeviceUiMode(
-			presenter,
-			this.deviceRepository,
-			MessagingBuilder.getInstance(),
-		);
-	}
-
-	updateDeviceBrightnessUseCase(): UseCase<UpdateDeviceBrightnessInput> {
-		const presenter = new UpdateDeviceBrightnessPresenter(
-			new RequestResponse<UpdateDeviceBrightnessPresentedData>(),
-		);
-		return new UpdateDeviceBrightness(
+		return new UpdateDeviceConfig(
 			presenter,
 			this.deviceRepository,
 			MessagingBuilder.getInstance(),

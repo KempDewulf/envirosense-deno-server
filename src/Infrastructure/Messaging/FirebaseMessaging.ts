@@ -18,12 +18,12 @@ export class FirebaseMessaging {
 				body,
 			},
 			android: {
-                notification: {
-                    color: '#FF9900',
-                },
-				priority: 'high' as const,
-            },
-            topic: topic,
+				notification: {
+					color: "#FF9900",
+				},
+				priority: "high" as const,
+			},
+			topic: topic,
 		};
 
 		try {

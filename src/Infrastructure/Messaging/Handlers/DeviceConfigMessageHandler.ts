@@ -1,11 +1,11 @@
-import { UpdateDeviceUiModeInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import { UpdateDeviceConfigInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { MessageHandler } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
-export class DeviceUiModeMessageHandler implements MessageHandler {
+export class DeviceConfigMessageHandler implements MessageHandler {
 	private lastPublishedTopic?: string;
 	private lastPublishedMessage?: string;
 
-	constructor(private updateDeviceUiModeUseCase: UseCase<UpdateDeviceUiModeInput>) {}
+	constructor(private updateDeviceConfigUseCase: UseCase<UpdateDeviceConfigInput>) {}
 
 	async handleMessage(topic: string, payload: string): Promise<void> {
 		if (topic === this.lastPublishedTopic && payload === this.lastPublishedMessage) {
@@ -15,14 +15,16 @@ export class DeviceUiModeMessageHandler implements MessageHandler {
 		}
 
 		const deviceIdentifier = this.getDeviceId(topic);
+		const configType = this.getConfigType(topic);
 		const data = JSON.parse(payload);
 
-		const input: UpdateDeviceUiModeInput = {
+		const input: UpdateDeviceConfigInput = {
 			deviceDocumentId: deviceIdentifier,
-			mode: data.mode,
+			configType: configType,
+			value: data.value,
 		};
 
-		await this.updateDeviceUiModeUseCase.execute(input);
+		await this.updateDeviceConfigUseCase.execute(input);
 	}
 
 	setLastPublished(topic: string, message: string): void {
@@ -31,10 +33,14 @@ export class DeviceUiModeMessageHandler implements MessageHandler {
 	}
 
 	canHandle(topic: string): boolean {
-		return topic.match(/^devices\/[^/]+\/config\/ui-mode$/) !== null;
+		return topic.match(/devices\/.*\/config\/.*/) !== null;
 	}
 
 	private getDeviceId(topic: string): string {
 		return topic.split("/")[1] ?? "";
+	}
+
+	private getConfigType(topic: string): string {
+		return topic.split("/")[3] ?? "";
 	}
 }

@@ -1,4 +1,15 @@
-import { DeviceData, DomainException, Room, DeviceLimitType, DeviceLimit, DeviceUiMode, DeviceUiModeType, UiMode } from "EnviroSense/Domain/mod.ts";
+import {
+	DeviceData,
+	DeviceLimit,
+	DeviceLimitType,
+	DeviceUiMode,
+	DeviceUiModeType,
+	DomainException,
+	Room,
+	UiMode,
+	Brightness,
+	DeviceBrightness,
+} from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceState {
 	documentId: string;
@@ -7,7 +18,7 @@ export interface DeviceState {
 	deviceData?: DeviceData[];
 	limits: Map<DeviceLimitType, DeviceLimit>;
 	uiMode?: DeviceUiMode;
-	brightness?: number;
+	brightness?: DeviceBrightness;
 }
 
 export class Device {
@@ -17,7 +28,7 @@ export class Device {
 	private _deviceData: DeviceData[];
 	private _limits: Map<DeviceLimitType, DeviceLimit>;
 	private _uiMode: DeviceUiMode;
-	private _brightness: number;
+	private _brightness: DeviceBrightness;
 
 	private constructor(
 		documentId: string,
@@ -30,7 +41,7 @@ export class Device {
 		this._deviceData = [];
 		this._limits = new Map<DeviceLimitType, DeviceLimit>();
 		this._uiMode = new UiMode(DeviceUiModeType.NORMAL);
-		this._brightness = 80;
+		this._brightness = new Brightness(80);
 	}
 
 	static create(documentId: string, identifier: string, room: Room): Device {
@@ -50,7 +61,7 @@ export class Device {
 		device._deviceData = state.deviceData ?? [];
 		device._limits = state.limits ?? new Map<DeviceLimitType, DeviceLimit>();
 		device._uiMode = state.uiMode ?? new UiMode(DeviceUiModeType.NORMAL);
-		device._brightness = state.brightness ?? 80;
+		device._brightness = state.brightness ?? new Brightness(80);
 
 		device.validateState();
 
@@ -91,13 +102,13 @@ export class Device {
 	}
 
 	public updateLimit(limit: DeviceLimit): void {
-        limit.validate();
-        this._limits.set(limit.type, limit);
-    }
+		limit.validate();
+		this._limits.set(limit.type, limit);
+	}
 
-    public getLimit(type: DeviceLimitType): DeviceLimit | undefined {
-        return this._limits.get(type);
-    }
+	public getLimit(type: DeviceLimitType): DeviceLimit | undefined {
+		return this._limits.get(type);
+	}
 
 	public updateUiMode(uiMode: DeviceUiMode): void {
 		uiMode.validate();
@@ -105,15 +116,15 @@ export class Device {
 	}
 
 	public getUiMode(): DeviceUiMode {
-		return this._uiMode
+		return this._uiMode;
 	}
 
-	public updateBrightness(brightness: number): void {
-		this.ensureBrightnessIsInRange(brightness);
+	public updateBrightness(brightness: DeviceBrightness): void {
+		this.ensureBrightnessIsInRange(brightness.value);
 		this._brightness = brightness;
 	}
 
-	public getBrightness(): number {
+	public getBrightness(): DeviceBrightness {
 		return this._brightness;
 	}
 
@@ -164,6 +175,6 @@ export class Device {
 	}
 
 	get limits(): Map<DeviceLimitType, DeviceLimit> {
-        return new Map(this._limits);
-    }
+		return new Map(this._limits);
+	}
 }
