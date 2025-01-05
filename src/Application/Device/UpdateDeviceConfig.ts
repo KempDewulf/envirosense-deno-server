@@ -42,7 +42,9 @@ export class UpdateDeviceConfig implements UseCase<UpdateDeviceConfigInput> {
 		}
 
 		const topic = `devices/${device.identifier}/config/${configType}`;
-		const message = JSON.stringify({ value: config.value });
+		const message = JSON.stringify(
+			{ type: config.type, value: config.value },
+		);
 
 		await this._messaging.publish(topic, message);
 
