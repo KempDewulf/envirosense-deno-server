@@ -22,7 +22,7 @@ export class TemperatureLimit implements DeviceLimit {
 	}
 
 	validate(): void {
-		if (this.value <= 0 || this.value >= 80) {
+		if (this.value < 0 || this.value > 80) {
 			throw new DomainException("Temperature must be between 0 and 80°C");
 		}
 	}
