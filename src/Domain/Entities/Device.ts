@@ -1,4 +1,6 @@
 import {
+	Brightness,
+	DeviceBrightness,
 	DeviceData,
 	DeviceLimit,
 	DeviceLimitType,
@@ -7,8 +9,6 @@ import {
 	DomainException,
 	Room,
 	UiMode,
-	Brightness,
-	DeviceBrightness,
 } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceState {
