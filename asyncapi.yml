@@ -1,0 +1,293 @@
+asyncapi: 3.0.0
+info:
+  title: Envirosense Monitoring System
+  version: '1.0.0'
+  description: A system for monitoring environmental sensors and processing their data.
+
+servers:
+  production:
+    host: 94.130.75.173:1883
+    protocol: mqtt
+    description: Production MQTT broker for Envirosense data.
+
+channels:
+  deviceData:
+    address: devices/{uuid}/data
+    description: Channel for sending device data including ppm, humidity, and temperature.
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+    messages:
+      deviceDataMessage:
+        $ref: '#/components/messages/DeviceDataMessage'
+
+  deviceDataWildcard:
+    address: devices/+/data
+    description: Channel for subscribing to data from all devices.
+    messages:
+      deviceDataMessage:
+        $ref: '#/components/messages/DeviceDataMessage'
+
+  deviceLimits:
+    address: devices/{uuid}/limits/{limitType}
+    description: Channel for setting device limits, such as temperature.
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+      limitType:
+        enum: [temperature]
+        description: Type of limit being set.
+    messages:
+      deviceLimitMessage:
+        $ref: '#/components/messages/DeviceLimitMessage'
+
+  deviceLimitsWildcard:
+    address: devices/{uuid}/limits/+
+    description: Channel for subscribing to all limit updates for a specific device.
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+    messages:
+      deviceLimitMessage:
+        $ref: '#/components/messages/DeviceLimitMessage'
+
+  deviceConfig:
+    address: devices/{uuid}/config/{configType}
+    description: Channel for configuring device settings like brightness and UI mode.
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+      configType:
+        enum: [brightness, ui-mode]
+        description: Type of configuration being set.
+    messages:
+      deviceConfigMessage:
+        $ref: '#/components/messages/DeviceConfigMessage'
+
+  deviceConfigWildcard:
+    address: devices/{uuid}/config/+
+    description: Channel for subscribing to all configuration updates for a specific device.
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+    messages:
+      deviceConfigMessage:
+        $ref: '#/components/messages/DeviceConfigMessage'
+
+  deviceConfigRequest:
+    address: devices/{uuid}/config/request
+    description: Channel for requesting configuration values from a device (e.g., brightness or ui-mode).
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+    messages:
+      deviceConfigRequestMessage:
+        $ref: '#/components/messages/DeviceConfigRequestMessage'
+
+  deviceConfigResponse:
+    address: devices/{uuid}/config/response
+    description: Channel for receiving the response of a configuration request (e.g., brightness or ui-mode).
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+    messages:
+      deviceConfigResponseMessage:
+        $ref: '#/components/messages/DeviceConfigResponseMessage'
+
+  deviceLimitRequest:
+    address: devices/{uuid}/limits/request
+    description: Channel for requesting limit values from a device (e.g., temperature).
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+    messages:
+      deviceLimitRequestMessage:
+        contentType: application/json
+        payload: {}
+
+  deviceLimitResponse:
+    address: devices/{uuid}/limits/response
+    description: Channel for receiving the response of a limit request (e.g., temperature).
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+    messages:
+      deviceLimitResponseMessage:
+        $ref: '#/components/messages/DeviceLimitResponseMessage'
+
+operations:
+  sendDeviceData:
+    action: send
+    channel:
+      $ref: '#/channels/deviceData'
+
+  receiveDeviceData:
+    action: receive
+    channel:
+      $ref: '#/channels/deviceDataWildcard'
+
+  sendDeviceLimit:
+    action: send
+    channel:
+      $ref: '#/channels/deviceLimits'
+
+  receiveDeviceLimit:
+    action: receive
+    channel:
+      $ref: '#/channels/deviceLimitsWildcard'
+
+  sendDeviceConfig:
+    action: send
+    channel:
+      $ref: '#/channels/deviceConfig'
+
+  receiveDeviceConfig:
+    action: receive
+    channel:
+      $ref: '#/channels/deviceConfigWildcard'
+
+  sendDeviceConfigRequest:
+    action: send
+    channel:
+      $ref: '#/channels/deviceConfigRequest'
+
+  receiveDeviceConfigResponse:
+    action: receive
+    channel:
+      $ref: '#/channels/deviceConfigResponse'
+
+  sendDeviceLimitRequest:
+    action: send
+    channel:
+      $ref: '#/channels/deviceLimitRequest'
+
+  receiveDeviceLimitResponse:
+    action: receive
+    channel:
+      $ref: '#/channels/deviceLimitResponse'
+
+components:
+  messages:
+    DeviceDataMessage:
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeviceData'
+
+    DeviceLimitMessage:
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeviceLimit'
+
+    DeviceConfigMessage:
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeviceConfig'
+
+    DeviceConfigRequestMessage:
+      contentType: application/json
+      payload: {}
+
+    DeviceConfigResponseMessage:
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeviceConfigResponse'
+
+    DeviceLimitRequestMessage:
+      contentType: application/json
+      payload: {}
+
+    DeviceLimitResponseMessage:
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeviceLimitResponse'
+
+  schemas:
+    DeviceData:
+      type: object
+      properties:
+        ppm:
+          type: number
+          description: Parts per million measurement.
+        humidity:
+          type: number
+          description: Humidity percentage.
+        temperature:
+          type: number
+          description: Temperature in degrees Celsius.
+      examples:
+        - ppm: 400
+          humidity: 50.4
+          temperature: 25.9
+      required:
+        - ppm
+        - humidity
+        - temperature
+
+    DeviceLimit:
+      type: object
+      properties:
+        temperature:
+          type: number
+          description: Temperature limit value.
+      examples:
+        - temperature: 24.5
+      required:
+        - temperature
+
+    DeviceConfig:
+      type: object
+      properties:
+        brightness:
+          type: number
+          description: Brightness level (0-100).
+        ui-mode:
+          type: string
+          description: UI mode (e.g., 'normal', 'ppm', etc.).
+          enum: ['normal', 'ppm', 'humidity', 'temperature']
+      examples:
+        - brightness: 100
+          ui-mode: 'normal'
+      required:
+        - brightness
+        - ui-mode
+
+    DeviceConfigRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of configuration being requested.
+          enum: [brightness, ui-mode]
+      examples:
+        - type: brightness
+        - type: ui-mode
+      required:
+        - type
+
+    DeviceConfigResponse:
+      type: object
+      properties:
+        brightness:
+          type: number
+          description: Brightness level (0-100).
+        ui-mode:
+          type: string
+          description: UI mode (e.g., 'normal', 'ppm', etc.).
+          enum: ['normal', 'ppm', 'humidity', 'temperature']
+      examples:
+        - brightness: 100
+          ui-mode: 'normal'
+      required:
+        - brightness
+        - ui-mode
+
+    DeviceLimitResponse:
+      type: object
+      properties:
+        temperature:
+          type: number
+          description: Temperature limit value.
+      examples:
+        - temperature: 24.5
+      required:
+        - temperature
