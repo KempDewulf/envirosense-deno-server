@@ -10,33 +10,11 @@ export class ShowOpenApiEndpoint implements Endpoint {
                 <meta charset="UTF-8">
                 <title>EnviroSense API Documentation</title>
                 <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css" />
-                <link rel="stylesheet" href="https://unpkg.com/@asyncapi/react-component@1.0.0-next.39/styles/default.min.css">
-                <style>
-                    .toggle-container {
-                        text-align: center;
-                        margin: 20px;
-                    }
-                    .toggle-switch {
-                        padding: 10px 20px;
-                        margin: 0 10px;
-                        cursor: pointer;
-                    }
-                    .hidden {
-                        display: none;
-                    }
-                </style>
             </head>
             <body>
-                <div class="toggle-container">
-                    <button class="toggle-switch" onclick="showDoc('openapi')">OpenAPI</button>
-                    <button class="toggle-switch" onclick="showDoc('asyncapi')">AsyncAPI</button>
-                </div>
-
-                <div id="swagger-ui" class="doc-container"></div>
-                <div id="asyncapi" class="doc-container hidden"></div>
+                <div id="swagger-ui"></div>
 
                 <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
-                <script src="https://unpkg.com/@asyncapi/react-component@1.0.0-next.39/browser/standalone/index.js"></script>
 
                 <script>
                     // Initialize OpenAPI UI
@@ -49,28 +27,6 @@ export class ShowOpenApiEndpoint implements Endpoint {
                         ],
                         layout: "BaseLayout"
                     });
-
-                    // Initialize AsyncAPI UI
-                    AsyncApiStandalone.render({
-                        schema: '../../../../asyncapi.yml',
-                        config: {
-                            show: {
-                                sidebar: true,
-                            }
-                        },
-                    }, document.getElementById('asyncapi'));
-
-                    function showDoc(type) {
-                        const containers = document.getElementsByClassName('doc-container');
-                        for (let container of containers) {
-                            container.classList.add('hidden');
-                        }
-                        if (type === 'openapi') {
-                            document.getElementById('swagger-ui').classList.remove('hidden');
-                        } else {
-                            document.getElementById('asyncapi').classList.remove('hidden');
-                        }
-                    }
                 </script>
             </body>
             </html>
