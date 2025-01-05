@@ -70,16 +70,16 @@ export class UpdateDeviceConfigEndpoint implements Endpoint {
 
 		if (request.configType === DeviceConfigType.BRIGHTNESS) {
 			if (typeof request.value !== "number") {
-				this._errorsBag.add("For brightness config, value must be a number");
+				this._errorsBag.add("value must be a number");
 			}
 		} else if (request.configType === DeviceConfigType.UI_MODE) {
 			if (typeof request.value !== "string") {
-				this._errorsBag.add("For ui-mode config, value must be a string");
+				this._errorsBag.add("value must be a string");
 			}
 		}
 
 		if (!Object.values(DeviceConfigType).includes(request.configType as DeviceConfigType)) {
-            this._errorsBag.add(`Unsupported config type: ${request.configType}`);
-        }
+			this._errorsBag.add(`Unsupported config type: ${request.configType}`);
+		}
 	}
 }

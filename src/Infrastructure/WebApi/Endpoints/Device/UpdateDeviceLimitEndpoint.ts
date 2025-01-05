@@ -71,7 +71,7 @@ export class UpdateDeviceLimitEndpoint implements Endpoint {
 		}
 
 		if (!Object.values(DeviceLimitType).includes(request.limitType as DeviceLimitType)) {
-            this._errorsBag.add(`Unsupported limit type: ${request.limitType}`);
-        }
+			this._errorsBag.add(`Unsupported limit type: ${request.limitType}`);
+		}
 	}
 }
