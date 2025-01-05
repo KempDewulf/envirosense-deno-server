@@ -1,0 +1,138 @@
+asyncapi: 3.0.0
+info:
+  title: Envirosense Monitoring System
+  version: '1.0.0'
+  description: A system for monitoring environmental sensors and processing their data.
+
+servers:
+  production:
+    host: 94.130.75.173:1883
+    protocol: mqtt
+    description: Production MQTT broker for Envirosense data.
+
+channels:
+  deviceData:
+    address: devices/{uuid}/data
+    description: Channel for sending device data including ppm, humidity, and temperature.
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+    messages:
+      deviceDataMessage:
+        $ref: '#/components/messages/DeviceDataMessage'
+
+  deviceLimits:
+    address: devices/{uuid}/limits/{limitType}
+    description: Channel for setting device limits, such as temperature.
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+      limitType:
+        enum: [temperature]
+        description: Type of limit being set
+    messages:
+      deviceLimitMessage:
+        $ref: '#/components/messages/DeviceLimitMessage'
+
+  deviceConfig:
+    address: devices/{uuid}/config/{configType}
+    description: Channel for configuring device settings like brightness and UI mode.
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+      configType:
+        enum: [brightness, ui-mode]
+        description: Type of configuration being set.
+    messages:
+      deviceConfigMessage:
+        $ref: '#/components/messages/DeviceConfigMessage'
+
+operations:
+  sendDeviceData:
+    action: send
+    channel:
+      $ref: '#/channels/deviceData'
+
+  sendDeviceLimit:
+    action: send
+    channel:
+      $ref: '#/channels/deviceLimits'
+
+  sendDeviceConfig:
+    action: send
+    channel:
+      $ref: '#/channels/deviceConfig'
+
+components:
+  messages:
+    DeviceDataMessage:
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeviceData'
+
+    DeviceLimitMessage:
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeviceLimit'
+
+    DeviceConfigMessage:
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeviceConfig'
+
+  schemas:
+    DeviceData:
+      type: object
+      properties:
+        ppm:
+          type: number
+          description: Parts per million measurement.
+        humidity:
+          type: number
+          description: Humidity percentage.
+        temperature:
+          type: number
+          description: Temperature in degrees Celsius.
+      examples:
+        -   ppm: 400
+            humidity: 50.4
+            temperature: 25.9
+      required:
+        - ppm
+        - humidity
+        - temperature
+
+    DeviceLimit:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Limit type
+          enum: [temperature]
+        value:
+          type: number
+          description: Value for the specified limit type.
+      examples:
+        -  value: 24.5
+      required:
+        - type
+        - value
+
+    DeviceConfig:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Configuration type
+          enum: [brightness, ui-mode]
+        value:
+          type: string
+          description: Value corresponding to the configuration type.
+      examples:
+        - type : brightness
+          value: 60
+        - type: ui-mode
+          value: ppm
+      required:
+        - type
+        - value
