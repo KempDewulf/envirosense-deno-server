@@ -22,15 +22,23 @@ export class ShowOpenApiEndpoint implements Endpoint {
                         height: 100vh;
                     }
                     .envirosense__sidebar {
-                        width: 200px;
-                        background-color: #2d3748;
+                        width: 250px;
+                        background-color: #1a202c;
                         padding: 20px;
+                        position: fixed;
+                        top: 0;
+                        bottom: 0;
+                        overflow-y: auto;
                     }
+
                     .envirosense__content {
+                        margin-left: 250px;
                         flex: 1;
                         padding: 20px;
+                        height: 100vh;
+                        overflow-y: auto;
                     }
-                    .envirosense__sidebar-item {
+                   .envirosense__sidebar-item {
                         color: white;
                         padding: 10px;
                         cursor: pointer;
@@ -47,16 +55,18 @@ export class ShowOpenApiEndpoint implements Endpoint {
                             flex-direction: column;
                         }
                         .envirosense__sidebar {
+                            position: relative;
                             width: 100%;
                             display: flex;
                             padding: 10px;
                             justify-content: center;
                         }
+                        .envirosense__content {
+                            margin-left: 0;
+                            height: calc(100vh - 60px);
+                        }
                         .envirosense__sidebar-item {
                             margin: 0 10px;
-                        }
-                        .envirosense__content {
-                            height: calc(100vh - 60px);
                         }
                     }
                     .envirosense__hidden {
