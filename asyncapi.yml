@@ -41,6 +41,16 @@ channels:
       deviceLimitMessage:
         $ref: '#/components/messages/DeviceLimitMessage'
 
+  deviceLimitsWildcard:
+    address: devices/{uuid}/limits/+
+    description: Channel for subscribing to all limit updates for a specific device.
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+    messages:
+      deviceLimitMessage:
+        $ref: '#/components/messages/DeviceLimitMessage'
+
   deviceConfig:
     address: devices/{uuid}/config/{configType}
     description: Channel for configuring device settings like brightness and UI mode.
@@ -50,6 +60,16 @@ channels:
       configType:
         enum: [brightness, ui-mode]
         description: Type of configuration being set.
+    messages:
+      deviceConfigMessage:
+        $ref: '#/components/messages/DeviceConfigMessage'
+
+  deviceConfigWildcard:
+    address: devices/{uuid}/config/+
+    description: Channel for subscribing to all configuration updates for a specific device.
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
     messages:
       deviceConfigMessage:
         $ref: '#/components/messages/DeviceConfigMessage'
@@ -70,10 +90,20 @@ operations:
     channel:
       $ref: '#/channels/deviceLimits'
 
+  receiveDeviceLimit:
+    action: receive
+    channel:
+      $ref: '#/channels/deviceLimitsWildcard'
+
   sendDeviceConfig:
     action: send
     channel:
       $ref: '#/channels/deviceConfig'
+
+  receiveDeviceConfig:
+    action: receive
+    channel:
+      $ref: '#/channels/deviceConfigWildcard'
 
 components:
   messages:
@@ -138,13 +168,19 @@ components:
           description: Configuration type.
           enum: [brightness, ui-mode]
         value:
-          type: string
-          description: Value corresponding to the configuration type.
+          oneOf:
+            - type: string
+              enum: ['ppm', 'humidity', 'temperature', 'normal']
+              description: Value corresponding to the configuration type when type is ui-mode.
+            - type: number
+              examples:
+                - 60
+              description: Value corresponding to the configuration type when type is brightness.
       examples:
         - type: brightness
-          value: '60'
+          value: 60
         - type: ui-mode
-          value: ppm
+          value: 'ppm'
       required:
         - type
         - value
