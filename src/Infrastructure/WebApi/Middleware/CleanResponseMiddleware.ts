@@ -3,7 +3,7 @@ import { Middleware } from "@oak/oak";
 const FIELDS_TO_REMOVE = ["publishedAt", "createdAt", "updatedAt"];
 const EXCLUDED_PATHS = [
 	"/openapi.yml",
-	"/async.yml",
+	"/asyncapi.yml",
   ];
 
 const cleanObject = (obj: any): any => {
