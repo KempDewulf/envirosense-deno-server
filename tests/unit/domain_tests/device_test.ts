@@ -15,6 +15,15 @@ Brightness,
 	UiMode,
 } from "EnviroSense/Domain/mod.ts";
 
+function createTestDevice(id: string = "1") {
+    const documentId = id;
+    const identifier = `Device${id}`;
+    const building = Building.create(id, "Main Building", "123 Main St");
+    const roomType = RoomType.create(id, "Office", "office_icon.png");
+    const room = Room.create(id, "Office Room", building, roomType);
+    return Device.create(documentId, identifier, room);
+}
+
 Deno.test("Device - create method with valid parameters", () => {
     // Arrange
     const documentId = "1";
@@ -480,12 +489,7 @@ Deno.test("Device - create method with null identifier throws error", () => {
 
 Deno.test("Device - updateLimit adds new temperature limit successfully", () => {
     // Arrange
-    const documentId = "26";
-    const identifier = "Device026";
-    const building = Building.create("26", "Main Building", "123 Main St");
-    const roomType = RoomType.create("26", "Office", "office_icon.png");
-    const room = Room.create("26", "Office Room", building, roomType);
-    const device = Device.create(documentId, identifier, room);
+    const device = createTestDevice("26");
     const temperatureLimit = new TemperatureLimit(DeviceLimitType.TEMPERATURE, 25);
 
     // Act
@@ -499,12 +503,7 @@ Deno.test("Device - updateLimit adds new temperature limit successfully", () => 
 
 Deno.test("Device - updateLimit throws error with invalid temperature value", () => {
     // Arrange
-    const documentId = "27";
-    const identifier = "Device027";
-    const building = Building.create("27", "Main Building", "123 Main St");
-    const roomType = RoomType.create("27", "Office", "office_icon.png");
-    const room = Room.create("27", "Office Room", building, roomType);
-    const device = Device.create(documentId, identifier, room);
+    const device = createTestDevice("27");
 
     // Act & Assert
     assertThrows(
@@ -519,12 +518,7 @@ Deno.test("Device - updateLimit throws error with invalid temperature value", ()
 
 Deno.test("Device - getLimit returns undefined for non-existent limit type", () => {
     // Arrange
-    const documentId = "28";
-    const identifier = "Device028";
-    const building = Building.create("28", "Main Building", "123 Main St");
-    const roomType = RoomType.create("28", "Office", "office_icon.png");
-    const room = Room.create("28", "Office Room", building, roomType);
-    const device = Device.create(documentId, identifier, room);
+    const device = createTestDevice("28");
 
     // Act
     const limit = device.getLimit(DeviceLimitType.TEMPERATURE);
@@ -535,12 +529,7 @@ Deno.test("Device - getLimit returns undefined for non-existent limit type", () 
 
 Deno.test("Device - updateUiMode sets new UI mode successfully", () => {
     // Arrange
-    const documentId = "29";
-    const identifier = "Device029";
-    const building = Building.create("29", "Main Building", "123 Main St");
-    const roomType = RoomType.create("29", "Office", "office_icon.png");
-    const room = Room.create("29", "Office Room", building, roomType);
-    const device = Device.create(documentId, identifier, room);
+    const device = createTestDevice("29");
     const newUiMode = new UiMode(DeviceUiModeType.PPM);
 
     // Act
@@ -551,15 +540,8 @@ Deno.test("Device - updateUiMode sets new UI mode successfully", () => {
 });
 
 Deno.test("Device - default UI mode is NORMAL", () => {
-    // Arrange
-    const documentId = "30";
-    const identifier = "Device030";
-    const building = Building.create("30", "Main Building", "123 Main St");
-    const roomType = RoomType.create("30", "Office", "office_icon.png");
-    const room = Room.create("30", "Office Room", building, roomType);
-
-    // Act
-    const device = Device.create(documentId, identifier, room);
+    // Arrange & Act
+    const device = createTestDevice("30");
 
     // Assert
     assertEquals(device.getUiMode().type, DeviceUiModeType.NORMAL);
@@ -567,12 +549,7 @@ Deno.test("Device - default UI mode is NORMAL", () => {
 
 Deno.test("Device - updateBrightness sets new brightness successfully", () => {
     // Arrange
-    const documentId = "31";
-    const identifier = "Device031";
-    const building = Building.create("31", "Main Building", "123 Main St");
-    const roomType = RoomType.create("31", "Office", "office_icon.png");
-    const room = Room.create("31", "Office Room", building, roomType);
-    const device = Device.create(documentId, identifier, room);
+    const device = createTestDevice("31");
     const newBrightness = new Brightness(85);
 
     // Act
@@ -583,15 +560,8 @@ Deno.test("Device - updateBrightness sets new brightness successfully", () => {
 });
 
 Deno.test("Device - default brightness is 80", () => {
-    // Arrange
-    const documentId = "32";
-    const identifier = "Device032";
-    const building = Building.create("32", "Main Building", "123 Main St");
-    const roomType = RoomType.create("32", "Office", "office_icon.png");
-    const room = Room.create("32", "Office Room", building, roomType);
-
-    // Act
-    const device = Device.create(documentId, identifier, room);
+    // Arrange & Act
+    const device = createTestDevice("31");
 
     // Assert
     assertEquals(device.getBrightness().value, 80);
@@ -599,12 +569,7 @@ Deno.test("Device - default brightness is 80", () => {
 
 Deno.test("Device - updateBrightness throws error with invalid brightness value", () => {
     // Arrange
-    const documentId = "33";
-    const identifier = "Device033";
-    const building = Building.create("33", "Main Building", "123 Main St");
-    const roomType = RoomType.create("33", "Office", "office_icon.png");
-    const room = Room.create("33", "Office Room", building, roomType);
-    const device = Device.create(documentId, identifier, room);
+    const device = createTestDevice("31");
 
     // Act & Assert
     assertThrows(
@@ -652,15 +617,8 @@ Deno.test("Device - load method preserves config and limits state", () => {
 });
 
 Deno.test("Device - default config values are set correctly", () => {
-    // Arrange
-    const documentId = "30";
-    const identifier = "Device030";
-    const building = Building.create("30", "Main Building", "123 Main St");
-    const roomType = RoomType.create("30", "Office", "office_icon.png");
-    const room = Room.create("30", "Office Room", building, roomType);
-
-    // Act
-    const device = Device.create(documentId, identifier, room);
+    // Arrange & Act
+    const device = createTestDevice("31");
 
     // Assert
     assertEquals(device.getUiMode().type, DeviceUiModeType.NORMAL);
@@ -669,12 +627,7 @@ Deno.test("Device - default config values are set correctly", () => {
 
 Deno.test("Device - throws on invalid UI mode", () => {
     // Arrange
-    const documentId = "32";
-    const identifier = "Device032";
-    const building = Building.create("32", "Main Building", "123 Main St");
-    const roomType = RoomType.create("32", "Office", "office_icon.png");
-    const room = Room.create("32", "Office Room", building, roomType);
-    const device = Device.create(documentId, identifier, room);
+    const device = createTestDevice("35");
 
     // Act & Assert
     assertThrows(
@@ -688,12 +641,7 @@ Deno.test("Device - throws on invalid UI mode", () => {
 
 Deno.test("Device - can update brightness to valid value", () => {
     // Arrange
-    const documentId = "33";
-    const identifier = "Device033";
-    const building = Building.create("33", "Main Building", "123 Main St");
-    const roomType = RoomType.create("33", "Office", "office_icon.png");
-    const room = Room.create("33", "Office Room", building, roomType);
-    const device = Device.create(documentId, identifier, room);
+    const device = createTestDevice("39");
 
     // Act
     device.updateBrightness(new Brightness(50));
@@ -704,12 +652,7 @@ Deno.test("Device - can update brightness to valid value", () => {
 
 Deno.test("Device - throws on brightness below minimum", () => {
     // Arrange
-    const documentId = "34";
-    const identifier = "Device034";
-    const building = Building.create("34", "Main Building", "123 Main St");
-    const roomType = RoomType.create("34", "Office", "office_icon.png");
-    const room = Room.create("34", "Office Room", building, roomType);
-    const device = Device.create(documentId, identifier, room);
+    const device = createTestDevice("40");
 
     // Act & Assert
     assertThrows(
@@ -723,12 +666,7 @@ Deno.test("Device - throws on brightness below minimum", () => {
 
 Deno.test("Device - can update existing limit", () => {
     // Arrange
-    const documentId = "36";
-    const identifier = "Device036";
-    const building = Building.create("36", "Main Building", "123 Main St");
-    const roomType = RoomType.create("36", "Office", "office_icon.png");
-    const room = Room.create("36", "Office Room", building, roomType);
-    const device = Device.create(documentId, identifier, room);
+    const device = createTestDevice("42");
 
     // Act
     const initialLimit = new TemperatureLimit(DeviceLimitType.TEMPERATURE, 25);
