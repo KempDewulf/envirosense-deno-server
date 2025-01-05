@@ -1,13 +1,28 @@
 import { assertEquals, assertThrows } from "@std/assert";
 import {
+Brightness,
     Building,
     Device,
     DeviceData,
+    DeviceLimit,
+    DeviceLimitType,
     DeviceState,
+    DeviceUiModeType,
     DomainException,
     Room,
     RoomType,
+	TemperatureLimit,
+	UiMode,
 } from "EnviroSense/Domain/mod.ts";
+
+function createTestDevice(id: string = "1") {
+    const documentId = id;
+    const identifier = `Device${id}`;
+    const building = Building.create(id, "Main Building", "123 Main St");
+    const roomType = RoomType.create(id, "Office", "office_icon.png");
+    const room = Room.create(id, "Office Room", building, roomType);
+    return Device.create(documentId, identifier, room);
+}
 
 Deno.test("Device - create method with valid parameters", () => {
     // Arrange
@@ -470,4 +485,195 @@ Deno.test("Device - create method with null identifier throws error", () => {
         DomainException,
         "Identifier is required."
     );
+});
+
+Deno.test("Device - updateLimit adds new temperature limit successfully", () => {
+    // Arrange
+    const device = createTestDevice("26");
+    const temperatureLimit = new TemperatureLimit(DeviceLimitType.TEMPERATURE, 25);
+
+    // Act
+    device.updateLimit(temperatureLimit);
+
+    // Assert
+    const storedLimit = device.getLimit(DeviceLimitType.TEMPERATURE);
+    assertEquals(storedLimit?.type, DeviceLimitType.TEMPERATURE);
+    assertEquals(storedLimit?.value, 25);
+});
+
+Deno.test("Device - updateLimit throws error with invalid temperature value", () => {
+    // Arrange
+    const device = createTestDevice("27");
+
+    // Act & Assert
+    assertThrows(
+        () => {
+            const invalidLimit = new TemperatureLimit(DeviceLimitType.TEMPERATURE, 90);
+            device.updateLimit(invalidLimit);
+        },
+        DomainException,
+        "Temperature must be between 0 and 80°C"
+    );
+});
+
+Deno.test("Device - getLimit returns undefined for non-existent limit type", () => {
+    // Arrange
+    const device = createTestDevice("28");
+
+    // Act
+    const limit = device.getLimit(DeviceLimitType.TEMPERATURE);
+
+    // Assert
+    assertEquals(limit, undefined);
+});
+
+Deno.test("Device - updateUiMode sets new UI mode successfully", () => {
+    // Arrange
+    const device = createTestDevice("29");
+    const newUiMode = new UiMode(DeviceUiModeType.PPM);
+
+    // Act
+    device.updateUiMode(newUiMode);
+
+    // Assert
+    assertEquals(device.getUiMode().type, DeviceUiModeType.PPM);
+});
+
+Deno.test("Device - default UI mode is NORMAL", () => {
+    // Arrange & Act
+    const device = createTestDevice("30");
+
+    // Assert
+    assertEquals(device.getUiMode().type, DeviceUiModeType.NORMAL);
+});
+
+Deno.test("Device - updateBrightness sets new brightness successfully", () => {
+    // Arrange
+    const device = createTestDevice("31");
+    const newBrightness = new Brightness(85);
+
+    // Act
+    device.updateBrightness(newBrightness);
+
+    // Assert
+    assertEquals(device.getBrightness().value, 85);
+});
+
+Deno.test("Device - default brightness is 80", () => {
+    // Arrange & Act
+    const device = createTestDevice("31");
+
+    // Assert
+    assertEquals(device.getBrightness().value, 80);
+});
+
+Deno.test("Device - updateBrightness throws error with invalid brightness value", () => {
+    // Arrange
+    const device = createTestDevice("31");
+
+    // Act & Assert
+    assertThrows(
+        () => {
+            device.updateBrightness(new Brightness(15)); // Too low
+        },
+        DomainException,
+        "Brightness must be between 20 and 100."
+    );
+
+    assertThrows(
+        () => {
+            device.updateBrightness(new Brightness(105)); // Too high
+        },
+        DomainException,
+        "Brightness must be between 20 and 100."
+    );
+});
+
+Deno.test("Device - load method preserves config and limits state", () => {
+    // Arrange
+    const building = Building.create("34", "Main Building", "123 Main St");
+    const roomType = RoomType.create("34", "Office", "office_icon.png");
+    const room = Room.create("34", "Office Room", building, roomType);
+    const limits = new Map<DeviceLimitType, DeviceLimit>();
+    limits.set(DeviceLimitType.TEMPERATURE, new TemperatureLimit(DeviceLimitType.TEMPERATURE, 25));
+
+    const state: DeviceState = {
+        documentId: "34",
+        identifier: "Device034",
+        room: room,
+        deviceData: [],
+        limits: limits,
+        uiMode: new UiMode(DeviceUiModeType.TEMPERATURE),
+        brightness: new Brightness(90)
+    };
+
+    // Act
+    const device = Device.load(state);
+
+    // Assert
+    assertEquals(device.getLimit(DeviceLimitType.TEMPERATURE)?.value, 25);
+    assertEquals(device.getUiMode().type, DeviceUiModeType.TEMPERATURE);
+    assertEquals(device.getBrightness().value, 90);
+});
+
+Deno.test("Device - default config values are set correctly", () => {
+    // Arrange & Act
+    const device = createTestDevice("31");
+
+    // Assert
+    assertEquals(device.getUiMode().type, DeviceUiModeType.NORMAL);
+    assertEquals(device.getBrightness().value, 80);
+});
+
+Deno.test("Device - throws on invalid UI mode", () => {
+    // Arrange
+    const device = createTestDevice("35");
+
+    // Act & Assert
+    assertThrows(
+        () => {
+            device.updateUiMode(new UiMode("invalid" as DeviceUiModeType));
+        },
+        DomainException,
+        "Invalid UI mode: invalid"
+    );
+});
+
+Deno.test("Device - can update brightness to valid value", () => {
+    // Arrange
+    const device = createTestDevice("39");
+
+    // Act
+    device.updateBrightness(new Brightness(50));
+
+    // Assert
+    assertEquals(device.getBrightness().value, 50);
+});
+
+Deno.test("Device - throws on brightness below minimum", () => {
+    // Arrange
+    const device = createTestDevice("40");
+
+    // Act & Assert
+    assertThrows(
+        () => {
+            device.updateBrightness(new Brightness(10));
+        },
+        DomainException,
+        "Brightness must be between 20 and 100"
+    );
+});
+
+Deno.test("Device - can update existing limit", () => {
+    // Arrange
+    const device = createTestDevice("42");
+
+    // Act
+    const initialLimit = new TemperatureLimit(DeviceLimitType.TEMPERATURE, 25);
+    device.updateLimit(initialLimit);
+    const updatedLimit = new TemperatureLimit(DeviceLimitType.TEMPERATURE, 30);
+    device.updateLimit(updatedLimit);
+
+    // Assert
+    assertEquals(device.getLimit(DeviceLimitType.TEMPERATURE)?.value, 30);
 });
