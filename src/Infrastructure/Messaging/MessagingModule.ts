@@ -39,7 +39,5 @@ export class MessagingModule implements Module {
 		console.log("Messaging module started");
 		await this.messaging.connect();
 		await this.messaging.subscribe("devices/+/data");
-		await this.messaging.subscribe("devices/+/limits/+");
-		await this.messaging.subscribe("devices/+/config/+");
 	}
 }
