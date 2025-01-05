@@ -21,6 +21,13 @@ channels:
       deviceDataMessage:
         $ref: '#/components/messages/DeviceDataMessage'
 
+  deviceDataWildcard:
+    address: devices/+/data
+    description: Channel for subscribing to data from all devices.
+    messages:
+      deviceDataMessage:
+        $ref: '#/components/messages/DeviceDataMessage'
+
   deviceLimits:
     address: devices/{uuid}/limits/{limitType}
     description: Channel for setting device limits, such as temperature.
@@ -29,7 +36,7 @@ channels:
         description: Unique identifier for the device.
       limitType:
         enum: [temperature]
-        description: Type of limit being set
+        description: Type of limit being set.
     messages:
       deviceLimitMessage:
         $ref: '#/components/messages/DeviceLimitMessage'
@@ -52,6 +59,11 @@ operations:
     action: send
     channel:
       $ref: '#/channels/deviceData'
+
+  receiveDeviceData:
+    action: receive
+    channel:
+      $ref: '#/channels/deviceDataWildcard'
 
   sendDeviceLimit:
     action: send
@@ -94,9 +106,9 @@ components:
           type: number
           description: Temperature in degrees Celsius.
       examples:
-        -   ppm: 400
-            humidity: 50.4
-            temperature: 25.9
+        - ppm: 400
+          humidity: 50.4
+          temperature: 25.9
       required:
         - ppm
         - humidity
@@ -107,13 +119,13 @@ components:
       properties:
         type:
           type: string
-          description: Limit type
+          description: Limit type.
           enum: [temperature]
         value:
           type: number
           description: Value for the specified limit type.
       examples:
-        -  value: 24.5
+        - value: 24.5
       required:
         - type
         - value
@@ -123,14 +135,14 @@ components:
       properties:
         type:
           type: string
-          description: Configuration type
+          description: Configuration type.
           enum: [brightness, ui-mode]
         value:
           type: string
           description: Value corresponding to the configuration type.
       examples:
-        - type : brightness
-          value: 60
+        - type: brightness
+          value: '60'
         - type: ui-mode
           value: ppm
       required:
