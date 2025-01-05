@@ -10,7 +10,7 @@ export class ShowOpenApiEndpoint implements Endpoint {
                 <meta charset="UTF-8">
                 <title>EnviroSense API Documentation</title>
                 <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css" />
-                <link rel="stylesheet" href="https://unpkg.com/@asyncapi/react-component@1.0.0-next.39/styles/default.min.css">
+                <link rel="stylesheet" href="https://unpkg.com/@asyncapi/react-component@latest/styles/default.min.css">
                 <style>
                     .toggle-container {
                         text-align: center;
@@ -36,7 +36,7 @@ export class ShowOpenApiEndpoint implements Endpoint {
                 <div id="asyncapi" class="doc-container hidden"></div>
 
                 <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
-                <script src="https://unpkg.com/@asyncapi/react-component@1.0.0-next.39/browser/standalone/index.js"></script>
+                <script src="https://unpkg.com/@asyncapi/react-component@latest/browser/standalone/index.js"></script>
 
                 <script>
                     // Initialize OpenAPI UI
@@ -51,24 +51,19 @@ export class ShowOpenApiEndpoint implements Endpoint {
                     });
 
                     async function initAsyncApi() {
-                        try {
-                            const response = await fetch('../../../../asyncapi.yml');
-                            const schema = await response.text();
-                            console.log('AsyncAPI Schema:', schema); // Log schema to console
+        try {
+            const response = await fetch('../../../../asyncapi.yml');
+            const schema = await response.text();
 
-                            AsyncApiStandalone.render({
-                                schema: schema,
-                                config: {
-                                    show: {
-                                        sidebar: true
-                                    }
-                                },
-                            }, document.getElementById('asyncapi'));
-                        } catch (error) {
-                            console.error('Error loading AsyncAPI schema:', error);
-                            document.getElementById('asyncapi').innerHTML = 'Error loading AsyncAPI documentation';
-                        }
-                    }
+            AsyncApiStandalone.render({
+                schema: schema,
+                config: {},
+            }, document.getElementById('asyncapi'));
+        } catch (error) {
+            console.error('Error loading AsyncAPI schema:', error);
+            document.getElementById('asyncapi').innerHTML = 'Error loading AsyncAPI documentation';
+        }
+    }
 
                     initAsyncApi();
 
