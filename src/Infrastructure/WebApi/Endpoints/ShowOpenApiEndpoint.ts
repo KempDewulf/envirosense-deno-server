@@ -17,66 +17,63 @@ export class ShowOpenApiEndpoint implements Endpoint {
                         padding: 0;
                         font-family: Arial, sans-serif;
                     }
-                    .sidebar {
-                        width: 250px;
-                        height: 100vh;
-                        background: #2c3e50;
-                        position: fixed;
-                        left: 0;
-                        top: 0;
-                        transition: 0.3s;
-                        color: white;
-                        padding-top: 20px;
-                    }
-                    .sidebar.collapsed {
-                        width: 60px;
-                    }
-                    .sidebar-item {
-                        padding: 15px 25px;
-                        cursor: pointer;
-                        transition: 0.3s;
+                    .envirosense__wrapper {
                         display: flex;
-                        align-items: center;
+                        height: 100vh;
                     }
-                    .sidebar-item:hover {
-                        background: #34495e;
-                    }
-                    .sidebar-item.active {
-                        background: #3498db;
-                    }
-                    .content {
-                        margin-left: 250px;
-                        transition: 0.3s;
+                    .envirosense__sidebar {
+                        width: 200px;
+                        background-color: #2d3748;
                         padding: 20px;
                     }
-                    .content.expanded {
-                        margin-left: 60px;
+                    .envirosense__content {
+                        flex: 1;
+                        padding: 20px;
                     }
-                    .toggle-sidebar {
-                        position: absolute;
-                        bottom: 20px;
-                        left: 20px;
-                        background: none;
-                        border: none;
+                    .envirosense__sidebar-item {
                         color: white;
+                        padding: 10px;
                         cursor: pointer;
-                        font-size: 20px;
+                        margin-bottom: 10px;
                     }
-                    .hidden {
+                    .envirosense__sidebar-item:hover {
+                        background-color: #4a5568;
+                    }
+                    .envirosense__doc-container {
+                        height: 100%;
+                    }
+                    @media screen and (max-width: 768px) {
+                        .envirosense__wrapper {
+                            flex-direction: column;
+                        }
+                        .envirosense__sidebar {
+                            width: 100%;
+                            display: flex;
+                            padding: 10px;
+                            justify-content: center;
+                        }
+                        .envirosense__sidebar-item {
+                            margin: 0 10px;
+                        }
+                        .envirosense__content {
+                            height: calc(100vh - 60px);
+                        }
+                    }
+                    .envirosense__hidden {
                         display: none;
                     }
                 </style>
             </head>
             <body>
-                <div class="wrapper">
-            <div class="sidebar" id="sidebar">
-                <div class="sidebar-item" onclick="showDoc('openapi')" id="openapi-tab">OpenAPI</div>
-                <div class="sidebar-item" onclick="showDoc('asyncapi')" id="asyncapi-tab">AsyncAPI</div>
+                <div class="envirosense__wrapper">
+            <div class="envirosense__sidebar" id="sidebar">
+                <div class="envirosense__sidebar-item" onclick="showDoc('openapi')" id="openapi-tab">OpenAPI</div>
+                <div class="envirosense__sidebar-item" onclick="showDoc('asyncapi')" id="asyncapi-tab">AsyncAPI</div>
             </div>
 
-            <div class="content" id="content">
-                <div id="swagger-ui" class="doc-container"></div>
-                <div id="asyncapi" class="doc-container hidden"></div>
+            <div class="envirosense__content" id="content">
+                <div id="swagger-ui" class="envirosense__doc-container"></div>
+                <div id="asyncapi" class="envirosense__doc-container hidden"></div>
             </div>
         </div>
 
@@ -111,33 +108,28 @@ export class ShowOpenApiEndpoint implements Endpoint {
                     initAsyncApi();
 
                     function showDoc(type) {
-                        const containers = document.getElementsByClassName('doc-container');
-                        const tabs = document.getElementsByClassName('sidebar-item');
+                        const containers = document.getElementsByClassName('envirosense__doc-container');
+                        const tabs = document.getElementsByClassName('envirosense__sidebar-item');
 
                         for (let tab of tabs) {
-                            tab.classList.remove('active');
+                            tab.classList.remove('envirosense__active');
                         }
 
                         for (let container of containers) {
-                            container.classList.add('hidden');
+                            container.classList.add('envirosense__hidden');
                         }
 
                         if (type === 'openapi') {
-                            document.getElementById('swagger-ui').classList.remove('hidden');
-                            document.getElementById('openapi-tab').classList.add('active');
+                            document.getElementById('swagger-ui').classList.remove('envirosense__hidden');
+                            document.getElementById('openapi-tab').classList.add('envirosense__active');
                         } else {
-                            document.getElementById('asyncapi').classList.remove('hidden');
-                            document.getElementById('asyncapi-tab').classList.add('active');
+                            document.getElementById('asyncapi').classList.remove('envirosense__hidden');
+                            document.getElementById('asyncapi-tab').classList.add('envirosense__active');
                         }
                     }
 
-                    function toggleSidebar() {
-                        document.getElementById('sidebar').classList.toggle('collapsed');
-                        document.getElementById('content').classList.toggle('expanded');
-                    }
-
                     // Set OpenAPI as default active tab
-                    document.getElementById('openapi-tab').classList.add('active');
+                    document.getElementById('openapi-tab').classList.add('envirosense__active');
                 </script>
             </body>
             </html>
