@@ -94,6 +94,27 @@ channels:
       deviceConfigResponseMessage:
         $ref: '#/components/messages/DeviceConfigResponseMessage'
 
+  deviceLimitRequest:
+    address: devices/{uuid}/limits/request
+    description: Channel for requesting limit values from a device (e.g., temperature).
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+    messages:
+      deviceLimitRequestMessage:
+        contentType: application/json
+        payload: {}
+
+  deviceLimitResponse:
+    address: devices/{uuid}/limits/response
+    description: Channel for receiving the response of a limit request (e.g., temperature).
+    parameters:
+      uuid:
+        description: Unique identifier for the device.
+    messages:
+      deviceLimitResponseMessage:
+        $ref: '#/components/messages/DeviceLimitResponseMessage'
+
 operations:
   sendDeviceData:
     action: send
@@ -135,6 +156,16 @@ operations:
     channel:
       $ref: '#/channels/deviceConfigResponse'
 
+  sendDeviceLimitRequest:
+    action: send
+    channel:
+      $ref: '#/channels/deviceLimitRequest'
+
+  receiveDeviceLimitResponse:
+    action: receive
+    channel:
+      $ref: '#/channels/deviceLimitResponse'
+
 components:
   messages:
     DeviceDataMessage:
@@ -161,6 +192,15 @@ components:
       payload:
         $ref: '#/components/schemas/DeviceConfigResponse'
 
+    DeviceLimitRequestMessage:
+      contentType: application/json
+      payload: {}
+
+    DeviceLimitResponseMessage:
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeviceLimitResponse'
+
   schemas:
     DeviceData:
       type: object
@@ -186,36 +226,30 @@ components:
     DeviceLimit:
       type: object
       properties:
-        type:
-          type: string
-          description: Limit type.
-          enum: [temperature]
-        value:
+        temperature:
           type: number
-          description: Value for the specified limit type.
+          description: Temperature limit value.
       examples:
-        - value: 24.5
+        - temperature: 24.5
       required:
-        - type
-        - value
+        - temperature
 
     DeviceConfig:
       type: object
       properties:
-        type:
+        brightness:
+          type: number
+          description: Brightness level (0-100).
+        ui-mode:
           type: string
-          description: Configuration type.
-          enum: [brightness, ui-mode]
-        value:
-          $ref: '#/components/schemas/ConfigValue'
+          description: UI mode (e.g., 'normal', 'ppm', etc.).
+          enum: ['normal', 'ppm', 'humidity', 'temperature']
       examples:
-        - type: brightness
-          value: 60
-        - type: ui-mode
-          value: 'ppm'
+        - brightness: 100
+          ui-mode: 'normal'
       required:
-        - type
-        - value
+        - brightness
+        - ui-mode
 
     DeviceConfigRequest:
       type: object
@@ -247,12 +281,13 @@ components:
         - brightness
         - ui-mode
 
-    ConfigValue:
-      oneOf:
-        - type: string
-          enum: ['ppm', 'humidity', 'temperature', 'normal']
-          description: Value corresponding to the configuration type when type is ui-mode.
-        - type: number
-          examples:
-            - 60
-          description: Value corresponding to the configuration type when type is brightness.
+    DeviceLimitResponse:
+      type: object
+      properties:
+        temperature:
+          type: number
+          description: Temperature limit value.
+      examples:
+        - temperature: 24.5
+      required:
+        - temperature
