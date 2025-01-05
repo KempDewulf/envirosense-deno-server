@@ -74,7 +74,7 @@ export class UpdateDeviceConfigEndpoint implements Endpoint {
 			}
 		}
 
-		if (request.value === undefined) {
+		if (request.value === undefined || Number.isNaN(request.value)) {
 			this._errorsBag.add("value is required");
 		}
 
