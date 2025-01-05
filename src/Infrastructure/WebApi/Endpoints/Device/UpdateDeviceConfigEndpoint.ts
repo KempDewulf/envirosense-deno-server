@@ -44,12 +44,10 @@ export class UpdateDeviceConfigEndpoint implements Endpoint {
 		const configType = context.params.configType || "";
 		const body = await context.request.body.json();
 
-		const value = configType === DeviceConfigType.BRIGHTNESS ? Number(body.value) : body.value;
-
 		return {
 			deviceDocumentId,
 			configType,
-			value: value,
+			value: body.value,
 		};
 	}
 
