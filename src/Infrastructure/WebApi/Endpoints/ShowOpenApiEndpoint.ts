@@ -2,8 +2,8 @@ import { Endpoint } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { RouterContext } from "@oak/oak";
 
 export class ShowOpenApiEndpoint implements Endpoint {
-    handle(context: RouterContext<string>): Promise<void> {
-        const html = `
+	handle(context: RouterContext<string>): Promise<void> {
+		const html = `
             <!DOCTYPE html>
             <html>
             <head>
@@ -68,16 +68,17 @@ export class ShowOpenApiEndpoint implements Endpoint {
                 </style>
             </head>
             <body>
-                <div class="sidebar" id="sidebar">
-                    <div class="sidebar-item" onclick="showDoc('openapi')" id="openapi-tab">OpenAPI</div>
-                    <div class="sidebar-item" onclick="showDoc('asyncapi')" id="asyncapi-tab">AsyncAPI</div>
-                    <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
-                </div>
+                <div class="wrapper">
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-item" onclick="showDoc('openapi')" id="openapi-tab">OpenAPI</div>
+                <div class="sidebar-item" onclick="showDoc('asyncapi')" id="asyncapi-tab">AsyncAPI</div>
+            </div>
 
-                <div class="content" id="content">
-                    <div id="swagger-ui" class="doc-container"></div>
-                    <div id="asyncapi" class="doc-container hidden"></div>
-                </div>
+            <div class="content" id="content">
+                <div id="swagger-ui" class="doc-container"></div>
+                <div id="asyncapi" class="doc-container hidden"></div>
+            </div>
+        </div>
 
                 <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
                 <script src="https://unpkg.com/@asyncapi/react-component@latest/browser/standalone/index.js"></script>
@@ -142,13 +143,13 @@ export class ShowOpenApiEndpoint implements Endpoint {
             </html>
         `;
 
-        context.response.headers.set("Content-Type", "text/html");
-        context.response.body = html;
+		context.response.headers.set("Content-Type", "text/html");
+		context.response.body = html;
 
-        return Promise.resolve();
-    }
+		return Promise.resolve();
+	}
 
-    static create(): Endpoint {
-        return new ShowOpenApiEndpoint();
-    }
+	static create(): Endpoint {
+		return new ShowOpenApiEndpoint();
+	}
 }
