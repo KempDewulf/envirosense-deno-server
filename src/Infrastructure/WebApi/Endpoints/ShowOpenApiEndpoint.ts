@@ -93,7 +93,7 @@ export class ShowOpenApiEndpoint implements Endpoint {
 
             <div class="envirosense__content" id="content">
                 <div id="swagger-ui" class="envirosense__doc-container"></div>
-                <div id="asyncapi" class="envirosense__doc-container hidden"></div>
+                <div id="asyncapi" class="envirosense__doc-container envirosense__hidden"></div>
             </div>
         </div>
 
