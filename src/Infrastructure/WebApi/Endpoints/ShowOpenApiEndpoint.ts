@@ -26,7 +26,7 @@ export class ShowOpenApiEndpoint implements Endpoint {
 .envirosense__sidebar {
     width: 250px;
     min-width: 250px;
-    background-color: #1a202c;
+    background-color:rgb(36, 44, 61);
     padding: 20px;
     position: sticky;
     top: 0;
