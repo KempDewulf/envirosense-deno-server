@@ -7,6 +7,8 @@ import {
 	DomainException,
 	Room,
 	UiMode,
+	Brightness,
+	DeviceBrightness,
 } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceState {
@@ -16,7 +18,7 @@ export interface DeviceState {
 	deviceData?: DeviceData[];
 	limits: Map<DeviceLimitType, DeviceLimit>;
 	uiMode?: DeviceUiMode;
-	brightness?: number;
+	brightness?: DeviceBrightness;
 }
 
 export class Device {
@@ -26,7 +28,7 @@ export class Device {
 	private _deviceData: DeviceData[];
 	private _limits: Map<DeviceLimitType, DeviceLimit>;
 	private _uiMode: DeviceUiMode;
-	private _brightness: number;
+	private _brightness: DeviceBrightness;
 
 	private constructor(
 		documentId: string,
@@ -39,7 +41,7 @@ export class Device {
 		this._deviceData = [];
 		this._limits = new Map<DeviceLimitType, DeviceLimit>();
 		this._uiMode = new UiMode(DeviceUiModeType.NORMAL);
-		this._brightness = 80;
+		this._brightness = new Brightness(80);
 	}
 
 	static create(documentId: string, identifier: string, room: Room): Device {
@@ -59,7 +61,7 @@ export class Device {
 		device._deviceData = state.deviceData ?? [];
 		device._limits = state.limits ?? new Map<DeviceLimitType, DeviceLimit>();
 		device._uiMode = state.uiMode ?? new UiMode(DeviceUiModeType.NORMAL);
-		device._brightness = state.brightness ?? 80;
+		device._brightness = state.brightness ?? new Brightness(80);
 
 		device.validateState();
 
@@ -117,12 +119,12 @@ export class Device {
 		return this._uiMode;
 	}
 
-	public updateBrightness(brightness: number): void {
-		this.ensureBrightnessIsInRange(brightness);
+	public updateBrightness(brightness: DeviceBrightness): void {
+		this.ensureBrightnessIsInRange(brightness.value);
 		this._brightness = brightness;
 	}
 
-	public getBrightness(): number {
+	public getBrightness(): DeviceBrightness {
 		return this._brightness;
 	}
 

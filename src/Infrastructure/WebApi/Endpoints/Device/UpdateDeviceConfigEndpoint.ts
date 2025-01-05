@@ -64,10 +64,6 @@ export class UpdateDeviceConfigEndpoint implements Endpoint {
 			this._errorsBag.add("configType is required");
 		}
 
-		if (request.value === undefined) {
-			this._errorsBag.add("value is required");
-		}
-
 		if (request.configType === DeviceConfigType.BRIGHTNESS) {
 			if (typeof request.value !== "number") {
 				this._errorsBag.add("value must be a number");
@@ -76,6 +72,10 @@ export class UpdateDeviceConfigEndpoint implements Endpoint {
 			if (typeof request.value !== "string") {
 				this._errorsBag.add("value must be a string");
 			}
+		}
+
+		if (request.value === undefined) {
+			this._errorsBag.add("value is required");
 		}
 
 		if (!Object.values(DeviceConfigType).includes(request.configType as DeviceConfigType)) {
