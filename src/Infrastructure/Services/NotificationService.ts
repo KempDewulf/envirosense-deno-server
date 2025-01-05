@@ -30,10 +30,6 @@ export class NotificationService {
 		const currentTimeInMinutes = Math.floor(Date.now() / (1000 * 60)); // Current time in minutes
 		const lastNotification = this.lastNotificationTime.get(roomId) || 0;
 
-		console.log(
-			`Room ${roomName} - Last notification: ${lastNotification}, Current time: ${currentTimeInMinutes}`,
-		);
-
 		const { title, body, cooldown } = this.getNotificationContent(
 			roomName,
 			enviroScore,
@@ -41,14 +37,8 @@ export class NotificationService {
 		);
 
 		const timeSinceLastNotification = currentTimeInMinutes - lastNotification;
-		console.log(
-			`Time since last notification: ${timeSinceLastNotification} minutes`,
-		);
 
 		if (lastNotification > 0 && timeSinceLastNotification < cooldown) {
-			console.log(
-				`Skipping notification - Cooldown active for ${cooldown - timeSinceLastNotification} more minutes`,
-			);
 			return;
 		}
 

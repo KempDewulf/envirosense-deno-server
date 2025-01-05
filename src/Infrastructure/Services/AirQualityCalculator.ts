@@ -207,7 +207,7 @@ export class AirQualityCalculator {
 		);
 
 		const deviceDataArray = await this.deviceDataRepository.all(device?.value?.identifier) || [];
-		const lastDeviceData = deviceDataArray.length > 0 ? deviceDataArray[deviceDataArray.length - 1] : null;
+		const lastDeviceData = deviceDataArray.length > 0 ? deviceDataArray[0] : null;
 		return lastDeviceData;
 	}
 
