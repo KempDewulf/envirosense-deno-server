@@ -1,12 +1,18 @@
 import { assertEquals, assertThrows } from "@std/assert";
 import {
+Brightness,
     Building,
     Device,
     DeviceData,
+    DeviceLimit,
+    DeviceLimitType,
     DeviceState,
+    DeviceUiModeType,
     DomainException,
     Room,
     RoomType,
+	TemperatureLimit,
+	UiMode,
 } from "EnviroSense/Domain/mod.ts";
 
 Deno.test("Device - create method with valid parameters", () => {
@@ -470,4 +476,177 @@ Deno.test("Device - create method with null identifier throws error", () => {
         DomainException,
         "Identifier is required."
     );
+});
+
+Deno.test("Device - updateLimit adds new temperature limit successfully", () => {
+    // Arrange
+    const documentId = "26";
+    const identifier = "Device026";
+    const building = Building.create("26", "Main Building", "123 Main St");
+    const roomType = RoomType.create("26", "Office", "office_icon.png");
+    const room = Room.create("26", "Office Room", building, roomType);
+    const device = Device.create(documentId, identifier, room);
+    const temperatureLimit = new TemperatureLimit(DeviceLimitType.TEMPERATURE, 25);
+
+    // Act
+    device.updateLimit(temperatureLimit);
+
+    // Assert
+    const storedLimit = device.getLimit(DeviceLimitType.TEMPERATURE);
+    assertEquals(storedLimit?.type, DeviceLimitType.TEMPERATURE);
+    assertEquals(storedLimit?.value, 25);
+});
+
+Deno.test("Device - updateLimit throws error with invalid temperature value", () => {
+    // Arrange
+    const documentId = "27";
+    const identifier = "Device027";
+    const building = Building.create("27", "Main Building", "123 Main St");
+    const roomType = RoomType.create("27", "Office", "office_icon.png");
+    const room = Room.create("27", "Office Room", building, roomType);
+    const device = Device.create(documentId, identifier, room);
+
+    // Act & Assert
+    assertThrows(
+        () => {
+            const invalidLimit = new TemperatureLimit(DeviceLimitType.TEMPERATURE, 90);
+            device.updateLimit(invalidLimit);
+        },
+        DomainException,
+        "Temperature must be between 0 and 80°C"
+    );
+});
+
+Deno.test("Device - getLimit returns undefined for non-existent limit type", () => {
+    // Arrange
+    const documentId = "28";
+    const identifier = "Device028";
+    const building = Building.create("28", "Main Building", "123 Main St");
+    const roomType = RoomType.create("28", "Office", "office_icon.png");
+    const room = Room.create("28", "Office Room", building, roomType);
+    const device = Device.create(documentId, identifier, room);
+
+    // Act
+    const limit = device.getLimit(DeviceLimitType.TEMPERATURE);
+
+    // Assert
+    assertEquals(limit, undefined);
+});
+
+Deno.test("Device - updateUiMode sets new UI mode successfully", () => {
+    // Arrange
+    const documentId = "29";
+    const identifier = "Device029";
+    const building = Building.create("29", "Main Building", "123 Main St");
+    const roomType = RoomType.create("29", "Office", "office_icon.png");
+    const room = Room.create("29", "Office Room", building, roomType);
+    const device = Device.create(documentId, identifier, room);
+    const newUiMode = new UiMode(DeviceUiModeType.PPM);
+
+    // Act
+    device.updateUiMode(newUiMode);
+
+    // Assert
+    assertEquals(device.getUiMode().type, DeviceUiModeType.PPM);
+});
+
+Deno.test("Device - default UI mode is NORMAL", () => {
+    // Arrange
+    const documentId = "30";
+    const identifier = "Device030";
+    const building = Building.create("30", "Main Building", "123 Main St");
+    const roomType = RoomType.create("30", "Office", "office_icon.png");
+    const room = Room.create("30", "Office Room", building, roomType);
+
+    // Act
+    const device = Device.create(documentId, identifier, room);
+
+    // Assert
+    assertEquals(device.getUiMode().type, DeviceUiModeType.NORMAL);
+});
+
+Deno.test("Device - updateBrightness sets new brightness successfully", () => {
+    // Arrange
+    const documentId = "31";
+    const identifier = "Device031";
+    const building = Building.create("31", "Main Building", "123 Main St");
+    const roomType = RoomType.create("31", "Office", "office_icon.png");
+    const room = Room.create("31", "Office Room", building, roomType);
+    const device = Device.create(documentId, identifier, room);
+    const newBrightness = new Brightness(85);
+
+    // Act
+    device.updateBrightness(newBrightness);
+
+    // Assert
+    assertEquals(device.getBrightness().value, 85);
+});
+
+Deno.test("Device - default brightness is 80", () => {
+    // Arrange
+    const documentId = "32";
+    const identifier = "Device032";
+    const building = Building.create("32", "Main Building", "123 Main St");
+    const roomType = RoomType.create("32", "Office", "office_icon.png");
+    const room = Room.create("32", "Office Room", building, roomType);
+
+    // Act
+    const device = Device.create(documentId, identifier, room);
+
+    // Assert
+    assertEquals(device.getBrightness().value, 80);
+});
+
+Deno.test("Device - updateBrightness throws error with invalid brightness value", () => {
+    // Arrange
+    const documentId = "33";
+    const identifier = "Device033";
+    const building = Building.create("33", "Main Building", "123 Main St");
+    const roomType = RoomType.create("33", "Office", "office_icon.png");
+    const room = Room.create("33", "Office Room", building, roomType);
+    const device = Device.create(documentId, identifier, room);
+
+    // Act & Assert
+    assertThrows(
+        () => {
+            device.updateBrightness(new Brightness(15)); // Too low
+        },
+        DomainException,
+        "Brightness must be between 20 and 100."
+    );
+
+    assertThrows(
+        () => {
+            device.updateBrightness(new Brightness(105)); // Too high
+        },
+        DomainException,
+        "Brightness must be between 20 and 100."
+    );
+});
+
+Deno.test("Device - load method preserves config and limits state", () => {
+    // Arrange
+    const building = Building.create("34", "Main Building", "123 Main St");
+    const roomType = RoomType.create("34", "Office", "office_icon.png");
+    const room = Room.create("34", "Office Room", building, roomType);
+    const limits = new Map<DeviceLimitType, DeviceLimit>();
+    limits.set(DeviceLimitType.TEMPERATURE, new TemperatureLimit(DeviceLimitType.TEMPERATURE, 25));
+
+    const state: DeviceState = {
+        documentId: "34",
+        identifier: "Device034",
+        room: room,
+        deviceData: [],
+        limits: limits,
+        uiMode: new UiMode(DeviceUiModeType.TEMPERATURE),
+        brightness: new Brightness(90)
+    };
+
+    // Act
+    const device = Device.load(state);
+
+    // Assert
+    assertEquals(device.getLimit(DeviceLimitType.TEMPERATURE)?.value, 25);
+    assertEquals(device.getUiMode().type, DeviceUiModeType.TEMPERATURE);
+    assertEquals(device.getBrightness().value, 90);
 });
