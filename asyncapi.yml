@@ -168,14 +168,7 @@ components:
           description: Configuration type.
           enum: [brightness, ui-mode]
         value:
-          oneOf:
-            - type: string
-              enum: ['ppm', 'humidity', 'temperature', 'normal']
-              description: Value corresponding to the configuration type when type is ui-mode.
-            - type: number
-              examples:
-                - 60
-              description: Value corresponding to the configuration type when type is brightness.
+          $ref: '#/components/schemas/ConfigValue'
       examples:
         - type: brightness
           value: 60
@@ -184,3 +177,13 @@ components:
       required:
         - type
         - value
+
+    ConfigValue:
+      oneOf:
+        - type: string
+          enum: ['ppm', 'humidity', 'temperature', 'normal']
+          description: Value corresponding to the configuration type when type is ui-mode.
+        - type: number
+          examples:
+            - 60
+          description: Value corresponding to the configuration type when type is brightness.
