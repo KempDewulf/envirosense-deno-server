@@ -10,6 +10,7 @@ import { ErrorsBag, RequestResponse } from "EnviroSense/Infrastructure/Shared/mo
 import { DeviceStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { UpdateDeviceConfig } from "EnviroSense/Application/mod.ts";
 import { MessagingBuilder } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+import { DeviceConfigType } from "EnviroSense/Domain/mod.ts";
 
 export class UpdateDeviceConfigEndpoint implements Endpoint {
 	private readonly _errorsBag = new ErrorsBag();
@@ -43,10 +44,12 @@ export class UpdateDeviceConfigEndpoint implements Endpoint {
 		const configType = context.params.configType || "";
 		const body = await context.request.body.json();
 
+		const value = configType === DeviceConfigType.BRIGHTNESS ? Number(body.value) : body.value;
+
 		return {
 			deviceDocumentId,
 			configType,
-			value: body.value,
+			value: value,
 		};
 	}
 
@@ -65,8 +68,18 @@ export class UpdateDeviceConfigEndpoint implements Endpoint {
 			this._errorsBag.add("value is required");
 		}
 
-		if (typeof request.value !== "number" || typeof request.value !== "string") {
-			this._errorsBag.add("value must be a number or a string");
+		if (request.configType === DeviceConfigType.BRIGHTNESS) {
+			if (typeof request.value !== "number") {
+				this._errorsBag.add("For brightness config, value must be a number");
+			}
+		} else if (request.configType === DeviceConfigType.UI_MODE) {
+			if (typeof request.value !== "string") {
+				this._errorsBag.add("For ui-mode config, value must be a string");
+			}
 		}
+
+		if (!Object.values(DeviceConfigType).includes(request.configType as DeviceConfigType)) {
+            this._errorsBag.add(`Unsupported config type: ${request.configType}`);
+        }
 	}
 }

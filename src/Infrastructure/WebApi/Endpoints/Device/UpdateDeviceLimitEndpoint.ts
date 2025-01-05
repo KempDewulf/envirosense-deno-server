@@ -10,6 +10,7 @@ import { ErrorsBag, RequestResponse } from "EnviroSense/Infrastructure/Shared/mo
 import { DeviceStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { UpdateDeviceLimit } from "EnviroSense/Application/mod.ts";
 import { MessagingBuilder } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+import { DeviceLimitType } from "EnviroSense/Domain/mod.ts";
 
 export class UpdateDeviceLimitEndpoint implements Endpoint {
 	private readonly _errorsBag = new ErrorsBag();
@@ -68,5 +69,9 @@ export class UpdateDeviceLimitEndpoint implements Endpoint {
 		if (typeof request.value !== "number") {
 			this._errorsBag.add("value must be a number");
 		}
+
+		if (!Object.values(DeviceLimitType).includes(request.limitType as DeviceLimitType)) {
+            this._errorsBag.add(`Unsupported limit type: ${request.limitType}`);
+        }
 	}
 }
