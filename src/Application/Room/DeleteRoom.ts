@@ -1,19 +1,16 @@
-import { DeleteRoomInput, DeviceDataRepository, DeviceRepository, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import { DeleteRoomInput, DeviceDataRepository, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceDataStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { DeviceData } from "EnviroSense/Domain/mod.ts";
 
 export class DeleteRoom implements UseCase<DeleteRoomInput> {
 	private readonly _roomRepository: RoomRepository;
-	private readonly _deviceRepository: DeviceRepository;
 	private readonly _deviceDataRepository: DeviceDataRepository;
 
 	constructor(
 		roomRepository: RoomRepository,
-		deviceRepository: DeviceRepository,
 		deviceDataRepository: DeviceDataRepository,
 	) {
 		this._roomRepository = roomRepository;
-		this._deviceRepository = deviceRepository;
 		this._deviceDataRepository = deviceDataRepository;
 	}
 

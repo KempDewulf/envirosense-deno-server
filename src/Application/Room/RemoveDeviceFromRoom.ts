@@ -1,5 +1,5 @@
 import {
-DeviceDataQueryDto,
+	DeviceDataQueryDto,
 	DeviceDataRepository,
 	DeviceRepository,
 	RemoveDeviceFromRoomInput,
