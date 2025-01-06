@@ -237,19 +237,27 @@ components:
     DeviceConfig:
       type: object
       properties:
-        brightness:
-          type: number
-          description: Brightness level (0-100).
-        ui-mode:
+        type:
           type: string
-          description: UI mode (e.g., 'normal', 'ppm', etc.).
-          enum: ['normal', 'ppm', 'humidity', 'temperature']
-      examples:
-        - brightness: 100
-          ui-mode: 'normal'
+          enum: ['brightness', 'ui-mode']
+          description: Type of configuration being set
+        value:
+          oneOf:
+            - type: number
+              minimum: 0
+              maximum: 100
+              description: Brightness level (0-100)
+            - type: string
+              enum: ['normal', 'ppm', 'humidity', 'temperature']
+              description: UI mode value
       required:
-        - brightness
-        - ui-mode
+        - type
+        - value
+      examples:
+        - type: brightness
+          value: 80
+        - type: ui-mode
+          value: "ppm"
 
     DeviceConfigRequest:
       type: object
@@ -269,17 +277,19 @@ components:
       properties:
         brightness:
           type: number
+          minimum: 0
+          maximum: 100
           description: Brightness level (0-100).
         ui-mode:
           type: string
-          description: UI mode (e.g., 'normal', 'ppm', etc.).
           enum: ['normal', 'ppm', 'humidity', 'temperature']
+          description: UI mode (e.g., 'normal', 'ppm', etc.).
+      minProperties: 1
       examples:
+        - brightness: 80
+        - ui-mode: "ppm"
         - brightness: 100
-          ui-mode: 'normal'
-      required:
-        - brightness
-        - ui-mode
+          ui-mode: "normal"
 
     DeviceLimitResponse:
       type: object
