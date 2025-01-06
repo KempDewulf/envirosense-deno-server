@@ -1,33 +1,47 @@
+import {
+	Endpoint,
+	ShowRoomLimitsController,
+	ShowRoomLimitsPresentedData,
+	ShowRoomLimitsPresenter,
+	ShowRoomLimitsRequest,
+} from "EnviroSense/Infrastructure/WebApi/mod.ts";
+import { RouterContext } from "@oak/oak";
+import { RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import { ShowRoomLimits } from "EnviroSense/Application/mod.ts";
+import { RoomStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { MessagingBuilder } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+
 export class ShowRoomLimitsEndpoint implements Endpoint {
-    private readonly errorsBag = new ErrorsBag();
+	async handle(context: RouterContext<string>): Promise<void> {
+		const outputDevice = new RequestResponse<
+			ShowRoomLimitsPresentedData
+		>();
+		const presenter = new ShowRoomLimitsPresenter(outputDevice);
 
-    async handle(context: RouterContext<string>): Promise<void> {
-        const roomDocumentId = context.params.roomDocumentId;
+		const repository = new RoomStrapiQueryRepository();
+		const messaging = MessagingBuilder.getInstance();
 
-        if (!roomDocumentId) {
-            context.response.status = 400;
-            context.response.body = { error: "roomDocumentId is required" };
-            return;
-        }
+		const useCase = new ShowRoomLimits(presenter, repository, messaging);
 
-        const outputDevice = new RequestResponse<ShowRoomLimitsPresentedData>();
-        const presenter = new ShowRoomLimitsPresenter(outputDevice);
-        const repository = new RoomStrapiRepository();
-        const messaging = MessagingBuilder.getInstance();
-        const useCase = new ShowRoomLimits(presenter, repository, messaging);
-        const controller = new ShowRoomLimitsController(useCase);
+		const controller = new ShowRoomLimitsController(useCase);
+		const request = this.buildRequest(context);
+		await controller.handle(request);
 
-        try {
-            await controller.handle({ roomDocumentId });
-            context.response.status = 200;
-            context.response.body = outputDevice.response;
-        } catch (error) {
-            if (error.message.includes("did not respond")) {
-                context.response.status = 504;
-                context.response.body = { error: error.message };
-            } else {
-                throw error;
-            }
-        }
-    }
+		context.response.headers.set("Content-Type", "application/json");
+		context.response.body = outputDevice.response;
+
+		return Promise.resolve();
+	}
+
+	static create(): Endpoint {
+		return new ShowRoomLimitsEndpoint();
+	}
+
+	private buildRequest(
+		context: RouterContext<string>,
+	): ShowRoomLimitsRequest {
+		const roomDocumentId = context.params.roomDocumentId || "";
+
+		return { roomDocumentId } as ShowRoomLimitsRequest;
+	}
 }
