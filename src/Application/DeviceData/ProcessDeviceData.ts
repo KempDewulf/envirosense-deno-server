@@ -9,6 +9,7 @@ import { DeviceData } from "EnviroSense/Domain/mod.ts";
 import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
 import { NotificationService } from "EnviroSense/Infrastructure/Services/NotificationService.ts";
 import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/FirebaseMessaging.ts";
+import { DeviceDataStrapiQueryRepository, DeviceStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
 export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 	private readonly _deviceRepository: DeviceRepository;
@@ -24,7 +25,9 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 	) {
 		this._deviceRepository = deviceRepository;
 		this._deviceDataRepository = deviceDataRepository;
-		this._airQualityCalculator = new AirQualityCalculator(this._deviceRepository, this._deviceDataRepository);
+		const deviceQueryRepository = new DeviceStrapiQueryRepository();
+		const deviceDataQueryRepository = new DeviceDataStrapiQueryRepository();
+		this._airQualityCalculator = new AirQualityCalculator(deviceQueryRepository, deviceDataQueryRepository);
 		this._notificationService = new NotificationService(firebaseMessaging, roomRepository);
 	}
 
