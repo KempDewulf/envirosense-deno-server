@@ -65,7 +65,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 				const limits = await this.requestDeviceLimits(device.identifier);
 				deviceLimits.set(device.identifier, limits);
 			} catch (error) {
-				console.log(`❌ Error getting limits for device ${device.identifier}:`, error);
+				console.log(`❌ Error getting limits for device ${device.identifier}`);
 				failedDevices.push(device.identifier);
 			}
 		}
