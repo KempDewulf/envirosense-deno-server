@@ -9,6 +9,7 @@ import {
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 import { NotFoundException } from "EnviroSense/Domain/mod.ts";
+import { NoDevicesRespondedError } from "EnviroSense/Domain/Shared/Exceptions/NoDevicesRespondedError.ts";
 
 export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 	private readonly _outputPort: OutputPort<ShowRoomLimitsOutput>;
@@ -38,7 +39,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 		const { deviceLimits, failedDevices } = await this.collectDeviceLimits(room);
 
 		if (deviceLimits.size === 0) {
-			throw new NotFoundException("No devices responded with limits");
+			throw new NoDevicesRespondedError("No devices responded with limits");
 		}
 
 		const referenceDevice = this.getReferenceLimits(deviceLimits);
@@ -82,7 +83,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 		const response = await this._messaging.waitForMessage(responseTopic, 5000);
 
 		if (!response) {
-			throw new NotFoundException(`Device ${deviceId} did not respond in time`);
+			throw new NoDevicesRespondedError(`Device ${deviceId} did not respond in time`);
 		}
 
 		return JSON.parse(response);
