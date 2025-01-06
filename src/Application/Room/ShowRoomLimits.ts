@@ -8,6 +8,7 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+import { NotFoundException } from "EnviroSense/Domain/mod.ts";
 
 export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 	private readonly _outputPort: OutputPort<ShowRoomLimitsOutput>;
@@ -29,7 +30,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 
 	async execute(input: ShowRoomLimitsInput): Promise<void> {
 		const room = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() =>
-			new Error(`Room with ID ${input.roomDocumentId} not found.`)
+			new NotFoundException(`Room with ID ${input.roomDocumentId} not found.`)
 		);
 
 		this.validateRoomHasDevices(room);
@@ -37,7 +38,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 		const { deviceLimits, failedDevices } = await this.collectDeviceLimits(room);
 
 		if (deviceLimits.size === 0) {
-			throw new Error("No devices responded with limits");
+			throw new NotFoundException("No devices responded with limits");
 		}
 
 		const referenceDevice = this.getReferenceLimits(deviceLimits);
@@ -49,7 +50,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 
 	private validateRoomHasDevices(room: RoomQueryDto): void {
 		if (!room.devices.length) {
-			throw new Error("Room has no devices");
+			throw new NotFoundException("Room has no devices");
 		}
 	}
 
@@ -81,7 +82,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 		const response = await this._messaging.waitForMessage(responseTopic, 5000);
 
 		if (!response) {
-			throw new Error(`Device ${deviceId} did not respond in time`);
+			throw new NotFoundException(`Device ${deviceId} did not respond in time`);
 		}
 
 		return JSON.parse(response);
@@ -93,7 +94,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 	} {
 		const referenceId = Array.from(deviceLimits.keys())[0];
 		if (!referenceId) {
-			throw new Error("No reference device found");
+			throw new NotFoundException("No reference device found");
 		}
 
 		return {

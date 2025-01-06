@@ -7,6 +7,7 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+import { NotFoundException } from "EnviroSense/Domain/mod.ts";
 
 export class ShowDeviceConfig implements UseCase<ShowDeviceConfigInput> {
 	private readonly _outputPort: OutputPort<ShowDeviceConfigOutput>;
@@ -25,12 +26,12 @@ export class ShowDeviceConfig implements UseCase<ShowDeviceConfigInput> {
 
 	async execute(input: ShowDeviceConfigInput): Promise<void> {
 		const device = (await this._deviceRepository.find(input.deviceDocumentId))
-			.orElseThrow(() => new Error(`Device with ID ${input.deviceDocumentId} not found.`));
+			.orElseThrow(() => new NotFoundException(`Device with ID ${input.deviceDocumentId} not found.`));
 
 		const { deviceConfig, failed } = await this.collectDeviceConfig(device);
 
 		if (deviceConfig.size === 0) {
-			throw new Error("Device did not respond with config");
+			throw new NotFoundException("Device did not respond with config");
 		}
 
 		const output = this.mapDtoToOutput(device, deviceConfig.get(device.identifier)!, failed);
@@ -63,7 +64,7 @@ export class ShowDeviceConfig implements UseCase<ShowDeviceConfigInput> {
 		const response = await this._messaging.waitForMessage(responseTopic, 5000);
 
 		if (!response) {
-			throw new Error(`Device ${deviceId} did not respond in time`);
+			throw new NotFoundException(`Device ${deviceId} did not respond in time`);
 		}
 
 		return JSON.parse(response);
