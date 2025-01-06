@@ -1,6 +1,5 @@
 import { assertEquals, assertThrows } from "@std/assert";
 import {
-Brightness,
     Building,
     Device,
     DeviceData,
@@ -70,6 +69,7 @@ Deno.test("Device - load method with valid state", () => {
         room: room,
         deviceData: [],
         limits: new Map(),
+        config: DeviceConfig.create()
     };
 
     // Act
@@ -95,6 +95,7 @@ Deno.test(
             room: room,
             deviceData: [],
             limits: new Map(),
+            config: DeviceConfig.create()
         };
 
         // Act & Assert
@@ -592,7 +593,7 @@ Deno.test("Device - updateBrightness throws error with invalid brightness value"
     // Act & Assert
     assertThrows(
         () => {
-            device.updateBrightness(new Brightness(15)); // Too low
+            device.updateBrightness(15); // Too low
         },
         DomainException,
         "Brightness must be between 20 and 100."
@@ -600,7 +601,7 @@ Deno.test("Device - updateBrightness throws error with invalid brightness value"
 
     assertThrows(
         () => {
-            device.updateBrightness(new Brightness(105)); // Too high
+            device.updateBrightness(105); // Too high
         },
         DomainException,
         "Brightness must be between 20 and 100."
@@ -678,7 +679,7 @@ Deno.test("Device - throws on brightness below minimum", () => {
     // Act & Assert
     assertThrows(
         () => {
-            device.updateBrightness(new Brightness(10));
+            device.updateBrightness(10);
         },
         DomainException,
         "Brightness must be between 20 and 100"
