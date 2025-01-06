@@ -33,7 +33,13 @@ export class DeviceConfigMessageHandler implements MessageHandler {
 	}
 
 	canHandle(topic: string): boolean {
-		return topic.match(/devices\/.*\/config\/.*/) !== null;
+		// Ignore request/response messages
+		if (topic.includes("/config/request") || topic.includes("/config/response")) {
+			return false;
+		}
+
+		// Only handle direct limit updates
+		return topic.match(/devices\/.*\/config\/[^\/]+$/) !== null;
 	}
 
 	private getDeviceId(topic: string): string {
