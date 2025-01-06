@@ -5,7 +5,7 @@ export interface ShowRoomLimitsRequest {
 	roomDocumentId: string;
 }
 
-export class ShowRoomsController implements Controller<ShowRoomLimitsRequest> {
+export class ShowRoomLimitsController implements Controller<ShowRoomLimitsRequest> {
 	private readonly _useCase: UseCase<ShowRoomLimitsInput>;
 
 	constructor(useCase: UseCase<ShowRoomLimitsInput>) {
