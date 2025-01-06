@@ -1,7 +1,7 @@
 import { RouterContext } from "@oak/oak";
 import { AddDeviceToRoomController, AddDeviceToRoomRequest, Endpoint } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { ErrorsBag } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { DeviceStrapiRepository, RoomStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceStrapiRepository, RoomStrapiRepository, DeviceDataStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { AddDeviceToRoom } from "EnviroSense/Application/mod.ts";
 
 export class AddDeviceToRoomEndpoint implements Endpoint {
@@ -20,7 +20,8 @@ export class AddDeviceToRoomEndpoint implements Endpoint {
 
 		const roomRepository = new RoomStrapiRepository();
 		const deviceRepository = new DeviceStrapiRepository();
-		const useCase = new AddDeviceToRoom(roomRepository, deviceRepository);
+		const deviceDataRepository = new DeviceDataStrapiRepository();
+		const useCase = new AddDeviceToRoom(roomRepository, deviceRepository, deviceDataRepository);
 
 		const controller = new AddDeviceToRoomController(useCase);
 		await controller.handle(request);

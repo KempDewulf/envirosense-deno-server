@@ -1,12 +1,12 @@
 import {
 	DeviceConfig,
+	DeviceConfigType,
 	DeviceData,
 	DeviceLimit,
 	DeviceLimitType,
 	DeviceUiModeType,
 	DomainException,
 	Room,
-	DeviceConfigType
 } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceState {
@@ -14,8 +14,8 @@ export interface DeviceState {
 	identifier: string;
 	room?: Room | null;
 	deviceData?: DeviceData[];
-	limits: Map<DeviceLimitType, DeviceLimit>;
-	config: DeviceConfig;
+	limits?: Map<DeviceLimitType, DeviceLimit>;
+	config?: DeviceConfig;
 }
 
 export class Device {

@@ -9,21 +9,27 @@ export async function errorHandlingMiddleware(
 	try {
 		await next();
 	} catch (exception) {
+		let errorMessage = "An unexpected error occurred";
+		let errorStatus = 500;
+
 		if (isHttpError(exception)) {
-			context.response.status = exception.status;
+			errorStatus = exception.status;
+			errorMessage = exception.message;
 		} else if (exception instanceof DomainException) {
-			context.response.body = { error: exception.message };
-			context.response.status = 409;
+			errorMessage = exception.message;
+			errorStatus = 409;
 		} else if (exception instanceof NotFoundException) {
-			context.response.body = { error: exception.message };
-			context.response.status = 404;
+			errorMessage = exception.message;
+			errorStatus = 404;
 		} else if (exception instanceof IllegalStateException) {
-			context.response.body = { error: exception.message };
-			context.response.status = 400;
-		} else {
-			context.response.status = 500;
+			errorMessage = exception.message;
+			errorStatus = 400;
+		} else if (exception instanceof Error) {
+			errorMessage = exception.message;
 		}
-		context.response.body = { error: exception.message };
+
+		context.response.status = errorStatus;
+		context.response.body = { error: errorMessage };
 		context.response.type = "json";
 	}
 }

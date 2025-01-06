@@ -32,7 +32,6 @@ export class ShowDevices implements UseCase<ShowDevicesInput> {
 			documentId: item.documentId,
 			identifier: item.identifier,
 			room: item.room,
-			device_data: item.device_data,
 		}));
 	}
 }

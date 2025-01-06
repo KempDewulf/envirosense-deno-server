@@ -4,8 +4,8 @@ import { AirData } from "EnviroSense/Domain/mod.ts";
 
 export type ShowRoomAirQualityPresentedData = {
 	documentId: string;
-	enviroScore: number;
-	airQuality: AirData;
+	enviroScore: number | null;
+	airQuality: AirData | null;
 };
 
 export class ShowRoomAirQualityPresenter implements OutputPort<ShowRoomAirQualityOutput> {

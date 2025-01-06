@@ -6,7 +6,7 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { Brightness, ConfigValue, DeviceConfigType, DeviceUiModeType, UiMode } from "EnviroSense/Domain/mod.ts";
+import { ConfigValue, DeviceConfigType, DeviceUiModeType } from "EnviroSense/Domain/mod.ts";
 
 export class UpdateDeviceConfig implements UseCase<UpdateDeviceConfigInput> {
 	private readonly _outputPort: OutputPort<UpdateDeviceConfigOutput>;
@@ -34,10 +34,10 @@ export class UpdateDeviceConfig implements UseCase<UpdateDeviceConfigInput> {
 
 		switch (configType) {
 			case DeviceConfigType.UI_MODE:
-				device.updateUiMode(new UiMode(input.value as DeviceUiModeType));
+				device.updateUiMode(input.value as DeviceUiModeType);
 				break;
 			case DeviceConfigType.BRIGHTNESS:
-				device.updateBrightness(new Brightness(input.value as number));
+				device.updateBrightness(input.value as number);
 				break;
 		}
 
