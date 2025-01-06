@@ -1,7 +1,7 @@
 import { RouterContext } from "@oak/oak";
 import { AddDeviceToRoomController, AddDeviceToRoomRequest, Endpoint } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { ErrorsBag } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { DeviceStrapiRepository, RoomStrapiRepository, DeviceDataStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceDataStrapiRepository, DeviceStrapiRepository, RoomStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { AddDeviceToRoom } from "EnviroSense/Application/mod.ts";
 
 export class AddDeviceToRoomEndpoint implements Endpoint {
