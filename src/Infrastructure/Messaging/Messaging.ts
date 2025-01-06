@@ -46,4 +46,23 @@ export class Messaging {
 		}
 		await this.client.publish(topic, message);
 	}
+
+	public async waitForMessage(topic: string, timeout: number): Promise<string | null> {
+		return await new Promise((resolve) => {
+			const timer = setTimeout(() => {
+				this.client.off("message", messageHandler);
+				resolve(null);
+			}, timeout);
+
+			const messageHandler = (receivedTopic: string, payload: Uint8Array) => {
+				if (receivedTopic === topic) {
+					clearTimeout(timer);
+					this.client.off("message", messageHandler);
+					resolve(new TextDecoder().decode(payload));
+				}
+			};
+
+			this.client.on("message", messageHandler);
+		});
+	}
 }
