@@ -56,28 +56,28 @@ export class ShowDeviceConfig implements UseCase<ShowDeviceConfigInput> {
 	}
 
 	private async requestDeviceConfig(deviceId: string): Promise<Record<string, number | string>> {
-        const requestTopic = `devices/${deviceId}/config/request`;
-        const responseTopic = `devices/${deviceId}/config/response`;
+		const requestTopic = `devices/${deviceId}/config/request`;
+		const responseTopic = `devices/${deviceId}/config/response`;
 
-        await this._messaging.publish(requestTopic, "{}");
-        const response = await this._messaging.waitForMessage(responseTopic, 5000);
+		await this._messaging.publish(requestTopic, "{}");
+		const response = await this._messaging.waitForMessage(responseTopic, 5000);
 
-        if (!response) {
-            throw new Error(`Device ${deviceId} did not respond in time`);
-        }
+		if (!response) {
+			throw new Error(`Device ${deviceId} did not respond in time`);
+		}
 
-        return JSON.parse(response);
-    }
+		return JSON.parse(response);
+	}
 
 	private mapDtoToOutput(
-        device: DeviceQueryDto,
-        config: Record<string, number | string>,
-        failed: boolean,
-    ): ShowDeviceConfigOutput {
-        return {
-            documentId: device.documentId,
-            config,
-            failed,
-        };
-    }
+		device: DeviceQueryDto,
+		config: Record<string, number | string>,
+		failed: boolean,
+	): ShowDeviceConfigOutput {
+		return {
+			documentId: device.documentId,
+			config,
+			failed,
+		};
+	}
 }

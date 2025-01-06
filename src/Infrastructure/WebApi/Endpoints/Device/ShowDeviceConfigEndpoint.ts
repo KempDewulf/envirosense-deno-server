@@ -10,7 +10,7 @@ import {
 import { RouterContext } from "@oak/oak";
 import { RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
 import { ShowDeviceConfig, UpdateDeviceLimit } from "EnviroSense/Application/mod.ts";
-import { DeviceStrapiRepository, DeviceStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceStrapiQueryRepository, DeviceStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { MessagingBuilder } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
 export class ShowDeviceConfigEndpoint implements Endpoint {
