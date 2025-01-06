@@ -48,16 +48,20 @@ export class Messaging {
 	}
 
 	public async waitForMessage(topic: string, timeout: number): Promise<string | null> {
-		return await new Promise((resolve) => {
-			const timer = setTimeout(() => {
+		await this.client.subscribe(topic);
+
+		return await new Promise<string | null>((resolve) => {
+			const timer = setTimeout(async () => {
 				this.client.off("message", messageHandler);
+				await this.client.unsubscribe(topic);
 				resolve(null);
 			}, timeout);
 
-			const messageHandler = (receivedTopic: string, payload: Uint8Array) => {
+			const messageHandler = async (receivedTopic: string, payload: Uint8Array) => {
 				if (receivedTopic === topic) {
 					clearTimeout(timer);
 					this.client.off("message", messageHandler);
+					await this.client.unsubscribe(topic);
 					resolve(new TextDecoder().decode(payload));
 				}
 			};
