@@ -68,6 +68,9 @@ export type { CreateDeviceOutput } from "./Device/CreateDeviceOutput.ts";
 export type { ShowDeviceByDocumentIdInput } from "./Device/ShowDeviceByDocumentIdInput.ts";
 export type { ShowDeviceByDocumentIdOutput } from "./Device/ShowDeviceByDocumentIdOutput.ts";
 
+export type { ShowDeviceConfigInput } from "./Device/ShowDeviceConfigInput.ts";
+export type { ShowDeviceConfigOutput } from "./Device/ShowDeviceConfigOutput.ts";
+
 export type { UpdateDeviceInput } from "./Device/UpdateDeviceInput.ts";
 export type { UpdateDeviceOutput } from "./Device/UpdateDeviceOutput.ts";
 

@@ -116,6 +116,12 @@ export type { ShowDeviceByDocumentIdRequest } from "EnviroSense/Infrastructure/W
 export { ShowDeviceByDocumentIdPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/ShowDeviceByDocumentIdPresenter.ts";
 export type { ShowDeviceByDocumentIdPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/ShowDeviceByDocumentIdPresenter.ts";
 
+export { ShowDeviceConfigEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/Device/ShowDeviceConfigEndpoint.ts";
+export { ShowDeviceConfigController } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/ShowDeviceConfigController.ts";
+export type { ShowDeviceConfigRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/ShowDeviceConfigController.ts";
+export { ShowDeviceConfigPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/ShowDeviceConfigPresenter.ts";
+export type { ShowDeviceConfigPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/ShowDeviceConfigPresenter.ts";
+
 export { CreateDeviceEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/Device/CreateDeviceEndpoint.ts";
 export { CreateDeviceController } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/CreateDeviceController.ts";
 export type { CreateDeviceRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/CreateDeviceController.ts";

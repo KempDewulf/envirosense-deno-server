@@ -19,6 +19,7 @@ import {
 	ShowBuildingByDocumentIdEndpoint,
 	ShowBuildingsEndpoint,
 	ShowDeviceByDocumentIdEndpoint,
+	ShowDeviceConfigEndpoint,
 	ShowDeviceDataByDocumentIdEndpoint,
 	ShowDeviceDataEndpoint,
 	ShowDevicesEndpoint,
@@ -115,6 +116,7 @@ export function endpoints(): Router {
 		"/devices/:deviceDocumentId",
 		use(new ShowDeviceByDocumentIdEndpoint()),
 	);
+	router.get("/devices/:deviceDocumentId/config", use(new ShowDeviceConfigEndpoint()));
 	router.post("/devices", use(new CreateDeviceEndpoint()));
 	router.post(
 		"/devices/:deviceDocumentId/device-data",
