@@ -13,18 +13,18 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 	private readonly _outputPort: OutputPort<ShowRoomLimitsOutput>;
 	private readonly _roomRepository: RoomQueryRepository;
 	private readonly _messaging: Messaging;
-    private readonly _updateDeviceLimitUseCase: UseCase<UpdateDeviceLimitInput>;
+	private readonly _updateDeviceLimitUseCase: UseCase<UpdateDeviceLimitInput>;
 
 	constructor(
 		outputPort: OutputPort<ShowRoomLimitsOutput>,
 		roomRepository: RoomQueryRepository,
 		messaging: Messaging,
-        updateDeviceLimitUseCase: UseCase<UpdateDeviceLimitInput>
+		updateDeviceLimitUseCase: UseCase<UpdateDeviceLimitInput>,
 	) {
 		this._outputPort = outputPort;
 		this._roomRepository = roomRepository;
 		this._messaging = messaging;
-        this._updateDeviceLimitUseCase = updateDeviceLimitUseCase;
+		this._updateDeviceLimitUseCase = updateDeviceLimitUseCase;
 	}
 
 	async execute(input: ShowRoomLimitsInput): Promise<void> {
@@ -57,13 +57,13 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 		// Get first device limits as reference
 		const referenceDevice = roomDto.devices[0];
 
-        if (!referenceDevice) {
-            throw new Error("Room has no devices");
-        }
+		if (!referenceDevice) {
+			throw new Error("Room has no devices");
+		}
 
 		const referenceLimits = deviceLimits.get(referenceDevice.identifier)!;
 
-		// Check and sync other devices
+		// Check and sync other devices - edge case
 		for (const device of roomDto.devices.slice(1)) {
 			const currentLimits = deviceLimits.get(device.identifier)!;
 
@@ -76,24 +76,34 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 		this._outputPort.present(output);
 	}
 
-    private areLimitsEqual(limits1: Record<string, number>, limits2: Record<string, number>): boolean {
-        const keys1 = Object.keys(limits1);
-        const keys2 = Object.keys(limits2);
+	private areLimitsEqual(limits1: Record<string, number>, limits2: Record<string, number>): boolean {
+		const keys1 = Object.keys(limits1);
+		const keys2 = Object.keys(limits2);
 
-        if (keys1.length !== keys2.length) return false;
+		if (keys1.length !== keys2.length) {
+			console.log("❌ Limits have different number of keys:", { limits1, limits2 });
+			return false;
+		}
 
-        return keys1.every(key => limits1[key] === limits2[key]);
-    }
+		const areEqual = keys1.every((key) => limits1[key] === limits2[key]);
+		if (!areEqual) {
+			console.log("❌ Limits have different values:", { limits1, limits2 });
+		}
+		return areEqual;
+	}
 
-    private async syncDeviceLimits(deviceId: string, limits: Record<string, number>): Promise<void> {
-        for (const [limitType, value] of Object.entries(limits)) {
-            await this._updateDeviceLimitUseCase.execute({
-                deviceDocumentId: deviceId,
-                limitType,
-                value
-            });
-        }
-    }
+	private async syncDeviceLimits(deviceId: string, limits: Record<string, number>): Promise<void> {
+		console.log(`🔄 Syncing device ${deviceId} with limits:`, limits);
+		for (const [limitType, value] of Object.entries(limits)) {
+			console.log(`⚡ Setting ${limitType} to ${value}`);
+			await this._updateDeviceLimitUseCase.execute({
+				deviceDocumentId: deviceId,
+				limitType,
+				value,
+			});
+		}
+		console.log(`✅ Device ${deviceId} sync complete`);
+	}
 
 	private mapDtoToOutput(dto: RoomQueryDto, limits: Record<string, string | number>): ShowRoomLimitsOutput {
 		return {
