@@ -5,6 +5,7 @@ export { DeleteRoom } from "./Room/DeleteRoom.ts";
 export { UpdateRoom } from "./Room/UpdateRoom.ts";
 export { ShowRoomByDocumentId } from "./Room/ShowRoomByDocumentId.ts";
 export { ShowRoomAirQuality } from "./Room/ShowRoomAirQuality.ts";
+export { ShowRoomLimits } from "./Room/ShowRoomLimits.ts";
 export { AddDeviceToRoom } from "./Room/AddDeviceToRoom.ts";
 export { RemoveDeviceFromRoom } from "./Room/RemoveDeviceFromRoom.ts";
 
