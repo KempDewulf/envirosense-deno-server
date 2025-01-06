@@ -20,6 +20,7 @@ import {
 	ShowBuildingsEndpoint,
 	ShowDeviceByDocumentIdEndpoint,
 	ShowDeviceDataByDocumentIdEndpoint,
+	ShowDeviceLimitsEndpoint,
 	ShowDeviceDataEndpoint,
 	ShowDevicesEndpoint,
 	ShowOpenApiEndpoint,
@@ -113,6 +114,7 @@ export function endpoints(): Router {
 		"/devices/:deviceDocumentId",
 		use(new ShowDeviceByDocumentIdEndpoint()),
 	);
+	router.get("/devices/:deviceDocumentId/limits", use(new ShowDeviceLimitsEndpoint()));
 	router.post("/devices", use(new CreateDeviceEndpoint()));
 	router.post(
 		"/devices/:deviceDocumentId/device-data",
