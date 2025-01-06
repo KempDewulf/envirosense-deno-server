@@ -91,7 +91,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 			}
 		}
 
-		const output = this.mapDtoToOutput(roomDto, referenceLimits);
+		const output = this.mapDtoToOutput(roomDto, referenceLimits, failedDevices);
 		this._outputPort.present(output);
 	}
 
@@ -124,10 +124,11 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 		console.log(`✅ Device ${deviceIdentifier} sync complete`);
 	}
 
-	private mapDtoToOutput(dto: RoomQueryDto, limits: Record<string, string | number>): ShowRoomLimitsOutput {
+	private mapDtoToOutput(dto: RoomQueryDto, limits: Record<string, string | number>, failedDevices: string[]): ShowRoomLimitsOutput {
 		return {
 			documentId: dto.documentId,
 			limits,
+            failedDevices
 		};
 	}
 }

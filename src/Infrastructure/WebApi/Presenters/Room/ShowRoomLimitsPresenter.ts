@@ -4,6 +4,7 @@ import { RequestResponseDevice } from "EnviroSense/Infrastructure/Shared/mod.ts"
 export interface ShowRoomLimitsPresentedData {
 	documentId: string;
 	limits: Record<string, number | string>;
+	failedDevices: string[];
 }
 
 export class ShowRoomLimitsPresenter implements OutputPort<ShowRoomLimitsOutput> {
@@ -25,7 +26,8 @@ export class ShowRoomLimitsPresenter implements OutputPort<ShowRoomLimitsOutput>
 	): ShowRoomLimitsPresentedData {
 		return {
 			documentId: data.documentId,
-            limits: data.limits,
+			limits: data.limits,
+			failedDevices: data.failedDevices,
 		};
 	}
 }
