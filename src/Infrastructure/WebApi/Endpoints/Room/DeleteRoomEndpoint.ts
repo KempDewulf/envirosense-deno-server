@@ -1,11 +1,8 @@
 import { RouterContext } from "@oak/oak";
 import { DeleteRoomController, DeleteRoomRequest, Endpoint } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { ErrorsBag } from "EnviroSense/Infrastructure/Shared/mod.ts";
-
-import { RoomStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
-
+import { DeviceDataStrapiRepository, DeviceStrapiRepository, RoomStrapiRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { DeleteRoom } from "EnviroSense/Application/mod.ts";
-import { RoomRepository } from "EnviroSense/Application/Contracts/mod.ts";
 
 export class DeleteRoomEndpoint implements Endpoint {
 	private readonly _errorsBag = new ErrorsBag();
@@ -21,9 +18,12 @@ export class DeleteRoomEndpoint implements Endpoint {
 			return;
 		}
 
-		const repository: RoomRepository = new RoomStrapiRepository();
+		const roomRepository = new RoomStrapiRepository();
+		const deviceRepository = new DeviceStrapiRepository();
+		const deviceDataRepository = new DeviceDataStrapiRepository();
 
-		const useCase = new DeleteRoom(repository);
+
+		const useCase = new DeleteRoom(roomRepository, deviceRepository, deviceDataRepository);
 
 		const controller = new DeleteRoomController(useCase);
 

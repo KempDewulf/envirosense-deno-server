@@ -1,4 +1,5 @@
 import {
+DeviceDataQueryDto,
 	DeviceDataRepository,
 	DeviceRepository,
 	RemoveDeviceFromRoomInput,
@@ -45,19 +46,11 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 					),
 			);
 
-			room.removeDevice(device.documentId);
-
-			await this._roomRepository.manageDevices(
-				room.documentId,
-				[input.deviceDocumentId],
-				DeviceOperation.REMOVE,
-			);
-
 			const deviceData = await new DeviceDataStrapiQueryRepository().all(
 				device.identifier,
 			);
 
-			const deletePromises = deviceData.map((data) => {
+			const deletePromises = deviceData.map((data: DeviceDataQueryDto) => {
 				const deviceDataEntity = DeviceData.create(
 					data.documentId,
 					data.device,
@@ -78,6 +71,14 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 			});
 
 			await Promise.all(deletePromises);
+
+			room.removeDevice(device.documentId);
+
+			await this._roomRepository.manageDevices(
+				room.documentId,
+				[input.deviceDocumentId],
+				DeviceOperation.REMOVE,
+			);
 
 			device.deviceData = [];
 		} catch (_error) {

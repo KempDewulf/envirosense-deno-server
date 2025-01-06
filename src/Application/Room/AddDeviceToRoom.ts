@@ -1,11 +1,14 @@
 import {
 	AddDeviceToRoomInput,
+	DeviceDataQueryDto,
 	DeviceDataRepository,
 	DeviceRepository,
 	RoomRepository,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Room/RoomStrapiRepository.ts";
+import { DeviceData } from "EnviroSense/Domain/mod.ts";
+import { DeviceDataStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
 export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
 	private readonly _roomRepository: RoomRepository;
@@ -24,39 +27,44 @@ export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
 
 	async execute(input: AddDeviceToRoomInput): Promise<void> {
 		try {
-			const roomOptional = await this._roomRepository.find(
-				input.roomDocumentId,
-			);
-
-			const room = roomOptional.orElseThrow(
-				() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
-			);
+			const room = (await this._roomRepository.find(input.roomDocumentId))
+				.orElseThrow(() => new Error(`Room with ID ${input.roomDocumentId} not found.`));
 
 			const deviceDocumentIdsToConnect: string[] = [];
 
 			for (const deviceDocumentId of input.devices) {
-				const deviceOptional = await this._deviceRepository.find(
-					deviceDocumentId,
-				);
+				const deviceOptional = await this._deviceRepository.find(deviceDocumentId);
 
 				const device = deviceOptional.orElseThrow(
-					() =>
-						new Error(
-							`Device with documentId ${deviceDocumentId} not found.`,
-						),
+					() => new Error(`Device with documentId ${deviceDocumentId} not found.`),
 				);
 
 				room.addDevice(device);
-
 				deviceDocumentIdsToConnect.push(device.documentId);
 
-				for (const data of device.deviceData) {
-					try {
-						await this._deviceDataRepository.deleteEntity(data);
-					} catch (_error) {
-						throw new Error(`Failed to remove device data`);
-					}
-				}
+				const deviceData = await new DeviceDataStrapiQueryRepository().all(device.identifier);
+
+				const deletePromises = deviceData.map((data: DeviceDataQueryDto) => {
+					const deviceDataEntity = DeviceData.create(
+						data.documentId,
+						data.device,
+						data.timestamp,
+						data.airData,
+					);
+
+					return this._deviceDataRepository
+						.deleteEntity(deviceDataEntity)
+						.catch((error) => {
+							console.error(
+								`Failed to delete data ${data.documentId}: ${error.message}`,
+							);
+							throw new Error(
+								`Failed to delete device data ${data.documentId}`,
+							);
+						});
+				});
+
+				await Promise.all(deletePromises);
 			}
 
 			await this._roomRepository.manageDevices(
@@ -64,8 +72,9 @@ export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
 				deviceDocumentIdsToConnect,
 				DeviceOperation.ADD,
 			);
-		} catch (_error) {
-			throw new Error(`Failed to add device to room`);
+		} catch (error) {
+			const errorMessage = error instanceof Error ? error.message : "An unknown error occurred while adding devices to room";
+			throw new Error(`Failed to add devices to room: ${errorMessage}`);
 		}
 	}
 }
