@@ -37,3 +37,49 @@ export class ConfigValue implements DeviceConfigValue {
 		}
 	}
 }
+
+export class DeviceConfig {
+	private _values: Map<DeviceConfigType, ConfigValue>;
+
+	private constructor() {
+		this._values = new Map();
+	}
+
+	static create(): DeviceConfig {
+		const config = new DeviceConfig();
+		// Set defaults
+		config.setBrightness(80);
+		config.setUiMode(DeviceUiModeType.NORMAL);
+		return config;
+	}
+
+	static load(values: ConfigValue[]): DeviceConfig {
+		const config = new DeviceConfig();
+		values.forEach((value) => {
+			config._values.set(value.type, value);
+		});
+		return config;
+	}
+
+	setBrightness(value: number): void {
+		this._values.set(
+			DeviceConfigType.BRIGHTNESS,
+			new ConfigValue(DeviceConfigType.BRIGHTNESS, value),
+		);
+	}
+
+	setUiMode(value: DeviceUiModeType): void {
+		this._values.set(
+			DeviceConfigType.UI_MODE,
+			new ConfigValue(DeviceConfigType.UI_MODE, value),
+		);
+	}
+
+	getValue(type: DeviceConfigType): ConfigValue | undefined {
+		return this._values.get(type);
+	}
+
+	getValues(): ConfigValue[] {
+		return Array.from(this._values.values());
+	}
+}

@@ -1,14 +1,12 @@
 import {
-	Brightness,
-	DeviceBrightness,
+	DeviceConfig,
 	DeviceData,
 	DeviceLimit,
 	DeviceLimitType,
-	DeviceUiMode,
 	DeviceUiModeType,
 	DomainException,
 	Room,
-	UiMode,
+	DeviceConfigType
 } from "EnviroSense/Domain/mod.ts";
 
 export interface DeviceState {
@@ -17,8 +15,7 @@ export interface DeviceState {
 	room?: Room | null;
 	deviceData?: DeviceData[];
 	limits: Map<DeviceLimitType, DeviceLimit>;
-	uiMode?: DeviceUiMode;
-	brightness?: DeviceBrightness;
+	config: DeviceConfig;
 }
 
 export class Device {
@@ -27,8 +24,7 @@ export class Device {
 	private _room: Room | null;
 	private _deviceData: DeviceData[];
 	private _limits: Map<DeviceLimitType, DeviceLimit>;
-	private _uiMode: DeviceUiMode;
-	private _brightness: DeviceBrightness;
+	private _config: DeviceConfig;
 
 	private constructor(
 		documentId: string,
@@ -40,8 +36,7 @@ export class Device {
 		this._room = room;
 		this._deviceData = [];
 		this._limits = new Map<DeviceLimitType, DeviceLimit>();
-		this._uiMode = new UiMode(DeviceUiModeType.NORMAL);
-		this._brightness = new Brightness(80);
+		this._config = DeviceConfig.create();
 	}
 
 	static create(documentId: string, identifier: string, room: Room): Device {
@@ -60,8 +55,7 @@ export class Device {
 
 		device._deviceData = state.deviceData ?? [];
 		device._limits = state.limits ?? new Map<DeviceLimitType, DeviceLimit>();
-		device._uiMode = state.uiMode ?? new UiMode(DeviceUiModeType.NORMAL);
-		device._brightness = state.brightness ?? new Brightness(80);
+		device._config = state.config ?? DeviceConfig.create();
 
 		device.validateState();
 
@@ -110,22 +104,20 @@ export class Device {
 		return this._limits.get(type);
 	}
 
-	public updateUiMode(uiMode: DeviceUiMode): void {
-		uiMode.validate();
-		this._uiMode = uiMode;
+	public updateUiMode(uiMode: DeviceUiModeType): void {
+		this._config.setUiMode(uiMode);
 	}
 
-	public getUiMode(): DeviceUiMode {
-		return this._uiMode;
+	public getUiMode(): DeviceUiModeType {
+		return this._config.getValue(DeviceConfigType.UI_MODE)?.value as DeviceUiModeType;
 	}
 
-	public updateBrightness(brightness: DeviceBrightness): void {
-		this.ensureBrightnessIsInRange(brightness.value);
-		this._brightness = brightness;
+	public updateBrightness(brightness: number): void {
+		this._config.setBrightness(brightness);
 	}
 
-	public getBrightness(): DeviceBrightness {
-		return this._brightness;
+	public getBrightness(): number {
+		return this._config.getValue(DeviceConfigType.BRIGHTNESS)?.value as number;
 	}
 
 	private ensureIdentifierIsNotEmpty(): void {
@@ -137,12 +129,6 @@ export class Device {
 	private ensureRoomIsNotEmpty(): void {
 		if (!this._room) {
 			throw new DomainException("Room is required.");
-		}
-	}
-
-	private ensureBrightnessIsInRange(brightness: number): void {
-		if (brightness < 20 || brightness > 100) {
-			throw new DomainException("Brightness must be between 20 and 100.");
 		}
 	}
 

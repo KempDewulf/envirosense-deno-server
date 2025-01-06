@@ -12,7 +12,7 @@ Brightness,
     Room,
     RoomType,
 	TemperatureLimit,
-	UiMode,
+	DeviceConfig,
 } from "EnviroSense/Domain/mod.ts";
 
 function createTestDevice(id: string = "1") {
@@ -530,13 +530,12 @@ Deno.test("Device - getLimit returns undefined for non-existent limit type", () 
 Deno.test("Device - updateUiMode sets new UI mode successfully", () => {
     // Arrange
     const device = createTestDevice("29");
-    const newUiMode = new UiMode(DeviceUiModeType.PPM);
 
     // Act
-    device.updateUiMode(newUiMode);
+    device.updateUiMode(DeviceUiModeType.PPM);
 
     // Assert
-    assertEquals(device.getUiMode().type, DeviceUiModeType.PPM);
+    assertEquals(device.getUiMode(), DeviceUiModeType.PPM);
 });
 
 Deno.test("Device - default UI mode is NORMAL", () => {
@@ -544,27 +543,46 @@ Deno.test("Device - default UI mode is NORMAL", () => {
     const device = createTestDevice("30");
 
     // Assert
-    assertEquals(device.getUiMode().type, DeviceUiModeType.NORMAL);
+    assertEquals(device.getUiMode(), DeviceUiModeType.NORMAL);
 });
 
 Deno.test("Device - updateBrightness sets new brightness successfully", () => {
     // Arrange
     const device = createTestDevice("31");
-    const newBrightness = new Brightness(85);
 
     // Act
-    device.updateBrightness(newBrightness);
+    device.updateBrightness(50);
 
     // Assert
-    assertEquals(device.getBrightness().value, 85);
+    assertEquals(device.getBrightness(), 50);
 });
 
 Deno.test("Device - default brightness is 80", () => {
     // Arrange & Act
-    const device = createTestDevice("31");
+    const device = createTestDevice("32");
 
     // Assert
-    assertEquals(device.getBrightness().value, 80);
+    assertEquals(device.getBrightness(), 80);
+});
+
+Deno.test("Device - throws on invalid brightness", () => {
+    // Arrange
+    const device = createTestDevice("33");
+
+    // Assert
+    assertThrows(() => {
+        device.updateBrightness(10);
+    }, DomainException, "Brightness must be between 20 and 100");
+});
+
+Deno.test("Device - throws on invalid UI mode", () => {
+    // Arrange
+    const device = createTestDevice("34");
+
+    // Assert
+    assertThrows(() => {
+        device.updateUiMode("INVALID" as DeviceUiModeType);
+    }, DomainException, "Invalid UI mode: INVALID");
 });
 
 Deno.test("Device - updateBrightness throws error with invalid brightness value", () => {
@@ -597,14 +615,17 @@ Deno.test("Device - load method preserves config and limits state", () => {
     const limits = new Map<DeviceLimitType, DeviceLimit>();
     limits.set(DeviceLimitType.TEMPERATURE, new TemperatureLimit(DeviceLimitType.TEMPERATURE, 25));
 
+    const config = DeviceConfig.create();
+    config.setUiMode(DeviceUiModeType.TEMPERATURE);
+    config.setBrightness(90);
+
     const state: DeviceState = {
         documentId: "34",
         identifier: "Device034",
         room: room,
         deviceData: [],
         limits: limits,
-        uiMode: new UiMode(DeviceUiModeType.TEMPERATURE),
-        brightness: new Brightness(90)
+        config: config
     };
 
     // Act
@@ -612,8 +633,8 @@ Deno.test("Device - load method preserves config and limits state", () => {
 
     // Assert
     assertEquals(device.getLimit(DeviceLimitType.TEMPERATURE)?.value, 25);
-    assertEquals(device.getUiMode().type, DeviceUiModeType.TEMPERATURE);
-    assertEquals(device.getBrightness().value, 90);
+    assertEquals(device.getUiMode(), DeviceUiModeType.TEMPERATURE);
+    assertEquals(device.getBrightness(), 90);
 });
 
 Deno.test("Device - default config values are set correctly", () => {
@@ -621,8 +642,8 @@ Deno.test("Device - default config values are set correctly", () => {
     const device = createTestDevice("31");
 
     // Assert
-    assertEquals(device.getUiMode().type, DeviceUiModeType.NORMAL);
-    assertEquals(device.getBrightness().value, 80);
+    assertEquals(device.getUiMode(), DeviceUiModeType.NORMAL);
+    assertEquals(device.getBrightness(), 80);
 });
 
 Deno.test("Device - throws on invalid UI mode", () => {
@@ -632,7 +653,7 @@ Deno.test("Device - throws on invalid UI mode", () => {
     // Act & Assert
     assertThrows(
         () => {
-            device.updateUiMode(new UiMode("invalid" as DeviceUiModeType));
+            device.updateUiMode("invalid" as DeviceUiModeType);
         },
         DomainException,
         "Invalid UI mode: invalid"
@@ -644,10 +665,10 @@ Deno.test("Device - can update brightness to valid value", () => {
     const device = createTestDevice("39");
 
     // Act
-    device.updateBrightness(new Brightness(50));
+    device.updateBrightness(50);
 
     // Assert
-    assertEquals(device.getBrightness().value, 50);
+    assertEquals(device.getBrightness(), 50);
 });
 
 Deno.test("Device - throws on brightness below minimum", () => {
