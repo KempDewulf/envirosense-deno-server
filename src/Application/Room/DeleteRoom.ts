@@ -51,9 +51,6 @@ export class DeleteRoom implements UseCase<DeleteRoomInput> {
 			});
 
 			await Promise.all(deletePromises);
-
-			// Delete the device itself
-			await this._deviceRepository.deleteEntity(device);
 		}
 
 		await this._roomRepository.deleteEntity(room);
