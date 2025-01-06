@@ -3,6 +3,7 @@ export { Exception } from "EnviroSense/Domain/Shared/Exceptions/Exception.ts";
 export { DomainException } from "EnviroSense/Domain/Shared/Exceptions/DomainException.ts";
 export { NotFoundException } from "EnviroSense/Domain/Shared/Exceptions/NotFoundException.ts";
 export { IllegalStateException } from "EnviroSense/Domain/Shared/Exceptions/IllegalStateException.ts";
+export { NoDevicesRespondedError } from "EnviroSense/Domain/Shared/Exceptions/NoDevicesRespondedError.ts";
 
 export { Building } from "EnviroSense/Domain/Entities/Building.ts";
 export type { BuildingState } from "EnviroSense/Domain/Entities/Building.ts";
