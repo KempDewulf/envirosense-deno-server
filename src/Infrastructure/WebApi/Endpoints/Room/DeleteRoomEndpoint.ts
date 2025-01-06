@@ -21,7 +21,6 @@ export class DeleteRoomEndpoint implements Endpoint {
 		const roomRepository = new RoomStrapiRepository();
 		const deviceDataRepository = new DeviceDataStrapiRepository();
 
-
 		const useCase = new DeleteRoom(roomRepository, deviceDataRepository);
 
 		const controller = new DeleteRoomController(useCase);
