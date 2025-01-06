@@ -33,7 +33,13 @@ export class DeviceLimitMessageHandler implements MessageHandler {
 	}
 
 	canHandle(topic: string): boolean {
-		return topic.match(/devices\/.*\/limits\/.*/) !== null;
+		// Ignore request/response messages
+		if (topic.includes("/limits/request") || topic.includes("/limits/response")) {
+			return false;
+		}
+		
+		// Only handle direct limit updates
+		return topic.match(/devices\/.*\/limits\/[^\/]+$/) !== null;
 	}
 
 	private getDeviceId(topic: string): string {

@@ -5,12 +5,14 @@ import {
 	MessageHandler,
 	MessagingUseCaseRegistry,
 } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+import { DeviceLimitRequestResponseHandler } from "EnviroSense/Infrastructure/Messaging/Handlers/DeviceLimitRequestResponseHandler.ts";
 
 export class MessageHandlerFactory {
 	private handlers: MessageHandler[] = [];
 
 	constructor(useCaseRegistry: MessagingUseCaseRegistry) {
 		this.handlers = [
+			new DeviceLimitRequestResponseHandler(),
 			new DeviceDataMessageHandler(useCaseRegistry.processDeviceDataUseCase!),
 			new DeviceLimitMessageHandler(useCaseRegistry.updateDeviceLimitUseCase!),
 			new DeviceConfigMessageHandler(useCaseRegistry.updateDeviceConfigUseCase!),
