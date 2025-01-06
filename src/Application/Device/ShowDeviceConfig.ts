@@ -30,7 +30,7 @@ export class ShowDeviceConfig implements UseCase<ShowDeviceConfigInput> {
 		const { deviceConfig, failed } = await this.collectDeviceConfig(device);
 
 		if (deviceConfig.size === 0) {
-			throw new Error("No devices responded with config");
+			throw new Error("Device did not respond with config");
 		}
 
 		const output = this.mapDtoToOutput(device, deviceConfig.get(device.identifier)!, failed);
