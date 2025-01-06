@@ -37,7 +37,7 @@ export class DeviceLimitMessageHandler implements MessageHandler {
 		if (topic.includes("/limits/request") || topic.includes("/limits/response")) {
 			return false;
 		}
-		
+
 		// Only handle direct limit updates
 		return topic.match(/devices\/.*\/limits\/[^\/]+$/) !== null;
 	}

@@ -25,19 +25,19 @@ export class ShowRoomLimitsEndpoint implements Endpoint {
 		const messaging = MessagingBuilder.getInstance();
 
 		const deviceRepository = new DeviceStrapiRepository();
-        const updateDeviceLimitPresenter = new UpdateDeviceLimitPresenter(outputUpdateDeviceLimit);
-        const updateDeviceLimitUseCase = new UpdateDeviceLimit(
-            updateDeviceLimitPresenter,
-            deviceRepository,
-            messaging
-        );
+		const updateDeviceLimitPresenter = new UpdateDeviceLimitPresenter(outputUpdateDeviceLimit);
+		const updateDeviceLimitUseCase = new UpdateDeviceLimit(
+			updateDeviceLimitPresenter,
+			deviceRepository,
+			messaging,
+		);
 
 		const useCase = new ShowRoomLimits(
-            presenter,
-            repository,
-            messaging,
-            updateDeviceLimitUseCase
-        );
+			presenter,
+			repository,
+			messaging,
+			updateDeviceLimitUseCase,
+		);
 
 		const controller = new ShowRoomLimitsController(useCase);
 		const request = this.buildRequest(context);

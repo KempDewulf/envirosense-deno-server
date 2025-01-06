@@ -1,3 +1,3 @@
 export interface ShowRoomLimitsInput {
-    roomDocumentId: string;
-  }
+	roomDocumentId: string;
+}

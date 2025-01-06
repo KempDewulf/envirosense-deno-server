@@ -4,7 +4,7 @@ const FIELDS_TO_REMOVE = ["publishedAt", "createdAt", "updatedAt"];
 const EXCLUDED_PATHS = [
 	"/openapi.yml",
 	"/asyncapi.yml",
-  ];
+];
 
 const cleanObject = (obj: any): any => {
 	if (Array.isArray(obj)) {
@@ -26,12 +26,12 @@ const cleanObject = (obj: any): any => {
 };
 
 export const cleanResponseMiddleware: Middleware = async (context, next) => {
-    await next();
+	await next();
 
-    const path = context.request.url.pathname;
-    const shouldSkipCleaning = EXCLUDED_PATHS.some(excluded => path.startsWith(excluded));
+	const path = context.request.url.pathname;
+	const shouldSkipCleaning = EXCLUDED_PATHS.some((excluded) => path.startsWith(excluded));
 
-    if (!shouldSkipCleaning && context.response.body && typeof context.response.body === "object") {
-        context.response.body = cleanObject(context.response.body);
-    }
+	if (!shouldSkipCleaning && context.response.body && typeof context.response.body === "object") {
+		context.response.body = cleanObject(context.response.body);
+	}
 };
