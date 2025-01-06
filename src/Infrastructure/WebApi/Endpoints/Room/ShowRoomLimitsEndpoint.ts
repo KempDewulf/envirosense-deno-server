@@ -4,11 +4,13 @@ import {
 	ShowRoomLimitsPresentedData,
 	ShowRoomLimitsPresenter,
 	ShowRoomLimitsRequest,
+	UpdateDeviceLimitPresentedData,
+	UpdateDeviceLimitPresenter,
 } from "EnviroSense/Infrastructure/WebApi/mod.ts";
 import { RouterContext } from "@oak/oak";
 import { RequestResponse } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { ShowRoomLimits } from "EnviroSense/Application/mod.ts";
-import { RoomStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { ShowRoomLimits, UpdateDeviceLimit } from "EnviroSense/Application/mod.ts";
+import { DeviceStrapiRepository, RoomStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { MessagingBuilder } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
 export class ShowRoomLimitsEndpoint implements Endpoint {
@@ -16,12 +18,26 @@ export class ShowRoomLimitsEndpoint implements Endpoint {
 		const outputDevice = new RequestResponse<
 			ShowRoomLimitsPresentedData
 		>();
+		const outputUpdateDeviceLimit = new RequestResponse<UpdateDeviceLimitPresentedData>();
 		const presenter = new ShowRoomLimitsPresenter(outputDevice);
 
 		const repository = new RoomStrapiQueryRepository();
 		const messaging = MessagingBuilder.getInstance();
 
-		const useCase = new ShowRoomLimits(presenter, repository, messaging);
+		const deviceRepository = new DeviceStrapiRepository();
+        const updateDeviceLimitPresenter = new UpdateDeviceLimitPresenter(outputUpdateDeviceLimit);
+        const updateDeviceLimitUseCase = new UpdateDeviceLimit(
+            updateDeviceLimitPresenter,
+            deviceRepository,
+            messaging
+        );
+
+		const useCase = new ShowRoomLimits(
+            presenter,
+            repository,
+            messaging,
+            updateDeviceLimitUseCase
+        );
 
 		const controller = new ShowRoomLimitsController(useCase);
 		const request = this.buildRequest(context);
