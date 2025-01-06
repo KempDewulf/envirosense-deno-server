@@ -28,6 +28,12 @@ export type { ShowRoomAirQualityRequest } from "./Controllers/Room/ShowRoomAirQu
 export { ShowRoomAirQualityPresenter } from "./Presenters/Room/ShowRoomAirQualityPresenter.ts";
 export type { ShowRoomAirQualityPresentedData } from "./Presenters/Room/ShowRoomAirQualityPresenter.ts";
 
+export { ShowRoomLimitsEndpoint } from "./Endpoints/Room/ShowRoomLimitsEndpoint.ts";
+export { ShowRoomLimitsController } from "./Controllers/Room/ShowRoomLimitsController.ts";
+export type { ShowRoomLimitsRequest } from "./Controllers/Room/ShowRoomLimitsController.ts";
+export { ShowRoomLimitsPresenter } from "./Presenters/Room/ShowRoomLimitsPresenter.ts";
+export type { ShowRoomLimitsPresentedData } from "./Presenters/Room/ShowRoomLimitsPresenter.ts";
+
 export { CreateRoomEndpoint } from "./Endpoints/Room/CreateRoomEndpoint.ts";
 export { CreateRoomController } from "./Controllers/Room/CreateRoomController.ts";
 export type { CreateRoomRequest } from "./Controllers/Room/CreateRoomController.ts";
@@ -109,12 +115,6 @@ export { ShowDeviceByDocumentIdController } from "EnviroSense/Infrastructure/Web
 export type { ShowDeviceByDocumentIdRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/ShowDeviceByDocumentIdController.ts";
 export { ShowDeviceByDocumentIdPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/ShowDeviceByDocumentIdPresenter.ts";
 export type { ShowDeviceByDocumentIdPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/ShowDeviceByDocumentIdPresenter.ts";
-
-export { ShowDeviceLimitsEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/Device/ShowDeviceLimitsEndpoint.ts";
-export { ShowDeviceLimitsController } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/ShowDeviceLimitsController.ts";
-export type { ShowDeviceLimitsRequest } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/ShowDeviceLimitsController.ts";
-export { ShowDeviceLimitsPresenter } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/ShowDeviceLimitsPresenter.ts";
-export type { ShowDeviceLimitsPresentedData } from "EnviroSense/Infrastructure/WebApi/Presenters/Device/ShowDeviceLimitsPresenter.ts";
 
 export { CreateDeviceEndpoint } from "EnviroSense/Infrastructure/WebApi/Endpoints/Device/CreateDeviceEndpoint.ts";
 export { CreateDeviceController } from "EnviroSense/Infrastructure/WebApi/Controllers/Device/CreateDeviceController.ts";

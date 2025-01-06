@@ -20,7 +20,7 @@ import {
 	ShowBuildingsEndpoint,
 	ShowDeviceByDocumentIdEndpoint,
 	ShowDeviceDataByDocumentIdEndpoint,
-	ShowDeviceLimitsEndpoint,
+	ShowRoomLimitsEndpoint,
 	ShowDeviceDataEndpoint,
 	ShowDevicesEndpoint,
 	ShowOpenApiEndpoint,
@@ -82,6 +82,7 @@ export function endpoints(): Router {
 		"/rooms/:roomDocumentId/air-quality",
 		use(new ShowRoomAirQualityEndpoint()),
 	);
+	router.get("/rooms/:roomDocumentId/limits", use(new ShowRoomLimitsEndpoint()));
 	router.post("/rooms", use(new CreateRoomEndpoint()));
 	router.post(
 		"/rooms/:roomDocumentId/devices",
@@ -114,7 +115,6 @@ export function endpoints(): Router {
 		"/devices/:deviceDocumentId",
 		use(new ShowDeviceByDocumentIdEndpoint()),
 	);
-	router.get("/devices/:deviceDocumentId/limits", use(new ShowDeviceLimitsEndpoint()));
 	router.post("/devices", use(new CreateDeviceEndpoint()));
 	router.post(
 		"/devices/:deviceDocumentId/device-data",
