@@ -54,7 +54,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
         this._outputPort.present(output);
     }
 
-    private mapDtoToOutput(dto: RoomQueryDto, limits: RoomLimits): ShowRoomLimitsOutput {
+    private mapDtoToOutput(dto: RoomQueryDto, limits: Record<string, string | number> ): ShowRoomLimitsOutput {
         return {
             documentId: dto.documentId,
             limits
