@@ -24,7 +24,7 @@ export class ConfigValue implements DeviceConfigValue {
 		switch (this.type) {
 			case DeviceConfigType.BRIGHTNESS:
 				if (typeof this.value !== "number" || this.value < 20 || this.value > 100) {
-					throw new DomainException("Brightness must be between 20 and 100");
+					throw new DomainException("Brightness must be between 20 and 100.");
 				}
 				break;
 			case DeviceConfigType.UI_MODE:

@@ -573,7 +573,7 @@ Deno.test("Device - throws on invalid brightness", () => {
     // Assert
     assertThrows(() => {
         device.updateBrightness(10);
-    }, DomainException, "Brightness must be between 20 and 100");
+    }, DomainException, "Brightness must be between 20 and 100.");
 });
 
 Deno.test("Device - throws on invalid UI mode", () => {
@@ -682,7 +682,7 @@ Deno.test("Device - throws on brightness below minimum", () => {
             device.updateBrightness(10);
         },
         DomainException,
-        "Brightness must be between 20 and 100"
+        "Brightness must be between 20 and 100."
     );
 });
 
