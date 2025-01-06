@@ -28,71 +28,104 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 	}
 
 	async execute(input: ShowRoomLimitsInput): Promise<void> {
-		const roomOptional = await this._roomRepository.find(input.roomDocumentId);
-		const roomDto = roomOptional.orElseThrow(
-			() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
+		const room = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() =>
+			new Error(`Room with ID ${input.roomDocumentId} not found.`)
 		);
 
-		if (!roomDto.devices.length) {
-			throw new Error("Room has no devices");
+		this.validateRoomHasDevices(room);
+
+		const { deviceLimits, failedDevices } = await this.collectDeviceLimits(room);
+
+		if (deviceLimits.size === 0) {
+			throw new Error("No devices responded with limits");
 		}
 
-		// Collect all device limits
+		const referenceDevice = this.getReferenceLimits(deviceLimits);
+		await this.syncDevicesWithReference(room, deviceLimits, referenceDevice, failedDevices);
+
+		const output = this.mapDtoToOutput(room, referenceDevice.limits, failedDevices);
+		this._outputPort.present(output);
+	}
+
+	private validateRoomHasDevices(room: RoomQueryDto): void {
+		if (!room.devices.length) {
+			throw new Error("Room has no devices");
+		}
+	}
+
+	private async collectDeviceLimits(room: RoomQueryDto): Promise<{
+		deviceLimits: Map<string, Record<string, number>>;
+		failedDevices: string[];
+	}> {
 		const deviceLimits = new Map<string, Record<string, number>>();
 		const failedDevices: string[] = [];
 
-		for (const device of roomDto.devices) {
+		for (const device of room.devices) {
 			try {
-				const requestTopic = `devices/${device.identifier}/limits/request`;
-				const responseTopic = `devices/${device.identifier}/limits/response`;
-
-				await this._messaging.publish(requestTopic, "{}");
-				const response = await this._messaging.waitForMessage(responseTopic, 5000);
-
-				if (!response) {
-					console.log(`⚠️ Device ${device.identifier} did not respond in time`);
-					failedDevices.push(device.identifier);
-					continue;
-				}
-
-				deviceLimits.set(device.identifier, JSON.parse(response));
+				const limits = await this.requestDeviceLimits(device.identifier);
+				deviceLimits.set(device.identifier, limits);
 			} catch (error) {
 				console.log(`❌ Error getting limits for device ${device.identifier}:`, error);
 				failedDevices.push(device.identifier);
 			}
 		}
 
-		if (deviceLimits.size === 0) {
-			throw new Error("No devices responded with limits");
+		return { deviceLimits, failedDevices };
+	}
+
+	private async requestDeviceLimits(deviceId: string): Promise<Record<string, number>> {
+		const requestTopic = `devices/${deviceId}/limits/request`;
+		const responseTopic = `devices/${deviceId}/limits/response`;
+
+		await this._messaging.publish(requestTopic, "{}");
+		const response = await this._messaging.waitForMessage(responseTopic, 5000);
+
+		if (!response) {
+			throw new Error(`Device ${deviceId} did not respond in time`);
 		}
 
-		// Get first device limits as reference
-		// Get first successful device as reference
-		const referenceDeviceId = Array.from(deviceLimits.keys())[0];
-		if (!referenceDeviceId) {
+		return JSON.parse(response);
+	}
+
+	private getReferenceLimits(deviceLimits: Map<string, Record<string, number>>): {
+		id: string;
+		limits: Record<string, number>;
+	} {
+		const referenceId = Array.from(deviceLimits.keys())[0];
+		if (!referenceId) {
 			throw new Error("No reference device found");
 		}
 
-		const referenceLimits = deviceLimits.get(referenceDeviceId)!;
+		return {
+			id: referenceId,
+			limits: deviceLimits.get(referenceId)!,
+		};
+	}
 
-		console.log(`ℹ️ Using reference limits from device ${referenceDeviceId}:`, referenceLimits);
+	private async syncDevicesWithReference(
+		room: RoomQueryDto,
+		deviceLimits: Map<string, Record<string, number>>,
+		reference: { id: string; limits: Record<string, number> },
+		failedDevices: string[],
+	): Promise<void> {
+		console.log(`ℹ️ Using reference limits from device ${reference.id}:`, reference.limits);
+
 		if (failedDevices.length > 0) {
 			console.log(`⚠️ Skipping sync for non-responding devices:`, failedDevices);
 		}
 
-		// Check and sync other responding devices
-		for (const device of roomDto.devices) {
-			if (failedDevices.includes(device.identifier)) continue;
-			if (device.identifier === referenceDeviceId) continue;
+		for (const device of room.devices) {
+			if (this.shouldSkipDevice(device.identifier, reference.id, failedDevices)) continue;
 
 			const currentLimits = deviceLimits.get(device.identifier)!;
-			if (!this.areLimitsEqual(referenceLimits, currentLimits)) {
-				await this.syncDeviceLimits(device.identifier, device.documentId, referenceLimits);
+			if (!this.areLimitsEqual(reference.limits, currentLimits)) {
+				await this.syncDeviceLimits(device.identifier, device.documentId, reference.limits);
 			}
 		}
+	}
 
-		const output = this.mapDtoToOutput(roomDto, referenceLimits, failedDevices);
-		this._outputPort.present(output);
+	private shouldSkipDevice(deviceId: string, referenceId: string, failedDevices: string[]): boolean {
+		return failedDevices.includes(deviceId) || deviceId === referenceId;
 	}
 
 	private areLimitsEqual(limits1: Record<string, number>, limits2: Record<string, number>): boolean {
@@ -111,24 +144,31 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 		return areEqual;
 	}
 
-	private async syncDeviceLimits(deviceIdentifier: string, deviceDocumentId: string, limits: Record<string, number>): Promise<void> {
-		console.log(`🔄 Syncing device ${deviceIdentifier} with limits:`, limits);
+	private async syncDeviceLimits(
+		deviceId: string,
+		documentId: string,
+		limits: Record<string, number>,
+	): Promise<void> {
+		console.log(`🔄 Syncing device ${deviceId} with limits:`, limits);
 		for (const [limitType, value] of Object.entries(limits)) {
-			console.log(`⚡ Setting ${limitType} to ${value}`);
 			await this._updateDeviceLimitUseCase.execute({
-				deviceDocumentId: deviceDocumentId,
+				deviceDocumentId: documentId,
 				limitType,
 				value,
 			});
 		}
-		console.log(`✅ Device ${deviceIdentifier} sync complete`);
+		console.log(`✅ Device ${deviceId} sync complete`);
 	}
 
-	private mapDtoToOutput(dto: RoomQueryDto, limits: Record<string, string | number>, failedDevices: string[]): ShowRoomLimitsOutput {
+	private mapDtoToOutput(
+		room: RoomQueryDto,
+		limits: Record<string, number>,
+		failedDevices: string[],
+	): ShowRoomLimitsOutput {
 		return {
-			documentId: dto.documentId,
+			documentId: room.documentId,
 			limits,
-            failedDevices
+			failedDevices,
 		};
 	}
 }
