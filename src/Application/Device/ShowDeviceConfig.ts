@@ -9,6 +9,7 @@ import {
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 import { NotFoundException } from "EnviroSense/Domain/mod.ts";
 import { NoDevicesRespondedError } from "EnviroSense/Domain/Shared/Exceptions/NoDevicesRespondedError.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
 
 export class ShowDeviceConfig implements UseCase<ShowDeviceConfigInput> {
 	private readonly _outputPort: OutputPort<ShowDeviceConfigOutput>;
@@ -26,8 +27,9 @@ export class ShowDeviceConfig implements UseCase<ShowDeviceConfigInput> {
 	}
 
 	async execute(input: ShowDeviceConfigInput): Promise<void> {
-		const device = (await this._deviceRepository.find(input.deviceDocumentId))
-			.orElseThrow(() => new NotFoundException(`Device with ID ${input.deviceDocumentId} not found.`));
+		const device = (await this._deviceRepository.find(input.deviceDocumentId)).orElseThrow(() =>
+			new DeviceNotFoundError(`Device with ID ${input.deviceDocumentId} not found.`)
+		);
 
 		const { deviceConfig, failed } = await this.collectDeviceConfig(device);
 
