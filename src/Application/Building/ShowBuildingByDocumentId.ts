@@ -6,6 +6,7 @@ import {
 	ShowBuildingByDocumentIdOutput,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
+import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/BuildingNotFoundError.ts";
 
 export class ShowBuildingByDocumentId implements UseCase<ShowBuildingByDocumentIdInput> {
 	private readonly _outputPort: OutputPort<ShowBuildingByDocumentIdOutput>;
@@ -20,18 +21,11 @@ export class ShowBuildingByDocumentId implements UseCase<ShowBuildingByDocumentI
 	}
 
 	public async execute(input: ShowBuildingByDocumentIdInput): Promise<void> {
-		const buildingOptional = await this._buildingRepository.find(
+		const buildingQueryDto = (await this._buildingRepository.find(
 			input.buildingDocumentId,
-		);
+		)).orElseThrow(() => new BuildingNotFoundError(input.buildingDocumentId));
 
-		const buildingDto = buildingOptional.orElseThrow(
-			() =>
-				new Error(
-					`Building with ID ${input.buildingDocumentId} not found.`,
-				),
-		);
-
-		const building = this.mapDtoToOutput(buildingDto);
+		const building = this.mapDtoToOutput(buildingQueryDto);
 		this._outputPort.present(building);
 	}
 
