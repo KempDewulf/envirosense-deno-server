@@ -8,6 +8,8 @@ import {
 	RoomTypeRepository,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
+import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/BuildingNotFoundError.ts";
+import { RoomTypeNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/RoomTypeNotFoundError.ts";
 
 export class CreateRoom implements UseCase<CreateRoomInput> {
 	private readonly _outputPort: OutputPort<CreateRoomOutput>;
@@ -28,24 +30,12 @@ export class CreateRoom implements UseCase<CreateRoomInput> {
 	}
 
 	public async execute(input: CreateRoomInput): Promise<void> {
-		const buildingOptional = await this._buildingRepository.find(
-			input.buildingDocumentId,
-		);
-		const building = buildingOptional.orElseThrow(
-			() =>
-				new Error(
-					`Building with ID ${input.buildingDocumentId} not found.`,
-				),
+		const building = (await this._buildingRepository.find(input.buildingDocumentId)).orElseThrow(() =>
+			new BuildingNotFoundError(input.buildingDocumentId)
 		);
 
-		const roomOptional = await this._roomTypeRepository.find(
-			input.roomTypeDocumentId,
-		);
-		const roomType = roomOptional.orElseThrow(
-			() =>
-				new Error(
-					`Room Type with ID ${input.roomTypeDocumentId} not found.`,
-				),
+		const roomType = (await this._roomTypeRepository.find(input.roomTypeDocumentId)).orElseThrow(() =>
+			new RoomTypeNotFoundError(input.roomTypeDocumentId)
 		);
 
 		const room = Room.create("", input.name, building, roomType);
