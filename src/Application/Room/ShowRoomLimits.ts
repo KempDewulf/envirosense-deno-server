@@ -49,7 +49,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 
 	private validateRoomHasDevices(room: RoomQueryDto): void {
 		if (!room.devices.length) {
-			throw new NotFoundException("Room has no devices");
+			throw new NotFoundException("Room has no devices.");
 		}
 	}
 
@@ -93,7 +93,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 	} {
 		const referenceId = Array.from(deviceLimits.keys())[0];
 		if (!referenceId) {
-			throw new NotFoundException("No reference device found");
+			throw new NotFoundException("No reference device found.");
 		}
 
 		return {
