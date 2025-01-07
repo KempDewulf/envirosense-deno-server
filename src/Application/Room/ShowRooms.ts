@@ -14,8 +14,8 @@ export class ShowRooms implements UseCase<ShowRoomsInput> {
 
 	public async execute(input: ShowRoomsInput): Promise<void> {
 		const roomsQueryDto = await this._roomQueryRepository.all(input.name);
-		const rooms = this.mapDtoToOutput(roomsQueryDto);
-		this._outputPort.present(rooms);
+		const output = this.mapDtoToOutput(roomsQueryDto);
+		this._outputPort.present(output);
 	}
 
 	private mapDtoToOutput(dto: RoomQueryDto[]): ShowRoomsOutput[] {
