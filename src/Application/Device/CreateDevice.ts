@@ -7,6 +7,7 @@ import {
 	RoomRepository,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
+import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/RoomNotFoundError.ts";
 
 export class CreateDevice implements UseCase<CreateDeviceInput> {
 	private readonly _outputPort: OutputPort<CreateDeviceOutput>;
@@ -24,13 +25,7 @@ export class CreateDevice implements UseCase<CreateDeviceInput> {
 	}
 
 	public async execute(input: CreateDeviceInput): Promise<void> {
-		const roomOptional = await this._roomRepository.find(
-			input.roomDocumentId,
-		);
-
-		const room = roomOptional.orElseThrow(
-			() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
-		);
+		const room = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() => new RoomNotFoundError(input.roomDocumentId));
 
 		const device = Device.create("", input.identifier, room);
 
