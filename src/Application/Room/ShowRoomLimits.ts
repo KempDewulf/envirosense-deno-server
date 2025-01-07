@@ -8,8 +8,8 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { NotFoundException } from "EnviroSense/Domain/mod.ts";
-import { NoDevicesRespondedError } from "EnviroSense/Domain/Shared/Exceptions/NoDevicesRespondedError.ts";
+import { NoDevicesRespondedError, NotFoundException } from "EnviroSense/Domain/mod.ts";
+import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 	private readonly _outputPort: OutputPort<ShowRoomLimitsOutput>;
@@ -30,9 +30,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 	}
 
 	async execute(input: ShowRoomLimitsInput): Promise<void> {
-		const room = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() =>
-			new NotFoundException(`Room with ID ${input.roomDocumentId} not found.`)
-		);
+		const room = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() => new RoomNotFoundError(input.roomDocumentId));
 
 		this.validateRoomHasDevices(room);
 
