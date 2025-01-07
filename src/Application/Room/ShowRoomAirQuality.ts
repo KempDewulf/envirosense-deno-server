@@ -7,7 +7,8 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { AirData, Room } from "EnviroSense/Domain/mod.ts";
-import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
+import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/mod.ts";
+import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class ShowRoomAirQuality implements UseCase<ShowRoomAirQualityInput> {
 	private readonly _outputPort: OutputPort<ShowRoomAirQualityOutput>;
@@ -25,20 +26,16 @@ export class ShowRoomAirQuality implements UseCase<ShowRoomAirQualityInput> {
 	}
 
 	public async execute(input: ShowRoomAirQualityInput): Promise<void> {
-		const roomOptional = await this._roomRepository.find(
-			input.roomDocumentId,
+		const roomQueryDto = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() =>
+			new RoomNotFoundError(input.roomDocumentId)
 		);
 
-		const roomDto = roomOptional.orElseThrow(
-			() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
-		);
-
-		const roomEntity = Room.load(roomDto);
+		const roomEntity = Room.load(roomQueryDto);
 
 		const { airData: averagedAirQuality, enviroScore } = await this._airQualityCalculator.calculateMetrics(roomEntity);
 
 		const airQuality = this.mapDataToOutput(
-			roomDto,
+			roomQueryDto,
 			enviroScore,
 			averagedAirQuality,
 		);

@@ -20,10 +20,8 @@ export class ShowDevices implements UseCase<ShowDevicesInput> {
 	}
 
 	public async execute(input: ShowDevicesInput): Promise<void> {
-		const devicesDto = await this._deviceQueryRepository.all(
-			input.identifier,
-		);
-		const devices = this.mapDtoToOutput(devicesDto);
+		const devicesQueryDto = await this._deviceQueryRepository.all(input.identifier);
+		const devices = this.mapDtoToOutput(devicesQueryDto);
 		this._outputPort.present(devices);
 	}
 

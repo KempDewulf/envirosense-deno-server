@@ -15,19 +15,17 @@ export class DeleteRoom implements UseCase<DeleteRoomInput> {
 	}
 
 	public async execute(input: DeleteRoomInput): Promise<void> {
-		const room = (
-			await this._roomRepository.find(input.roomDocumentId)
-		).orElseThrow(
+		const room = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(
 			() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
 		);
 
 		// Delete device data for each device
 		for (const device of room.devices) {
-			const deviceData = await new DeviceDataStrapiQueryRepository().all(
+			const deviceDataQueryDto = await new DeviceDataStrapiQueryRepository().all(
 				device.identifier,
 			);
 
-			const deletePromises = deviceData.map((data) => {
+			const deletePromises = deviceDataQueryDto.map((data) => {
 				const deviceDataEntity = DeviceData.create(
 					data.documentId,
 					data.device,

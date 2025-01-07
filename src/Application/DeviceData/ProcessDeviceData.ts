@@ -5,11 +5,11 @@ import {
 	RoomRepository,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { DeviceData } from "EnviroSense/Domain/mod.ts";
-import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
-import { NotificationService } from "EnviroSense/Infrastructure/Services/NotificationService.ts";
-import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/FirebaseMessaging.ts";
+import { AirData, Device, DeviceData } from "EnviroSense/Domain/mod.ts";
 import { DeviceDataStrapiQueryRepository, DeviceStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { AirQualityCalculator, NotificationService } from "EnviroSense/Infrastructure/Services/mod.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
 export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 	private readonly _deviceRepository: DeviceRepository;
@@ -32,39 +32,37 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 	}
 
 	public async execute(input: ProcessDeviceDataInput): Promise<void> {
-		const optionalDevice = await this._deviceRepository.findByIdentifier(
-			input.deviceIdentifier,
+		const device = (await this._deviceRepository.findByIdentifier(input.deviceIdentifier)).orElseThrow(() =>
+			new DeviceNotFoundError(input.deviceIdentifier)
 		);
-		if (!optionalDevice.isPresent) {
-			console.error(
-				`Device with identifier ${input.deviceIdentifier} not found.`,
-			);
-			return;
-		}
 
-		const device = optionalDevice.value;
-		const date = new Date();
-
-		const deviceData = DeviceData.create(
-			"",
-			device,
-			new Date(
-				Date.UTC(
-					date.getUTCFullYear(),
-					date.getUTCMonth(),
-					date.getUTCDate(),
-					date.getUTCHours(),
-					date.getUTCMinutes(),
-					date.getUTCSeconds(),
-					date.getUTCMilliseconds(),
-				),
-			),
-			input.airData,
-		);
+		const deviceData = this.createDeviceData(device, input.airData);
 
 		await this._deviceDataRepository.save(deviceData);
 
 		const enviroScore = await this._airQualityCalculator.computeEnviroScore(deviceData);
 		if (enviroScore < 70) this._notificationService.sendAirQualityNotification(device, input, enviroScore);
+	}
+
+	private createDeviceData(device: Device, airData: AirData): DeviceData {
+		return DeviceData.create(
+			"",
+			device,
+			this.createUtcDate(),
+			airData,
+		);
+	}
+
+	private createUtcDate(): Date {
+		const date = new Date();
+		return new Date(Date.UTC(
+			date.getUTCFullYear(),
+			date.getUTCMonth(),
+			date.getUTCDate(),
+			date.getUTCHours(),
+			date.getUTCMinutes(),
+			date.getUTCSeconds(),
+			date.getUTCMilliseconds(),
+		));
 	}
 }

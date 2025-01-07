@@ -1,5 +1,5 @@
 import { Optional, Room } from "EnviroSense/Domain/mod.ts";
-import { DeviceOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Room/RoomStrapiRepository.ts";
+import { DeviceOperation } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
 export interface RoomRepository {
 	find(roomDocumentId: string): Promise<Optional<Room>>;

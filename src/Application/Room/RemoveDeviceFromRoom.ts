@@ -6,9 +6,9 @@ import {
 	RoomRepository,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { DeviceOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Room/RoomStrapiRepository.ts";
-import { DeviceDataStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceDataStrapiQueryRepository, DeviceOperation } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { DeviceData } from "EnviroSense/Domain/mod.ts";
+import { DeviceNotFoundError, RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> {
 	private readonly _roomRepository: RoomRepository;
@@ -27,30 +27,19 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 
 	async execute(input: RemoveDeviceFromRoomInput): Promise<void> {
 		try {
-			const roomOptional = await this._roomRepository.find(
-				input.roomDocumentId,
+			const room = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() =>
+				new RoomNotFoundError(input.roomDocumentId)
 			);
 
-			const room = roomOptional.orElseThrow(
-				() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
+			const device = (await this._deviceRepository.find(input.deviceDocumentId)).orElseThrow(() =>
+				new DeviceNotFoundError(input.deviceDocumentId)
 			);
 
-			const deviceOptional = await this._deviceRepository.find(
-				input.deviceDocumentId,
-			);
-
-			const device = deviceOptional.orElseThrow(
-				() =>
-					new Error(
-						`Device with documentId ${input.deviceDocumentId} not found.`,
-					),
-			);
-
-			const deviceData = await new DeviceDataStrapiQueryRepository().all(
+			const deviceDataQueryDto = await new DeviceDataStrapiQueryRepository().all(
 				device.identifier,
 			);
 
-			const deletePromises = deviceData.map((data: DeviceDataQueryDto) => {
+			const deletePromises = deviceDataQueryDto.map((data: DeviceDataQueryDto) => {
 				const deviceDataEntity = DeviceData.create(
 					data.documentId,
 					data.device,
@@ -82,7 +71,7 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 
 			device.deviceData = [];
 		} catch (_error) {
-			throw new Error(`Failed to remove device from room`);
+			throw new Error(`Failed to remove device from room.`);
 		}
 	}
 }
