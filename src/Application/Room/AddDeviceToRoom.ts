@@ -9,6 +9,7 @@ import {
 import { DeviceOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Room/RoomStrapiRepository.ts";
 import { DeviceData } from "EnviroSense/Domain/mod.ts";
 import { DeviceDataStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
 
 export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
 	private readonly _roomRepository: RoomRepository;
@@ -27,16 +28,15 @@ export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
 
 	async execute(input: AddDeviceToRoomInput): Promise<void> {
 		try {
-			const room = (await this._roomRepository.find(input.roomDocumentId))
-				.orElseThrow(() => new Error(`Room with ID ${input.roomDocumentId} not found.`));
+			const room = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() =>
+				new Error(`Room with ID ${input.roomDocumentId} not found.`)
+			);
 
 			const deviceDocumentIdsToConnect: string[] = [];
 
 			for (const deviceDocumentId of input.devices) {
-				const deviceOptional = await this._deviceRepository.find(deviceDocumentId);
-
-				const device = deviceOptional.orElseThrow(
-					() => new Error(`Device with documentId ${deviceDocumentId} not found.`),
+				const device = (await this._deviceRepository.find(deviceDocumentId)).orElseThrow(() =>
+					new DeviceNotFoundError(deviceDocumentId)
 				);
 
 				room.addDevice(device);
