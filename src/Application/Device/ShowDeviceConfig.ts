@@ -7,7 +7,6 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { NotFoundException } from "EnviroSense/Domain/mod.ts";
 import { NoDevicesRespondedError } from "EnviroSense/Domain/Shared/Exceptions/NoDevicesRespondedError.ts";
 import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
 
