@@ -27,14 +27,14 @@ export class ShowBuildingAirQuality implements UseCase<ShowBuildingAirQualityInp
 	}
 
 	public async execute(input: ShowBuildingAirQualityInput): Promise<void> {
-		const building = (await this._buildingRepository.find(input.buildingDocumentId)).orElseThrow(() =>
+		const buildingQueryDto = (await this._buildingRepository.find(input.buildingDocumentId)).orElseThrow(() =>
 			new BuildingNotFoundError(input.buildingDocumentId)
 		);
 
-		const buildingEntity = Building.load(building);
+		const building = Building.load(buildingQueryDto);
 
 		const { enviroScore, roomScores } = await this._airQualityCalculator.calculateBuildingMetrics(
-			buildingEntity,
+			building,
 		);
 
 		const airQuality = this.mapDataToOutput(
