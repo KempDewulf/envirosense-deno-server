@@ -32,14 +32,7 @@ export class UpdateDeviceConfig implements UseCase<UpdateDeviceConfigInput> {
 		const configType = input.configType as DeviceConfigType;
 		const config = new ConfigValue(configType, input.value);
 
-		switch (configType) {
-			case DeviceConfigType.UI_MODE:
-				device.updateUiMode(input.value as DeviceUiModeType);
-				break;
-			case DeviceConfigType.BRIGHTNESS:
-				device.updateBrightness(input.value as number);
-				break;
-		}
+		this.updateDeviceConfig(device, configType, input.value);
 
 		await this.publishMessage(device, configType, config);
 
@@ -50,6 +43,19 @@ export class UpdateDeviceConfig implements UseCase<UpdateDeviceConfigInput> {
 		};
 
 		this._outputPort.present(output);
+	}
+
+	private updateDeviceConfig(device: Device, configType: DeviceConfigType, value: unknown): void {
+		switch (configType) {
+			case DeviceConfigType.UI_MODE:
+				device.updateUiMode(value as DeviceUiModeType);
+				break;
+			case DeviceConfigType.BRIGHTNESS:
+				device.updateBrightness(value as number);
+				break;
+			default:
+				throw new Error(`Unsupported config type: ${configType}`);
+		}
 	}
 
 	private async publishMessage(
