@@ -24,7 +24,7 @@ export class DeleteAllDeviceDataFromDevice implements UseCase<DeleteAllDeviceDat
 		input: DeleteAllDeviceDataFromDeviceInput,
 	): Promise<void> {
 		const device = (await this._deviceRepository.find(input.deviceDocumentId)).orElseThrow(() =>
-			new DeviceNotFoundError(`Device with ID ${input.deviceDocumentId} not found.`)
+			new DeviceNotFoundError(input.deviceDocumentId)
 		);
 
 		const deviceData = await new DeviceDataStrapiQueryRepository().all(
