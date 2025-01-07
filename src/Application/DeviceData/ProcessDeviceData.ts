@@ -1,9 +1,16 @@
-import { DeviceDataRepository, DeviceRepository, ProcessDeviceDataInput, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	DeviceDataRepository,
+	DeviceRepository,
+	ProcessDeviceDataInput,
+	RoomRepository,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceData } from "EnviroSense/Domain/mod.ts";
 import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
 import { NotificationService } from "EnviroSense/Infrastructure/Services/NotificationService.ts";
 import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/FirebaseMessaging.ts";
 import { DeviceDataStrapiQueryRepository, DeviceStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
 
 export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 	private readonly _deviceRepository: DeviceRepository;
@@ -26,17 +33,10 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 	}
 
 	public async execute(input: ProcessDeviceDataInput): Promise<void> {
-		const optionalDevice = await this._deviceRepository.findByIdentifier(
-			input.deviceIdentifier,
+		const device = (await this._deviceRepository.findByIdentifier(input.deviceIdentifier)).orElseThrow(() =>
+			new DeviceNotFoundError(input.deviceIdentifier)
 		);
-		if (!optionalDevice.isPresent) {
-			console.error(
-				`Device with identifier ${input.deviceIdentifier} not found.`,
-			);
-			return;
-		}
 
-		const device = optionalDevice.value;
 		const date = new Date();
 
 		const deviceData = DeviceData.create(
