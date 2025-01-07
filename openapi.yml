@@ -682,105 +682,160 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  /devices/{deviceDocumentId}/config/ui-mode:
-    patch:
-        tags:
-          - Device
-        summary: Update device UI mode
-        operationId: updateDeviceUIMode
-        parameters:
-          - name: deviceDocumentId
-            in: path
-            required: true
-            schema:
-              type: string
-        requestBody:
+  /devices/{deviceDocumentId}/config:
+    get:
+      tags:
+        - Device
+      summary: Get device configuration
+      operationId: getDeviceConfig
+      parameters:
+        - name: deviceDocumentId
+          in: path
           required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Device configuration retrieved successfully
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  uiMode:
-                    type: string
-                    enum:
-                      - normal
-                      - ppm
-                      - temperature
-                      - humidity
-                    example: "normal"
-        responses:
-          '200':
-            description: Device UI mode updated successfully
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    uiMode:
-                      type: string
-                      enum:
-                        - normal
-                        - ppm
-                        - temperature
-                        - humidity
-          '400':
-            description: Bad request
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
-          '404':
-            description: Device not found
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/DeviceConfigResponse'
+        '504':
+          description: Device did not respond
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceConfigErrorResponse'
+        '404':
+          description: Device not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
-  /devices/{deviceDocumentId}/config/brightness:
+  /devices/{deviceDocumentId}/config/{configType}:
     patch:
-        tags:
-          - Device
-        summary: Update device brightness
-        operationId: updateDeviceBrightness
-        parameters:
-          - name: deviceDocumentId
-            in: path
-            required: true
-            schema:
-              type: string
-        requestBody:
+      tags:
+        - Device
+      summary: Update device configuration
+      operationId: updateDeviceConfig
+      parameters:
+        - name: deviceDocumentId
+          in: path
           required: true
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  brightness:
-                    type: number
-                    example: 40
-        responses:
-          '200':
-            description: Device brightness updated successfully
-            content:
-              application/json:
-                schema:
-                  type: object
+          schema:
+            type: string
+        - name: configType
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [brightness, ui-mode]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: object
                   properties:
                     brightness:
                       type: number
-          '400':
-            description: Bad request
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
-          '404':
-            description: Device not found
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
+                      minimum: 20
+                      maximum: 100
+                      example: 80
+                - type: object
+                  properties:
+                    uiMode:
+                      type: string
+                      enum: [normal, ppm, temperature, humidity]
+                      example: "normal"
+      responses:
+        '200':
+          description: Device config updated successfully
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      brightness:
+                        type: number
+                  - type: object
+                    properties:
+                      uiMode:
+                        type: string
+                        enum: [normal, ppm, temperature, humidity]
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Device not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /rooms/{roomDocumentId}/limits:
+    get:
+      tags:
+        - Room
+      summary: Get room device limits
+      operationId: getRoomLimits
+      parameters:
+        - name: roomDocumentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Room limits retrieved successfully (including partial success with failed devices)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  documentId:
+                    type: string
+                    example: "xclwen9b9921dkzfeo76gpdf"
+                  limits:
+                    type: object
+                    properties:
+                      temperature:
+                        type: number
+                        format: float
+                        example: 24.8
+                  failedDevices:
+                    type: array
+                    items:
+                      type: string
+                    description: Array of device IDs that failed to respond
+                    example: []
+                required:
+                  - documentId
+                  - limits
+                  - failedDevices
+        '504':
+          description: No devices responded with limits
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No devices responded with limits"
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /devices/{deviceDocumentId}/limits/{limitType}:
     patch:
@@ -1251,6 +1306,69 @@ components:
           - building
           - roomType
           - devices
+
+    DeviceConfigResponse:
+      type: object
+      properties:
+        documentId:
+          type: string
+        config:
+          type: object
+          properties:
+            brightness:
+              type: integer
+              minimum: 20
+              maximum: 100
+              example: 80
+            ui-mode:
+              type: string
+              enum:
+                - normal
+                - ppm
+                - temperature
+                - humidity
+              example: "ppm"
+      required:
+        - documentId
+        - config
+
+    DeviceConfigErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Device did not respond with config"
+
+    RoomLimitsResponse:
+      type: object
+      properties:
+        documentId:
+          type: string
+          example: "xclwen9b9921dkzfeo76gpdf"
+        limits:
+          type: object
+          properties:
+            temperature:
+              type: number
+              format: float
+              example: 24.8
+        failedDevices:
+          type: array
+          items:
+            type: string
+          description: Array of device IDs that failed to respond or sync
+          example: []
+      required:
+        - documentId
+        - limits
+        - failedDevices
+
+    RoomLimitsErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "No devices responded with limits"
 
     GetDevicesResponse:
       type: array
