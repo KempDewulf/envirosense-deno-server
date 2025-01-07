@@ -6,6 +6,7 @@ import {
 	ShowRoomByDocumentIdOutput,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
+import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/RoomNotFoundError.ts";
 
 export class ShowRoomByDocumentId implements UseCase<ShowRoomByDocumentIdInput> {
 	private readonly _outputPort: OutputPort<ShowRoomByDocumentIdOutput>;
@@ -20,15 +21,9 @@ export class ShowRoomByDocumentId implements UseCase<ShowRoomByDocumentIdInput> 
 	}
 
 	public async execute(input: ShowRoomByDocumentIdInput): Promise<void> {
-		const roomOptional = await this._roomRepository.find(
-			input.roomDocumentId,
-		);
+		const roomQueryDto = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() => new RoomNotFoundError(input.roomDocumentId));
 
-		const roomDto = roomOptional.orElseThrow(
-			() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
-		);
-
-		const room = this.mapDtoToOutput(roomDto);
+		const room = this.mapDtoToOutput(roomQueryDto);
 		this._outputPort.present(room);
 	}
 
