@@ -51,7 +51,7 @@ export class UpdateDeviceLimit implements UseCase<UpdateDeviceLimitInput> {
 				throw new Error(`Unsupported limit type: ${type}`);
 		}
 	}
-	
+
 	private async publishMessage(device: Device, input: UpdateDeviceLimitInput, limit: DeviceLimit): Promise<void> {
 		// Publish limit update to IoT device
 		const topic = `devices/${device.identifier}/limits/${input.limitType}`;
