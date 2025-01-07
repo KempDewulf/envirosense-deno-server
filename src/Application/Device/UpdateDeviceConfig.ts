@@ -1,6 +1,13 @@
-import { DeviceRepository, OutputPort, UpdateDeviceConfigInput, UpdateDeviceConfigOutput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	DeviceRepository,
+	OutputPort,
+	UpdateDeviceConfigInput,
+	UpdateDeviceConfigOutput,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 import { ConfigValue, DeviceConfigType, DeviceUiModeType } from "EnviroSense/Domain/mod.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
 
 export class UpdateDeviceConfig implements UseCase<UpdateDeviceConfigInput> {
 	private readonly _outputPort: OutputPort<UpdateDeviceConfigOutput>;
@@ -18,9 +25,8 @@ export class UpdateDeviceConfig implements UseCase<UpdateDeviceConfigInput> {
 	}
 
 	public async execute(input: UpdateDeviceConfigInput): Promise<void> {
-		const deviceOptional = await this._deviceRepository.find(input.deviceDocumentId);
-		const device = deviceOptional.orElseThrow(
-			() => new Error(`Device with ID ${input.deviceDocumentId} not found.`),
+		const device = (await this._deviceRepository.find(input.deviceDocumentId)).orElseThrow(() =>
+			new DeviceNotFoundError(input.deviceDocumentId)
 		);
 
 		const configType = input.configType as DeviceConfigType;
