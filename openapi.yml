@@ -794,17 +794,48 @@ paths:
             type: string
       responses:
         '200':
-          description: Room limits retrieved successfully
+          description: Room limits retrieved successfully (including partial success with failed devices)
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RoomLimitsResponse'
+                type: object
+                properties:
+                  documentId:
+                    type: string
+                    example: "xclwen9b9921dkzfeo76gpdf"
+                  limits:
+                    type: object
+                    properties:
+                      temperature:
+                        type: number
+                        format: float
+                        example: 24.8
+                  failedDevices:
+                    type: array
+                    items:
+                      type: string
+                    description: Array of device IDs that failed to respond
+                    example: []
+                required:
+                  - documentId
+                  - limits
+                  - failedDevices
+        '504':
+          description: No devices responded with limits
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No devices responded with limits"
         '404':
-          description: Room not found or no devices responded
+          description: Room not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RoomLimitsErrorResponse'
+                $ref: '#/components/schemas/ErrorResponse'
 
   /devices/{deviceDocumentId}/limits/{limitType}:
     patch:
