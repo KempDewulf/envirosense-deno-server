@@ -4,7 +4,8 @@ import {
 	RoomAirQualityOutput,
 	RoomQueryRepository,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { AirData, Building, Device, Room } from "EnviroSense/Domain/mod.ts";
+import { AirData, Building, Device, DeviceData, Room } from "EnviroSense/Domain/mod.ts";
+import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class AirQualityCalculator {
 	private readonly deviceRepository: DeviceQueryRepository;
@@ -21,18 +22,11 @@ export class AirQualityCalculator {
 		this.roomRepository = roomRepository;
 	}
 
-	private async fetchAllDeviceData(
-		devices: Device[],
-	): Promise<(any | null)[]> {
-		const data = await Promise.all(
-			devices.map(async (device) => {
-				const deviceData = await this.getLastDeviceData(
-					device.documentId,
-				);
-				return deviceData;
-			}),
-		);
-		return data;
+	private async fetchAllDeviceData(devices: Device[]): Promise<DeviceData[]> {
+		const deviceDataPromises = devices.map((device) => this.getLastDeviceData(device.documentId));
+
+		const results = await Promise.all(deviceDataPromises);
+		return results.filter((data): data is DeviceData => data !== null);
 	}
 
 	public async calculateBuildingMetrics(building: Building): Promise<{
@@ -40,15 +34,12 @@ export class AirQualityCalculator {
 		roomScores: RoomAirQualityOutput[];
 	}> {
 		const roomPromises = building.rooms.map(async (room) => {
-			const roomOptional = await this.roomRepository?.find(
-				room.documentId,
-			);
-			const roomEntity = roomOptional?.orElseThrow(
-				() => new Error(`Room with ID ${room.documentId} not found.`),
+			const roomQueryDto = (await this.roomRepository?.find(room.documentId))?.orElseThrow(() =>
+				new RoomNotFoundError(room.documentId)
 			);
 
 			try {
-				const { enviroScore } = await this.calculateMetrics(roomEntity as Room);
+				const { enviroScore } = await this.calculateMetrics(roomQueryDto as Room);
 				return {
 					documentId: room.documentId,
 					name: room.name,
