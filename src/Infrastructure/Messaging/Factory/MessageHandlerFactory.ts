@@ -24,7 +24,7 @@ export class MessageHandlerFactory {
 	getHandler(topic: string): MessageHandler {
 		const handler = this.handlers.find((h) => h.canHandle(topic));
 		if (!handler) {
-			throw new Error(`No handler found for topic: ${topic}`);
+			throw new Error(`No handler found for topic: ${topic}.`);
 		}
 		return handler;
 	}

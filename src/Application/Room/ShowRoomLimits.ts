@@ -37,7 +37,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 		const { deviceLimits, failedDevices } = await this.collectDeviceLimits(room);
 
 		if (deviceLimits.size === 0) {
-			throw new NoDevicesRespondedError("No devices responded with limits");
+			throw new NoDevicesRespondedError("No devices responded with limits.");
 		}
 
 		const referenceDevice = this.getReferenceLimits(deviceLimits);
@@ -81,7 +81,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 		const response = await this._messaging.waitForMessage(responseTopic, 5000);
 
 		if (!response) {
-			throw new NoDevicesRespondedError(`Device ${deviceId} did not respond in time`);
+			throw new NoDevicesRespondedError(`Device ${deviceId} did not respond in time.`);
 		}
 
 		return JSON.parse(response);

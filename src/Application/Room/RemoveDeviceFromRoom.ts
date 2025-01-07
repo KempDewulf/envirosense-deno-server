@@ -71,7 +71,7 @@ export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> 
 
 			device.deviceData = [];
 		} catch (_error) {
-			throw new Error(`Failed to remove device from room`);
+			throw new Error(`Failed to remove device from room.`);
 		}
 	}
 }

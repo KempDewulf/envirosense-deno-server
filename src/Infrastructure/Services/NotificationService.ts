@@ -22,7 +22,7 @@ export class NotificationService {
 	): Promise<void> {
 		const room = (
 			await this.roomRepository.find(device.room?.documentId!)
-		).orElseThrow(() => Error("Room not found"));
+		).orElseThrow(() => Error("Room not found."));
 
 		const roomId = room.documentId;
 		const buildingDocumentId = room.building?.documentId;

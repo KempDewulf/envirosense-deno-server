@@ -9,7 +9,7 @@ export class MessagingBuilder {
 
 	public static getInstance(): Messaging {
 		if (!MessagingBuilder.instance) {
-			throw new Error("Messaging not initialized");
+			throw new Error("Messaging not initialized.");
 		}
 		return MessagingBuilder.instance;
 	}

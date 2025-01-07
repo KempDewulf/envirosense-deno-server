@@ -54,7 +54,7 @@ export class UpdateDeviceConfig implements UseCase<UpdateDeviceConfigInput> {
 				device.updateBrightness(value as number);
 				break;
 			default:
-				throw new Error(`Unsupported config type: ${configType}`);
+				throw new Error(`Unsupported config type: ${configType}.`);
 		}
 	}
 

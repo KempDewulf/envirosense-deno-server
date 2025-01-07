@@ -48,7 +48,7 @@ export class UpdateDeviceLimit implements UseCase<UpdateDeviceLimitInput> {
 			case DeviceLimitType.TEMPERATURE:
 				return new TemperatureLimit(DeviceLimitType.TEMPERATURE, value);
 			default:
-				throw new Error(`Unsupported limit type: ${type}`);
+				throw new Error(`Unsupported limit type: ${type}.`);
 		}
 	}
 

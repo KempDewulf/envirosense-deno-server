@@ -31,7 +31,7 @@ export class DeviceStrapiRepository extends StrapiQueryRepository implements Dev
 		try {
 			const response = await this.get<any>(endpoint, params);
 			if (response.data.length === 0) {
-				throw new Error("Device not found");
+				throw new Error("Device not found.");
 			}
 			const device = this.mapToDomain(response.data[0]);
 			return Optional.of<Device>(device);

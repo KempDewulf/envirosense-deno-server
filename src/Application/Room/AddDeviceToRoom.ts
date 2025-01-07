@@ -73,7 +73,7 @@ export class AddDeviceToRoom implements UseCase<AddDeviceToRoomInput> {
 			);
 		} catch (error) {
 			const errorMessage = error instanceof Error ? error.message : "An unknown error occurred while adding devices to room";
-			throw new Error(`Failed to add devices to room: ${errorMessage}`);
+			throw new Error(`Failed to add devices to room: ${errorMessage}.`);
 		}
 	}
 }

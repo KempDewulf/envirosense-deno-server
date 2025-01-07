@@ -33,7 +33,7 @@ export class ShowDeviceConfig implements UseCase<ShowDeviceConfigInput> {
 		const { deviceConfig, failed } = await this.collectDeviceConfig(device);
 
 		if (deviceConfig.size === 0) {
-			throw new NoDevicesRespondedError("Device did not respond with config");
+			throw new NoDevicesRespondedError("Device did not respond with config.");
 		}
 
 		const output = this.mapDtoToOutput(device, deviceConfig.get(device.identifier)!, failed);
@@ -66,7 +66,7 @@ export class ShowDeviceConfig implements UseCase<ShowDeviceConfigInput> {
 		const response = await this._messaging.waitForMessage(responseTopic, 5000);
 
 		if (!response) {
-			throw new NoDevicesRespondedError(`Device ${deviceId} did not respond in time`);
+			throw new NoDevicesRespondedError(`Device ${deviceId} did not respond in time.`);
 		}
 
 		return JSON.parse(response);
