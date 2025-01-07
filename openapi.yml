@@ -701,12 +701,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeviceConfigResponse'
-        '404':
-          description: Device not found or did not respond
+        '504':
+          description: Device did not respond
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeviceConfigErrorResponse'
+        '404':
+          description: Device not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /devices/{deviceDocumentId}/config/{configType}:
     patch:
