@@ -1,5 +1,6 @@
 import { AddDeviceDataToDeviceInput, DeviceDataRepository, DeviceRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceDataOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Device/DeviceStrapiRepository.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
 
 export class AddDeviceDataToDevice implements UseCase<AddDeviceDataToDeviceInput> {
 	private readonly _deviceRepository: DeviceRepository;
@@ -14,11 +15,8 @@ export class AddDeviceDataToDevice implements UseCase<AddDeviceDataToDeviceInput
 	}
 
 	async execute(input: AddDeviceDataToDeviceInput): Promise<void> {
-		const deviceOptional = await this._deviceRepository.find(
-			input.deviceDocumentId,
-		);
-		const device = deviceOptional.orElseThrow(
-			() => new Error(`Device with ID ${input.deviceDocumentId} not found.`),
+		const device = (await this._deviceRepository.find(input.deviceDocumentId)).orElseThrow(() =>
+			new DeviceNotFoundError(input.deviceDocumentId)
 		);
 
 		const deviceDataDocumentIdsToConnect: string[] = [];
