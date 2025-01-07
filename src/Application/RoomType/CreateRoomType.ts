@@ -1,5 +1,11 @@
 import { RoomType } from "EnviroSense/Domain/mod.ts";
-import { CreateRoomTypeInput, CreateRoomTypeOutput, OutputPort, RoomTypeRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	CreateRoomTypeInput,
+	CreateRoomTypeOutput,
+	OutputPort,
+	RoomTypeRepository,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export class CreateRoomType implements UseCase<CreateRoomTypeInput> {
 	private readonly _outputPort: OutputPort<CreateRoomTypeOutput>;
