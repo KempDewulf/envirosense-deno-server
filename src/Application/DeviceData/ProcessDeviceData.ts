@@ -5,7 +5,7 @@ import {
 	RoomRepository,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { DeviceData } from "EnviroSense/Domain/mod.ts";
+import { AirData, Device, DeviceData } from "EnviroSense/Domain/mod.ts";
 import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
 import { NotificationService } from "EnviroSense/Infrastructure/Services/NotificationService.ts";
 import { FirebaseMessaging } from "EnviroSense/Infrastructure/Messaging/FirebaseMessaging.ts";
@@ -37,28 +37,33 @@ export class ProcessDeviceData implements UseCase<ProcessDeviceDataInput> {
 			new DeviceNotFoundError(input.deviceIdentifier)
 		);
 
-		const date = new Date();
-
-		const deviceData = DeviceData.create(
-			"",
-			device,
-			new Date(
-				Date.UTC(
-					date.getUTCFullYear(),
-					date.getUTCMonth(),
-					date.getUTCDate(),
-					date.getUTCHours(),
-					date.getUTCMinutes(),
-					date.getUTCSeconds(),
-					date.getUTCMilliseconds(),
-				),
-			),
-			input.airData,
-		);
+		const deviceData = this.createDeviceData(device, input.airData);
 
 		await this._deviceDataRepository.save(deviceData);
 
 		const enviroScore = await this._airQualityCalculator.computeEnviroScore(deviceData);
 		if (enviroScore < 70) this._notificationService.sendAirQualityNotification(device, input, enviroScore);
+	}
+
+	private createDeviceData(device: Device, airData: AirData): DeviceData {
+		return DeviceData.create(
+			"",
+			device,
+			this.createUtcDate(),
+			airData,
+		);
+	}
+
+	private createUtcDate(): Date {
+		const date = new Date();
+		return new Date(Date.UTC(
+			date.getUTCFullYear(),
+			date.getUTCMonth(),
+			date.getUTCDate(),
+			date.getUTCHours(),
+			date.getUTCMinutes(),
+			date.getUTCSeconds(),
+			date.getUTCMilliseconds(),
+		));
 	}
 }
