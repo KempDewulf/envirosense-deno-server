@@ -1,5 +1,7 @@
 import { AddRoomToBuildingInput, BuildingRepository, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { RoomOperation } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/BuildingNotFoundError.ts";
+import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/RoomNotFoundError.ts";
 
 export class AddRoomToBuilding implements UseCase<AddRoomToBuildingInput> {
 	private readonly _buildingRepository: BuildingRepository;
@@ -14,29 +16,14 @@ export class AddRoomToBuilding implements UseCase<AddRoomToBuildingInput> {
 	}
 
 	async execute(input: AddRoomToBuildingInput): Promise<void> {
-		const buildingOptional = await this._buildingRepository.find(
-			input.buildingDocumentId,
-		);
-		const building = buildingOptional.orElseThrow(
-			() =>
-				new Error(
-					`Building with ID ${input.buildingDocumentId} not found.`,
-				),
+		const building = (await this._buildingRepository.find(input.buildingDocumentId)).orElseThrow(() =>
+			new BuildingNotFoundError(input.buildingDocumentId)
 		);
 
 		const roomDocumentIdsToConnect: string[] = [];
 
 		for (const roomDocumentId of input.rooms) {
-			const roomOptional = await this._roomRepository.find(
-				roomDocumentId,
-			);
-
-			const room = roomOptional.orElseThrow(
-				() =>
-					new Error(
-						`Room with documentId ${roomDocumentId} not found.`,
-					),
-			);
+			const room = (await this._roomRepository.find(roomDocumentId)).orElseThrow(() => new RoomNotFoundError(roomDocumentId));
 
 			building.addRoom(room);
 
