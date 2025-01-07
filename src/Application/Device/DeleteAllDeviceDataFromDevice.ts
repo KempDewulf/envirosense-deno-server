@@ -1,9 +1,4 @@
-import {
-	DeleteAllDeviceDataFromDeviceInput,
-	DeviceDataRepository,
-	DeviceRepository,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { DeleteAllDeviceDataFromDeviceInput, DeviceDataRepository, DeviceRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceDataStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { DeviceData } from "EnviroSense/Domain/mod.ts";
 

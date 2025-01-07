@@ -1,10 +1,4 @@
-import {
-	DeviceRepository,
-	OutputPort,
-	UpdateDeviceLimitInput,
-	UpdateDeviceLimitOutput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { DeviceRepository, OutputPort, UpdateDeviceLimitInput, UpdateDeviceLimitOutput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceLimit, DeviceLimitType, TemperatureLimit } from "EnviroSense/Domain/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 

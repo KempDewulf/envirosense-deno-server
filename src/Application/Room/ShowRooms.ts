@@ -1,11 +1,4 @@
-import {
-	OutputPort,
-	RoomQueryDto,
-	RoomQueryRepository,
-	ShowRoomsInput,
-	ShowRoomsOutput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { OutputPort, RoomQueryDto, RoomQueryRepository, ShowRoomsInput, ShowRoomsOutput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 
 export class ShowRooms implements UseCase<ShowRoomsInput> {
 	private readonly _outputPort: OutputPort<ShowRoomsOutput[]>;

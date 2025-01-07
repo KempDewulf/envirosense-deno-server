@@ -1,10 +1,4 @@
-import {
-	DeviceRepository,
-	OutputPort,
-	UpdateDeviceConfigInput,
-	UpdateDeviceConfigOutput,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { DeviceRepository, OutputPort, UpdateDeviceConfigInput, UpdateDeviceConfigOutput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 import { ConfigValue, DeviceConfigType, DeviceUiModeType } from "EnviroSense/Domain/mod.ts";
 

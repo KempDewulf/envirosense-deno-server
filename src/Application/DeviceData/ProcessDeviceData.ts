@@ -1,10 +1,4 @@
-import {
-	DeviceDataRepository,
-	DeviceRepository,
-	ProcessDeviceDataInput,
-	RoomRepository,
-	UseCase,
-} from "EnviroSense/Application/Contracts/mod.ts";
+import { DeviceDataRepository, DeviceRepository, ProcessDeviceDataInput, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceData } from "EnviroSense/Domain/mod.ts";
 import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
 import { NotificationService } from "EnviroSense/Infrastructure/Services/NotificationService.ts";
