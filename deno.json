@@ -20,7 +20,7 @@
     },
     "fmt": {
         "useTabs": true,
-        "lineWidth": 140,
+        "lineWidth": 150,
         "indentWidth": 4,
         "semiColons": true,
         "singleQuote": false,
