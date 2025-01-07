@@ -6,7 +6,7 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { ConfigValue, DeviceConfigType, DeviceUiModeType } from "EnviroSense/Domain/mod.ts";
+import { ConfigValue, Device, DeviceConfigType, DeviceUiModeType } from "EnviroSense/Domain/mod.ts";
 import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
 
 export class UpdateDeviceConfig implements UseCase<UpdateDeviceConfigInput> {
@@ -41,12 +41,7 @@ export class UpdateDeviceConfig implements UseCase<UpdateDeviceConfigInput> {
 				break;
 		}
 
-		const topic = `devices/${device.identifier}/config/${configType}`;
-		const message = JSON.stringify(
-			{ type: config.type, value: config.value },
-		);
-
-		await this._messaging.publish(topic, message);
+		await this.publishMessage(device, configType, config);
 
 		const output: UpdateDeviceConfigOutput = {
 			documentId: device.documentId,
@@ -55,5 +50,18 @@ export class UpdateDeviceConfig implements UseCase<UpdateDeviceConfigInput> {
 		};
 
 		this._outputPort.present(output);
+	}
+
+	private async publishMessage(
+		device: Device,
+		configType: DeviceConfigType,
+		config: ConfigValue,
+	): Promise<void> {
+		const topic = `devices/${device.identifier}/config/${configType}`;
+		const message = JSON.stringify(
+			{ type: config.type, value: config.value },
+		);
+
+		await this._messaging.publish(topic, message);
 	}
 }
