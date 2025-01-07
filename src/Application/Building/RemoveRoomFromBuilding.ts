@@ -1,5 +1,7 @@
 import { BuildingRepository, RemoveRoomFromBuildingInput, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { RoomOperation } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/BuildingNotFoundError.ts";
+import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/RoomNotFoundError.ts";
 
 export class RemoveRoomFromBuilding implements UseCase<RemoveRoomFromBuildingInput> {
 	private readonly _buildingRepository: BuildingRepository;
@@ -14,26 +16,11 @@ export class RemoveRoomFromBuilding implements UseCase<RemoveRoomFromBuildingInp
 	}
 
 	async execute(input: RemoveRoomFromBuildingInput): Promise<void> {
-		const buildingOptional = await this._buildingRepository.find(
-			input.buildingDocumentId,
-		);
-		const building = buildingOptional.orElseThrow(
-			() =>
-				new Error(
-					`Building with ID ${input.buildingDocumentId} not found.`,
-				),
+		const building = (await this._buildingRepository.find(input.buildingDocumentId)).orElseThrow(() =>
+			new BuildingNotFoundError(input.buildingDocumentId)
 		);
 
-		const roomOptional = await this._roomRepository.find(
-			input.roomDocumentId,
-		);
-
-		const room = roomOptional.orElseThrow(
-			() =>
-				new Error(
-					`Room with documentId ${input.roomDocumentId} not found.`,
-				),
-		);
+		const room = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() => new RoomNotFoundError(input.roomDocumentId));
 
 		building.removeRoom(room.documentId);
 
