@@ -18,4 +18,3 @@ export { RoomTypeStrapiQueryRepository } from "./Repositories/Strapi/RoomType/Ro
 
 export { DeviceDataStrapiRepository } from "./Repositories/Strapi/DeviceData/DeviceDataStrapiRepository.ts";
 export { DeviceDataStrapiQueryRepository } from "./Repositories/Strapi/DeviceData/DeviceDataStrapiQueryRepository.ts";
-
