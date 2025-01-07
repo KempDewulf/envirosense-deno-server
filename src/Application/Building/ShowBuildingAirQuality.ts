@@ -9,6 +9,7 @@ import {
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Building } from "EnviroSense/Domain/mod.ts";
 import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
+import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/BuildingNotFoundError.ts";
 
 export class ShowBuildingAirQuality implements UseCase<ShowBuildingAirQualityInput> {
 	private readonly _outputPort: OutputPort<ShowBuildingAirQualityOutput>;
@@ -26,25 +27,18 @@ export class ShowBuildingAirQuality implements UseCase<ShowBuildingAirQualityInp
 	}
 
 	public async execute(input: ShowBuildingAirQualityInput): Promise<void> {
-		const buildingOptional = await this._buildingRepository.find(
-			input.buildingDocumentId,
+		const building = (await this._buildingRepository.find(input.buildingDocumentId)).orElseThrow(() =>
+			new BuildingNotFoundError(input.buildingDocumentId)
 		);
 
-		const buildingDto = buildingOptional.orElseThrow(
-			() =>
-				new Error(
-					`Building with ID ${input.buildingDocumentId} not found.`,
-				),
-		);
-
-		const buildingEntity = Building.load(buildingDto);
+		const buildingEntity = Building.load(building);
 
 		const { enviroScore, roomScores } = await this._airQualityCalculator.calculateBuildingMetrics(
 			buildingEntity,
 		);
 
 		const airQuality = this.mapDataToOutput(
-			buildingDto,
+			building,
 			enviroScore,
 			roomScores,
 		);
