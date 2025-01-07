@@ -1,5 +1,11 @@
 import { Building } from "EnviroSense/Domain/mod.ts";
-import { BuildingRepository, CreateBuildingInput, CreateBuildingOutput, OutputPort, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	BuildingRepository,
+	CreateBuildingInput,
+	CreateBuildingOutput,
+	OutputPort,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 
 export class CreateBuilding implements UseCase<CreateBuildingInput> {
 	private readonly _outputPort: OutputPort<CreateBuildingOutput>;

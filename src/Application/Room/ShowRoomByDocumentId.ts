@@ -21,7 +21,9 @@ export class ShowRoomByDocumentId implements UseCase<ShowRoomByDocumentIdInput> 
 	}
 
 	public async execute(input: ShowRoomByDocumentIdInput): Promise<void> {
-		const roomQueryDto = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() => new RoomNotFoundError(input.roomDocumentId));
+		const roomQueryDto = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() =>
+			new RoomNotFoundError(input.roomDocumentId)
+		);
 
 		const room = this.mapDtoToOutput(roomQueryDto);
 		this._outputPort.present(room);

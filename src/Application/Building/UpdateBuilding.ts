@@ -1,4 +1,10 @@
-import { BuildingRepository, OutputPort, UpdateBuildingInput, UpdateBuildingOutput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import {
+	BuildingRepository,
+	OutputPort,
+	UpdateBuildingInput,
+	UpdateBuildingOutput,
+	UseCase,
+} from "EnviroSense/Application/Contracts/mod.ts";
 import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/BuildingNotFoundError.ts";
 
 export class UpdateBuilding implements UseCase<UpdateBuildingInput> {

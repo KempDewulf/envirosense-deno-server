@@ -1,5 +1,10 @@
 import { Module } from "EnviroSense/Infrastructure/Shared/mod.ts";
-import { Messaging, MessagingBuilder, MessagingUseCaseFactory, MessagingUseCaseRegistry } from "EnviroSense/Infrastructure/Messaging/mod.ts";
+import {
+	Messaging,
+	MessagingBuilder,
+	MessagingUseCaseFactory,
+	MessagingUseCaseRegistry,
+} from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
 export class MessagingModule implements Module {
 	private messaging: Messaging;
