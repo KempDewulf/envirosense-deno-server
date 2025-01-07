@@ -1,5 +1,5 @@
 import { BuildingRepository, DeleteBuildingInput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
-import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/BuildingNotFoundError.ts";
+import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class DeleteBuilding implements UseCase<DeleteBuildingInput> {
 	private readonly _buildingRepository: BuildingRepository;

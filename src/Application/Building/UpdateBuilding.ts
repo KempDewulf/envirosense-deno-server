@@ -5,7 +5,7 @@ import {
 	UpdateBuildingOutput,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/BuildingNotFoundError.ts";
+import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class UpdateBuilding implements UseCase<UpdateBuildingInput> {
 	private readonly _outputPort: OutputPort<UpdateBuildingOutput>;

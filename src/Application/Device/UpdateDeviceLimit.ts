@@ -7,7 +7,7 @@ import {
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Device, DeviceLimit, DeviceLimitType, TemperatureLimit } from "EnviroSense/Domain/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class UpdateDeviceLimit implements UseCase<UpdateDeviceLimitInput> {
 	private readonly _outputPort: OutputPort<UpdateDeviceLimitOutput>;

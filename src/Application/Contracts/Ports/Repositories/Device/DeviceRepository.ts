@@ -1,5 +1,5 @@
 import { Device, Optional } from "EnviroSense/Domain/mod.ts";
-import { DeviceDataOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Device/DeviceStrapiRepository.ts";
+import { DeviceDataOperation } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
 export interface DeviceRepository {
 	find(deviceDocumentId: string): Promise<Optional<Device>>;

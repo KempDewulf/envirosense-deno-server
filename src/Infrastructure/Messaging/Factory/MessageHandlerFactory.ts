@@ -1,12 +1,12 @@
 import {
 	DeviceConfigMessageHandler,
+	DeviceConfigRequestResponseHandler,
 	DeviceDataMessageHandler,
 	DeviceLimitMessageHandler,
+	DeviceLimitRequestResponseHandler,
 	MessageHandler,
 	MessagingUseCaseRegistry,
 } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { DeviceLimitRequestResponseHandler } from "EnviroSense/Infrastructure/Messaging/Handlers/DeviceLimitRequestResponseHandler.ts";
-import { DeviceConfigRequestResponseHandler } from "EnviroSense/Infrastructure/Messaging/Handlers/DeviceConfigRequestResponseHandler.ts";
 
 export class MessageHandlerFactory {
 	private handlers: MessageHandler[] = [];

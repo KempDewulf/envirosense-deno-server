@@ -1,5 +1,5 @@
 import { DeleteDeviceInput, DeviceRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
-import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class DeleteDevice implements UseCase<DeleteDeviceInput> {
 	private readonly _deviceRepository: DeviceRepository;

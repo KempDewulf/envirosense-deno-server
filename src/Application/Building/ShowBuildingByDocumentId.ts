@@ -6,7 +6,7 @@ import {
 	ShowBuildingByDocumentIdOutput,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/BuildingNotFoundError.ts";
+import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class ShowBuildingByDocumentId implements UseCase<ShowBuildingByDocumentIdInput> {
 	private readonly _outputPort: OutputPort<ShowBuildingByDocumentIdOutput>;

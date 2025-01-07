@@ -1,6 +1,6 @@
 import { RoomTypeQueryDto, RoomTypeQueryRepository } from "EnviroSense/Application/Contracts/mod.ts";
-import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 import { Optional } from "EnviroSense/Domain/mod.ts";
+import { StrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
 export class RoomTypeStrapiQueryRepository extends StrapiQueryRepository implements RoomTypeQueryRepository {
 	async all(name: string): Promise<RoomTypeQueryDto[]> {

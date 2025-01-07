@@ -8,8 +8,7 @@ import {
 	RoomTypeRepository,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/BuildingNotFoundError.ts";
-import { RoomTypeNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/RoomTypeNotFoundError.ts";
+import { BuildingNotFoundError, RoomTypeNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class CreateRoom implements UseCase<CreateRoomInput> {
 	private readonly _outputPort: OutputPort<CreateRoomOutput>;

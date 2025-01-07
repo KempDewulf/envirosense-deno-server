@@ -7,7 +7,7 @@ import {
 	RoomRepository,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/RoomNotFoundError.ts";
+import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class CreateDevice implements UseCase<CreateDeviceInput> {
 	private readonly _outputPort: OutputPort<CreateDeviceOutput>;

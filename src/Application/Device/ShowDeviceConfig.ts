@@ -7,8 +7,8 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { NoDevicesRespondedError } from "EnviroSense/Domain/Shared/Exceptions/NoDevicesRespondedError.ts";
-import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import { NoDevicesRespondedError } from "EnviroSense/Domain/mod.ts";
 
 export class ShowDeviceConfig implements UseCase<ShowDeviceConfigInput> {
 	private readonly _outputPort: OutputPort<ShowDeviceConfigOutput>;

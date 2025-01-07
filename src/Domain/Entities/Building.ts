@@ -1,5 +1,4 @@
-import { Room } from "EnviroSense/Domain/mod.ts";
-import { DomainException } from "EnviroSense/Domain/Shared/Exceptions/DomainException.ts";
+import { DomainException, Room } from "EnviroSense/Domain/mod.ts";
 
 export interface BuildingState {
 	documentId: string;

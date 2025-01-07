@@ -6,11 +6,9 @@ import {
 	RoomRepository,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { DeviceOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Room/RoomStrapiRepository.ts";
-import { DeviceDataStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
+import { DeviceDataStrapiQueryRepository, DeviceOperation } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { DeviceData } from "EnviroSense/Domain/mod.ts";
-import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/RoomNotFoundError.ts";
-import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
+import { DeviceNotFoundError, RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class RemoveDeviceFromRoom implements UseCase<RemoveDeviceFromRoomInput> {
 	private readonly _roomRepository: RoomRepository;

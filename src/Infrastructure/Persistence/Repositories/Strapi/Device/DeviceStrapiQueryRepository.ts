@@ -1,6 +1,6 @@
 import { DeviceQueryDto, DeviceQueryRepository } from "EnviroSense/Application/Contracts/mod.ts";
-import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 import { Optional } from "EnviroSense/Domain/mod.ts";
+import { StrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
 export class DeviceStrapiQueryRepository extends StrapiQueryRepository implements DeviceQueryRepository {
 	async all(identifier: string): Promise<DeviceQueryDto[]> {

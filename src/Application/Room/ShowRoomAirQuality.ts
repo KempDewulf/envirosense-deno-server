@@ -7,8 +7,8 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { AirData, Room } from "EnviroSense/Domain/mod.ts";
-import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
-import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/RoomNotFoundError.ts";
+import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/mod.ts";
+import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class ShowRoomAirQuality implements UseCase<ShowRoomAirQualityInput> {
 	private readonly _outputPort: OutputPort<ShowRoomAirQualityOutput>;

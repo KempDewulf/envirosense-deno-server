@@ -1,7 +1,6 @@
 import { AddRoomToBuildingInput, BuildingRepository, RoomRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
 import { RoomOperation } from "EnviroSense/Infrastructure/Persistence/mod.ts";
-import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/BuildingNotFoundError.ts";
-import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/RoomNotFoundError.ts";
+import { BuildingNotFoundError, RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class AddRoomToBuilding implements UseCase<AddRoomToBuildingInput> {
 	private readonly _buildingRepository: BuildingRepository;

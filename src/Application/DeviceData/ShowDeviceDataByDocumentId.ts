@@ -6,7 +6,7 @@ import {
 	ShowDeviceDataByDocumentIdOutput,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { DeviceDataNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceDataNotFoundError.ts";
+import { DeviceDataNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class ShowDeviceDataByDocumentId implements UseCase<ShowDeviceDataByDocumentIdInput> {
 	private readonly _outputPort: OutputPort<ShowDeviceDataByDocumentIdOutput>;

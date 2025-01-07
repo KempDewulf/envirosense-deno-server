@@ -6,7 +6,7 @@ import {
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceDataStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { DeviceData } from "EnviroSense/Domain/mod.ts";
-import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class DeleteAllDeviceDataFromDevice implements UseCase<DeleteAllDeviceDataFromDeviceInput> {
 	private readonly _deviceRepository: DeviceRepository;

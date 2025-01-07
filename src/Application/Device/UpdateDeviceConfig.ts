@@ -7,7 +7,7 @@ import {
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 import { ConfigValue, Device, DeviceConfigType, DeviceUiModeType } from "EnviroSense/Domain/mod.ts";
-import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class UpdateDeviceConfig implements UseCase<UpdateDeviceConfigInput> {
 	private readonly _outputPort: OutputPort<UpdateDeviceConfigOutput>;

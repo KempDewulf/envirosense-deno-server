@@ -12,8 +12,8 @@ import {
 	DeviceStrapiQueryRepository,
 	RoomStrapiQueryRepository,
 } from "EnviroSense/Infrastructure/Persistence/mod.ts";
-import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
 import { ShowRoomAirQuality } from "EnviroSense/Application/mod.ts";
+import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/mod.ts";
 
 export class ShowRoomAirQualityEndpoint implements Endpoint {
 	async handle(context: RouterContext<string>): Promise<void> {

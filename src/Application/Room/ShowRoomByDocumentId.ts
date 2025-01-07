@@ -6,7 +6,7 @@ import {
 	ShowRoomByDocumentIdOutput,
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
-import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/RoomNotFoundError.ts";
+import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class ShowRoomByDocumentId implements UseCase<ShowRoomByDocumentIdInput> {
 	private readonly _outputPort: OutputPort<ShowRoomByDocumentIdOutput>;

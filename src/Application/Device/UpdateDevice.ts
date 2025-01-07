@@ -1,5 +1,5 @@
 import { DeviceRepository, OutputPort, UpdateDeviceInput, UpdateDeviceOutput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
-import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class UpdateDevice implements UseCase<UpdateDeviceInput> {
 	private readonly _outputPort: OutputPort<UpdateDeviceOutput>;

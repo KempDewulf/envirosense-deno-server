@@ -8,8 +8,8 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Building } from "EnviroSense/Domain/mod.ts";
-import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/AirQualityCalculator.ts";
-import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/BuildingNotFoundError.ts";
+import { AirQualityCalculator } from "EnviroSense/Infrastructure/Services/mod.ts";
+import { BuildingNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class ShowBuildingAirQuality implements UseCase<ShowBuildingAirQualityInput> {
 	private readonly _outputPort: OutputPort<ShowBuildingAirQualityOutput>;

@@ -1,7 +1,6 @@
 import { AddDeviceDataToDeviceInput, DeviceDataRepository, DeviceRepository, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
-import { DeviceDataOperation } from "EnviroSense/Infrastructure/Persistence/Repositories/Strapi/Device/DeviceStrapiRepository.ts";
-import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceNotFoundError.ts";
-import { DeviceDataNotFoundError } from "EnviroSense/Infrastructure/Shared/Errors/DeviceDataNotFoundError.ts";
+import { DeviceDataNotFoundError, DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
+import { DeviceDataOperation } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
 export class AddDeviceDataToDevice implements UseCase<AddDeviceDataToDeviceInput> {
 	private readonly _deviceRepository: DeviceRepository;
