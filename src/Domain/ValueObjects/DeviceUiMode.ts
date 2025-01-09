@@ -1,4 +1,4 @@
-import { DomainException } from "EnviroSense/Domain/Shared/Exceptions/DomainException.ts";
+import { DomainException } from "EnviroSense/Domain/mod.ts";
 
 export enum DeviceUiModeType {
 	NORMAL = "normal",

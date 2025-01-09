@@ -80,20 +80,20 @@ export class DeviceData {
 		const { temperature, humidity, ppm } = this._airData;
 
 		if (temperature == null) {
-			throw new Error("Temperature is required. in AirData");
+			throw new Error("Temperature is required in AirData.");
 		}
 		if (humidity == null) {
-			throw new Error("Humidity is required. in AirData");
+			throw new Error("Humidity is required in AirData.");
 		}
 		if (ppm == null) {
-			throw new Error("PPM is required. in AirData");
+			throw new Error("PPM is required in AirData.");
 		}
 
 		if (humidity <= 0 || humidity >= 100) {
-			throw new Error("Humidity must be between 0 and 100");
+			throw new Error("Humidity must be between 0 and 100.");
 		}
 		if (ppm <= 0 || ppm >= 5000) {
-			throw new Error("PPM must be between 0 and 5000");
+			throw new Error("PPM must be between 0 and 5000.");
 		}
 	}
 

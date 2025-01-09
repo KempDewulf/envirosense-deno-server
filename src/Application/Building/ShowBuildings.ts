@@ -20,10 +20,10 @@ export class ShowBuildings implements UseCase<ShowBuildingsInput> {
 	}
 
 	public async execute(input: ShowBuildingsInput): Promise<void> {
-		const buildingsDto = await this._buildingQueryRepository.all(
+		const buildingsQueryDto = await this._buildingQueryRepository.all(
 			input.name,
 		);
-		const buildings = this.mapDtoToOutput(buildingsDto);
+		const buildings = this.mapDtoToOutput(buildingsQueryDto);
 		this._outputPort.present(buildings);
 	}
 

@@ -273,7 +273,7 @@ Deno.test("Optional - orElseThrow method with present value", () => {
     const optional = Optional.of<number>(value);
 
     // Act
-    const result = optional.orElseThrow(() => new Error('Value is not present'));
+    const result = optional.orElseThrow(() => new Error('Value is not present.'));
 
     // Assert
     assertEquals(result, value);
@@ -285,7 +285,7 @@ Deno.test("Optional - orElseThrow method with absent value throws error", () => 
 
     // Act & Assert
     assertThrows(() => {
-        optional.orElseThrow(() => new Error('Value is not present'));
+        optional.orElseThrow(() => new Error('Value is not present.'));
     }, Error, 'Value is not present');
 });
 

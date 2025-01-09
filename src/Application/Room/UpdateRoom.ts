@@ -1,4 +1,5 @@
 import { OutputPort, RoomRepository, UpdateRoomInput, UpdateRoomOutput, UseCase } from "EnviroSense/Application/Contracts/mod.ts";
+import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class UpdateRoom implements UseCase<UpdateRoomInput> {
 	private readonly _outputPort: OutputPort<UpdateRoomOutput>;
@@ -13,12 +14,7 @@ export class UpdateRoom implements UseCase<UpdateRoomInput> {
 	}
 
 	public async execute(input: UpdateRoomInput): Promise<void> {
-		const roomOptional = await this._roomRepository.find(
-			input.roomDocumentId,
-		);
-		const room = roomOptional.orElseThrow(
-			() => new Error(`Room with ID ${input.roomDocumentId} not found.`),
-		);
+		const room = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() => new RoomNotFoundError(input.roomDocumentId));
 
 		if (input.name !== undefined) {
 			room.updateName(input.name);

@@ -1,4 +1,4 @@
-import { DomainException } from "EnviroSense/Domain/Shared/Exceptions/DomainException.ts";
+import { DomainException } from "EnviroSense/Domain/mod.ts";
 
 export enum DeviceLimitType {
 	TEMPERATURE = "temperature",
@@ -23,7 +23,7 @@ export class TemperatureLimit implements DeviceLimit {
 
 	validate(): void {
 		if (this.value < 0 || this.value > 80) {
-			throw new DomainException("Temperature must be between 0 and 80°C");
+			throw new DomainException("Temperature must be between 0 and 80°C.");
 		}
 	}
 }

@@ -1,6 +1,7 @@
 import { MessageHandler } from "EnviroSense/Infrastructure/Messaging/mod.ts";
 
 export class DeviceConfigRequestResponseHandler implements MessageHandler {
+	// deno-lint-ignore require-await
 	async handleMessage(): Promise<void> {
 		return;
 	}

@@ -107,7 +107,7 @@ Deno.test(
                 );
             },
             Error,
-            "Temperature is required. in AirData"
+            "Temperature is required in AirData."
         );
     }
 );
@@ -158,7 +158,7 @@ Deno.test(
                 );
             },
             Error,
-            "Humidity is required. in AirData"
+            "Humidity is required in AirData."
         );
     }
 );
@@ -184,7 +184,7 @@ Deno.test("DeviceData - create method with missing ppm throws error", () => {
             );
         },
         Error,
-        "PPM is required. in AirData"
+        "PPM is required in AirData."
     );
 });
 

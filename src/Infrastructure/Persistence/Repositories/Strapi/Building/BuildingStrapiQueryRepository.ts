@@ -1,6 +1,6 @@
 import { BuildingQueryDto, BuildingQueryRepository } from "EnviroSense/Application/Contracts/mod.ts";
-import { StrapiQueryRepository } from "../../../Shared/StrapiQueryRepository.ts";
 import { Optional } from "EnviroSense/Domain/mod.ts";
+import { StrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 
 export class BuildingStrapiQueryRepository extends StrapiQueryRepository implements BuildingQueryRepository {
 	async all(name: string): Promise<BuildingQueryDto[]> {

@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
 import { Context, isHttpError } from "@oak/oak";
-import { DomainException, IllegalStateException, NotFoundException, NoDevicesRespondedError } from "EnviroSense/Domain/mod.ts";
+import { DomainException, IllegalStateException, NoDevicesRespondedError, NotFoundException } from "EnviroSense/Domain/mod.ts";
 
 export async function errorHandlingMiddleware(
 	context: Context<Record<string, any>, Record<string, any>>,

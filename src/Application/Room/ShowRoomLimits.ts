@@ -8,8 +8,8 @@ import {
 	UseCase,
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { Messaging } from "EnviroSense/Infrastructure/Messaging/mod.ts";
-import { NotFoundException } from "EnviroSense/Domain/mod.ts";
-import { NoDevicesRespondedError } from "EnviroSense/Domain/Shared/Exceptions/NoDevicesRespondedError.ts";
+import { NoDevicesRespondedError, NotFoundException } from "EnviroSense/Domain/mod.ts";
+import { RoomNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 	private readonly _outputPort: OutputPort<ShowRoomLimitsOutput>;
@@ -30,16 +30,14 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 	}
 
 	async execute(input: ShowRoomLimitsInput): Promise<void> {
-		const room = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() =>
-			new NotFoundException(`Room with ID ${input.roomDocumentId} not found.`)
-		);
+		const room = (await this._roomRepository.find(input.roomDocumentId)).orElseThrow(() => new RoomNotFoundError(input.roomDocumentId));
 
 		this.validateRoomHasDevices(room);
 
 		const { deviceLimits, failedDevices } = await this.collectDeviceLimits(room);
 
 		if (deviceLimits.size === 0) {
-			throw new NoDevicesRespondedError("No devices responded with limits");
+			throw new NoDevicesRespondedError("No devices responded with limits.");
 		}
 
 		const referenceDevice = this.getReferenceLimits(deviceLimits);
@@ -51,7 +49,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 
 	private validateRoomHasDevices(room: RoomQueryDto): void {
 		if (!room.devices.length) {
-			throw new NotFoundException("Room has no devices");
+			throw new NotFoundException("Room has no devices.");
 		}
 	}
 
@@ -83,7 +81,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 		const response = await this._messaging.waitForMessage(responseTopic, 5000);
 
 		if (!response) {
-			throw new NoDevicesRespondedError(`Device ${deviceId} did not respond in time`);
+			throw new NoDevicesRespondedError(`Device ${deviceId} did not respond in time.`);
 		}
 
 		return JSON.parse(response);
@@ -95,7 +93,7 @@ export class ShowRoomLimits implements UseCase<ShowRoomLimitsInput> {
 	} {
 		const referenceId = Array.from(deviceLimits.keys())[0];
 		if (!referenceId) {
-			throw new NotFoundException("No reference device found");
+			throw new NotFoundException("No reference device found.");
 		}
 
 		return {

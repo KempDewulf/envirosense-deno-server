@@ -57,7 +57,7 @@ export class StrapiQueryRepository {
 				);
 				throw new Error(errorMessages.join("\n"));
 			} else {
-				throw new Error(`Failed to ${response.statusText}`);
+				throw new Error(`Failed to ${response.statusText}.`);
 			}
 		}
 	}

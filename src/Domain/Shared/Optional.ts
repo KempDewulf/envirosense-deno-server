@@ -10,7 +10,7 @@ export class Optional<T> {
 		value: T,
 	): Optional<T> {
 		if (value === undefined || value === null) {
-			throw new Error("Cannot create Optional.of with undefined or null");
+			throw new Error("Cannot create Optional.of with undefined or null.");
 		}
 		return new this(value);
 	}
@@ -28,7 +28,7 @@ export class Optional<T> {
 
 	public get value(): T {
 		if (this._value === undefined) {
-			throw new Error("Value is not present");
+			throw new Error("Value is not present.");
 		}
 		return this._value;
 	}

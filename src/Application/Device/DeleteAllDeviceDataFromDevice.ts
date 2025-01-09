@@ -6,6 +6,7 @@ import {
 } from "EnviroSense/Application/Contracts/mod.ts";
 import { DeviceDataStrapiQueryRepository } from "EnviroSense/Infrastructure/Persistence/mod.ts";
 import { DeviceData } from "EnviroSense/Domain/mod.ts";
+import { DeviceNotFoundError } from "EnviroSense/Infrastructure/Shared/mod.ts";
 
 export class DeleteAllDeviceDataFromDevice implements UseCase<DeleteAllDeviceDataFromDeviceInput> {
 	private readonly _deviceRepository: DeviceRepository;
@@ -22,10 +23,8 @@ export class DeleteAllDeviceDataFromDevice implements UseCase<DeleteAllDeviceDat
 	public async execute(
 		input: DeleteAllDeviceDataFromDeviceInput,
 	): Promise<void> {
-		const device = (
-			await this._deviceRepository.find(input.deviceDocumentId)
-		).orElseThrow(
-			() => new Error(`Device with ID ${input.deviceDocumentId} not found.`),
+		const device = (await this._deviceRepository.find(input.deviceDocumentId)).orElseThrow(() =>
+			new DeviceNotFoundError(input.deviceDocumentId)
 		);
 
 		const deviceData = await new DeviceDataStrapiQueryRepository().all(

@@ -20,11 +20,11 @@ export class ShowRoomTypes implements UseCase<ShowRoomTypesInput> {
 	}
 
 	public async execute(input: ShowRoomTypesInput): Promise<void> {
-		const roomTypesDto = await this._roomTypeQueryRepository.all(
+		const roomTypesQueryDto = await this._roomTypeQueryRepository.all(
 			input.name,
 		);
-		const roomTypes = this.mapDtoToOutput(roomTypesDto);
-		this._outputPort.present(roomTypes);
+		const output = this.mapDtoToOutput(roomTypesQueryDto);
+		this._outputPort.present(output);
 	}
 
 	private mapDtoToOutput(dto: RoomTypeQueryDto[]): ShowRoomTypesOutput[] {
