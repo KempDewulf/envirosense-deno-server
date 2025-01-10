@@ -8,7 +8,8 @@ const NOTIFICATION_COOLDOWNS_IN_MINUTES = {
 } as const;
 
 export class NotificationService {
-	private readonly lastNotificationTime: Map<string, number> = new Map();
+	private lastExtremeNotification = new Map<string, number>();
+	private lastWarningNotification = new Map<string, number>();
 
 	constructor(
 		private readonly firebaseMessaging: FirebaseMessaging,
@@ -27,45 +28,26 @@ export class NotificationService {
 		const roomId = room.documentId;
 		const buildingDocumentId = room.building?.documentId;
 		const roomName = room.name;
-		const currentTimeInMinutes = Math.floor(Date.now() / (1000 * 60)); // Current time in minutes
-		const lastNotification = this.lastNotificationTime.get(roomId) || 0;
 
-		console.log(`
-        Notification Check for Room: ${roomName}
-        Current Time (minutes): ${currentTimeInMinutes}
-        Last Notification (minutes): ${lastNotification}
-        EnviroScore: ${enviroScore}
-    `);
-
-		const { title, body, cooldown } = this.getNotificationContent(
+		const { title, body } = this.getNotificationContent(
 			roomName,
 			enviroScore,
 			input,
 		);
 
-		const timeSinceLastNotification = currentTimeInMinutes - lastNotification;
-
-		console.log(`
-        Time Since Last: ${timeSinceLastNotification} minutes
-        Cooldown Period: ${cooldown} minutes
-        Will Send: ${lastNotification === 0 || timeSinceLastNotification >= cooldown}
-        Title: ${title}
-        Body: ${body}
-    `);
-
-		if (lastNotification > 0 && timeSinceLastNotification < cooldown) {
-			console.log('Skipping notification - cooldown period not elapsed');
+		if (!this.canSendNotification(roomId, enviroScore)) {
+			console.log(`Skipping ${enviroScore <= 10 ? "extreme" : "warning"} notification - cooldown period not elapsed`);
 			return;
 		}
 
 		if (title && body) {
-			console.log('Sending notification...');
+			console.log("Sending notification...");
 			await this.firebaseMessaging.sendToTopic(
 				"buildings-" + buildingDocumentId,
 				title,
 				body,
 			);
-			this.lastNotificationTime.set(roomId, currentTimeInMinutes);
+			this.updateLastNotificationTime(roomId, enviroScore);
 		}
 	}
 
@@ -82,7 +64,7 @@ export class NotificationService {
 			case enviroScore <= 10:
 				cooldown = NOTIFICATION_COOLDOWNS_IN_MINUTES.EXTREME;
 				title = `🆘 EXTREME DANGER - EVACUATE ${roomName}`;
-				body = `EMERGENCY: EnviroScore at ${enviroScore}%\n` +
+				body = `EMERGENCY: EnviroScore at ${enviroScore.toFixed(2)}%\n` +
 					`CO₂: ${input.airData.ppm} ppm\n` +
 					`Temperature: ${input.airData.temperature}°C\n` +
 					`Humidity: ${input.airData.humidity}%\n\n` +
@@ -95,7 +77,7 @@ export class NotificationService {
 			case enviroScore <= 30:
 				cooldown = NOTIFICATION_COOLDOWNS_IN_MINUTES.WARNING;
 				title = `🚨 CRITICAL Air Quality in ${roomName}`;
-				body = `URGENT: EnviroScore at ${enviroScore}%\n` +
+				body = `URGENT: EnviroScore at ${enviroScore.toFixed(2)}%\n` +
 					`CO₂: ${input.airData.ppm} ppm (Very High)\n` +
 					`Temperature: ${input.airData.temperature}°C\n` +
 					`Humidity: ${input.airData.humidity}%\n\n` +
@@ -108,7 +90,7 @@ export class NotificationService {
 			case enviroScore <= 49:
 				cooldown = NOTIFICATION_COOLDOWNS_IN_MINUTES.WARNING;
 				title = `⚠️ Poor Air Quality in ${roomName}`;
-				body = `Warning: EnviroScore at ${enviroScore}%\n` +
+				body = `Warning: EnviroScore at ${enviroScore.toFixed(2)}%\n` +
 					`CO₂: ${input.airData.ppm} ppm (High)\n` +
 					`Temperature: ${input.airData.temperature}°C\n` +
 					`Humidity: ${input.airData.humidity}%\n\n` +
@@ -121,7 +103,7 @@ export class NotificationService {
 			case enviroScore <= 69:
 				cooldown = NOTIFICATION_COOLDOWNS_IN_MINUTES.WARNING;
 				title = `ℹ️ Moderate Air Quality in ${roomName}`;
-				body = `Advisory: EnviroScore at ${enviroScore}%\n` +
+				body = `Advisory: EnviroScore at ${enviroScore.toFixed(2)}%\n` +
 					`CO₂: ${input.airData.ppm} ppm\n` +
 					`Temperature: ${input.airData.temperature}°C\n` +
 					`Humidity: ${input.airData.humidity}%\n\n` +
@@ -132,5 +114,27 @@ export class NotificationService {
 		}
 
 		return { title, body, cooldown };
+	}
+
+	private canSendNotification(roomId: string, enviroScore: number): boolean {
+		const currentTime = Math.floor(Date.now() / (1000 * 60));
+
+		if (enviroScore <= 10) {
+			const lastExtreme = this.lastExtremeNotification.get(roomId) || 0;
+			return (currentTime - lastExtreme) >= NOTIFICATION_COOLDOWNS_IN_MINUTES.EXTREME;
+		}
+
+		const lastWarning = this.lastWarningNotification.get(roomId) || 0;
+		return (currentTime - lastWarning) >= NOTIFICATION_COOLDOWNS_IN_MINUTES.WARNING;
+	}
+
+	private updateLastNotificationTime(roomId: string, enviroScore: number): void {
+		const currentTime = Math.floor(Date.now() / (1000 * 60));
+
+		if (enviroScore <= 10) {
+			this.lastExtremeNotification.set(roomId, currentTime);
+		} else {
+			this.lastWarningNotification.set(roomId, currentTime);
+		}
 	}
 }
