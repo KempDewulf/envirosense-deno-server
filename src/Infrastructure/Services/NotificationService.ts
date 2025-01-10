@@ -30,6 +30,13 @@ export class NotificationService {
 		const currentTimeInMinutes = Math.floor(Date.now() / (1000 * 60)); // Current time in minutes
 		const lastNotification = this.lastNotificationTime.get(roomId) || 0;
 
+		console.log(`
+        Notification Check for Room: ${roomName}
+        Current Time (minutes): ${currentTimeInMinutes}
+        Last Notification (minutes): ${lastNotification}
+        EnviroScore: ${enviroScore}
+    `);
+
 		const { title, body, cooldown } = this.getNotificationContent(
 			roomName,
 			enviroScore,
@@ -38,11 +45,21 @@ export class NotificationService {
 
 		const timeSinceLastNotification = currentTimeInMinutes - lastNotification;
 
+		console.log(`
+        Time Since Last: ${timeSinceLastNotification} minutes
+        Cooldown Period: ${cooldown} minutes
+        Will Send: ${lastNotification === 0 || timeSinceLastNotification >= cooldown}
+        Title: ${title}
+        Body: ${body}
+    `);
+
 		if (lastNotification > 0 && timeSinceLastNotification < cooldown) {
+			console.log('Skipping notification - cooldown period not elapsed');
 			return;
 		}
 
 		if (title && body) {
+			console.log('Sending notification...');
 			await this.firebaseMessaging.sendToTopic(
 				"buildings-" + buildingDocumentId,
 				title,
