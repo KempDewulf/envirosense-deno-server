@@ -1393,51 +1393,10 @@ components:
             required:
               - documentId
               - name
-          device_data:
-            type: array
-            items:
-              type: object
-              properties:
-                documentId:
-                  type: string
-                  example: "mockDeviceDataDocId101"
-                timestamp:
-                  type: string
-                  format: date-time
-                  example: "2024-12-16T20:57:00Z"
-                temperature:
-                  type: number
-                  format: float
-                  example: 25.5
-                humidity:
-                  type: number
-                  format: float
-                  example: 55.3
-                ppm:
-                  type: number
-                  format: float
-                  example: 500
-              required:
-                - documentId
-                - timestamp
-                - temperature
-                - humidity
-                - ppm
-            example:
-              [
-                {
-                  "documentId": "mockDeviceDataDocId101",
-                  "timestamp": "2024-12-16T20:57:00Z",
-                  "temperature": 25.5,
-                  "humidity": 55.3,
-                  "ppm": 500
-                }
-              ]
         required:
           - documentId
           - identifier
           - room
-          - device_data
 
     GetDeviceDataResponse:
       type: array
