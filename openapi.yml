@@ -1037,10 +1037,6 @@ components:
           type: string
         room:
           $ref: '#/components/schemas/Room'
-        deviceData:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceData'
       required:
         - identifier
         - room
