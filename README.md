@@ -70,7 +70,7 @@ By following Clean Architecture, we ensure that our codebase remains flexible an
 #### Using Docker
 1. Clone the repository:
     ```sh
-    git clone git@gitlab.ti.howest.be:ti/2024-2025/s5/ccett/projects/group-14/deno-server.git
+    git clone git@github.com:KempDewulf/envirosense-deno-server.git
     cd ccett_deno
     ```
 2. Build the Docker image:
